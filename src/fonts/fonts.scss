@@ -1,0 +1,135 @@
+@font-face {
+  font-family: "Inter";
+  font-weight: 200;
+  src: //url("./Inter/Inter-Light.woff2") format('woff2'), //,
+    url("./Inter/Inter-ExtraLight.ttf") format('truetype') //,
+  //url("./Inter/Inter-Regular.otf") format('opentype');
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 300;
+  src: //url("./Inter/Inter-Light.woff2") format('woff2'), //,
+    url("./Inter/Inter-Light.ttf") format('truetype') //,
+  //url("./Inter/Inter-Regular.otf") format('opentype');
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 400;
+  src: //url("./Inter/Inter-Regular.woff2") format('woff2'),
+      url("./Inter/Inter-Regular.ttf") format('truetype');
+      //url("./Inter/Inter-Regular.otf") format('opentype');
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: normal;
+  font-style: italic;
+  src: url("./Inter/Inter-Italic.woff2") format('woff2')//,
+      //url("./Inter/Inter-Italic.otf") format('opentype');
+      //url("./Inter/Inter-Italic.otf") format('opentype');
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 500;
+  src: //url("./Inter/Inter-Medium.woff2") format('woff2') ,
+      url("./Inter/Inter-Medium.ttf") format('truetype');
+      //url("./Inter/Inter-Medium.otf") format('opentype');
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 500;
+  font-style: italic;
+  src: url("./Inter/Inter-MediumItalic.woff2") format('woff2')//,
+      //url("./Inter/Inter-MediumItalic.otf") format('opentype');
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 600;
+  src: //url("./Inter/Inter-SemiBold.woff2") format('woff2')//,
+      url("./Inter/Inter-SemiBold.ttf") format('truetype');
+      //url("./Inter/Inter-SemiBold.otf") format('opentype');
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 600;
+  font-style: italic;
+  src: url("./Inter/Inter-SemiBoldItalic.woff2") format('woff2') //,
+      //url("./Inter/Inter-SemiBoldItalic.otf") format('opentype');
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 700;
+  src: //url("./Inter/Inter-Bold.woff2") format('woff2') //,
+      url("./Inter/Inter-Bold.ttf") format('truetype');
+      //url("./Inter/Inter-Bold.otf") format('opentype');
+}
+@font-face {
+  font-family: "Inter";
+  font-weight: 700;
+  font-style: italic;
+  src: url("./Inter/Inter-BoldItalic.woff2") format('woff2') //,
+      //url("./Inter/Inter-BoldItalic.otf") format('opentype');
+}
+
+.font-weight-light{
+  font-weight: 300 !important;
+}
+.font-weight-regular{
+  font-weight: 400 !important;
+}
+.font-weight-medium{
+  font-weight: 500 !important;
+}
+.font-weight-semibold{
+  font-weight: 600 !important;
+}
+.font-weight-bold{
+  font-weight: 700 !important;
+}
+.font-inter{
+  font-family: Inter;
+  font-weight: 400 !important;
+}
+.font-inter-light{
+  @extend .font-inter;
+  font-weight: 300 !important;
+}
+.font-inter-medium{
+  @extend .font-inter;
+  font-weight: 500 !important;
+}
+.font-inter-semibold{
+  @extend .font-inter;
+  font-weight: 600 !important;
+}
+.font-inter-bold{
+  @extend .font-inter;
+  font-weight: 700 !important;
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: normal;
+  src: url("./Lato/lato-regular.woff2") format('woff2') //,
+  //url("./Lato/lato-regular.otf") format('opentype');
+}
+@font-face {
+  font-family: "Lato";
+  font-weight: bold;
+  src: url("./Lato/lato-bold.woff2") format('woff2') //,
+  //url("./Lato/lato-bold.otf") format('opentype');
+}
+@font-face {
+  font-family: "Lato";
+  font-weight: normal;
+  font-style: italic;
+  src: url("./Lato/lato-italic.woff2") format('woff2')//,
+  //url("./Lato/lato-italic.otf") format('opentype');
+}
+.font-lato{
+  font-family: Lato;
+  font-weight: 400;
+}
+.font-lato-bold{
+  font-family: Lato;
+  font-weight: 700;
+}

@@ -1,0 +1,91 @@
+.horizontal-slider {
+  width: 100%;
+  margin: auto;
+  height: fit-content;
+  min-height: 26px;
+}
+.example-thumb {
+  cursor: pointer;
+  position: absolute;
+  z-index: 100;
+  background: #BF3535;
+  border: 5px solid #BF3535;
+  border-radius: 100%;
+  display: block;
+  color: transparent;
+  box-shadow: 0 0 2px 0 rgb(0 0 0 / 44%);
+}
+.example-thumb.active {
+  background-color: #BF3535;
+}
+.example-track {
+  position: relative;
+  background: #ddd;
+  border-radius: 25px;
+}
+.example-track.example-track-0 {
+  background: #BF3535;
+}
+.horizontal-slider .example-track {
+  top: 10px;
+  height: 4px;
+}
+.horizontal-slider .example-thumb {
+  top: 5px;
+  width: 14px;
+  outline: none;
+  height: 14px;
+  line-height: 38px;
+}
+
+.double-thumb {
+  cursor: pointer;
+  position: absolute;
+  z-index: 100;
+  background: #BF3535;
+  border: 5px solid #BF3535;
+  border-radius: 100%;
+  display: block;
+  color: transparent;
+  box-shadow: 0 0 2px 0 rgb(0 0 0 / 44%);
+}
+.double-thumb.active {
+  background-color: #BF3535;
+}
+.double-track {
+  position: relative;
+  background: #ddd;
+  border-radius: 25px;
+  height: 2px;
+}
+.double-track.double-track-1 {
+  background: #BF3535;
+}
+.horizontal-slider .double-track {
+  top: 12px;
+  height: 2px;
+}
+.horizontal-slider .double-thumb {
+  top: 8px;
+  width: 10px;
+  outline: none;
+  height: 10px;
+  line-height: 38px;
+}
+
+.indexCalculatorSliderLabel{
+  font-family: 'Inter';
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.02em;
+  font-weight: 300;
+}
+.indexCalculatorSliderValue{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 200;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+  letter-spacing: 0.02em;
+}

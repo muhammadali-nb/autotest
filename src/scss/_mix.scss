@@ -1,0 +1,77 @@
+@use "sass:map";
+
+@mixin hd{
+  @media only screen and (min-width: 1920px) { @content; }
+}
+@mixin xxxl{
+  @media only screen and (min-width: 1600px) { @content; }
+}
+@mixin xxl{
+  @media only screen and (min-width: 1400px) { @content; }
+}
+@mixin xl{
+  @media only screen and (min-width: 1200px) { @content; }
+}
+@mixin lg{
+  @media only screen and (min-width: 992px) { @content; }
+}
+@mixin md{
+  @media only screen and (min-width: 768px) { @content; }
+}
+@mixin sm{
+  @media only screen and (min-width: 576px) { @content; }
+}
+@mixin xs{
+  @media only screen and (min-width: 414px) { @content; }
+}
+@mixin xxs{
+  @media only screen and (min-width: 320px) { @content; }
+}
+@mixin l-hd{
+  @media only screen and (max-width: 1919px) { @content; }
+}
+@mixin l-xxxl{
+  @media only screen and (max-width: 1599px) { @content; }
+}
+@mixin l-xxl{
+  @media only screen and (max-width: 1399px) { @content; }
+}
+@mixin l-xl{
+  @media only screen and (max-width: 1199px) { @content; }
+}
+@mixin l-lg{
+  @media only screen and (max-width: 991px) { @content; }
+}
+@mixin l-md{
+  @media only screen and (max-width: 767px) { @content; }
+}
+@mixin l-sm{
+  @media only screen and (max-width: 575px) { @content; }
+}
+@mixin l-xs{
+  @media only screen and (max-width: 413px) { @content; }
+}
+@mixin l-xxs{
+  @media only screen and (max-width: 319px) { @content; }
+}
+
+$animatedEnterDirections: (
+        "left": (-10%),
+        "top": (-10%),
+        "right": 10%,
+        "bottom": 10%,
+        "none": 0,
+);
+@mixin animated-enter($directionX:'left',$directionY:'top',$intensityX:5,$intensityY:0,
+    $opacity:0, $time:2s,$ease:ease-out){
+  $x: map.get($animatedEnterDirections, $directionX) * $intensityX;
+  $y: map.get($animatedEnterDirections, $directionY) * $intensityY;
+  transform: translate($x, $y);
+  opacity: $opacity;
+  transition: all $time $ease;
+
+  &.shown{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
