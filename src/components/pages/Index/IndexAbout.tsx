@@ -6,25 +6,25 @@ import badge3 from "./../../../img/index/jewel.png"
 import badge4 from "./../../../img/index/document.png"
 import Animator from "../../../Animator";
 
-const IndexAboutBadge:React.FC<{index:number, image:any, header:string,children:any,id:string}> = (props) => {
+const IndexAboutBadge: React.FC<{ index: number, image: any, header: string, children: any, id: string }> = (props) => {
     return (
         <div className={'anim-enter-end-1 anim-duration-1600 index__about-badge index-' + props.index} id={props.id}>
-            <div className={'index__about-badge-image'}><img src={props.image} alt={props.header} /></div>
+            <div className={'index__about-badge-image'}><img src={props.image} alt={props.header}/></div>
             <div>
                 <div className={'index__about-badge-header'}>{props.header}</div>
-                <div className={'bg-red-color my-px-15'} style={{width:'60px', height:'6px'}}></div>
+                <div className={'bg-red-color my-px-15'} style={{width: '60px', height: '6px'}}></div>
                 <div className={'index__about-badge-text'}>{props.children}</div>
             </div>
         </div>
     )
 }
 const IndexBadges = () => {
-    useEffect(function(){
+    useEffect(function () {
         Animator.animateOnShow('index__about-badges', [
-            {id:'index__badge1', delay:100},
-            {id:'index__badge2', delay:500},
-            {id:'index__badge3', delay:1000},
-            {id:'index__badge4', delay:1500},
+            {id: 'index__badge1', delay: 100},
+            {id: 'index__badge2', delay: 500},
+            {id: 'index__badge3', delay: 1000},
+            {id: 'index__badge4', delay: 1500},
         ], false);
     }, [])
     return (
@@ -49,7 +49,7 @@ const IndexBadges = () => {
         </div>
     )
 }
-const IndexLabel:React.FC<{big:string,small:string}> = (props) =>{
+const IndexLabel: React.FC<{ big: string, small: string }> = (props) => {
     return (
         <div className={'index__about-label'}>
             <div className={'index__about-label-big'}>{props.big}</div>
@@ -57,9 +57,9 @@ const IndexLabel:React.FC<{big:string,small:string}> = (props) =>{
         </div>
     )
 }
-const IndexAboutContent = () =>{
+const IndexAboutContent = () => {
     return (
-        <Container fluid={'xxl'} style={{position:"relative", zIndex:40}}>
+        <Container fluid={'xxl'} style={{position: "relative", zIndex: 40}}>
             <Row>
                 <Col lg={6}>
                     <div className={'index__about-header'}>
@@ -68,12 +68,12 @@ const IndexAboutContent = () =>{
                     <div className={'index__about-text'}>
                         Наша компания создана в 2012 году.
                     </div>
-                    <div className={'index__about-text'} style={{maxWidth:'620px'}}>
+                    <div className={'index__about-text'} style={{maxWidth: '620px'}}>
                         Основным видом деятельности является предоставление услуг по аренде
                         и лизингу автомобилей для компаний
                         и физический лиц.
                     </div>
-                    <div className={'index__about-text'} style={{maxWidth:'560px'}}>
+                    <div className={'index__about-text'} style={{maxWidth: '560px'}}>
                         Мы ценим комфорт и время наших клиентов, поэтому стремимся
                         оформить автомобиль для вас в максимально короткие сроки. Индивидуальный подход позволяет
                         выбрать условия необходимые именно вам.
@@ -82,9 +82,9 @@ const IndexAboutContent = () =>{
                 <Col lg={6}></Col>
                 <Col lg={4}>
                     <div className={'index__about-labels'}>
-                        <IndexLabel big={'>10'} small={'Лет работы'} />
-                        <IndexLabel big={'>500'} small={'Автомобилей'} />
-                        <IndexLabel big={'>500'} small={'Довольных клиентов'} />
+                        <IndexLabel big={'>10'} small={'Лет работы'}/>
+                        <IndexLabel big={'>500'} small={'Автомобилей'}/>
+                        <IndexLabel big={'>500'} small={'Довольных клиентов'}/>
                     </div>
                 </Col>
             </Row>
@@ -96,9 +96,9 @@ const IndexAboutContent = () =>{
 function IndexAbout(props) {
     return (
         <div className={'index__about'}>
-            <div className={'index__about-bg'}> </div>
-            <IndexAboutContent />
-            <IndexBadges />
+            <div className={'index__about-bg'}></div>
+            <IndexAboutContent/>
+            <IndexBadges/>
 
         </div>
     );

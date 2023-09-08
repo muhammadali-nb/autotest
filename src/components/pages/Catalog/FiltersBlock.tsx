@@ -14,13 +14,13 @@ import {
 import caret from './../../../img/common/caret-right.png';
 import Utils from "../../../Utils";
 
-const Filter:React.FC<{header:string,children?:any, small?:boolean, open?:boolean, showCaret?:boolean}> = (props) => {
-    const [open,setOpen] = useState<boolean>(props.open ?? false)
+const Filter: React.FC<{ header: string, children?: any, small?: boolean, open?: boolean, showCaret?: boolean }> = (props) => {
+    const [open, setOpen] = useState<boolean>(props.open ?? false)
     return (
         <div className={'filter__block ' + (props.small ? 'small' : '')}>
-            <button className={'filter__block-header ' + (open ? 'open' : '')} onClick={()=>setOpen(!open)}>
+            <button className={'filter__block-header ' + (open ? 'open' : '')} onClick={() => setOpen(!open)}>
                 {props.header}
-                {(props.showCaret ?? true) && <img src={caretUp} alt={''} className={'arrow'} />}
+                {(props.showCaret ?? true) && <img src={caretUp} alt={''} className={'arrow'}/>}
             </button>
             <Collapse in={open}>
                 <div>
@@ -31,27 +31,31 @@ const Filter:React.FC<{header:string,children?:any, small?:boolean, open?:boolea
     )
 }
 
-const FilterRange:React.FC<{header:string, data:SliderFilterData, min:number,max:number,value1?:number,value2?:number, onChange:any}> = (props) => {
+const FilterRange: React.FC<{ header: string, data: SliderFilterData, min: number, max: number, value1?: number, value2?: number, onChange: any }> = (props) => {
     return (
-        <Filter header={props.header}  open={props.data.open ?? false}>
+        <Filter header={props.header} open={props.data.open ?? false}>
             <div className={'d-flex justify-content-between mb-2 gap-3 pt-px-20'}>
                 <input className={'contacts__form-input small'} value={props.value1 ?? props.min} min={props.min}
                        max={props.value2 ?? props.max}
-                    onChange={e=>{props.onChange([Number.parseInt(e.target.value), props.value2])}} type={'number'} />
+                       onChange={e => {
+                           props.onChange([Number.parseInt(e.target.value), props.value2])
+                       }} type={'number'}/>
                 <input className={'contacts__form-input small'} value={props.value2 ?? props.max}
                        min={props.value1 ?? props.min} max={props.max}
-                       onChange={e=>{props.onChange([props.value1, Number.parseInt(e.target.value)])}} type={'number'} />
+                       onChange={e => {
+                           props.onChange([props.value1, Number.parseInt(e.target.value)])
+                       }} type={'number'}/>
             </div>
-            <DoubleSlider min={props.min} max={props.max} pearling onChange={(values)=>props.onChange(values)}
-                          defaultValue={[props.value1 ?? props.min, props.value2 ?? props.max]} />
+            <DoubleSlider min={props.min} max={props.max} pearling onChange={(values) => props.onChange(values)}
+                          defaultValue={[props.value1 ?? props.min, props.value2 ?? props.max]}/>
         </Filter>
     )
 }
 
-const FilterCheckbox:React.FC<{field:string, data: CheckboxFilterData, onChange:any }> = ({field,data,onChange}) => {
+const FilterCheckbox: React.FC<{ field: string, data: CheckboxFilterData, onChange: any }> = ({field, data, onChange}) => {
     const filter = useAppSelector(state => state.filter);
     const dispatch = useAppDispatch();
-    const setFilterValue = (value:number) =>{
+    const setFilterValue = (value: number) => {
         let data = [...filter[field]];
         var index = data.indexOf(value);
         if (index !== -1) {
@@ -59,34 +63,36 @@ const FilterCheckbox:React.FC<{field:string, data: CheckboxFilterData, onChange:
         } else {
             data.push(value);
         }
-        dispatch(setFilter({...filter, [field]:data}))
+        dispatch(setFilter({...filter, [field]: data}))
     }
     const clear = () => {
-        dispatch(setFilter({...filter, [field]:[]}))
+        dispatch(setFilter({...filter, [field]: []}))
     }
     return (
         <Filter header={data.name} open={data.open ?? false}>
             <div className={'ps-3'}>
-                <FormCheck label={'Все'} className={'my-px-10 font-size-14 font-weight-semibold'} checked={filter[field]?.length === 0}
+                <FormCheck label={'Все'} className={'my-px-10 font-size-14 font-weight-semibold'}
+                           checked={filter[field]?.length === 0}
                            onChange={(e) => clear()}
                 />
                 {data.values?.map((i, index) => (
-                    <FormCheck key={i.id} label={i.name} className={'my-px-10 font-size-14 text-default font-weight-semibold'}
-                       onChange={(e) => setFilterValue(i.id)}
-                       checked={filter[field]?.includes(i.id)} />
+                    <FormCheck key={i.id} label={i.name}
+                               className={'my-px-10 font-size-14 text-default font-weight-semibold'}
+                               onChange={(e) => setFilterValue(i.id)}
+                               checked={filter[field]?.includes(i.id)}/>
                 ))}
             </div>
         </Filter>
     )
 }
 
-const FilterModelSet:React.FC<{field:string, brand:IdValued,data:ModelCheckboxFilterData}>
-        = ({field, data,brand})=>{
+const FilterModelSet: React.FC<{ field: string, brand: IdValued, data: ModelCheckboxFilterData }>
+    = ({field, data, brand}) => {
     const filter = useAppSelector(state => state.filter);
-    const [models, setModels] = useState(data.values?.filter((i)=>i.brand === brand.id) ?? []);
+    const [models, setModels] = useState(data.values?.filter((i) => i.brand === brand.id) ?? []);
     const [showAmount, setShowAmount] = useState(5);
     const dispatch = useAppDispatch();
-    const setFilterValue = (value:number) =>{
+    const setFilterValue = (value: number) => {
         let data = [...filter[field]];
         var index = data.indexOf(value);
         if (index !== -1) {
@@ -94,7 +100,7 @@ const FilterModelSet:React.FC<{field:string, brand:IdValued,data:ModelCheckboxFi
         } else {
             data.push(value);
         }
-        dispatch(setFilter({...filter, [field]:data}))
+        dispatch(setFilter({...filter, [field]: data}))
     }
 
     return (
@@ -103,83 +109,89 @@ const FilterModelSet:React.FC<{field:string, brand:IdValued,data:ModelCheckboxFi
                 {models.slice(0, showAmount).map((i, index) => (
                     <FormCheck key={index} label={i.name} className={'my-px-10 font-size-14 font-weight-semibold'}
                                onChange={(e) => setFilterValue(i.id)}
-                               checked={filter[field]?.includes(i.id)} />
+                               checked={filter[field]?.includes(i.id)}/>
                 ))}
                 {showAmount < models.length && <button className={"small-black-btn"}
-                    onClick={()=>setShowAmount(showAmount + 10)}>
-                  Ещё {Utils.textFromCount(models.length - showAmount, ['результат', 'результата', 'результатов', ], true)}
+                                                       onClick={() => setShowAmount(showAmount + 10)}>
+                    Ещё {Utils.textFromCount(models.length - showAmount, ['результат', 'результата', 'результатов',], true)}
                 </button>}
             </div>
         </Filter>
     )
 }
-const FilterModels:React.FC<{field:string,data: ModelCheckboxFilterData, onChange:any }> = ({field,data,onChange}) => {
+const FilterModels: React.FC<{ field: string, data: ModelCheckboxFilterData, onChange: any }> = ({field, data, onChange}) => {
     const baseData = useAppSelector(state => state.baseData);
     const filter = useAppSelector(state => state.filter);
     const dispatch = useAppDispatch();
     const clear = () => {
-        dispatch(setFilter({...filter, [field]:[]}))
+        dispatch(setFilter({...filter, [field]: []}))
     }
-    const selected = () =>{
-        if(filter.brands.length === 0)
+    const selected = () => {
+        if (filter.brands.length === 0)
             return baseData.left.brands.values ?? [];
-        return baseData.left.brands.values?.filter((i)=>filter.brands.includes(i.id)) ?? [];
+        return baseData.left.brands.values?.filter((i) => filter.brands.includes(i.id)) ?? [];
     }
     return (
-        <Filter header={data.name}  open={data.open ?? false}>
+        <Filter header={data.name} open={data.open ?? false}>
             <div className={'ps-3'}>
                 <FormCheck label={'Все'} checked={filter[field]?.length === 0}
                            onChange={(e) => clear()} className={'my-px-10 font-size-14 font-weight-semibold'}
                 />
-                {selected().map((i, index)=>(
-                    <FilterModelSet field={field} key={index} brand={i} data={data} />
+                {selected().map((i, index) => (
+                    <FilterModelSet field={field} key={index} brand={i} data={data}/>
                 ))}
             </div>
         </Filter>
     )
 }
 
-const FilterCommon:React.FC<{field:string,data:CheckboxFilterData|SliderFilterData|ModelCheckboxFilterData}> = (props) =>{
+const FilterCommon: React.FC<{ field: string, data: CheckboxFilterData | SliderFilterData | ModelCheckboxFilterData }> = (props) => {
     const filter = useAppSelector(state => state.filter)
     const dispatch = useAppDispatch();
-    const setFilterValue = (key:string, value:any) =>{
-        dispatch(setFilter({...filter, [key]:value}))
+    const setFilterValue = (key: string, value: any) => {
+        dispatch(setFilter({...filter, [key]: value}))
     }
 
-    if(props.data.type==='slider2') {
+    if (props.data.type === 'slider2') {
         let d = props.data as SliderFilterData;
         return (
             <FilterRange header={d.name} data={props.data} min={d.from ?? 0} max={d.to ?? 100}
-                 value1={filter[props.field].from} value2={filter[props.field].to}
-                onChange={(v)=>{setFilterValue(props.field, {from:v[0], to:v[1]})}}
+                         value1={filter[props.field].from} value2={filter[props.field].to}
+                         onChange={(v) => {
+                             setFilterValue(props.field, {from: v[0], to: v[1]})
+                         }}
             />
         )
     }
-    if(props.data.type==='checkbox') {
+    if (props.data.type === 'checkbox') {
         return (
             <FilterCheckbox field={props.field} data={props.data as CheckboxFilterData}
-                onChange={(v)=>{setFilterValue(props.field, v)}}
+                            onChange={(v) => {
+                                setFilterValue(props.field, v)
+                            }}
             />
         )
     }
     return (
-        <FilterModels field={props.field} data={props.data as ModelCheckboxFilterData} onChange={(v)=>{setFilterValue(props.field, v)}} />
+        <FilterModels field={props.field} data={props.data as ModelCheckboxFilterData} onChange={(v) => {
+            setFilterValue(props.field, v)
+        }}/>
     )
 }
 
-const FiltersBlock:React.FC = (props) => {
+const FiltersBlock: React.FC = (props) => {
     const [open, setOpen] = useState(false);
     const baseData = useAppSelector(state => state.baseData)
 
     return (
         <div className={'filters-block' + (open ? ' open' : '')}>
-            <button className={'filters-block-open-btn'} onClick={()=>setOpen(!open)}>
-                <img src={caret} alt={''} />
+            <button className={'filters-block-open-btn'} onClick={() => setOpen(!open)}>
+                <img src={caret} alt={''}/>
             </button>
             <div className={'filters-block-content'}>
                 {
                     Object.entries(baseData.left).map(([key, value]) => (
-                        <FilterCommon field={key} key={key} data={value} />
+                        <FilterCommon field={key} key={key} data={value}/>
                     ))
                 }
             </div>

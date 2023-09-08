@@ -7,45 +7,54 @@ import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import CallRequestForm from "../common/CallRequestForm";
+import {faBars} from "@fortawesome/free-solid-svg-icons/faBars";
+import {faPhoneVolume} from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
+import ModalFormTemplate from "../common/ModalFormTemplate";
+
 
 type HeaderType = "transparent" | "white" | "logo";
 export type HeaderImage = "dark" | "darkCred" | 'light';
 type HeaderLink = {
-    text :string,
-    path ?:string,
-    className ?: string,
+    text: string,
+    path?: string,
+    className?: string,
 }
 type HeaderProps = {
-    type:HeaderType,
-    image ?: HeaderImage,
-    links ?: Array<HeaderLink>,
-    selectedLink ?: string,
+    type: HeaderType,
+    image?: HeaderImage,
+    links?: Array<HeaderLink>,
+    selectedLink?: string,
+    burgerMenuIsShow?: boolean
+    setBurgerMenuIsShow: (e: boolean) => void
 }
 
-const defaultLinks = [
-    {text:"Главная",path:"/", className:''},
-    {text:"Каталог",path:"/catalog", className:''},
-    {text:"Программы",path:"/programs", className:''},
-    {text:"Аренда",path:"/rent", className:''},
-    {text:"Вопросы",path:"/faq", className:''},
-    {text:"Контакты",path:"/contacts", className:''},
+export const defaultLinks = [
+    {text: "Главная", path: "/", className: '', },
+    {text: "Каталог", path: "/catalog", className: '', },
+    {text: "Программы", path: "/programs", className: ''},
+    {text: "Аренда", path: "/rent", className: ''},
+    {text: "Вопросы", path: "/faq", className: ''},
+    {text: "Контакты", path: "/contacts", className: ''},
 ]
-const HeaderLogoImage : React.FC<{image:HeaderImage, height?:string|number, width?:string|number}>
-    = ({image = 'dark', height='38px', width='auto'}) => {
+export const HeaderLogoImage: React.FC<{ image: HeaderImage, height?: string | number, width?: string | number }>
+    = ({image = 'dark', height = '38px', width = 'auto'}) => {
     return (
         <Link to={'/'}>
-            <img style={{height:height, width:width,objectFit:'contain'}}
-                src={image === "dark"
-                    ? logoDark
-                    : image === 'light' ? logoLight : logoDarkCred}
-                alt={'Восход'}
+            <img style={{height: height, width: width, objectFit: 'contain'}}
+                 src={image === "dark"
+                     ? logoDark
+                     : image === 'light' ? logoLight : logoDarkCred}
+                 alt={'Восход'}
             />
         </Link>
     )
 }
-const HeaderLinks : React.FC<{links : Array<HeaderLink>, light?:boolean, selected?:string}>
-        = ({links, light = false, selected = '/'}) => {
-    // console.log('links', links);
+
+
+
+const HeaderLinks: React.FC<{ links: Array<HeaderLink>, light?: boolean, selected?: string }>
+    = ({links, light = false, selected = '/'}) => {
+
     return (
         <div className={'header-links'}>
             <div className={'d-none d-lg-flex align-items-center'}>
@@ -58,36 +67,48 @@ const HeaderLinks : React.FC<{links : Array<HeaderLink>, light?:boolean, selecte
                     ))}
             </div>
             <div className={'header-controls'}>
-                <button className={'user-btn ' + (light ? 'light':'')}></button>
-                <CallRequestForm text={<span className={'font-weight-semibold'}>Заказать звонок&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faArrowRight} /></span>} small light={light} />
+                <button className={'user-btn ' + (light ? 'light' : '')}></button>
+
+                <CallRequestForm
+                    text={<span className={'font-weight-semibold'}>Заказать звонок&nbsp;&nbsp;&nbsp;<FontAwesomeIcon
+                        icon={faArrowRight}/></span>} small={true} light={light}/>
             </div>
         </div>
     )
 }
 
 
-
-const LogoHeader : React.FC<{image?:HeaderImage}> = ({image = 'dark'}) => {
+const LogoHeader: React.FC<{ image?: HeaderImage }> = ({image = 'dark'}) => {
     return (<div className={'d-flex w-100 justify-content-center py-4'}>
-        <HeaderLogoImage image={image} height={'41px'} width={'172px'} />
+        <HeaderLogoImage image={image} height={'41px'} width={'172px'}/>
     </div>)
 }
-const WhiteHeader : React.FC<{image?:HeaderImage, links:Array<HeaderLink>, selected?:string, show?:boolean}>
-        = ({image = 'dark',links,selected, show=false}) => {
+
+const WhiteHeader: React.FC<{ image?: HeaderImage, links: Array<HeaderLink>, selected?: string, show?: boolean , setMenuIsShow: (e: boolean) => void }>
+    = ({image = 'dark', links, selected, show = false, setMenuIsShow}) => {
     return (
-        <div className={'py-3 bg-white opacity-' + (show ? 100: 0)} style={{boxShadow: '0px 5px 20px rgba(0, 0, 0, 0.07)',
-            transition:'all 0.2s ease-out'}}>
+        <div className={'py-3 bg-white opacity-' + (show ? 100 : 0)} style={{
+            boxShadow: '0px 5px 20px rgba(0, 0, 0, 0.07)',
+            transition: 'all 0.2s ease-out'
+        }}>
             <Container fluid={'xxl'}>
-                <div className={"d-flex w-100 justify-content-between align-items-center"}>
-                    <HeaderLogoImage image={image} />
-                    <HeaderLinks selected={selected} links={links ?? defaultLinks} />
+                <div className={'header-mobile'}>
+                    <FontAwesomeIcon onClick={() => setMenuIsShow(true)} className='header-mobile_burger header-mobile_burger_dark' icon={faBars} />
+
+                    <HeaderLogoImage image={image}/>
+                    {/*<FontAwesomeIcon className='header-mobile_phone header-mobile_phone_dark' icon={faPhoneVolume} />*/}
+                    <CallRequestForm light={false}/>
+                </div>
+                <div className={"header-desktop"}>
+                    <HeaderLogoImage image={image}/>
+                    <HeaderLinks selected={selected} links={links ?? defaultLinks}/>
                 </div>
             </Container>
         </div>
     )
 }
-const TransparentHeader : React.FC<{links:Array<HeaderLink>, selected?:string}>
-        = ({links, selected}) => {
+const TransparentHeader: React.FC<{ links: Array<HeaderLink>, selected?: string, setMenuIsShow: (e: boolean) => void }>
+    = ({links, selected, setMenuIsShow}) => {
     // const func = async () => {
     //
     //     // setTimeout(function (){
@@ -160,24 +181,37 @@ const TransparentHeader : React.FC<{links:Array<HeaderLink>, selected?:string}>
     // }
 
     return (
-        <div className={'py-3 position-absolute w-100 top-0 left-0'} style={{zIndex:1000}}>
+        <div className={'py-3 position-absolute w-100 top-0 left-0'} style={{zIndex: 1000}}>
             <Container fluid={'xxl'}>
-                <div className={"d-flex w-100 justify-content-between align-items-center"}>
-                    <HeaderLogoImage image={'light'} />
-                    <HeaderLinks light={true} selected={selected} links={links ?? defaultLinks} />
+                <div className={'header-mobile'}>
+                    <FontAwesomeIcon className='header-mobile_burger header-mobile_burger_light' icon={faBars} onClick={() => setMenuIsShow(true)} />
+                    <HeaderLogoImage image={'light'}/>
+                    <CallRequestForm light={true}/>
+                </div>
+                <div className={"header-desktop"}>
+                    <HeaderLogoImage image={'light'}/>
+                    <HeaderLinks light={true} selected={selected} links={links ?? defaultLinks}/>
                     {/*<button onClick={()=>func()}>Click me</button>*/}
                 </div>
             </Container>
         </div>
     );
 }
-const Header : React.FC<HeaderProps> = ({type='white', image='dark', links = defaultLinks, selectedLink}:HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({
+                                           type = 'white',
+                                           image = 'dark',
+                                           links = defaultLinks,
+                                           selectedLink,
+    setBurgerMenuIsShow,
+    burgerMenuIsShow
+
+                                       }: HeaderProps) => {
     const [showWhite, setShowWhite] = useState(false);
-    useEffect(()=>{
+    useEffect(() => {
         let handler = () => {
-            if(window.pageYOffset > 150 && !showWhite)
+            if (window.pageYOffset > 150 && !showWhite)
                 setShowWhite(true);
-            else if(window.pageYOffset <= 50 && !showWhite)
+            else if (window.pageYOffset <= 50 && !showWhite)
                 setShowWhite(false);
         };
         window.addEventListener('scroll', handler)
@@ -186,11 +220,11 @@ const Header : React.FC<HeaderProps> = ({type='white', image='dark', links = def
         // }
     })
 
-    if(type === 'logo')
-        return (<LogoHeader image={image} />)
-    return (<div className={'position-fixed top-0 start-0 w-100'} style={{zIndex:100}}>
-        {type === 'transparent' && !showWhite && <TransparentHeader selected={selectedLink} links={links} />}
-        <WhiteHeader show={type !== 'transparent' || showWhite} image={image} links={links} selected={selectedLink} />
+    if (type === 'logo')
+        return (<LogoHeader image={image}/>)
+    return (<div className={'position-fixed top-0 start-0 w-100'} style={{zIndex: 100}}>
+        {type === 'transparent' && !showWhite && <TransparentHeader setMenuIsShow={setBurgerMenuIsShow} selected={selectedLink} links={links}/>}
+        <WhiteHeader show={type !== 'transparent' || showWhite} image={image} links={links} setMenuIsShow={setBurgerMenuIsShow} selected={selectedLink}/>
     </div>)
 };
 

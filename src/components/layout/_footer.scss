@@ -29,17 +29,23 @@
 
 .footer{
   background-size: cover;
+  background-image:url('../../img/common/footer/footer_bg.webp');
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  //@include media-breakpoint-down(md) {
+  //  background-image: none !important;
+  //}
 }
 .footer__contacts{
   color: white;
-  min-height: 650px;
+  //min-height: 650px;
   //line-height: 120%;
   padding-top: 160px;
-  max-width: 530px;
+  max-width: 700px;
+  //width: 100%;
   @include l-xl{
     padding-top: 65px;
   }
@@ -116,11 +122,19 @@
   .footer-contacts-links{
     margin-bottom: 135px;
     display: flex;
+    flex-direction: row;
     gap: 15px;
     @include l-xl{
-      justify-content: center;
+
       margin-bottom: 10px;
     }
+
+    @include l-md {
+      justify-content: end;
+      flex-direction: column;
+      align-items: end;
+    }
+
   }
   .footer-contacts-link{
     width: 40px;
@@ -156,12 +170,15 @@
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
-  justify-content: space-between;
   width: 100%;
   padding: 10px 0;
-  align-items: flex-end;
+  align-items: flex-start;
   @include l-xl{
     flex-direction: column;
+  }
+
+  @include media-breakpoint-down(md) {
+    align-items: flex-end;
   }
 }
 .footer-contacts-bottom-element{
@@ -170,6 +187,9 @@
   font-weight: 300;
   font-size: 13px;
   line-height: 120%;
+  @include lg {
+    margin: 0 24px 0 0 ;
+  }
   a{
     text-decoration: underline;
   }
@@ -179,16 +199,18 @@
   }
 }
 .footer__map-form{
+  display: block;
   position: absolute;
   left: 20px;
   bottom: 50px;
   z-index: 50;
-  @include l-md{
-    position: relative;
-    margin: 2rem 0.5rem;
-    max-width: 100%;
-    left: unset;
-    bottom: unset;
+  @include media-breakpoint-down(md){
+    display: none;
+    //position: relative;
+    //margin: 2rem 0.5rem;
+    //max-width: 100%;
+    //left: unset;
+    //bottom: unset;
   }
 }
 .footer__map-block{
@@ -204,7 +226,6 @@
   @include l-md{
     position: relative;
     width: 100%;
-    margin: 1rem 0;
   }
   &.full{
     width: 100% !important;

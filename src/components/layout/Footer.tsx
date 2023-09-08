@@ -56,7 +56,7 @@ const FooterBottom = () => {
     return (
         <div className={'footer-contacts-bottom'}>
             <span className={'footer-contacts-bottom-element'}>ООО ВОСХОД ⓒ 2023 год</span>
-            <div className={'me-px-50 line-height-100'}>
+            <div className={'line-height-100'}>
                 <Link to={'/offer'} className={'footer-contacts-bottom-element me-px-20'}>Оферта</Link>
                 <Link to={'/policy'} className={'footer-contacts-bottom-element'}>Политика конфиденциальности</Link>
             </div>

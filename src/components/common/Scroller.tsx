@@ -3,20 +3,25 @@ import caret from './../../img/common/caret-up-white.png';
 
 const Scroller = () => {
     const [show, setShow] = useState(false);
-    useEffect(()=>{
+    useEffect(() => {
         let handler = () => {
-            if(window.pageYOffset > 50 && !show)
+            if (window.pageYOffset > 50 && !show)
                 setShow(true);
-            else if(window.pageYOffset <= 50 && !show)
+
+            else if (window.pageYOffset <= 50 && !show)
                 setShow(false);
         };
+
+
         window.addEventListener('scroll', handler)
         // return () => {
         //     window.removeEventListener('scroll', handler);
         // }
     })
     return (
-        <button className={'scroller ' + (show ? 'show' : '')} onClick={()=>{window.scrollTo({top:0,behavior:'smooth'})}}>
+        <button className={'scroller ' + (show ? 'show' : '')} onClick={() => {
+            window.scrollTo({top: 0, behavior: 'smooth'})
+        }}>
             <img src={caret} alt=""/>
         </button>
     );

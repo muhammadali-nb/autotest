@@ -157,7 +157,7 @@ const StepBlock = () => {
                             <div className={'mb-px-20'}>
                                 Заключаете <br/> договор
                             </div>
-                            <CallRequestForm small text={<span className={'font-size-16 line-height-140 font-weight-medium'}>Заказать звонок&nbsp;&nbsp;<FontAwesomeIcon icon={faArrowRight} /></span>} />
+                            <CallRequestForm small={true} text={<span className={'font-size-16 line-height-140 font-weight-medium'}>Заказать звонок&nbsp;&nbsp;<FontAwesomeIcon icon={faArrowRight} /></span>} />
                         </Step>
                     </Col>
                 </Row>

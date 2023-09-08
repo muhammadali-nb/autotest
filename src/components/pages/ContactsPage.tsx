@@ -72,7 +72,7 @@ const ContactsPage = () => {
 
                     </Col>
                     <Col lg={6}>
-                        <ContactsForm big />
+                        <ContactsForm big={false} />
                     </Col>
                 </Row>
 

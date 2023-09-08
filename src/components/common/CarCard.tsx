@@ -20,8 +20,8 @@ export type StatBlock = {
 }
 export interface CarDataInfo{
     id:number|string,
-    brand:number,
-    model:number,
+    brand:number| string, //
+    model:number| string,// check
     year:number|string,
     special:Array<string|number>,
     thumb:string,
@@ -85,7 +85,7 @@ export const CarTag:React.FC<{car:CarRentDataInfo|CarDataInfo, type?:'default'|'
 };
 
 
-const CarCard:React.FC<{car:CarDataInfo}> = ({car}) => {
+const CarCard:React.FC<{car:CarDataInfo, id?: string}> = ({car, id}) => {
     const baseData:BaseState = useAppSelector(state => state.baseData);
 
     const tags = baseData.top?.special.values?.filter((i) => car.special.includes(i.id)) ?? [];
@@ -93,7 +93,7 @@ const CarCard:React.FC<{car:CarDataInfo}> = ({car}) => {
     const model = baseData.left?.models.values?.find((i) => car.model === i.id)?.name ?? 'неизвестно';
 
     return (
-        <div className={'car__card'}>
+        <div className={'car__card anim-start-top-4 anim-duration-1800'} id={id}>
             <div>
                 <div className={'car__card-taglist'}>
                     {tags.map((i, index)=>(<CarTag key={index} car={car}>{i.name}</CarTag>))}

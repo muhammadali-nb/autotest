@@ -1,5 +1,4 @@
-
-.index__logo{
+.index__logo {
   min-height: 100vh;
   position: relative;
   background-size: cover;
@@ -7,11 +6,12 @@
   display: flex;
   //box-shadow: 20px 0px 60px rgba(0, 0, 0, 0.5);
   background-position: center;
-  @include l-lg{
+  @include l-lg {
     background-position: 60%;
     padding-top: unset;
   }
-  .index__logo-overlay{
+
+  .index__logo-overlay {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -20,7 +20,8 @@
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.24) 92.52%);
     z-index: 20;
   }
-  .index__logo-content{
+
+  .index__logo-content {
     overflow-x: hidden;
     max-width: 100%;
     padding-top: 180px;
@@ -32,93 +33,107 @@
     min-height: 100%;
     width: 100%;
     justify-content: center;
-    .index__logo-header{
+
+    .index__logo-header {
       font-weight: 700;
       font-size: 64px;
       line-height: 120%;
       color: white;
       //text-transform: uppercase;
-      @include l-xxl{
-        font-size: 42px;
-      }
-      @include l-md{
-        text-align: center;
-        font-size: 32px;
-      }
-      .muted{
-        font-weight: 400;
+      @include l-xxl {
         font-size: 56px;
-        color: #D9D9D9;
+      }
+      @include l-md {
+        font-size: 48px;
+      }
+
+      .muted {
+        font-weight: 400;
+        font-size: 52px;
+        color: #d9d9d9;
         line-height: 120%;
-        @include l-xxl{
-          font-size: 38px;
+        @include l-xxl {
+          font-size: 48px;
         }
-        @include l-md{
-          text-align: center;
-          font-size: 28px;
+        @include l-md {
+          font-size: 36px;
         }
       }
     }
-    @include l-md{
+
+    @include l-md {
       padding-top: 80px;
     }
   }
-  @include l-md{
+
+  @include l-md {
     padding-top: 120px;
     padding-bottom: 40px;
   }
-  .index__logo-car{
+
+  .index__logo-car {
     width: 100%;
   }
 }
 
-
-.indexCalculatorPeriodIndicator{
+.indexCalculatorPeriodIndicator {
   line-height: 120%;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-weight: 400;
   font-size: 32px;
   letter-spacing: 0.04em;
-  @include l-xl{
+  @include l-xl {
     font-size: 26px;
   }
-  @include l-md{
+  @include l-md {
     font-size: 22px;
   }
-  .indexCalculatorPeriodIndicatorComment{
+
+  .indexCalculatorPeriodIndicatorComment {
     font-weight: 300;
     font-size: 16px;
     letter-spacing: 0.04em;
-    @include l-md{
+    @include l-md {
       font-size: 14px;
     }
   }
 }
-.index__logo-comment{
-  color: #F2F2F5;
-  font-family: 'Inter';
+
+.index__logo-comment {
+  color: #f2f2f5;
+  font-family: "Inter";
   font-weight: 300;
   font-size: 16px;
   line-height: 150%;
   max-width: 480px;
-  @include l-lg{
+  @include l-lg {
     margin-top: 60px;
     font-size: 14px;
   }
-  @include l-sm{
+  @include l-sm {
     font-size: 20px;
     max-width: 100%;
   }
 }
 
-
-.index__steps{
+.index__steps-desktop {
+  display: block;
   padding: 160px 0 95px;
-  @include l-md{
+  @include media-breakpoint-down(md) {
     padding: 50px 0 30px;
+    display: none;
   }
 }
-.index__step{
+
+.index__steps-mobile {
+  padding: 46px 0 52px;
+  display: none;
+  @include media-breakpoint-down(md) {
+    display: block;
+  }
+}
+
+.index__step {
   position: relative;
   z-index: 30;
   background: transparent;
@@ -128,54 +143,59 @@
   justify-content: flex-end;
   margin-right: 20px;
   //max-width: 350px;
-  @include l-xl{
+  @include l-xl {
     min-height: 280px;
   }
-  @include l-md{
+  @include l-md {
     //padding-left: 20px;
     min-height: 200px;
   }
-  .index__step-bg{
-    font-family: 'Lato';
+
+  .index__step-bg {
+    font-family: "Lato";
     position: absolute !important;
-    bottom:0;
+    bottom: 0;
     left: 120px;
     line-height: 100%;
     font-size: 220px;
     height: 220px;
     font-weight: bold;
-    color:#E7E7E8;
+    color: #e7e7e8;
     z-index: 20 !important;
-    @include l-xl{
+    @include l-xl {
       font-size: 160px;
       height: 160px;
     }
-    @include l-md{
+    @include l-md {
       font-size: 120px;
       height: 120px;
     }
   }
-  .index__step-header{
+
+  .index__step-header {
     position: relative;
     z-index: 30;
-    font-family: 'Inter';
+    font-family: "Inter";
     font-weight: 600;
     font-size: 40px;
     line-height: 120%;
     letter-spacing: 0.01em;
     text-transform: uppercase;
-    *{
+
+    * {
       z-index: 30;
       position: relative;
     }
-    @include l-xl{
+
+    @include l-xl {
       font-size: 36px;
     }
-    @include l-sm{
+    @include l-sm {
       font-size: 28px;
     }
   }
-  .index__step-arrow{
+
+  .index__step-arrow {
     position: relative;
     z-index: 30;
     //border: 3px solid #BF3535;
@@ -188,10 +208,11 @@
     //transform: matrix(1, 0, 0, -1, 0, 0);
     margin: 5px 0 10px;
   }
-  .index__step-text{
+
+  .index__step-text {
     position: relative;
     z-index: 30;
-    font-family: 'Inter';
+    font-family: "Inter";
     font-weight: 600;
     font-size: 16px;
     line-height: 140%;
@@ -199,47 +220,89 @@
     //min-height: 70px;
   }
 
-  &.last{
-    .index__step-arrow{
+  &.last {
+    .index__step-arrow {
       object-fit: fill;
       width: calc(100% + 200px);
-      @include l-xxxl{
+      @include l-xxxl {
         width: calc(100% + 100px);
       }
-      @include l-xxl{
+      @include l-xxl {
         width: calc(100% + 20px);
       }
-      @include l-xl{
+      @include l-xl {
         width: 100%;
       }
     }
-
   }
 }
 
+.index__step-mobile {
+  padding: 76px 0 0 0;
+  position: relative;
 
-.index__about{
-  background: #FFFFFF;
+  &-desc {
+    & > h2 {
+      width: 120px;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 120%;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+
+    & > p {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+
+  &_bgtext {
+    font-family: "Lato";
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    line-height: 100%;
+    font-size: 130px;
+    height: 130px;
+    font-weight: bold;
+    color: #e7e7e8;
+  }
+
+  &_arrow {
+    position: absolute;
+    left: 0;
+    bottom: -70px;
+    z-index: 20;
+  }
+}
+
+.index__about {
+  background: #ffffff;
   box-shadow: inset 0px 0px 60px rgba(0, 0, 0, 0.1);
   position: relative;
   min-height: 800px;
   padding: 120px 0 120px;
   overflow-x: hidden;
-  *{
+
+  * {
     position: relative;
     z-index: 30;
   }
-  @include l-lg{
+
+  @include l-lg {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-  @include l-md{
+  @include l-md {
     grid-template-columns: 1fr;
   }
 }
-.index__about-bg{
+
+.index__about-bg {
   position: absolute !important;
-  z-index: 20!important;
+  z-index: 20 !important;
   top: 0;
   //left: calc(70% - 1400px);
   height: 100%;
@@ -248,83 +311,85 @@
   width: 100% !important;
   //max-width: 60%;
   clip-path: polygon(0 0, 74% 0%, 34% 100%, 0% 100%);
-  background:
-    //linear-gradient(227.7deg,
-    //      rgba(0, 0, 0, 0.57) 27.81%,
-    //      rgba(19, 19, 19, 0.576) 44.96%,
-    //      rgba(19, 19, 19, 0.522) 93.65%),
+  background: //linear-gradient(227.7deg,
+          //      rgba(0, 0, 0, 0.57) 27.81%,
+          //      rgba(19, 19, 19, 0.576) 44.96%,
+          //      rgba(19, 19, 19, 0.522) 93.65%),
     url("./../../../img/index/about_bg.webp");
-    //linear-gradient(117.27deg, #000000 0%, #222222 83.89%) !important;
+  //linear-gradient(117.27deg, #000000 0%, #222222 83.89%) !important;
   background-size: cover;
 
-  @include l-lg{
+  @include l-lg {
     clip-path: unset;
   }
 }
-.index__about-header{
-  font-family: 'Inter';
+
+.index__about-header {
+  font-family: "Inter";
   font-weight: 500;
   font-size: 64px;
   line-height: 120%;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 60px;
-  @include l-xl{
+  @include l-xl {
     font-size: 48px;
   }
-  @include l-md{
+  @include l-md {
     font-size: 36px;
     text-align: center;
     margin-bottom: 30px;
   }
 }
-.index__about-text{
-  font-family: 'Inter';
+
+.index__about-text {
+  font-family: "Inter";
   font-weight: 300;
   font-size: 20px;
   line-height: 140%;
   letter-spacing: 0.01em;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 35px;
-  @include l-md{
+  @include l-md {
     font-size: 16px;
   }
 }
 
-.index__about-labels{
+.index__about-labels {
   display: flex;
   flex-wrap: wrap;
   gap: 40px 80px;
   margin-top: 80px;
-  @include l-md{
+  @include l-md {
     margin-top: 40px;
     margin-bottom: 60px;
   }
 }
-.index__about-label{
-  &-big{
-    font-family: 'Inter';
+
+.index__about-label {
+  &-big {
+    font-family: "Inter";
     font-weight: 500;
     font-size: 48px;
     line-height: 120%;
     letter-spacing: 0.01em;
     text-transform: uppercase;
-    color: #FFFFFF;
+    color: #ffffff;
   }
-  &-small{
-    font-family: 'Inter';
+
+  &-small {
+    font-family: "Inter";
     font-weight: 500;
     font-size: 16px;
     line-height: 140%;
     letter-spacing: 0.01em;
     text-transform: uppercase;
-    color: #FFFFFF;
-
+    color: #ffffff;
   }
 }
 
-.index__about-badges{
+.index__about-badges {
   display: block;
   position: absolute;
   z-index: 30;
@@ -333,89 +398,107 @@
   top: 0;
   left: 0;
 
-  @include l-lg{
+  @include l-lg {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 40px 10px
+    padding: 40px 10px;
   }
-  @include l-md{
+  @include l-md {
     padding: 0 10px;
   }
 }
-.index__about-badge{
+
+.index__about-badge {
   position: absolute;
   display: flex;
   gap: 40px;
-  &.index-1{
+
+  @include l-xs {
+    gap: 20px;
+  }
+
+  &.index-1 {
     left: calc(67% - 45px);
     top: 100px;
     max-width: 30%;
   }
-  &.index-2{
+
+  &.index-2 {
     left: calc(58% - 45px);
     top: 317px;
     max-width: 40%;
   }
-  &.index-3{
+
+  &.index-3 {
     left: calc(48.7% - 45px);
     top: 550px;
     max-width: 40%;
   }
-  &.index-4{
+
+  &.index-4 {
     left: calc(41% - 45px);
     top: 740px;
     max-width: 40%;
   }
-  @include l-xl{
-    &.index-1,&.index-2,&.index-3,&.index-4{
+
+  @include l-xl {
+    &.index-1,
+    &.index-2,
+    &.index-3,
+    &.index-4 {
       max-width: 40%;
     }
   }
-  @include l-lg{
+  @include l-lg {
     color: white;
     position: relative;
-    &.index-1,&.index-2,&.index-3,&.index-4{
+    &.index-1,
+    &.index-2,
+    &.index-3,
+    &.index-4 {
       max-width: 100%;
       left: unset;
-      top:unset;
+      top: unset;
       position: relative;
       margin-bottom: 20px;
     }
   }
 
-  .index__about-badge-image{
+  .index__about-badge-image {
     min-width: 110px;
     min-height: 110px;
     width: 110px;
     height: 110px;
-    background: #FFFFFF;
-    border: 2px solid #F2F3F6;
+    background: #ffffff;
+    border: 2px solid #f2f3f6;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
     border-radius: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    img{
+
+    & > img {
       width: 66px;
       height: 66px;
       object-fit: contain;
     }
-    @include l-lg{
+
+    @include l-lg {
       min-width: 60px;
       min-height: 60px;
       width: 60px;
       height: 60px;
-      img{
+      img {
         width: 30px;
         height: 30px;
       }
     }
   }
 
-  .index__about-badge-header{
-    font-family: 'Inter';
+  .index__about-badge-header {
+    font-family: "Inter";
     font-weight: 600;
     font-size: 32px;
     line-height: 120%;
@@ -423,35 +506,44 @@
 
     letter-spacing: 0.01em;
     text-transform: uppercase;
-    @include l-lg{
+    @include l-lg {
       color: white;
     }
 
+    @include l-md {
+      font-size: 24px;
+    }
   }
-  .index__about-badge-text{
+
+  .index__about-badge-text {
     font-weight: 600;
-    @include l-lg{
+    @include l-lg {
       color: #dadada;
+    }
+
+    @include l-md {
+      font-size: 14px;
     }
   }
 }
 
-
-.index__offers{
+.index__offers {
   padding-top: 100px;
   padding-bottom: 100px;
-  .index__offers-header{
+
+  .index__offers-header {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    font-family: 'Inter';
+    font-family: "Inter";
     font-weight: 600;
     font-size: 62px;
     line-height: 120%;
     margin-bottom: 60px;
     align-items: flex-end;
-    .index__offers-header-link{
-      font-family: 'Inter';
+
+    .index__offers-header-link {
+      font-family: "Inter";
       font-weight: 600;
       font-size: 18px;
       line-height: 120%;
@@ -463,58 +555,65 @@
       text-decoration: none;
       padding-bottom: 12px;
       transition: all 0.15s ease-in-out;
-      &:hover, &:active{
+
+      &:hover,
+      &:active {
         color: $redColor;
         text-decoration: none;
       }
-      &::after{
+
+      &::after {
         position: absolute;
-        bottom:0px;
-        left:0;
+        bottom: 0px;
+        left: 0;
         width: 100%;
         height: 12px;
         background-image: url("./../../../img/index/gray-arrow.svg");
-        content: '';
+        content: "";
         display: block;
         background-size: 100%;
         background-repeat: no-repeat;
         background-position: center;
       }
-      &:hover::after{
+
+      &:hover::after {
         //background-image: url("./../../../img/index/dark-arrow.svg");
         background-image: url("./../../../img/index/red-arrow.svg");
       }
     }
+
     /* identical to box height */
 
     letter-spacing: 0.01em;
     text-transform: uppercase;
-    @include l-xl{
+    @include l-xl {
       font-size: 52px;
     }
-    @include l-lg{
+    @include l-lg {
       font-size: 48px;
     }
-    @include l-md{
+    @include l-md {
       font-size: 34px;
       margin-bottom: 30px;
     }
   }
-  .index-offers-cards{
+
+  .index-offers-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
-    @include l-xl{
+    @include l-xl {
       grid-template-columns: 1fr 1fr 1fr;
     }
-    @include l-lg{
+    @include l-lg {
       grid-template-columns: 1fr 1fr;
     }
-    @include l-sm{
+    @include l-sm {
       grid-template-columns: 1fr;
     }
   }
-  .index-offers-brands{
+
+  .index-offers-brands {
     margin-top: 100px;
     display: flex;
     gap: 120px;
@@ -524,9 +623,8 @@
     /* ===== Scrollbar CSS ===== */
     /* Firefox */
 
-      scrollbar-width: auto;
-      scrollbar-color: #5c5c5c #ffffff;
-
+    scrollbar-width: auto;
+    scrollbar-color: #5c5c5c #ffffff;
 
     /* Chrome, Edge, and Safari */
     &::-webkit-scrollbar {
@@ -544,27 +642,111 @@
       border: 0px solid #ffffff;
     }
 
-
-    @include l-md{
+    @include l-md {
       margin-top: 50px;
       column-gap: 40px;
     }
   }
-  @include l-md{
+
+  @include l-md {
     padding-top: 60px;
     padding-bottom: 60px;
   }
 }
 
-.index-offers-brand{
+.index-offers-brand {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
-  img{
+
+  img {
     height: 80px;
     max-width: 200px;
     object-fit: contain;
+  }
+}
+
+.great-deal {
+  padding: 112px 0 0 0;
+  &_header {
+    display: flex;
+    align-items: self-end;
+    justify-content: space-between;
+    margin: 0 0 48px 0;
+    & > h1 {
+      font-size: 64px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
+
+  @include l-lg {
+    &_header {
+      display: block;
+      margin-bottom: 32px;
+      & > h1 {
+        font-size: 48px;
+      }
+    }
+  }
+
+  @include l-sm {
+    &_header {
+      margin: 0 0 26px 0;
+      & > h1 {
+        font-size: 28px;
+      }
+    }
+  }
+
+  &_more {
+    cursor: pointer;
+    display: block;
+    & > p {
+      margin: 0 0 0 0;
+      font-weight: 600;
+    }
+  }
+
+  @include l-sm {
+    &_more {
+      display: flex;
+      align-items: center;
+
+      & > p {
+        font-size: 12px;
+        margin: 0 8px 0 0;
+      }
+
+      & > img {
+        width: 76px;
+      }
+    }
+  }
+
+  &_cars {
+    // padding: 14px 10px;  
+    min-width: 1200px;
+    width: 100%;
+    margin: 0;
+
+    &-container {
+      overflow: scroll;
+      padding: 0 0 12px 0;
+    }
+  }
+}
+
+@include l-lg {
+  .great-deal {
+    padding: 64px 0 0 0;
+  }
+}
+
+@include l-md {
+  .great-deal {
+    padding: 48px 0 0 0;
   }
 }
