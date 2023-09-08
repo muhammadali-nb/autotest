@@ -17,15 +17,16 @@
     height: 100%;
     top: 0;
     left: 0;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.24) 92.52%);
+    background:linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 92.52%);
     z-index: 20;
+
+
   }
 
   .index__logo-content {
     overflow-x: hidden;
     max-width: 100%;
-    padding-top: 180px;
-    padding-bottom: 100px;
+    padding: 180px 0 100px 0;
     position: relative;
     z-index: 50;
     display: flex;
@@ -34,17 +35,32 @@
     width: 100%;
     justify-content: center;
 
+    @include l-md() {
+      padding: 100px 0 70px 0;
+    }
+
+    @include  l-sm() {
+      padding: 0;
+    }
+
     .index__logo-header {
       font-weight: 700;
       font-size: 64px;
       line-height: 120%;
       color: white;
+      margin: 0 0 76px 0 ;
       //text-transform: uppercase;
       @include l-xxl {
         font-size: 56px;
       }
       @include l-md {
         font-size: 48px;
+        margin: 0 0 46px 0;
+      }
+
+      @include l-sm {
+        margin: 0 0 34px 0;
+
       }
 
       .muted {
@@ -52,17 +68,21 @@
         font-size: 52px;
         color: #d9d9d9;
         line-height: 120%;
-        @include l-xxl {
+        @include l-xxl() {
           font-size: 48px;
         }
-        @include l-md {
+        @include l-md() {
           font-size: 36px;
         }
       }
     }
 
-    @include l-md {
+    @include l-md() {
       padding-top: 80px;
+    }
+    
+    @include l-sm() {
+      padding: 0;
     }
   }
 
@@ -106,13 +126,17 @@
   font-size: 16px;
   line-height: 150%;
   max-width: 480px;
-  @include l-lg {
+  width: 100%;
+  margin: 140px 0 0 0;
+  @include l-lg() {
     margin-top: 60px;
     font-size: 14px;
   }
-  @include l-sm {
-    font-size: 20px;
+  @include l-sm() {
+    margin: 32px 0 0 0 ;
+    font-size: 12px;
     max-width: 100%;
+    width: 100%;
   }
 }
 
@@ -286,6 +310,8 @@
   padding: 120px 0 120px;
   overflow-x: hidden;
 
+
+
   * {
     position: relative;
     z-index: 30;
@@ -294,9 +320,15 @@
   @include l-lg {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding: 80px 0 68px 0;
   }
   @include l-md {
     grid-template-columns: 1fr;
+    padding: 40px 0 36px 0;
+  }
+
+  @include l-sm {
+    box-shadow: inset 0px 0px 80px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -322,6 +354,15 @@
   @include l-lg {
     clip-path: unset;
   }
+
+  @include l-md {
+    height: 50%;
+    clip-path: polygon(0 0, 100% 0, 100% 94%, 0% 100%);
+  }
+
+  @include l-sm {
+    height: 46.5%;
+  }
 }
 
 .index__about-header {
@@ -337,8 +378,8 @@
     font-size: 48px;
   }
   @include l-md {
-    font-size: 36px;
-    text-align: center;
+    font-size: 32px;
+
     margin-bottom: 30px;
   }
 }
@@ -351,8 +392,16 @@
   letter-spacing: 0.01em;
   color: #ffffff;
   margin-bottom: 35px;
-  @include l-md {
+  @include l-md() {
     font-size: 16px;
+    margin-bottom: 24px;
+
+  }
+
+  @include l-sm() {
+    font-size: 12px;
+    margin-bottom: 0;
+
   }
 }
 
@@ -363,11 +412,27 @@
   margin-top: 80px;
   @include l-md {
     margin-top: 40px;
-    margin-bottom: 60px;
+    margin-bottom: 100px;
+    display: block;
+  }
+  
+  @include l-sm {
+    margin: 40px 0 60px 0;
   }
 }
 
 .index__about-label {
+  display: block;
+  gap: 0;
+  @include l-md() {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    &:not(:last-child) {
+      margin: 0 0 20px 0 ;
+    }
+
+  }
   &-big {
     font-family: "Inter";
     font-weight: 500;
@@ -376,6 +441,10 @@
     letter-spacing: 0.01em;
     text-transform: uppercase;
     color: #ffffff;
+
+    @include l-sm() {
+      font-size: 28px;
+    }
   }
 
   &-small {
@@ -386,6 +455,10 @@
     letter-spacing: 0.01em;
     text-transform: uppercase;
     color: #ffffff;
+
+    @include l-sm() {
+      font-size: 12px;
+    }
   }
 }
 
@@ -512,9 +585,18 @@
 
     @include l-md {
       font-size: 24px;
+      color:#222222 ;
     }
   }
 
+  .index__about-badge-divider {
+    margin: 16px 0 14px 0;
+
+    @include l-sm {
+      margin: 8px 0 6px 0;
+
+    }
+  }
   .index__about-badge-text {
     font-weight: 600;
     @include l-lg {
@@ -523,6 +605,11 @@
 
     @include l-md {
       font-size: 14px;
+      color: #222222;
+    }
+
+    @include l-sm {
+      font-size: 12px;
     }
   }
 }
@@ -727,7 +814,7 @@
   }
 
   &_cars {
-    // padding: 14px 10px;  
+    padding: 10px 0;
     min-width: 1200px;
     width: 100%;
     margin: 0;

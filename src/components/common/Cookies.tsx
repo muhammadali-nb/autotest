@@ -11,10 +11,10 @@ const Cookies = () => {
     return (
         <div className={'cookies ' + (show ? 'show' : '')}>
             <div className={'flex-grow-1'}>
-                <div className={'font-weight-medium mb-px-5'}>Мы используем файлы-сookies</div>
-                <div>Продолжая использовать этот сайт вы даёте своё согласие на работу с этими файлами</div>
+                <div className={' cookies_header'}>Мы используем файлы-сookies</div>
+                <div className={'cookies_description'}>Продолжая использовать этот сайт вы даёте своё согласие на работу с этими файлами</div>
             </div>
-            <button className={'border-0 p-2 bg-transparent text-white d-flex'}
+            <button className={' border-0 p-2 bg-transparent text-white d-flex'}
                 onClick={()=>hide()}
             ><FontAwesomeIcon icon={faCircleXmark} /></button>
         </div>

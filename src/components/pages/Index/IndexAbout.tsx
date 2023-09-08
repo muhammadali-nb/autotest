@@ -12,7 +12,7 @@ const IndexAboutBadge: React.FC<{ index: number, image: any, header: string, chi
             <div className={'index__about-badge-image'}><img src={props.image} alt={props.header}/></div>
             <div>
                 <div className={'index__about-badge-header'}>{props.header}</div>
-                <div className={'bg-red-color my-px-15'} style={{width: '60px', height: '6px'}}></div>
+                <div className={'bg-red-color index__about-badge-divider '} style={{width: '60px', height: '6px'}}></div>
                 <div className={'index__about-badge-text'}>{props.children}</div>
             </div>
         </div>

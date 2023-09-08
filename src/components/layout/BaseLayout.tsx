@@ -75,7 +75,7 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
                     type={props.headerType ?? "white"}
                     selectedLink={props.headerSelectedLink ?? "/"}
                 />
-                <main>{bState.loaded && props.children}</main>
+                <main>{props.children}</main>
                 <Footer
                     small={props.footerSmall}
                     noContacts={props.footerNoContacts}

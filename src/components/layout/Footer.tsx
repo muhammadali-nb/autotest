@@ -77,14 +77,21 @@ const FooterContacts = () => {
                     </div>
                     <div className="footer-contacts-blocks">
                         <FooterContactsBlock image={geoImage} text={'Адрес'}>
-                            {lines.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}
+                            {/*{lines.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
+
+                            Санкт-Петербург <br/>
+                            Торфяная дорога 7Ф <br/>
+                            БЦ «Гулливер» 2 оф. 104 <br/>
+
                         </FooterContactsBlock>
                         <FooterContactsBlock image={clockImage} text={'Время работы'}>
-                            {lines2.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}
+                            {/*{lines2.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
+                            пн-вс: с 10.00 - 19.00
                         </FooterContactsBlock>
-                        {process.env.REACT_APP_PHONE && <FooterContactsBlock image={phoneImage} text={'Телефон'}>
-                            <a href={'tel:' + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")} >{process.env.REACT_APP_PHONE}</a>
-                        </FooterContactsBlock>}
+                         <FooterContactsBlock image={phoneImage} text={'Телефон'}>
+                            {/*<a href={'tel:' + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")} >{process.env.REACT_APP_PHONE}</a>*/}
+                            +7 (812) 317-68-15
+                        </FooterContactsBlock>
                     </div>
                     <div className={'footer-contacts-links'}>
                         <FooterLink img={vkW} hover={vkB} link={process.env.REACT_APP_VK_LINK ?? '/'} />

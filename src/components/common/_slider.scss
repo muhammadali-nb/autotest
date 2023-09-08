@@ -3,6 +3,12 @@
   margin: auto;
   height: fit-content;
   min-height: 26px;
+
+  //@include l-md {
+  //  min-height: 12px;
+  //
+  //}
+
 }
 .example-thumb {
   cursor: pointer;
@@ -79,6 +85,11 @@
   line-height: 19px;
   letter-spacing: 0.02em;
   font-weight: 300;
+
+  //@include l-sm {
+  //  font-size: 16px;
+  //}
+
 }
 .indexCalculatorSliderValue{
   font-family: 'Inter';
@@ -88,4 +99,29 @@
   line-height: 29px;
   /* identical to box height */
   letter-spacing: 0.02em;
+}
+
+.calculator-slider {
+  margin: 0 0 30px 0;
+}
+
+@media (max-width: 576px) {
+
+  .horizontal-slider {
+    min-height: 12px;
+  }
+  .indexCalculatorSliderLabel {
+    font-size: 12px;
+  }
+
+  .indexCalculatorSliderValue {
+    font-size: 16px;
+  }
+  .indexCalculatorPeriodIndicator {
+    font-size: 20px;
+  }
+
+  .calculator-slider {
+    margin: 0 0 5px 0;
+  }
 }

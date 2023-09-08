@@ -68,6 +68,10 @@
       margin-bottom: 30px;
       font-size: 42px;
     }
+
+    @include l-sm {
+      font-size: 24px;
+    }
   }
   .footer-contacts-blocks{
     margin-bottom: 80px;
@@ -77,6 +81,7 @@
   }
   .footer-contacts-block{
     display: flex;
+    align-items: start;
     gap: 20px;
     color: white;
     margin-bottom: 40px;
@@ -94,7 +99,6 @@
     .footer-contacts-block-image{
       width: 24px;
       height: 24px;
-      margin-top: 5px;
     }
     .footer-contacts-block-header{
       font-family: 'Inter';
@@ -105,7 +109,8 @@
       text-transform: uppercase;
       margin-bottom: 15px;
       @include l-md{
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+        font-size: 16px;
       }
     }
     .footer-contacts-block-text{

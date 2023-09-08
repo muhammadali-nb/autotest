@@ -24,23 +24,23 @@ const IndexLogo:React.FC<{bgNoCar?:boolean}> = (props = {bgNoCar:false}) => {
                 <Container className={'h-100'}>
                     <div className={'d-flex flex-column justify-content-between h-100'}>
                         <Row className={'g-3 flex-grow-1'}>
-                            <Col md={6} lg={5} id={'logo-text'}>
-                                <div className={'mb-px-75 index__logo-header anim-enter-top-3 line-height-120'} id={'logo__text'}>
+                            <Col  sm={12} md={8} lg={6} id={'logo-text'}>
+                                <div className={' index__logo-header anim-enter-top-3 line-height-120'} id={'logo__text'}>
                                     <div className={'mb-px-5'}>Как кредит</div>
                                     <div className={'muted'}>только проще</div>
                                 </div>
                                 <IndexCalculator wideSpace={true} />
-                                <div className={'anim-enter-bottom-3 index__logo-comment mt-px-160'} id={'index__logo-comment'}>
-                                    Стоимость предмета лизинга и приведенные расчеты<br/>
-                                    через калькулятор являются предварительными.<br/>
-                                    Для точного определения процентной ставки по договору, <br/>
+                                <div className={'anim-enter-bottom-3 index__logo-comment '} id={'index__logo-comment'}>
+                                    Стоимость предмета лизинга и приведенные расчеты
+                                    через калькулятор являются предварительными.
+                                    Для точного определения процентной ставки по договору,
                                     пожалуйста, обратитесь к менеджеру.
                                 </div>
                             </Col>
-                            <Col lg={1} className={"d-none d-lg-block align-items-center"}>
-                                &nbsp;
-                            </Col>
-                            <Col md={6} className={"d-flex align-items-center"}>
+                            {/*<Col lg={1} className={"d-none d-lg-block align-items-center"}>*/}
+                            {/*    &nbsp;*/}
+                            {/*</Col>*/}
+                            <Col sm={0} md={4} className={"d-flex align-items-center"}>
                                 {props.bgNoCar && <img src={car} className={`index__logo-car anim-enter-end-2-top-2`}
                                                        alt={''} id={'index__logo-car-image'}/>}
                             </Col>

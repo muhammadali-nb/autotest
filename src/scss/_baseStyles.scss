@@ -243,19 +243,18 @@ body {
   color: #222222;
   max-width: 100%;
   letter-spacing: 0.01em;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Roboto",
-    "Oxygen",
-    "Ubuntu",
-    "Cantarell",
-    "Fira Sans",
-    "Droid Sans",
-    "Helvetica Neue",
-    sans-serif;
+  font-family: Inter,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  "Roboto",
+  "Oxygen",
+  "Ubuntu",
+  "Cantarell",
+  "Fira Sans",
+  "Droid Sans",
+  "Helvetica Neue",
+  sans-serif;
 
   .site {
     max-width: 100%;
@@ -738,12 +737,14 @@ code {
 }
 
 .cookies {
+  width: 400px;
   display: flex;
   //align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
+
   background: rgba(0, 0, 0, 0.5);
   background-position: 20px center;
   background-repeat: no-repeat;
@@ -766,6 +767,24 @@ code {
   transition: all 0.4s ease-in-out;
   opacity: 0;
 
+  &_header {
+    font-size: 14px;
+    font-weight: 500;
+
+    @include l-sm() {
+      font-size: 12px;
+    }
+
+  }
+
+  &_description {
+    font-size: 14px;
+
+    @include l-sm() {
+      font-size: 10px;
+    }
+  }
+
   &.show {
     opacity: 1;
     transform: translate(-50%, 0%);
@@ -774,6 +793,15 @@ code {
   &:hover {
     background-color: #444444;
   }
+
+  @include l-sm() {
+    padding: 10px 12px 10px 70px;
+    background-position: 15px center;
+
+
+    width: calc(100% - 24px);
+  }
+
 }
 
 .modal-template {
