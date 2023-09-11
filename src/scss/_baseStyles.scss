@@ -1213,61 +1213,6 @@ code {
   }
 }
 
-.leasing__step {
-  padding-top: 177px;
-  position: relative;
-  line-height: 120%;
-
-  &.first {
-    margin-right: 40px;
-  }
-
-  &.second {
-    margin-right: 40px;
-    margin-left: 40px;
-  }
-
-  &.third {
-    margin-left: 40px;
-  }
-
-  .leasing__step-text {
-    font-size: 40px;
-    font-weight: 600;
-    text-transform: uppercase;
-    position: relative;
-    z-index: 20;
-    margin-bottom: 20px;
-    line-height: 120%;
-  }
-
-  .leasing__step-bgtext {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-family: "Lato";
-    font-size: 220px;
-    font-weight: 700;
-    line-height: 100%;
-    z-index: 15;
-    width: fit-content;
-    height: 220px;
-    color: #e7e7e8;
-  }
-
-  .leasing__step-side-image {
-    position: absolute;
-    height: 195px;
-    width: 108px;
-    background-image: url("./../img/common/helix.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-position: center;
-    left: 0;
-    bottom: 0;
-    transform: translate(-50%, 70%);
-  }
-}
 
 .faq-contacts {
   //margin: 100px 0 90px;
@@ -1729,7 +1674,7 @@ code {
   }
 
   @include l-sm {
-    margin: 40px 0;
+    margin: 40px 0 0 0;
   }
   //mt-px-80 mb-px-40
 
@@ -1746,5 +1691,287 @@ code {
       width: 336px;
     }
     //text-gray-color font-weight-semibold font-size-24 text-uppercase opacity-50 mb-px-40
+  }
+}
+
+
+.arrange-leasing {
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: inset 0px 0px 60px rgba(0, 0, 0, 0.1);
+  padding: 100px 0 80px 0;
+  //shadowed-bg pt-px-100 pb-px-80
+
+  @include l-md {
+    padding: 70px 0 50px 0;
+  }
+  @include l-sm {
+    padding: 30px 0;
+  }
+
+  &_header {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 52px;
+
+    &:first-child {
+      @include l-sm {
+        width: 170px;
+      }
+    }
+
+    margin: 0 0 60px 0;
+    //font-weight-semibold text-uppercase font-size-50 mb-px-40 line-height-120
+
+    @include l-md {
+      font-size: 36px;
+    }
+
+    @include l-sm {
+      font-size: 20px;
+      margin: 0 0 40px 0;
+    }
+  }
+
+  &_options {
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0 0 20px 0;
+    color: #606569;
+    //font-size-24 font-weight-semibold text-uppercase mb-px-20 ls-001
+
+    @include l-md {
+      font-size: 18px;
+    }
+    @include l-sm {
+      margin: 0 0 14px 0;
+      font-size: 14px;
+    }
+
+    &-item {
+      display: flex;
+      align-items: start;
+      margin: 0 0 15px 0;
+
+      & > p {
+        font-size: 16px;
+        margin: 0;
+        line-height: initial;
+        @include l-md {
+          font-size: 14px;
+        }
+        @include l-sm {
+          font-size: 12px;
+        }
+
+      }
+
+      & > svg {
+
+        width: 22px;
+        height: 22px;
+
+        @include l-md {
+          width: 17px;
+          height: 17px;
+        }
+      }
+    }
+  }
+}
+
+.step-block {
+  padding: 100px 0 80px 0;
+
+  @include l-md {
+  padding: 80px 0 50px 0;
+    
+  }
+  
+  @include l-sm {
+    padding: 40px 0 30px 0;
+  }
+
+  &_mobile {
+    display: none !important;
+    @include l-md {
+      display: block !important;
+    }
+
+    &_characteristic {
+
+      &_table {
+        
+        &-header {
+          
+          font-weight: 600;
+          text-transform: uppercase;
+          font-size: 20px;
+
+          
+
+        }
+
+        &-desc {
+          font-size: 12px;
+          margin: 16px 0 14px 0;
+        }
+
+        & > thead {
+          background-color: #222222;
+        }
+        th {
+        color :#FFFFFF;
+          font-weight: 600;
+        }
+
+        td, th {
+          font-size: 12px;
+        }
+
+        &-right {
+          text-align: right;
+        }
+
+        &-left {
+          text-align: left;
+        }
+      }
+
+      &_card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &:not(:last-child) {
+          margin: 0 0 30px 0;
+        }
+
+        & > div {
+          & > h1 {
+            margin:  0 0 8px 0;
+            font-weight: 600;
+            font-size: 14px;
+          }
+
+          & > p {
+            font-size: 12px ;
+            font-weight: 500;
+          }
+        }
+
+        & > h1 {
+          font-size: 72px;
+
+          &:first-child {
+            color: $redColor;
+          }
+
+        }
+
+      }
+
+    }
+  }
+
+  &_descktop {
+    margin: 0 0 100px 0;
+    row-gap: 0;
+    display: block !important;
+    @include l-md {
+      display: none !important;
+    }
+    //gx-0 mb-px-100
+
+    &_characteristic {
+      display: grid;
+      grid-template-columns: 1fr 100px 1fr;
+
+      @include l-lg {
+        grid-template-columns: 1fr 50px 1fr;
+
+      }
+
+      &_header {
+        font-size: 72px;
+        font-weight: 600;
+        margin: 0 0 20px 0;
+        text-transform: uppercase;
+
+        @include l-lg {
+          font-size: 40px;
+          margin: 0 0 12px 0;
+        }
+        //font-size-72 line-height-140 font-weight-semibold mb-px-20 text-uppercase
+      }
+    }
+
+  }
+}
+
+.leasing__step {
+  padding-top: 177px;
+  position: relative;
+  line-height: 120%;
+
+  @include l-lg {
+    padding: 124px 0 0 0;
+  }
+
+  &.first {
+    margin-right: 40px;
+  }
+
+  &.second {
+    margin-right: 40px;
+    margin-left: 40px;
+  }
+
+  &.third {
+    margin-left: 40px;
+  }
+
+  .leasing__step-text {
+    font-size: 40px;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 20;
+    margin-bottom: 20px;
+    line-height: 120%;
+
+    @include l-lg {
+      font-size: 26px;
+    }
+  }
+
+  .leasing__step-bgtext {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-family: "Lato";
+    font-size: 220px;
+    font-weight: 700;
+    line-height: 100%;
+    z-index: 15;
+    width: fit-content;
+    height: 220px;
+    color: #e7e7e8;
+
+    @include l-lg {
+      font-size: 150px;
+    }
+  }
+
+  .leasing__step-side-image {
+    position: absolute;
+    height: 195px;
+    width: 108px;
+    background-image: url("./../img/common/helix.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    left: 0;
+    bottom: 0;
+    transform: translate(-50%, 70%);
   }
 }
