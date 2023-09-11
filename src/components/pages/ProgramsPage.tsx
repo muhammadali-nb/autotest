@@ -10,8 +10,9 @@ import CallRequestForm from "../common/CallRequestForm";
 import {CarStatBlockEntry, CarStatBlockItem, CarStatBlockProps} from "./Car/CarStatBlock";
 import Api, {FaqResponse} from "../../Api";
 
+
 const Header: React.FC<{ text: string | ReactNode }> = (props) =>
-    <div className={'font-weight-semibold text-uppercase font-size-50 mb-px-40 line-height-120'}>
+    <div className={'arrange-leasing_header'}>
         {props.text}
     </div>
 
@@ -96,35 +97,38 @@ const SecondBlock = () => <div>
         </Row>
     </Container>
 </div>
-const HowBlock = () => <div className={'shadowed-bg pt-px-100 pb-px-80'}>
+const HowBlock = () => <div className={'arrange-leasing'}>
     <Container fluid={'xxl'}>
         <Header text={'Как оформить лизинг?'}/>
         <div className={'mb-px-60 font-size-16 line-height-140 font-weight-medium'}>
-            <div className={'font-size-24 font-weight-semibold text-uppercase mb-px-20 ls-001'}>Общие требования:</div>
-            <div className={'mb-px-15'}>
-                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;Гражданство РФ
+            <h3 className={'arrange-leasing_options'}>Общие требования:</h3>
+            <div className={'arrange-leasing_options-item'}>
+                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;<p>Гражданство РФ</p>
             </div>
-            <div className={'mb-px-15'}>
-                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;Возраст не менее 21 лет
+            <div className={'arrange-leasing_options-item'}>
+                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;<p>Возраст не менее 21 лет</p>
             </div>
-            <div className={'mb-px-15'}>
-                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;Водительский стаж от 3-х лет
+            <div className={'arrange-leasing_options-item'}>
+                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;<p>Водительский стаж от 3-х лет</p>
             </div>
-            <div className={'mb-px-15'}>
-                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;Постоянная или временная регистрация сроком не менее
-                6 месяцев на территории РФ
+            <div className={'arrange-leasing_options-item'}>
+                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;<p>Постоянная или временная регистрация сроком не
+                менее
+                6 месяцев на территории РФ</p>
             </div>
         </div>
         <div className={'font-size-16 line-height-140 font-weight-medium ls-001'}>
-            <div className={'font-size-24 font-weight-semibold text-uppercase mb-px-20'}>Список документов, необходимых
+            <div className={'arrange-leasing_options'}><p>
+                Список документов, необходимых
                 для заключения договора:
+            </p>
             </div>
-            <div className={'mb-px-15'}>
-                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;Паспорт РФ
+            <div className={'arrange-leasing_options-item'}>
+                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;<p>Паспорт РФ</p>
             </div>
-            <div className={'mb-px-15'}>
-                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;Водительское удостоверение (или другой документ,
-                удостоверяющий личность)
+            <div className={'arrange-leasing_options-item'}>
+                <FontAwesomeIcon icon={faCircleCheck}/>&nbsp;&nbsp;<p>Водительское удостоверение (или другой документ,
+                удостоверяющий личность)</p>
             </div>
         </div>
     </Container>
@@ -142,129 +146,328 @@ const StepBlock = () => {
     const settings: CarStatBlockProps = {data: [], dotted: true, column1Width: '1fr', column2Width: '1.5fr'}
 
     return (
-        <div className={'pt-px-100 pb-px-80'}>
+        <div className={'step-block'}>
             <Container fluid={'xxl'}>
                 <Header text={'Я подхожу, что дальше?'}/>
 
-                <Row className={'gx-0 mb-px-100'}>
-                    <Col md={4}>
-                        <Step bgText={'01'} type={'first'}>
-                            Выбираете<br/>
-                            программу<br/>
-                            лизинга
-                            <div className={'leasing__step-side-image'}></div>
-                        </Step>
-                    </Col>
-                    <Col md={4}>
-                        <Step bgText={'02'} type={'second'}>
-                            <div className={'mb-px-20'}>
-                                Выбираете<br/> автомобиль
-                            </div>
-                            <Link to={'/catalog'} className={'site-btn small '}>
+                <div className={'step-block_descktop'}>
+                    <Row>
+                        <Col md={4}>
+                            <Step bgText={'01'} type={'first'}>
+                                Выбираете<br/>
+                                программу<br/>
+                                лизинга
+                                <div className={'leasing__step-side-image'}></div>
+                            </Step>
+                        </Col>
+                        <Col md={4}>
+                            <Step bgText={'02'} type={'second'}>
+                                <div className={'mb-px-20'}>
+                                    Выбираете<br/> автомобиль
+                                </div>
+                                <Link to={'/catalog'} className={'site-btn small '}>
                                 <span
                                     className={'font-size-16 line-height-140 font-weight-medium'}>Перейти в каталог&nbsp;&nbsp;
                                     <FontAwesomeIcon icon={faArrowRight}/></span>
-                            </Link>
-                        </Step>
-                    </Col>
-                    <Col md={4}>
-                        <Step bgText={'03'} type={'third'}>
-                            <div className={'mb-px-20'}>
-                                Заключаете <br/> договор
+                                </Link>
+                            </Step>
+                        </Col>
+                        <Col md={4}>
+                            <Step bgText={'03'} type={'third'}>
+                                <div className={'mb-px-20'}>
+                                    Заключаете <br/> договор
+                                </div>
+                                <CallRequestForm small={true}
+                                                 text={<span
+                                                     className={'font-size-16 line-height-140 font-weight-medium'}>Заказать звонок&nbsp;&nbsp;
+                                                     <FontAwesomeIcon icon={faArrowRight}/></span>}/>
+                            </Step>
+                        </Col>
+                    </Row>
+
+                    <div className={'step-block_descktop_characteristic'}>
+                        <div>
+                            <div
+                                className={'step-block_descktop_characteristic_header'}>Новые
                             </div>
-                            <CallRequestForm small={true}
-                                             text={<span className={'font-size-16 line-height-140 font-weight-medium'}>Заказать звонок&nbsp;&nbsp;
-                                                 <FontAwesomeIcon icon={faArrowRight}/></span>}/>
-                        </Step>
-                    </Col>
-                </Row>
-
-                <div className={''} style={{display: 'grid', gridTemplateColumns: '1fr 100px 1fr'}}>
-                    <div>
-                        <div
-                            className={'font-size-72 line-height-140 font-weight-semibold mb-px-20 text-uppercase'}>Новые
-                        </div>
-                        <div className={'font-size-20 line-height-140 font-weight-medium mb-px-30'}>
-                            После заключения договора вы получаете выбранный автомобиль в долгосрочное пользование с
-                            правом выкупа.
-                        </div>
-                        <div className={'font-size-20 line-height-140 font-weight-medium mb-px-5 text-gray-color'}>
-                            Предмет лизинга:
-                        </div>
-                        <div className={'font-size-20 line-height-140 font-weight-medium mb-px-20'}>
-                            Новые автомобили
-                        </div>
-                        <div className={'font-size-20 line-height-140 font-weight-medium mb-px-10 text-gray-color'}>
-                            Условия:
-                        </div>
-                        <div className={'font-size-18'}>
-                            <CarStatBlockEntry settings={settings}>
-                                <CarStatBlockItem settings={settings}
-                                                  data={{
-                                                      name: "Первоначальный взнос",
-                                                      value: 'от 10 до 30% от стоимости а/м'
-                                                  }}/>
-                                <CarStatBlockItem settings={settings}
-                                                  data={{name: "Срок", value: 'от 1 до 5 лет'}}/>
-                                <CarStatBlockItem settings={settings}
-                                                  data={{name: "Условия выкупа", value: '1000 ₽'}}/>
-                            </CarStatBlockEntry>
-                        </div>
-
-                    </div>
-                    <div></div>
-                    <div>
-                        <div className={'font-size-72 line-height-140 font-weight-semibold mb-px-20 text-uppercase'}>с
-                            пробегом
-                        </div>
-                        <div className={'font-size-20 line-height-140 font-weight-medium mb-px-30'}>
-                            После завершения срока договора право собственности<br/>
-                            на автомобиль переходит к вам
-                        </div>
-                        <div className={'font-size-20 line-height-140 font-weight-medium mb-px-5 text-gray-color'}>
-                            Предмет лизинга:
-                        </div>
-                        <div className={'font-size-20 line-height-140 font-weight-medium mb-px-20'}>
-                            Автомобили с пробегом
-                        </div>
-                        <div className={'font-size-16 font-weight-medium mb-px-20'}>
-                            <CarStatBlockEntry settings={settings}>
-                                <CarStatBlockItem settings={settings}
-                                                  data={{
-                                                      name: "Возраст",
-                                                      value: 'не более 5 лет (с даты выпуска ПТС)'
-                                                  }}/>
-                                <CarStatBlockItem settings={settings}
-                                                  data={{name: "Пробег", value: 'не более 140 тыс. км.'}}/>
-                                <CarStatBlockItem settings={settings}
-                                                  data={{
-                                                      name: "Тех. состояние",
-                                                      value: 'а/м технически исправен, комплектен, повреждений нет наличие 2х ключей'
-                                                  }}/>
-                            </CarStatBlockEntry>
-
+                            <div className={'font-size-20 line-height-140 font-weight-medium mb-px-30'}>
+                                После заключения договора вы получаете выбранный автомобиль в долгосрочное пользование с
+                                правом выкупа.
+                            </div>
+                            <div className={'font-size-20 line-height-140 font-weight-medium mb-px-5 text-gray-color'}>
+                                Предмет лизинга:
+                            </div>
+                            <div className={'font-size-20 line-height-140 font-weight-medium mb-px-20'}>
+                                Новые автомобили
+                            </div>
+                            <div className={'font-size-20 line-height-140 font-weight-medium mb-px-10 text-gray-color'}>
+                                Условия:
+                            </div>
+                            <div className={'font-size-18'}>
+                                <CarStatBlockEntry settings={settings}>
+                                    <CarStatBlockItem settings={settings}
+                                                      data={{
+                                                          name: "Первоначальный взнос",
+                                                          value: 'от 10 до 30% от стоимости а/м'
+                                                      }}/>
+                                    <CarStatBlockItem settings={settings}
+                                                      data={{name: "Срок", value: 'от 1 до 5 лет'}}/>
+                                    <CarStatBlockItem settings={settings}
+                                                      data={{name: "Условия выкупа", value: '1000 ₽'}}/>
+                                </CarStatBlockEntry>
+                            </div>
 
                         </div>
-                        <div className={'font-size-20 line-height-140 font-weight-semibold mb-px-10 text-gray-color'}>
-                            Условия:
-                        </div>
-                        <div className={'font-size-18'}>
-                            <CarStatBlockEntry settings={settings}>
-                                <CarStatBlockItem settings={settings}
-                                                  data={{
-                                                      name: "Первоначальный взнос",
-                                                      value: 'от 10 до 30% от стоимости а/м'
-                                                  }}/>
-                                <CarStatBlockItem settings={settings}
-                                                  data={{name: "Срок", value: 'от 1 до 5 лет'}}/>
-                                <CarStatBlockItem settings={settings}
-                                                  data={{name: "Условия выкупа", value: '1000 ₽'}}/>
-                            </CarStatBlockEntry>
-                        </div>
+                        <div></div>
+                        <div>
+                            <div className={'step-block_descktop_characteristic_header'}>с
+                                пробегом
+                            </div>
+                            <div className={'font-size-20 line-height-140 font-weight-medium mb-px-30'}>
+                                После завершения срока договора право собственности<br/>
+                                на автомобиль переходит к вам
+                            </div>
+                            <div className={'font-size-20 line-height-140 font-weight-medium mb-px-5 text-gray-color'}>
+                                Предмет лизинга:
+                            </div>
+                            <div className={'font-size-20 line-height-140 font-weight-medium mb-px-20'}>
+                                Автомобили с пробегом
+                            </div>
+                            <div className={'font-size-16 font-weight-medium mb-px-20'}>
+                                <CarStatBlockEntry settings={settings}>
+                                    <CarStatBlockItem settings={settings}
+                                                      data={{
+                                                          name: "Возраст",
+                                                          value: 'не более 5 лет (с даты выпуска ПТС)'
+                                                      }}/>
+                                    <CarStatBlockItem settings={settings}
+                                                      data={{name: "Пробег", value: 'не более 140 тыс. км.'}}/>
+                                    <CarStatBlockItem settings={settings}
+                                                      data={{
+                                                          name: "Тех. состояние",
+                                                          value: 'а/м технически исправен, комплектен, повреждений нет наличие 2х ключей'
+                                                      }}/>
+                                </CarStatBlockEntry>
 
+
+                            </div>
+                            <div
+                                className={'font-size-20 line-height-140 font-weight-semibold mb-px-10 text-gray-color'}>
+                                Условия:
+                            </div>
+                            <div className={'font-size-18'}>
+                                <CarStatBlockEntry settings={settings}>
+                                    <CarStatBlockItem settings={settings}
+                                                      data={{
+                                                          name: "Первоначальный взнос",
+                                                          value: 'от 10 до 30% от стоимости а/м'
+                                                      }}/>
+                                    <CarStatBlockItem settings={settings}
+                                                      data={{name: "Срок", value: 'от 1 до 5 лет'}}/>
+                                    <CarStatBlockItem settings={settings}
+                                                      data={{name: "Условия выкупа", value: '1000 ₽'}}/>
+                                </CarStatBlockEntry>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </Container>
+
+
+            <div className={'step-block_mobile'}>
+                <Container fluid={'xxl'}>
+                    <div className={'step-block_mobile_characteristic_card'}>
+                        <div>
+                            <h2>
+                                Выбрать автомобиль
+                            </h2>
+                            <p>
+                                Выберите автомобиль из нашего <br/>
+                                каталога или предложите свой вариант
+                            </p>
+                        </div>
+                        <h1>
+                            01
+                        </h1>
+                    </div>
+                    <div className={'step-block_mobile_characteristic_card'}>
+                        <div>
+                            <h2>
+                                Обратиться к нам
+                            </h2>
+                            <p>
+                                Обратитесь к нам <br/>
+                                в любое удобное для вас время
+                            </p>
+                        </div>
+                        <h1>
+                            02
+                        </h1>
+                    </div>
+                    <div className={'step-block_mobile_characteristic_card'}>
+                        <div>
+                            <h2>
+                                Заключить договор
+                            </h2>
+                            <p>
+                                Договор заключается <br/>
+                                в течении одного дня
+                            </p>
+                        </div>
+                        <h1>03</h1>
+                    </div>
+                </Container>
+                <div className='mt-5'>
+                    <Container fluid='xxl'>
+                        <h1 className={'step-block_mobile_characteristic_table-header'}>
+                            Новые
+                        </h1>
+                        <p className={'step-block_mobile_characteristic_table-desc'}>
+                            После заключения договора вы получаете выбранный автомобиль в долгосрочное пользование с
+                            правом выкупа.
+                        </p>
+                    </Container>
+                    <table className="table table-striped step-block_mobile_characteristic_table">
+                        <thead>
+                        <tr>
+                            <th scope="col" className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Предмет лизинга
+                            </th>
+                            <th scope="col" className={'step-block_mobile_characteristic_table-right'}>Автомобили с
+                                Новые автомобили
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Первоначальный взнос
+                            </td>
+                            <td className={'step-block_mobile_characteristic_table-right'}>не более 5 лет
+                                от 10 до 30%
+                                от стоимости а/м
+
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Срок
+                            </td>
+                            <td className={'step-block_mobile_characteristic_table-right'}>от 1 до 5 лет
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Условия выкупа
+                            </td>
+                            <td className={'step-block_mobile_characteristic_table-right'}>1000 ₽
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div className={'mt-4'}>
+                    <Container fluid='xxl'>
+                        <h1 className={'step-block_mobile_characteristic_table-header'}>
+                            с пробегом
+                        </h1>
+                        <p className={'step-block_mobile_characteristic_table-desc'}>
+                            После заключения договора вы получаете выбранный автомобиль в долгосрочное пользование с
+                            правом выкупа.
+                        </p>
+                    </Container>
+                    <table className="table table-striped step-block_mobile_characteristic_table">
+                        <thead>
+                        <tr>
+                            <th scope="col" className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Предмет лизинга
+                            </th>
+                            <th scope="col" className={'step-block_mobile_characteristic_table-right'}>Автомобили с
+                                пробегом
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Возраст
+                            </td>
+                            <td className={'step-block_mobile_characteristic_table-right'}>не более 5 лет
+                                (с даты выпуска ПТС)
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Пробег
+                            </td>
+                            <td className={'step-block_mobile_characteristic_table-right'}>не более 140 тыс. км.
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Тех. состояние
+                            </td>
+                            <td className={'step-block_mobile_characteristic_table-right'}>а/м технически исправен,
+                                комплектен, повреждений нет наличие 2х ключей
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Первоначальный взнос
+                            </td>
+                            <td className={'step-block_mobile_characteristic_table-right'}>от 10 до 30%
+                                от стоимости а/м
+
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Срок
+                            </td>
+                            <td className={'step-block_mobile_characteristic_table-right'}>от 1 до 5 лет
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td className={
+                                'step-block_mobile_characteristic_table-left'
+                            }>Условия выкупа
+                            </td>
+                            <td className={'step-block_mobile_characteristic_table-right'}>1000 ₽
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
     )
 }
