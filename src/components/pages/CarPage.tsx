@@ -8,7 +8,7 @@ import CarBase from "./Car/CarBase";
 import CarImages from "./Car/CarImages";
 import CarInfo from "./Car/CarInfo";
 import LoadError from "../common/LoadError";
-import {useAppSelector} from "../../app/hooks";
+import {useAppSelector} from "../../store/hooks";
 
 const CarPage = () => {
     const car = useLoaderData() as CarData;

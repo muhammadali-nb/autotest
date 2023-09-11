@@ -1,6 +1,6 @@
 import React from 'react';
 import {CarData, CarPreorderButton, CarSameLink} from "../../common/CarCard";
-import {useAppSelector} from "../../../app/hooks";
+import {useAppSelector} from "../../../store/hooks";
 import CarStatBlock from "./CarStatBlock";
 import IndexCalculator from "../Index/IndexCalculator";
 

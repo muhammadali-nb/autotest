@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CarCard from "../../common/CarCard";
-import {useAppSelector} from "../../../app/hooks";
+import {useAppSelector} from "../../../store/hooks";
 import Api, {CatalogResponse, ErrorResponse} from "../../../Api";
 import {useSearchParams} from "react-router-dom";
 import Loader from "../../common/Loader";

@@ -16,8 +16,8 @@ import img from "../../img/common/modal-image.png";
 import {Carousel} from "react-bootstrap";
 import caretLeft from "../../img/common/caret-left-big.svg";
 import caretRight from "../../img/common/caret-right-big.svg";
-import {BaseState} from "../../app/reducers/baseDataSlice";
-import {useAppSelector} from "../../app/hooks";
+import {BaseState} from "../../store/reducers/baseDataSlice";
+import {useAppSelector} from "../../store/hooks";
 import {CarStatBlockEntry, CarStatBlockItem, CarStatBlockProps} from "../pages/Car/CarStatBlock";
 import CarRentForm from "./CarRentForm";
 

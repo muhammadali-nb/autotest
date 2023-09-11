@@ -962,9 +962,76 @@ code {
 }
 
 .cited {
-  padding-left: 36px;
+  padding: 0 0 0 36px;
   border-left: 6px solid $redColor;
+
+  &-mobile_divider {
+    display: none;
+    width: 24px;
+    height: 4px;
+    background-color: $redColor;
+    margin: 0 0 8px 0;
+
+    @include l-sm {
+      display: block;
+
+    }
+  }
+
+  margin: 76px 0 68px 0;
+
+
+  @include l-md {
+    margin: 44px 0 44px 0;
+  }
+
+  @include l-sm {
+    margin: 28px 0;
+    padding: 0;
+
+    border: none;
+  }
+
+  &-header {
+
+    font-size: 52px;
+    margin: 0 0 32px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+
+    //font-size-50 mb-px-30 font-weight-semibold text-uppercase line-height-120
+
+    @include l-md() {
+      font-size: 42px;
+      margin: 0 0 26px 0;
+
+    }
+    @include l-sm() {
+      font-size: 32px;
+      margin: 0 0 8px 0;
+    }
+
+  }
+
+  &-description {
+    font-size: 16px;
+    margin: 0 0 24px 0;
+    font-weight: 500;
+    //line-height: 16.8px;
+    //font-size-16 mb-px-20 font-weight-medium line-height-140 ls-001
+
+    @include l-md() {
+      font-size: 14px;
+      margin: 0 0 18px 0;
+    }
+
+    @include l-md() {
+      font-size: 12px;
+      margin: 0 0 14px 0;
+    }
+  }
 }
+
 
 .small-black-btn {
   outline: none;
@@ -991,7 +1058,45 @@ code {
   font-weight: 500;
   display: block;
   width: fit-content;
+
+  &:not(:last-child) {
+    margin: 0 0 22px 0;
+  }
+
   letter-spacing: 0.01em;
+
+  &-container {
+    margin: 0 0 42px 0;
+
+    @include l-md {
+      margin: 0 0 28px 0;
+    }
+
+    @include l-sm {
+      margin: 0;
+    }
+
+  }
+
+
+  & > br {
+    display: none;
+  }
+
+
+  @include l-sm() {
+    &:not(:last-child) {
+      margin: 0 0 10px 0;
+    }
+    font-size: 12px;
+    padding: 12px 20px 12px 60px;
+    width: 100%;
+
+    & > br {
+      display: block;
+    }
+
+  }
 
   &:before {
     position: absolute;
@@ -1019,6 +1124,45 @@ code {
   padding-right: 10px;
   position: relative;
   min-height: 88px;
+  margin: 0 0 40px 0;
+  @include l-md {
+    margin: 0 0 30px 0;
+  }
+  @include l-sm {
+    margin: 0 0 20px 0;
+  }
+
+  &_divider {
+    width: 30px;
+    height: 4px;
+    background-color: $redColor;
+  }
+
+  &_header {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+
+    @include l-sm {
+      font-size: 18px;
+    }
+    //font-weight-semibold font-size-24 mb-px-10 text-uppercase
+  }
+
+  &_description {
+    font-weight: 500;
+    font-size: 16px;
+    margin: 10px 0 0 0;
+    @include l-sm {
+      font-size: 12px;
+    }
+    //font-weight-medium font-size-16 line-height-140 ls-001
+  }
+
+  @include l-sm {
+    padding: 0 0 0 60px;
+  }
 
   &:before {
     position: absolute;
@@ -1034,6 +1178,14 @@ code {
     background-size: 48px 48px;
     background-position: center;
     background-repeat: no-repeat;
+
+    @include l-sm {
+      width: 44px;
+      height: 44px;
+
+      background-size: 22px 22px;
+
+    }
   }
 
   &.li-bank {
@@ -1566,5 +1718,33 @@ code {
       color: rgba($grayColor, 0.4);
       background: white !important;
     }
+  }
+}
+
+.second-block {
+  margin: 80px 0;
+
+  @include l-md {
+    margin: 60px 0;
+  }
+
+  @include l-sm {
+    margin: 40px 0;
+  }
+  //mt-px-80 mb-px-40
+
+  &_header {
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin: 0 0 40px 0;
+    font-size: 24px;
+
+    @include l-sm {
+      font-size: 16px;
+      margin: 0 0 30px 0;
+      width: 336px;
+    }
+    //text-gray-color font-weight-semibold font-size-24 text-uppercase opacity-50 mb-px-40
   }
 }

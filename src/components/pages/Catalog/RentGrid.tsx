@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useAppSelector} from "../../../app/hooks";
+import {useAppSelector} from "../../../store/hooks";
 import Api, {ErrorResponse, RentResponse} from "../../../Api";
 import {Link, useSearchParams} from "react-router-dom";
 import {CarRentCard} from "../../common/CarCard";

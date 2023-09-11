@@ -1,6 +1,6 @@
-import {BaseState, mockBaseState} from "./app/reducers/baseDataSlice";
+import {BaseState, mockBaseState} from "./store/reducers/baseDataSlice";
 import {CarData, CarDataInfo, CarRentDataInfo} from "./components/common/CarCard";
-import {Filter} from "./app/reducers/filterSlice";
+import {Filter} from "./store/reducers/filterSlice";
 import _ from 'lodash';
 
 

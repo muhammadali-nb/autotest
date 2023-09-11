@@ -25,10 +25,6 @@ const ToggleSentUserData = () => {
         // }
     })
 
-
-    useEffect(() => {
-        console.log(isShow)
-    }, [isShow]);
     return (
         <div ref={ref}>
             {isShow && <div className={`toggle_sent-data-mobile-form ${isShow && 'active'}`}>

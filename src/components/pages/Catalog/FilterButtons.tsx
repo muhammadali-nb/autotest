@@ -1,7 +1,7 @@
 import React from 'react';
-import {useAppDispatch, useAppSelector} from "../../../app/hooks";
-import {setFilter} from "../../../app/reducers/filterSlice";
-import {ButtonFilterData} from "../../../app/reducers/baseDataSlice";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
+import {setFilter} from "../../../store/reducers/filterSlice";
+import {ButtonFilterData} from "../../../store/reducers/baseDataSlice";
 
 const ButtonSet:React.FC<{data:ButtonFilterData}> = (props) => {
     const filter = useAppSelector(state => state.filter);

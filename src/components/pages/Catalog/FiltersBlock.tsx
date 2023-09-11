@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import DoubleSlider from "../../common/DoubleSlider";
 import {Collapse, FormCheck} from "react-bootstrap";
 import caretUp from './../../../img/common/caret-up-gray.png'
-import {useAppDispatch, useAppSelector} from "../../../app/hooks";
-import {setFilter} from "../../../app/reducers/filterSlice";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
+import {setFilter} from "../../../store/reducers/filterSlice";
 import {
     CheckboxFilterData,
     IdValued,
     ModelCheckboxFilterData,
     SliderFilterData
-} from "../../../app/reducers/baseDataSlice";
+} from "../../../store/reducers/baseDataSlice";
 
 import caret from './../../../img/common/caret-right.png';
 import Utils from "../../../Utils";

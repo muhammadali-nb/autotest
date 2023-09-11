@@ -10,8 +10,8 @@ import ModalFormTemplate, {
 } from "./ModalFormTemplate";
 import Utils from "../../Utils";
 import { CarData, CarRentDataInfo, CarTag } from "./CarCard";
-import { BaseState } from "../../app/reducers/baseDataSlice";
-import { useAppSelector } from "../../app/hooks";
+import { BaseState } from "../../store/reducers/baseDataSlice";
+import { useAppSelector } from "../../store/hooks";
 import sbpImg from "./../../img/common/sbp.png";
 import bankCardImg from "./../../img/common/bank-card.png";
 import {
