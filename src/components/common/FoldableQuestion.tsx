@@ -1,7 +1,7 @@
 import React, {ReactNode, useState} from 'react';
 import {Collapse} from "react-bootstrap";
-import circle from './../../img/common/circle-down.svg'
-import circleUp from './../../img/common/circle-up.svg'
+import circle from './../../img/common/chevron-down.svg'
+import circleUp from './../../img/common/chevron-up.svg'
 
 const FoldableQuestion:React.FC<{header:string|ReactNode, children:any, small?:boolean}> = (props) => {
     const [open, setOpen] = useState(false);
