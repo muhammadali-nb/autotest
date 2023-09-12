@@ -9,6 +9,9 @@ import {Link, useLoaderData} from "react-router-dom";
 import CallRequestForm from "../common/CallRequestForm";
 import {CarStatBlockEntry, CarStatBlockItem, CarStatBlockProps} from "./Car/CarStatBlock";
 import Api, {FaqResponse} from "../../Api";
+import coverLetter from '../../img/common/cover-letter.png'
+import coverNumber from '../../img/common/cover-number.png'
+import coverLetter02 from '../../img/common/cover-letter-02.png'
 
 
 const Header: React.FC<{ text: string | ReactNode }> = (props) =>
@@ -149,7 +152,6 @@ const StepBlock = () => {
         <div className={'step-block'}>
             <Container fluid={'xxl'}>
                 <Header text={'Я подхожу, что дальше?'}/>
-
                 <div className={'step-block_descktop'}>
                     <Row>
                         <Col md={4}>
@@ -177,9 +179,9 @@ const StepBlock = () => {
                                 <div className={'mb-px-20'}>
                                     Заключаете <br/> договор
                                 </div>
-                                <CallRequestForm small={true}
-                                                 text={<span
-                                                     className={'font-size-16 line-height-140 font-weight-medium'}>Заказать звонок&nbsp;&nbsp;
+                                <CallRequestForm
+                                    small={true}
+                                                 text={<span className={'font-size-16 line-height-140 font-weight-medium'}>Заказать звонок&nbsp;&nbsp;
                                                      <FontAwesomeIcon icon={faArrowRight}/></span>}/>
                             </Step>
                         </Col>
@@ -287,9 +289,10 @@ const StepBlock = () => {
                                 каталога или предложите свой вариант
                             </p>
                         </div>
-                        <h1>
+                        <h1 className={'first-number'}>
                             01
                         </h1>
+                        <img src={coverNumber} alt=""/>
                     </div>
                     <div className={'step-block_mobile_characteristic_card'}>
                         <div>
@@ -320,13 +323,16 @@ const StepBlock = () => {
                 </Container>
                 <div className='mt-5'>
                     <Container fluid='xxl'>
-                        <h1 className={'step-block_mobile_characteristic_table-header'}>
-                            Новые
-                        </h1>
-                        <p className={'step-block_mobile_characteristic_table-desc'}>
-                            После заключения договора вы получаете выбранный автомобиль в долгосрочное пользование с
-                            правом выкупа.
-                        </p>
+                        <div className='step-block_mobile_characteristic_table-top' >
+                            <h1 className={'step-block_mobile_characteristic_table-header'}>
+                                Новые
+                            </h1>
+                            <p className={'step-block_mobile_characteristic_table-desc'}>
+                                После заключения договора вы получаете выбранный автомобиль в долгосрочное пользование с
+                                правом выкупа.
+                            </p>
+                            <img src={coverLetter} alt=""/>
+                        </div>
                     </Container>
                     <table className="table table-striped step-block_mobile_characteristic_table">
                         <thead>
@@ -379,13 +385,17 @@ const StepBlock = () => {
                 </div>
                 <div className={'mt-4'}>
                     <Container fluid='xxl'>
-                        <h1 className={'step-block_mobile_characteristic_table-header'}>
-                            с пробегом
-                        </h1>
-                        <p className={'step-block_mobile_characteristic_table-desc'}>
-                            После заключения договора вы получаете выбранный автомобиль в долгосрочное пользование с
-                            правом выкупа.
-                        </p>
+                        <div  className='step-block_mobile_characteristic_table-top'>
+                            <h1 className={'step-block_mobile_characteristic_table-header'}>
+                                с пробегом
+                            </h1>
+                            <p className={'step-block_mobile_characteristic_table-desc'}>
+                                После заключения договора вы получаете выбранный автомобиль в долгосрочное пользование с
+                                правом выкупа.
+                            </p>
+                            <img src={coverLetter02} alt=""/>
+                        </div>
+
                     </Container>
                     <table className="table table-striped step-block_mobile_characteristic_table">
                         <thead>
@@ -478,27 +488,26 @@ const FaqBlock = () => {
     const questions1 = faq.faq.slice(0, Math.ceil(faq.faq.length / 2));
     const questions2 = faq.faq.slice(questions1.length);
     return (
-        <div className={'shadowed-bg pt-px-100 pb-px-80'}>
+        <div className={'faq-block'}>
             <Container fluid={'xxl'}>
-                <div className={'font-weight-semibold text-uppercase font-size-50 mb-px-60'}>
-                    Вопросы
-                </div>
-                <Row className={'gx-1 mb-px-100'}>
-                    <Col md={6}>
-                        <div style={{maxWidth: '620px'}}>
+                <h1 className={'faq-block_header'}>
+                    чАСТО ЗАДАВАЕМЫЕ <br/> ВОПРОСЫ
+                </h1>
+                <Row className={'faq-block_body gx-lg-5 gx-sm-0'}>
+                    <Col sm={12} lg={6} >
+                        <div className={'w-100'} >
                             {questions1.map((i, ind) => <FoldableQuestion key={ind} header={i.title}>
                                 {i.text}
                             </FoldableQuestion>)}
                         </div>
                     </Col>
-                    <Col md={6} className={'d-flex justify-content-end'}>
-                        <div className={'w-100'} style={{maxWidth: '620px'}}>
+                    <Col sm={12} lg={6}>
+                        <div className={'w-100'} >
                             {questions2.map((i, ind) => <FoldableQuestion key={ind} header={i.title}>
                                 {i.text}
                             </FoldableQuestion>)}
                         </div>
                     </Col>
-
                 </Row>
                 <div>
                     <FaqNotFound/>
