@@ -34,6 +34,7 @@ export type CarRentDataInfo = CarDataInfo & {
     regnum:string,
     run:number,
     available:boolean,
+    small?: boolean
 }
 
 export type CarData = {
@@ -75,17 +76,17 @@ export const CarRentButton:React.FC<{car:CarRentDataInfo, style?:React.CSSProper
         </div>
     );
 };
-export const CarTag:React.FC<{car:CarRentDataInfo|CarDataInfo, type?:'default'|'free'|"not-free", style?:React.CSSProperties, className?:string,children:any}>
-    = ({car,type='default',style, className, children = true}) => {
+export const CarTag:React.FC<{car:CarRentDataInfo|CarDataInfo, type?:'default'|'free'|"not-free", style?:React.CSSProperties, className?:string,children:any, small?: boolean}>
+    = ({car,type, small='default',style, className, children = true}) => {
     return (
-        <div className={'car__card-tag ' + type + '' + (className ??'')} style={style}>
+        <div className={`car__card-tag ${small && 'car__card-mobile-tag'} ` + type + '' + (className ??'')} style={style}>
             {children}
         </div>
     );
 };
 
 
-const CarCard:React.FC<{car:CarDataInfo, id?: string}> = ({car, id}) => {
+const CarCard:React.FC<{car:CarDataInfo, id?: string, responsive: boolean}> = ({car, responsive , id}) => {
     const baseData:BaseState = useAppSelector(state => state.baseData);
 
     const tags = baseData.top?.special.values?.filter((i) => car.special.includes(i.id)) ?? [];
@@ -93,29 +94,31 @@ const CarCard:React.FC<{car:CarDataInfo, id?: string}> = ({car, id}) => {
     const model = baseData.left?.models.values?.find((i) => car.model === i.id)?.name ?? 'неизвестно';
 
     return (
-        <div className={'car__card anim-start-top-4 anim-duration-1800'} id={id}>
+        <div className={`car__card ${responsive&& 'car__card-mobile'} anim-start-top-4 anim-duration-1800`} id={id}>
             <div>
-                <div className={'car__card-taglist'}>
+                <div className={`car__card-taglist ${responsive&& 'car__card-mobile-taglist'}  `}>
                     {tags.map((i, index)=>(<CarTag key={index} car={car}>{i.name}</CarTag>))}
                 </div>
 
                 <Link to={`/catalog/${car.id}`} className={'car__card-image'}>
                     <img src={car.thumb} alt={brand + ' ' + model}/>
                 </Link>
-                <div className={'car__card-title'}>
+                <div className={`car__card-title ${responsive&& 'car__card-mobile-title'} `}>
                     {brand} <span className={'model'}>{model}</span>
                 </div>
-                <div className={'car__card-payment'}>
+                <div className={`car__card-payment ${responsive&& 'car__card-mobile-payment'} `}>
                     Минимальный платеж
-                    <div className={'car__card-payment-value'}>{car.pay.toLocaleString()} ₽</div>
+                    <div className={`car__card-payment-value ${responsive&& 'car__card-mobile-payment'} `}>{car.pay.toLocaleString()} ₽</div>
                 </div>
-                <div className={'car__card-price'}>
+                <div className={`car__card-price ${responsive&& 'car__card-mobile-price'} `}>
                     Цена от&nbsp;
-                    <span className={'car__card-price-value'}>{car.price.toLocaleString()} ₽</span>
+                    <span className={`car__card-price-value ${responsive&& 'car__card-mobile-price-value'}  `}>{car.price.toLocaleString()} ₽</span>
                 </div>
                 <CarSameLink car={car} className={'mb-px-30 font-weight-semibold'} />
             </div>
-            <CarPreorderButton car={car} />
+           <div className={`car__card-preorder ${responsive&& 'car__card-mobile-preorder'} `} >
+               <CarPreorderButton car={car} />
+           </div>
         </div>
     );
 };
@@ -132,7 +135,7 @@ export const CarRentCard:React.FC<{car:CarRentDataInfo}> = ({car}) => {
             <div>
                 <div className={'car__card-taglist'}>
                     <CarTag type={car.available ? 'free' : 'not-free'} car={car}>{car.available ? 'Свободна' : 'Занята'}</CarTag>
-                    {tags.map((i, index)=>(<CarTag key={index} car={car}>{i.name}</CarTag>))}
+                    {tags.map((i, index)=>(<CarTag small={true} key={index} car={car}>{i.name}</CarTag>))}
                 </div>
 
                 <CarRentForm car={car} btn={<div className={'car__card-image'}>

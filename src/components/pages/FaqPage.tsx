@@ -29,7 +29,7 @@ const FaqLeasing = () => {
     const questions1 = faq.leasing.faq.slice(0, Math.ceil(faq.leasing.faq.length / 2));
     const questions2 = faq.leasing.faq.slice(questions1.length);
     return (
-        <Row className={'gx-1'}>
+        <Row className={'gx-lg-5 gx-sm-0'}>
             <Col md={6}>
                 <div >
                     {questions1.map((i, ind) => <FoldableQuestion key={ind} header={i.title}>

@@ -5,17 +5,15 @@ import ContactsForm from "../common/ContactsForm";
 // import {faClock, faLocationDot, faPhoneVolume} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom";
 
-import vkB from "./../../img/common/footer/vk-b.png"
-import vkW from "./../../img/common/footer/vk-w.png"
-import wappB from "./../../img/common/footer/wapp-b.png"
-import wappW from "./../../img/common/footer/wapp-w.png"
-// import instaB from "./../../img/common/footer/insta-b.png"
-// import instaW from "./../../img/common/footer/insta-w.png"
-import teleB from "./../../img/common/footer/tele-b.png"
-import teleW from "./../../img/common/footer/tele-w.png"
-import geo from "./../../img/common/geo.svg";
-import clock from "./../../img/common/clock.svg";
-import phone from "./../../img/common/phone.svg";
+
+import vkW from "./../../img/common/footer/social-icons-dark/vk.svg"
+import wappW from "./../../img/common/footer/social-icons-dark/whatsapp.svg"
+import teleW from "./../../img/common/footer/social-icons-dark/telegram.svg"
+
+import {FooterBottom, FooterContacts, FooterContactsBlock, FooterLink} from "../layout/Footer";
+import geoImage from "../../img/common/footer/contct-page-icons/Geolocation.svg";
+import clockImage from "../../img/common/footer/contct-page-icons/Clock 2.svg";
+import phoneImage from "../../img/common/footer/contct-page-icons/Phone 2.svg";
 
 const ContactBlock:React.FC<{icon:ReactNode, header:string|ReactNode,children:any}> = (props) =>
     <div className={'position-relative ps-px-45 mb-px-50'}>
@@ -25,6 +23,7 @@ const ContactBlock:React.FC<{icon:ReactNode, header:string|ReactNode,children:an
             {props.children}
         </div>
     </div>
+
 const ContactSocial:React.FC<{icon:string,hover:string, link:string}> = (props) =>
     <Link to={props.link} className={'contacts-social'}>
         <img src={props.icon} className={'default-image'} alt=""/>
@@ -44,39 +43,47 @@ const ContactsPage = () => {
 
     return (
         <BaseLayout meta={meta} title={title} footerNoContacts={true} footerNoForm={true} headerSelectedLink={'/contacts'}>
-            <Container fluid={'xxl pt-px-50 pb-px-40'}>
-                <Row>
-                    <Col lg={6}>
-                        <div className={'font-size-60 mb-px-15 text-uppercase font-weight-medium line-height-120'}>
-                            Контакты
-                        </div>
-                        <div style={{width:'85%', height:'6px', maxWidth:'500px'}} className={'bg-red-color mb-px-45'}></div>
-                        <div>
-                            <ContactBlock icon={<img src={geo} alt={''} />} header={'Адрес'} >
-                                {lines.map((i, index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}
-                            </ContactBlock>
-                            <ContactBlock icon={<img src={clock} alt={''} />} header={'Время работы'} >
-                                {lines2.map((i, index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}
-                            </ContactBlock>
-                            <ContactBlock icon={<img src={phone} alt={''} />} header={'Телефон'} >
-                                <div className={'mb-px-10 line-height-120'}>{process.env.REACT_APP_PHONE}</div>
-                            </ContactBlock>
-                        </div>
-                        <div className={'d-flex gap-x-px-20'}>
-                            <ContactSocial link={process.env.REACT_APP_VK_LINK ?? '/'} icon={vkB} hover={vkW} />
-                            <ContactSocial link={process.env.REACT_APP_TELEGRAM_LINK ?? '/'}
-                                           icon={wappB} hover={wappW} />
-                            <ContactSocial link={process.env.REACT_APP_TELEGRAM_LINK ?? '/'}
-                                           icon={teleB} hover={teleW} />
-                        </div>
+            {/*<FooterContacts/>*/}
+            <div className='footer-contacts-page '>
+                <Container fluid={'xxl'}>
+                    <Row className={'gx-3'}>
+                        <Col sm={12} md={6} >
+                            <div className=" footer-contacts-page_top">
+                                <div>Контакты</div>
+                            </div>
+                            <div className="footer-contacts-page_blocks">
+                                <FooterContactsBlock image={geoImage} text={'Адрес'} theme='light'>
+                                    {/*{lines.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
 
-                    </Col>
-                    <Col lg={6}>
-                        <ContactsForm big={false} />
-                    </Col>
-                </Row>
+                                    Санкт-Петербург <br/>
+                                    Торфяная дорога 7Ф <br/>
+                                    БЦ «Гулливер» 2 оф. 104 <br/>
 
-            </Container>
+                                </FooterContactsBlock>
+                                <FooterContactsBlock theme='light' image={clockImage} text={'Время работы'}>
+                                    {/*{lines2.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
+                                    пн-вс: с 10.00 - 19.00
+                                </FooterContactsBlock>
+                                <FooterContactsBlock theme='light' image={phoneImage} text={'Телефон'}>
+                                    {/*<a href={'tel:' + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")} >{process.env.REACT_APP_PHONE}</a>*/}
+                                    +7 (812) 317-68-15
+                                </FooterContactsBlock>
+                            </div>
+                            <div className={'footer-contacts-page_links'}>
+                                <FooterLink img={vkW}  link={process.env.REACT_APP_VK_LINK ?? '/'} />
+                                <FooterLink img={wappW}  link={process.env.REACT_APP_WAPP_LINK ??'/'} />
+                                <FooterLink img={teleW} link={process.env.REACT_APP_TELEGRAM_LINK ?? '/'} />
+                            </div>
+
+                            <FooterBottom />
+                        </Col>
+                        <Col  sm={12} md={6} className=' footer-contacts-page_contact-form'>
+                            <ContactsForm/>
+
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
         </BaseLayout>
     );
 };

@@ -50,8 +50,8 @@ const FirstBlock = () => <div>
     </Container>
 </div>
 
-const SecondBlock = () => <div>
-    <Container fluid={'xxl'} className={'second-block'}>
+const SecondBlock = () => <div className={'second-block'}>
+    <Container fluid={'xxl'}>
         <div className={'second-block_header '}>
             Преимущества лизинга для физических лиц:
         </div>
@@ -181,8 +181,8 @@ const StepBlock = () => {
                                 </div>
                                 <CallRequestForm
                                     small={true}
-                                                 text={<span className={'font-size-16 line-height-140 font-weight-medium'}>Заказать звонок&nbsp;&nbsp;
-                                                     <FontAwesomeIcon icon={faArrowRight}/></span>}/>
+                                    text={<span className={'font-size-16 line-height-140 font-weight-medium'}>Заказать звонок&nbsp;&nbsp;
+                                        <FontAwesomeIcon icon={faArrowRight}/></span>}/>
                             </Step>
                         </Col>
                     </Row>
@@ -323,7 +323,7 @@ const StepBlock = () => {
                 </Container>
                 <div className='mt-5'>
                     <Container fluid='xxl'>
-                        <div className='step-block_mobile_characteristic_table-top' >
+                        <div className='step-block_mobile_characteristic_table-top'>
                             <h1 className={'step-block_mobile_characteristic_table-header'}>
                                 Новые
                             </h1>
@@ -385,7 +385,7 @@ const StepBlock = () => {
                 </div>
                 <div className={'mt-4'}>
                     <Container fluid='xxl'>
-                        <div  className='step-block_mobile_characteristic_table-top'>
+                        <div className='step-block_mobile_characteristic_table-top'>
                             <h1 className={'step-block_mobile_characteristic_table-header'}>
                                 с пробегом
                             </h1>
@@ -494,15 +494,15 @@ const FaqBlock = () => {
                     чАСТО ЗАДАВАЕМЫЕ <br/> ВОПРОСЫ
                 </h1>
                 <Row className={'faq-block_body gx-lg-5 gx-sm-0'}>
-                    <Col sm={12} lg={6} >
-                        <div className={'w-100'} >
+                    <Col sm={12} lg={6}>
+                        <div className={'w-100'}>
                             {questions1.map((i, ind) => <FoldableQuestion key={ind} header={i.title}>
                                 {i.text}
                             </FoldableQuestion>)}
                         </div>
                     </Col>
                     <Col sm={12} lg={6}>
-                        <div className={'w-100'} >
+                        <div className={'w-100'}>
                             {questions2.map((i, ind) => <FoldableQuestion key={ind} header={i.title}>
                                 {i.text}
                             </FoldableQuestion>)}

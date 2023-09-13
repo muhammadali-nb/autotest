@@ -27,7 +27,7 @@ export type BaseLayoutProps = {
     meta?: MetaTags;
     noTopPadding?: boolean;
     [x: string]: any;
-};
+    };
 const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
     props: BaseLayoutProps
 ) => {
