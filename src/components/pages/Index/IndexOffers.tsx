@@ -25,7 +25,7 @@ const IndexOffers = () => {
 					{!Api.isError(recommend) && (
 						<div className={"index-offers-cards"}>
 							{recommend.map((i, index) => (
-								<CarCard car={i} key={index} />
+								<CarCard responsive={false} car={i} key={index} />
 							))}
 						</div>
 					)}

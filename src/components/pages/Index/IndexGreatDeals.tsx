@@ -33,6 +33,7 @@ const IndexGreatDeals = () => {
 					<Row className="great-deal_cars">
 						<Col xs={3}>
 							<CarCard
+								responsive={false}
 								id={"great-deal_car1"}
 								car={{
 									id: 1,
@@ -48,6 +49,7 @@ const IndexGreatDeals = () => {
 						</Col>
 						<Col xs={3}>
 							<CarCard
+								responsive={false}
 								id={"great-deal_car2"}
 								car={{
 									id: 1,
@@ -63,6 +65,7 @@ const IndexGreatDeals = () => {
 						</Col>
 						<Col xs={3}>
 							<CarCard
+								responsive={false}
 								id={"great-deal_car3"}
 								car={{
 									id: 1,
@@ -78,6 +81,7 @@ const IndexGreatDeals = () => {
 						</Col>
 						<Col xs={3}>
 							<CarCard
+								responsive={false}
 								id={"great-deal_car4"}
 								car={{
 									id: 1,

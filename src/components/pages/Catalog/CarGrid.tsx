@@ -45,7 +45,7 @@ const CarGrid:React.FC<{loader?: ()=>void}> = (props) => {
             {/*<Paginator />*/}
             <div className={'catalog__grid'}>
                 {!Api.isError(cars) && cars.list.map((i, index)=>(
-                    <CarCard car={i} key={index} />
+                    <CarCard responsive={true} car={i} key={index} />
                 ))}
             </div>
             <BottomMessage button={<CarRequestForm light />} text1={'Не нашли ничего подходящего?'}

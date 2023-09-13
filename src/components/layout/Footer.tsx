@@ -13,13 +13,12 @@ import teleB from "./../../img/common/footer/tele-b.png"
 import teleW from "./../../img/common/footer/tele-w.png"
 import ContactsForm from "../common/ContactsForm";
 import {Link} from "react-router-dom";
-import Utils from "../../Utils";
 
-const FooterMap:React.FC<{full:boolean, noContacts:boolean}> = ({full, noContacts}) => {
+const FooterMap: React.FC<{ full: boolean, noContacts: boolean }> = ({full, noContacts}) => {
     return (
         <div className={'footer__map-block ' + (full ? 'full' : '')}>
             {!noContacts && <div className={'footer__map-form'}>
-                <ContactsForm />
+                <ContactsForm/>
             </div>}
             <div className={'footer__map'}>
                 <iframe className={'map_container'} title={'Map'}
@@ -29,22 +28,22 @@ const FooterMap:React.FC<{full:boolean, noContacts:boolean}> = ({full, noContact
         </div>
     );
 }
-const FooterContactsBlock: React.FC<{image:any,text:string,children:any}> = (props) => {
-    return(
-        <div className={'footer-contacts-block'}>
-            <img src={props.image} alt={props.text} className={'footer-contacts-block-image'}/>
+export const FooterContactsBlock: React.FC<{ image: any, text: string, children: any, theme?: 'dark' | 'light' }> = (props) => {
+    return (
+        <div className={props.theme === 'dark' ? 'footer-contacts-block ' : 'footer-contacts-page_block'}>
+            <img src={props.image} alt={props.text} className={props.theme === 'dark' ? 'footer-contacts-block-image' : 'footer-contacts-page_block-image'}/>
             <div>
-                <div className={'footer-contacts-block-header'}>
+                <div className={ props.theme === 'dark' ? 'footer-contacts-block-header ' : 'footer-contacts-page_block_header'}>
                     {props.text}
                 </div>
-                <div className={'footer-contacts-block-text'}>
+                <div className={props.theme === 'dark'?'footer-contacts-block-text ': 'footer-contacts-page_block_text'}>
                     {props.children}
                 </div>
             </div>
         </div>
     )
 }
-const FooterLink:React.FC<{img:any,hover:any,link:string}> = (props) => {
+export const FooterLink: React.FC<{ img: any, hover?: any, link: string }> = (props) => {
     return (
         <Link to={props.link} className={'footer-contacts-link'}>
             <img src={props.img} className={'default-image'} alt=""/>
@@ -52,7 +51,7 @@ const FooterLink:React.FC<{img:any,hover:any,link:string}> = (props) => {
         </Link>
     );
 }
-const FooterBottom = () => {
+export const FooterBottom = () => {
     return (
         <div className={'footer-contacts-bottom'}>
             <span className={'footer-contacts-bottom-element'}>ООО ВОСХОД ⓒ 2023 год</span>
@@ -65,9 +64,9 @@ const FooterBottom = () => {
 
     );
 }
-const FooterContacts = () => {
-    const lines = process.env.REACT_APP_ADDRESS?.split('\n')??[];
-    const lines2 = process.env.REACT_APP_WORKTIME?.split('\n')??[];
+export const FooterContacts = () => {
+    const lines = process.env.REACT_APP_ADDRESS?.split('\n') ?? [];
+    const lines2 = process.env.REACT_APP_WORKTIME?.split('\n') ?? [];
     return (
         <Container fluid={'xxl'}>
             <Row className={'g-0'}>
@@ -76,7 +75,7 @@ const FooterContacts = () => {
                         <div>Контакты</div>
                     </div>
                     <div className="footer-contacts-blocks">
-                        <FooterContactsBlock image={geoImage} text={'Адрес'}>
+                        <FooterContactsBlock theme='dark' image={geoImage} text={'Адрес'}>
                             {/*{lines.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
 
                             Санкт-Петербург <br/>
@@ -84,29 +83,29 @@ const FooterContacts = () => {
                             БЦ «Гулливер» 2 оф. 104 <br/>
 
                         </FooterContactsBlock>
-                        <FooterContactsBlock image={clockImage} text={'Время работы'}>
+                        <FooterContactsBlock theme='dark' image={clockImage} text={'Время работы'}>
                             {/*{lines2.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
                             пн-вс: с 10.00 - 19.00
                         </FooterContactsBlock>
-                         <FooterContactsBlock image={phoneImage} text={'Телефон'}>
+                        <FooterContactsBlock theme='dark' image={phoneImage} text={'Телефон'}>
                             {/*<a href={'tel:' + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")} >{process.env.REACT_APP_PHONE}</a>*/}
                             +7 (812) 317-68-15
                         </FooterContactsBlock>
                     </div>
                     <div className={'footer-contacts-links'}>
-                        <FooterLink img={vkW} hover={vkB} link={process.env.REACT_APP_VK_LINK ?? '/'} />
-                        <FooterLink img={wappW} hover={wappB} link={process.env.REACT_APP_WAPP_LINK ??'/'} />
-                        <FooterLink img={teleW} hover={teleB} link={process.env.REACT_APP_TELEGRAM_LINK ?? '/'} />
+                        <FooterLink img={vkW} hover={vkB} link={process.env.REACT_APP_VK_LINK ?? '/'}/>
+                        <FooterLink img={wappW} hover={wappB} link={process.env.REACT_APP_WAPP_LINK ?? '/'}/>
+                        <FooterLink img={teleW} hover={teleB} link={process.env.REACT_APP_TELEGRAM_LINK ?? '/'}/>
                     </div>
 
-                    <FooterBottom />
+                    <FooterBottom/>
                 </Col>
             </Row>
         </Container>
     );
 }
 const SmallFooter = () => {
-    return(
+    return (
         <div className={'py-px-20'}>
             <Container fluid={'xxl'}>
                 <div className={'d-flex justify-content-between'}>
@@ -115,8 +114,10 @@ const SmallFooter = () => {
                         <span className={'font-size-14 font-weight-light'}>© 2023 год</span>
                     </div>
                     <div className={'d-flex'}>
-                        <Link to={'/offer'} className={'footer-contacts-bottom-element text-gray-color me-px-10'}>Оферта</Link>
-                        <Link to={'/policy'} className={'footer-contacts-bottom-element text-gray-color'}>Политика конфиденциальности</Link>
+                        <Link to={'/offer'}
+                              className={'footer-contacts-bottom-element text-gray-color me-px-10'}>Оферта</Link>
+                        <Link to={'/policy'} className={'footer-contacts-bottom-element text-gray-color'}>Политика
+                            конфиденциальности</Link>
                     </div>
                 </div>
             </Container>
@@ -124,13 +125,13 @@ const SmallFooter = () => {
     )
 }
 
-const Footer:React.FC<{ noContacts?: boolean,noForm?:boolean, small?:boolean }> = (props) => {
-    if(props.small)
-        return <SmallFooter />
+const Footer: React.FC<{ noContacts?: boolean, noForm?: boolean, small?: boolean }> = (props) => {
+    if (props.small)
+        return <SmallFooter/>
     return (
-        <footer className={'footer'} style={{backgroundImage:`url("${bg}")`}}>
-            <FooterMap full={props.noContacts ?? false} noContacts={props.noForm ?? false} />
-            {!props.noContacts && <FooterContacts />}
+        <footer className={'footer'} style={{backgroundImage: `url("${bg}")`}}>
+            <FooterMap full={props.noContacts ?? false} noContacts={props.noForm ?? false}/>
+            {!props.noContacts && <FooterContacts/>}
         </footer>
     );
 };
