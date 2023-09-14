@@ -130,7 +130,8 @@ const RentPage = () => {
                         </div>
                         <div className={'flex-grow w-100'}>
                             <AlertMessage page={'rent'} type={'danger'} className={'mb-px-60'} />
-                            <FilterButtons mode={'rent'} />
+                            {/* <FilterButtons mode={'rent'} /> */} 
+                            {/* dont forget to open */}
                             <RentGrid />
                         </div>
                     </div>
