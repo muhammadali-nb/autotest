@@ -8,6 +8,7 @@ function Slider(props:any) {
             className="horizontal-slider"
             thumbClassName="example-thumb"
             trackClassName="example-track"
+            
             {...props}
             // renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
         />

@@ -127,7 +127,7 @@ const WhiteHeader: React.FC<{
 						icon={faBars}
 					/>
 
-					<HeaderLogoImage image={image} />
+					<HeaderLogoImage height={"24px"} width={"100px"} image={image} />
 					{/*<FontAwesomeIcon className='header-mobile_phone header-mobile_phone_dark' icon={faPhoneVolume} />*/}
 					<CallRequestForm light={false} />
 				</div>
@@ -226,7 +226,7 @@ const TransparentHeader: React.FC<{
 						icon={faBars}
 						onClick={() => setMenuIsShow(true)}
 					/>
-					<HeaderLogoImage image={"light"} />
+					<HeaderLogoImage height={"24px"} width={"100px"} image={"light"} />
 					<CallRequestForm light={true} />
 				</div>
 				<div className={"header-desktop"}>
@@ -264,7 +264,7 @@ const Header: React.FC<HeaderProps> = ({
 
 	if (type === "logo") return <LogoHeader image={image} />;
 	return (
-		<div className={"header"}>
+		<div className={"header "}>
 			{type === "transparent" && !showWhite && (
 				<TransparentHeader
 					setMenuIsShow={setBurgerMenuIsShow}

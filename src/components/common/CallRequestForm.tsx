@@ -10,6 +10,8 @@ import ModalFormTemplate, {
 } from "./ModalFormTemplate";
 import Utils from "../../Utils";
 import { faPhoneVolume } from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
+import callIcon from "../../img/common/Phone-header.svg";
+import callIconDark from "../../img/common/Phone-header-dark.svg";
 
 const CallRequestFormContent: React.FC<{
 	closeFunc: () => void;
@@ -174,15 +176,20 @@ const CallRequestForm: React.FC<{
 					)}
 				</button>
 			) : (
-				<FontAwesomeIcon
+				<img
 					onClick={handleShow}
-					className={`header-mobile_phone ${
-						props.light
-							? "header-mobile_phone_light"
-							: "header-mobile_phone_dark"
-					} `}
-					icon={faPhoneVolume}
+					src={props.light ? callIcon : callIconDark}
+					alt="order call"
 				/>
+				// <FontAwesomeIcon
+				// 	onClick={handleShow}
+				// 	className={`header-mobile_phone ${
+				// 		props.light
+				// 			? "header-mobile_phone_light"
+				// 			: "header-mobile_phone_dark"
+				// 	} `}
+				// 	icon={faPhoneVolume}
+				// />
 			)}
 
 			<ModalFormTemplate show={show} onHide={handleClose} centered size={"xl"}>
