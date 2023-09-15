@@ -39,7 +39,7 @@ const IndexOffers = () => {
 					additionalTransfrom={0}
 					arrows
 					autoPlay
-					autoPlaySpeed={1}
+					autoPlaySpeed={4}
 					centerMode={false}
 					className=""
 					containerClass="container-with-dots"
@@ -89,7 +89,7 @@ const IndexOffers = () => {
 					sliderClass=""
 					slidesToSlide={1}
 					swipeable
-					transitionDuration={30000}
+					transitionDuration={20000}
 					customLeftArrow={<></>}
 					customRightArrow={<></>}>
 					<div className={"index-offers-brand"}>

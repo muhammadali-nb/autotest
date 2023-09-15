@@ -26,7 +26,7 @@ const IndexLogo:React.FC<{bgNoCar?:boolean}> = (props = {bgNoCar:false}) => {
                         <Row className={'g-3 flex-grow-1'}>
                             <Col  sm={12} md={8} lg={6} id={'logo-text'}>
                                 <div className={' index__logo-header anim-enter-top-3 line-height-120'} id={'logo__text'}>
-                                    <div className={'mb-px-5'}>Как кредит</div>
+                                    <div >Как кредит</div>
                                     <div className={'muted'}>только проще</div>
                                 </div>
                                 <IndexCalculator wideSpace={true} />

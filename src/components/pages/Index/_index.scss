@@ -17,10 +17,8 @@
     height: 100%;
     top: 0;
     left: 0;
-    background:linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 92.52%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 92.52%);
     z-index: 20;
-
-
   }
 
   .index__logo-content {
@@ -39,7 +37,7 @@
       padding: 100px 0 70px 0;
     }
 
-    @include  l-sm() {
+    @include l-sm() {
       padding: 0;
     }
 
@@ -48,19 +46,17 @@
       font-size: 64px;
       line-height: 120%;
       color: white;
-      margin: 0 0 76px 0 ;
+      margin: 0 0 76px 0;
       //text-transform: uppercase;
       @include l-xxl {
-        font-size: 56px;
+        font-size: 58px;
       }
       @include l-md {
         font-size: 48px;
-        margin: 0 0 46px 0;
       }
 
       @include l-sm {
-        margin: 0 0 34px 0;
-
+        margin: 0 0 52px 0;
       }
 
       .muted {
@@ -68,11 +64,13 @@
         font-size: 52px;
         color: #d9d9d9;
         line-height: 120%;
+        margin: 6px 0 0 0;
         @include l-xxl() {
           font-size: 48px;
         }
         @include l-md() {
           font-size: 36px;
+          margin: 0;
         }
       }
     }
@@ -80,7 +78,7 @@
     @include l-md() {
       padding-top: 80px;
     }
-    
+
     @include l-sm() {
       padding: 0;
     }
@@ -133,7 +131,7 @@
     font-size: 14px;
   }
   @include l-sm() {
-    margin: 32px 0 0 0 ;
+    margin: 54px 0 0 0;
     font-size: 12px;
     max-width: 100%;
     width: 100%;
@@ -150,7 +148,7 @@
 }
 
 .index__steps-mobile {
-  padding: 46px 0 52px;
+  padding: 40px 0 78px;
   display: none;
   @include media-breakpoint-down(md) {
     display: block;
@@ -262,7 +260,7 @@
 }
 
 .index__step-mobile {
-  padding: 76px 0 0 0;
+  padding: 88px 0 0 0;
   position: relative;
 
   &-desc {
@@ -285,11 +283,11 @@
   &_bgtext {
     font-family: "Lato";
     position: absolute !important;
-    top: 0;
+    top: 16px;
     right: 0;
     line-height: 100%;
-    font-size: 130px;
-    height: 130px;
+    font-size: 100px;
+    height: 120px;
     font-weight: bold;
     color: #e7e7e8;
   }
@@ -297,7 +295,7 @@
   &_arrow {
     position: absolute;
     left: 0;
-    bottom: -70px;
+    bottom: -76px;
     z-index: 20;
   }
 }
@@ -309,8 +307,6 @@
   min-height: 800px;
   padding: 120px 0 120px;
   overflow-x: hidden;
-
-
 
   * {
     position: relative;
@@ -361,7 +357,7 @@
   }
 
   @include l-sm {
-    height: 46.5%;
+    height: 43.5%;
   }
 }
 
@@ -395,13 +391,11 @@
   @include l-md() {
     font-size: 16px;
     margin-bottom: 24px;
-
   }
 
   @include l-sm() {
     font-size: 12px;
     margin-bottom: 0;
-
   }
 }
 
@@ -415,9 +409,9 @@
     margin-bottom: 100px;
     display: block;
   }
-  
+
   @include l-sm {
-    margin: 40px 0 60px 0;
+    margin: 40px 0 80px 0;
   }
 }
 
@@ -429,9 +423,8 @@
     align-items: center;
     gap: 8px;
     &:not(:last-child) {
-      margin: 0 0 20px 0 ;
+      margin: 0 0 20px 0;
     }
-
   }
   &-big {
     font-family: "Inter";
@@ -535,7 +528,12 @@
       left: unset;
       top: unset;
       position: relative;
+
       margin-bottom: 20px;
+
+      @include l-md {
+        margin-bottom: 44px;
+      }
     }
   }
 
@@ -585,20 +583,24 @@
 
     @include l-md {
       font-size: 24px;
-      color:#222222 ;
+      color: #222222;
     }
   }
 
   .index__about-badge-divider {
+    // style={{width: '60px', height: '6px'}}
     margin: 16px 0 14px 0;
+    width: 60px;
+    height: 6px;
 
     @include l-sm {
       margin: 8px 0 6px 0;
-
+      width: 40px;
+      height: 4px;
     }
   }
   .index__about-badge-text {
-    font-weight: 600;
+    font-weight: 500;
     @include l-lg {
       color: #dadada;
     }
@@ -761,20 +763,31 @@
     display: flex;
     align-items: self-end;
     justify-content: space-between;
-    margin: 0 0 48px 0;
+    margin: 0 0 56px 0;
     & > h1 {
       font-size: 64px;
       text-transform: uppercase;
       font-weight: 600;
+      margin: 0;
     }
   }
 
   @include l-lg {
     &_header {
       display: block;
-      margin-bottom: 32px;
+      margin-bottom: 46px;
       & > h1 {
         font-size: 48px;
+      }
+    }
+  }
+
+  @include l-md {
+    &_header {
+      display: block;
+      margin-bottom: 32px;
+      & > h1 {
+        font-size: 28px;
       }
     }
   }
@@ -783,7 +796,7 @@
     &_header {
       margin: 0 0 26px 0;
       & > h1 {
-        font-size: 28px;
+        font-size: 20px;
       }
     }
   }
@@ -794,6 +807,36 @@
     & > p {
       margin: 0 0 0 0;
       font-weight: 600;
+      font-size: 16px;
+    }
+  }
+
+  @include l-lg {
+    &_more {
+      display: flex;
+      align-items: center;
+
+      & > p {
+        // font-size: 14px;
+        margin: 0 12px 0 0;
+      }
+
+    }
+  }
+
+  @include l-md {
+    &_more {
+      display: flex;
+      align-items: center;
+
+      & > p {
+        font-size: 14px;
+        margin: 0 8px 0 0;
+      }
+
+      & > img {
+        width: 82px;
+      }
     }
   }
 

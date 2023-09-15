@@ -30,7 +30,7 @@ const IndexGreatDeals = () => {
 					</div>
 				</div>
 				<div className="great-deal_cars-container">
-					<Row className="great-deal_cars">
+					<Row className="great-deal_cars gx-2">
 						<Col xs={3}>
 							<CarCard
 								responsive={false}
@@ -43,12 +43,13 @@ const IndexGreatDeals = () => {
 									price: 120.0,
 									pay: 112.0,
 									thumb: carImage,
-									special: ["Лизинг до 7 лет"],
+									special: [1, 2, 3],
 								}}
 							/>
 						</Col>
 						<Col xs={3}>
 							<CarCard
+							
 								responsive={false}
 								id={"great-deal_car2"}
 								car={{
@@ -59,7 +60,7 @@ const IndexGreatDeals = () => {
 									price: 120.0,
 									pay: 112.0,
 									thumb: carImage,
-									special: ["Лизинг до 7 лет"],
+									special: [1, 2, 3],
 								}}
 							/>
 						</Col>
@@ -75,7 +76,7 @@ const IndexGreatDeals = () => {
 									price: 120.0,
 									pay: 112.0,
 									thumb: carImage,
-									special: ["Лизинг до 7 лет"],
+									special: [1, 2, 3],
 								}}
 							/>
 						</Col>
@@ -91,7 +92,7 @@ const IndexGreatDeals = () => {
 									price: 120.0,
 									pay: 112.0,
 									thumb: carImage,
-									special: ["Лизинг до 7 лет"],
+									special: [1, 2, 3],
 								}}
 							/>
 						</Col>
