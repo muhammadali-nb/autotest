@@ -1,232 +1,287 @@
-import React, {useEffect, useState} from 'react';
-import logoDark from './../../img/logo-dark.svg';
-import logoDarkCred from './../../img/logo-dark-cred.svg';
-import logoLight from './../../img/logo-light.svg';
-import {Container} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import logoDark from "./../../img/logo-dark.svg";
+import logoDarkCred from "./../../img/logo-dark-cred.svg";
+import logoLight from "./../../img/logo-light.svg";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import CallRequestForm from "../common/CallRequestForm";
-import {faBars} from "@fortawesome/free-solid-svg-icons/faBars";
-import {faPhoneVolume} from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
+import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
+import { faPhoneVolume } from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
 import ModalFormTemplate from "../common/ModalFormTemplate";
 
-
 type HeaderType = "transparent" | "white" | "logo";
-export type HeaderImage = "dark" | "darkCred" | 'light';
+export type HeaderImage = "dark" | "darkCred" | "light";
 type HeaderLink = {
-    text: string,
-    path?: string,
-    className?: string,
-}
+	text: string;
+	path?: string;
+	className?: string;
+};
 type HeaderProps = {
-    type: HeaderType,
-    image?: HeaderImage,
-    links?: Array<HeaderLink>,
-    selectedLink?: string,
-    burgerMenuIsShow?: boolean
-    setBurgerMenuIsShow: (e: boolean) => void
-}
+	type: HeaderType;
+	image?: HeaderImage;
+	links?: Array<HeaderLink>;
+	selectedLink?: string;
+	burgerMenuIsShow?: boolean;
+	setBurgerMenuIsShow: (e: boolean) => void;
+};
 
 export const defaultLinks = [
-    {text: "Главная", path: "/", className: '', },
-    {text: "Каталог", path: "/catalog", className: '', },
-    {text: "Программы", path: "/programs", className: ''},
-    {text: "Аренда", path: "/rent", className: ''},
-    {text: "Вопросы", path: "/faq", className: ''},
-    {text: "Контакты", path: "/contacts", className: ''},
-]
-export const HeaderLogoImage: React.FC<{ image: HeaderImage, height?: string | number, width?: string | number }>
-    = ({image = 'dark', height = '38px', width = 'auto'}) => {
-    return (
-        <Link to={'/'}>
-            <img style={{height: height, width: width, objectFit: 'contain'}}
-                 src={image === "dark"
-                     ? logoDark
-                     : image === 'light' ? logoLight : logoDarkCred}
-                 alt={'Восход'}
-            />
-        </Link>
-    )
-}
+	{ text: "Главная", path: "/", className: "" },
+	{ text: "Каталог", path: "/catalog", className: "" },
+	{ text: "Программы", path: "/programs", className: "" },
+	{ text: "Аренда", path: "/rent", className: "" },
+	{ text: "Вопросы", path: "/faq", className: "" },
+	{ text: "Контакты", path: "/contacts", className: "" },
+];
+export const HeaderLogoImage: React.FC<{
+	image: HeaderImage;
+	height?: string | number;
+	width?: string | number;
+}> = ({ image = "dark", height = "38px", width = "auto" }) => {
+	return (
+		<Link to={"/"}>
+			<img
+				style={{ height: height, width: width, objectFit: "contain" }}
+				src={
+					image === "dark"
+						? logoDark
+						: image === "light"
+						? logoLight
+						: logoDarkCred
+				}
+				alt={"Восход"}
+			/>
+		</Link>
+	);
+};
 
+const HeaderLinks: React.FC<{
+	links: Array<HeaderLink>;
+	light?: boolean;
+	selected?: string;
+}> = ({ links, light = false, selected = "/" }) => {
+	return (
+		<div className={"header-links"}>
+			<div className={"d-none d-lg-flex align-items-center"}>
+				{links.map((i, ind) => (
+					<Link
+						key={ind}
+						to={i.path ?? "/"}
+						className={
+							"header-link " +
+							(light ? "light " : "") +
+							(selected === i.path ? "selected " : "") +
+							i.className
+						}>
+						{i.text}
+					</Link>
+				))}
+			</div>
+			<div className={"header-controls"}>
+				<button className={"user-btn " + (light ? "light" : "")}></button>
 
+				<CallRequestForm
+					text={
+						<span className={"font-weight-semibold"}>
+							Заказать звонок&nbsp;&nbsp;&nbsp;
+							<FontAwesomeIcon icon={faArrowRight} />
+						</span>
+					}
+					small={true}
+					light={light}
+				/>
+			</div>
+		</div>
+	);
+};
 
-const HeaderLinks: React.FC<{ links: Array<HeaderLink>, light?: boolean, selected?: string }>
-    = ({links, light = false, selected = '/'}) => {
+const LogoHeader: React.FC<{ image?: HeaderImage }> = ({ image = "dark" }) => {
+	return (
+		<div className={"d-flex w-100 justify-content-center py-4"}>
+			<HeaderLogoImage image={image} height={"41px"} width={"172px"} />
+		</div>
+	);
+};
 
-    return (
-        <div className={'header-links'}>
-            <div className={'d-none d-lg-flex align-items-center'}>
-                {links.map((i, ind) =>
-                    (
-                        <Link key={ind} to={i.path ?? '/'}
-                              className={'header-link ' + (light ? 'light ' : '') + (selected === i.path ? 'selected ' : '') + i.className}>
-                            {i.text}
-                        </Link>
-                    ))}
-            </div>
-            <div className={'header-controls'}>
-                <button className={'user-btn ' + (light ? 'light' : '')}></button>
+const WhiteHeader: React.FC<{
+	image?: HeaderImage;
+	links: Array<HeaderLink>;
+	selected?: string;
+	show?: boolean;
+	setMenuIsShow: (e: boolean) => void;
+}> = ({ image = "dark", links, selected, show = false, setMenuIsShow }) => {
+	return (
+		<div
+			className={"py-3 bg-white opacity-" + (show ? 100 : 0)}
+			style={{
+				boxShadow: "0px 5px 20px rgba(0, 0, 0, 0.07)",
+				transition: "all 0.2s ease-out",
+			}}>
+			<Container fluid={"xxl"}>
+				<div className={"header-mobile"}>
+					<FontAwesomeIcon
+						onClick={() => setMenuIsShow(true)}
+						className="header-mobile_burger header-mobile_burger_dark"
+						icon={faBars}
+					/>
 
-                <CallRequestForm
-                    text={<span className={'font-weight-semibold'}>Заказать звонок&nbsp;&nbsp;&nbsp;<FontAwesomeIcon
-                        icon={faArrowRight}/></span>} small={true} light={light}/>
-            </div>
-        </div>
-    )
-}
+					<HeaderLogoImage image={image} />
+					{/*<FontAwesomeIcon className='header-mobile_phone header-mobile_phone_dark' icon={faPhoneVolume} />*/}
+					<CallRequestForm light={false} />
+				</div>
+				<div className={"header-desktop"}>
+					<HeaderLogoImage image={image} />
+					<HeaderLinks selected={selected} links={links ?? defaultLinks} />
+				</div>
+			</Container>
+		</div>
+	);
+};
+const TransparentHeader: React.FC<{
+	links: Array<HeaderLink>;
+	selected?: string;
+	setMenuIsShow: (e: boolean) => void;
+}> = ({ links, selected, setMenuIsShow }) => {
+	// const func = async () => {
+	//
+	//     // setTimeout(function (){
+	//     //     let start = Date.now();
+	//     //     console.log("start long: " + start)
+	//     //     while((start + 10000) > Date.now()){
+	//     //
+	//     //     }
+	//     //     console.log('loooong time: ' + Date.now());
+	//     // }, 100);
+	//     // setTimeout(function (){
+	//     //     console.log('short time' + Date.now());
+	//     // }, 200);
+	//
+	//     const sleep = async(time)=>{
+	//         let start = Date.now();
+	//         while((start + time) > Date.now()){
+	//         }
+	//     }
+	//     const f = async (time, name, state) => {
+	//         let start = Date.now();
+	//         console.log(`start ${name} promise (+${time}): ` + (Date.now() % 100000), ' main thread state:' + state)
+	//         while((start + time) > Date.now()){
+	//             await sleep(100)
+	//         }
+	//     }
+	//
+	//
+	//     console.log("================")
+	//     console.log("start main thread " + (Date.now() % 100000))
+	//     console.log("----")
+	//     let state = 'long';
+	//     new Promise<void>(async function(resolver){
+	//         console.log('start long task: ' + (Date.now() % 100000), ' main thread state:' + state);
+	//         let max = 2000, counter = 0;
+	//         while(counter < max){
+	//             let random = Math.floor(Math.random() * 100);
+	//             await sleep(random)
+	//             counter = Math.min(counter + random, max);
+	//             console.log('long promise progress: +' + (random / (max/100)) + "%, total: " + (counter / (max/100)));
+	//         }
+	//         console.log('end long promise: ' + (Date.now() % 100000), ' main thread state:' + state);
+	//         resolver();
+	//     }).then(()=>{
+	//         console.log('end long task: ' + (Date.now() % 100000), ' main thread state:' + state);
+	//     })
+	//
+	//     state = 'short';
+	//     new Promise<void>(async function(resolver){
+	//         console.log('start short task: ' + (Date.now() % 100000), ' main thread state:' + state);
+	//         let max = 1000, counter = 0;
+	//         while(counter < max){
+	//             let random = Math.floor(Math.random() * 100);
+	//             await sleep(random)
+	//             counter = Math.min(counter + random, max);
+	//             console.log('short promise progress: +' + (random / (max/100)) + "%, total: " + (counter / (max/100)));
+	//         }
+	//         console.log('end short promise: ' + (Date.now() % 100000), ' main thread state:' + state);
+	//         resolver();
+	//     }).then(()=>{
+	//         const f1 = async() =>{
+	//             console.log('end short task: ' + (Date.now() % 100000), ' main thread state:' + state);
+	//         }
+	//         f1();
+	//     })
+	//
+	//     state='ended';
+	//     console.log("end main thread " + (Date.now() % 100000))
+	//     console.log("----")
+	// }
 
-
-const LogoHeader: React.FC<{ image?: HeaderImage }> = ({image = 'dark'}) => {
-    return (<div className={'d-flex w-100 justify-content-center py-4'}>
-        <HeaderLogoImage image={image} height={'41px'} width={'172px'}/>
-    </div>)
-}
-
-const WhiteHeader: React.FC<{ image?: HeaderImage, links: Array<HeaderLink>, selected?: string, show?: boolean , setMenuIsShow: (e: boolean) => void }>
-    = ({image = 'dark', links, selected, show = false, setMenuIsShow}) => {
-    return (
-        <div className={'py-3 bg-white opacity-' + (show ? 100 : 0)} style={{
-            boxShadow: '0px 5px 20px rgba(0, 0, 0, 0.07)',
-            transition: 'all 0.2s ease-out'
-        }}>
-            <Container fluid={'xxl'}>
-                <div className={'header-mobile'}>
-                    <FontAwesomeIcon onClick={() => setMenuIsShow(true)} className='header-mobile_burger header-mobile_burger_dark' icon={faBars} />
-
-                    <HeaderLogoImage image={image}/>
-                    {/*<FontAwesomeIcon className='header-mobile_phone header-mobile_phone_dark' icon={faPhoneVolume} />*/}
-                    <CallRequestForm light={false}/>
-                </div>
-                <div className={"header-desktop"}>
-                    <HeaderLogoImage image={image}/>
-                    <HeaderLinks selected={selected} links={links ?? defaultLinks}/>
-                </div>
-            </Container>
-        </div>
-    )
-}
-const TransparentHeader: React.FC<{ links: Array<HeaderLink>, selected?: string, setMenuIsShow: (e: boolean) => void }>
-    = ({links, selected, setMenuIsShow}) => {
-    // const func = async () => {
-    //
-    //     // setTimeout(function (){
-    //     //     let start = Date.now();
-    //     //     console.log("start long: " + start)
-    //     //     while((start + 10000) > Date.now()){
-    //     //
-    //     //     }
-    //     //     console.log('loooong time: ' + Date.now());
-    //     // }, 100);
-    //     // setTimeout(function (){
-    //     //     console.log('short time' + Date.now());
-    //     // }, 200);
-    //
-    //     const sleep = async(time)=>{
-    //         let start = Date.now();
-    //         while((start + time) > Date.now()){
-    //         }
-    //     }
-    //     const f = async (time, name, state) => {
-    //         let start = Date.now();
-    //         console.log(`start ${name} promise (+${time}): ` + (Date.now() % 100000), ' main thread state:' + state)
-    //         while((start + time) > Date.now()){
-    //             await sleep(100)
-    //         }
-    //     }
-    //
-    //
-    //     console.log("================")
-    //     console.log("start main thread " + (Date.now() % 100000))
-    //     console.log("----")
-    //     let state = 'long';
-    //     new Promise<void>(async function(resolver){
-    //         console.log('start long task: ' + (Date.now() % 100000), ' main thread state:' + state);
-    //         let max = 2000, counter = 0;
-    //         while(counter < max){
-    //             let random = Math.floor(Math.random() * 100);
-    //             await sleep(random)
-    //             counter = Math.min(counter + random, max);
-    //             console.log('long promise progress: +' + (random / (max/100)) + "%, total: " + (counter / (max/100)));
-    //         }
-    //         console.log('end long promise: ' + (Date.now() % 100000), ' main thread state:' + state);
-    //         resolver();
-    //     }).then(()=>{
-    //         console.log('end long task: ' + (Date.now() % 100000), ' main thread state:' + state);
-    //     })
-    //
-    //     state = 'short';
-    //     new Promise<void>(async function(resolver){
-    //         console.log('start short task: ' + (Date.now() % 100000), ' main thread state:' + state);
-    //         let max = 1000, counter = 0;
-    //         while(counter < max){
-    //             let random = Math.floor(Math.random() * 100);
-    //             await sleep(random)
-    //             counter = Math.min(counter + random, max);
-    //             console.log('short promise progress: +' + (random / (max/100)) + "%, total: " + (counter / (max/100)));
-    //         }
-    //         console.log('end short promise: ' + (Date.now() % 100000), ' main thread state:' + state);
-    //         resolver();
-    //     }).then(()=>{
-    //         const f1 = async() =>{
-    //             console.log('end short task: ' + (Date.now() % 100000), ' main thread state:' + state);
-    //         }
-    //         f1();
-    //     })
-    //
-    //     state='ended';
-    //     console.log("end main thread " + (Date.now() % 100000))
-    //     console.log("----")
-    // }
-
-    return (
-        <div className={'py-3 position-absolute w-100 top-0 left-0'} style={{zIndex: 1000}}>
-            <Container fluid={'xxl'}>
-                <div className={'header-mobile'}>
-                    <FontAwesomeIcon className='header-mobile_burger header-mobile_burger_light' icon={faBars} onClick={() => setMenuIsShow(true)} />
-                    <HeaderLogoImage image={'light'}/>
-                    <CallRequestForm light={true}/>
-                </div>
-                <div className={"header-desktop"}>
-                    <HeaderLogoImage image={'light'}/>
-                    <HeaderLinks light={true} selected={selected} links={links ?? defaultLinks}/>
-                    {/*<button onClick={()=>func()}>Click me</button>*/}
-                </div>
-            </Container>
-        </div>
-    );
-}
+	return (
+		<div
+			className={"py-3 position-absolute w-100 top-0 left-0"}
+			style={{ zIndex: 1000 }}>
+			<Container fluid={"xxl"}>
+				<div className={"header-mobile"}>
+					<FontAwesomeIcon
+						className="header-mobile_burger header-mobile_burger_light"
+						icon={faBars}
+						onClick={() => setMenuIsShow(true)}
+					/>
+					<HeaderLogoImage image={"light"} />
+					<CallRequestForm light={true} />
+				</div>
+				<div className={"header-desktop"}>
+					<HeaderLogoImage image={"light"} />
+					<HeaderLinks
+						light={true}
+						selected={selected}
+						links={links ?? defaultLinks}
+					/>
+					{/*<button onClick={()=>func()}>Click me</button>*/}
+				</div>
+			</Container>
+		</div>
+	);
+};
 const Header: React.FC<HeaderProps> = ({
-                                           type = 'white',
-                                           image = 'dark',
-                                           links = defaultLinks,
-                                           selectedLink,
-    setBurgerMenuIsShow,
-    burgerMenuIsShow
+	type = "white",
+	image = "dark",
+	links = defaultLinks,
+	selectedLink,
+	setBurgerMenuIsShow,
+	burgerMenuIsShow,
+}: HeaderProps) => {
+	const [showWhite, setShowWhite] = useState(false);
+	useEffect(() => {
+		let handler = () => {
+			if (window.pageYOffset > 150 && !showWhite) setShowWhite(true);
+			else if (window.pageYOffset <= 50 && !showWhite) setShowWhite(false);
+		};
+		window.addEventListener("scroll", handler);
+		// return () => {
+		//     window.removeEventListener('scroll', handler);
+		// }
+	});
 
-                                       }: HeaderProps) => {
-    const [showWhite, setShowWhite] = useState(false);
-    useEffect(() => {
-        let handler = () => {
-            if (window.pageYOffset > 150 && !showWhite)
-                setShowWhite(true);
-            else if (window.pageYOffset <= 50 && !showWhite)
-                setShowWhite(false);
-        };
-        window.addEventListener('scroll', handler)
-        // return () => {
-        //     window.removeEventListener('scroll', handler);
-        // }
-    })
-
-    if (type === 'logo')
-        return (<LogoHeader image={image}/>)
-    return (<div className={'position-fixed top-0 start-0 w-100'} style={{zIndex: 100}}>
-        {type === 'transparent' && !showWhite && <TransparentHeader setMenuIsShow={setBurgerMenuIsShow} selected={selectedLink} links={links}/>}
-        <WhiteHeader show={type !== 'transparent' || showWhite} image={image} links={links} setMenuIsShow={setBurgerMenuIsShow} selected={selectedLink}/>
-    </div>)
+	if (type === "logo") return <LogoHeader image={image} />;
+	return (
+		<div className={"header"}>
+			{type === "transparent" && !showWhite && (
+				<TransparentHeader
+					setMenuIsShow={setBurgerMenuIsShow}
+					selected={selectedLink}
+					links={links}
+				/>
+			)}
+			<WhiteHeader
+				show={type !== "transparent" || showWhite}
+				image={image}
+				links={links}
+				setMenuIsShow={setBurgerMenuIsShow}
+				selected={selectedLink}
+			/>
+		</div>
+	);
 };
 
 export default Header;
-export type {HeaderType}
+export type { HeaderType };

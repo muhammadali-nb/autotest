@@ -1,5 +1,13 @@
 $textColor: #222222;
 $selectedColor: #bf3535;
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 80;
+  // position-fixed top-0 start-0 w-100 z-100
+}
 
 .header-links {
   display: flex;

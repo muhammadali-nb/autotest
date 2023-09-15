@@ -163,6 +163,7 @@ const CarRequestForm: React.FC<{
 	light?: boolean;
 	text?: string | ReactNode;
 	small?: boolean;
+	icon?: ReactNode;
 }> = (props) => {
 	const [show, setShow] = useState(false);
 	const [sent, setSent] = useState(false);
@@ -171,15 +172,19 @@ const CarRequestForm: React.FC<{
 	const handleShow = () => setShow(true);
 	return (
 		<>
-			<button
-				className={
-					"site-btn" +
-					(props.light ? " light" : "") +
-					(props.small ? " small" : "")
-				}
-				onClick={handleShow}>
-				{props.text ?? <>Оставить заявку</>}
-			</button>
+			{props.icon ? (
+				<div onClick={handleShow}>{props.icon}</div>
+			) : (
+				<button
+					className={
+						"site-btn" +
+						(props.light ? " light" : "") +
+						(props.small ? " small" : "")
+					}
+					onClick={handleShow}>
+					{props.text ?? <>Оставить заявку</>}
+				</button>
+			)}
 			<ModalFormTemplate show={show} onHide={handleClose} centered size={"xl"}>
 				{!sent && (
 					<CarRequestFormContent closeFunc={handleClose} setSent={setSent} />
