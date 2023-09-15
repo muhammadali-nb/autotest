@@ -1,45 +1,45 @@
-.filter-block-container {
-  width: 100%;
-  max-height: calc(100vh - 120px);
-  overflow-y: scroll;
-  position: sticky;
-  top: 120px;
-  //padding-left: 10px;
-  z-index: 90;
-  &::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
-  }
-  &::-webkit-scrollbar-button {
-    width: 6px;
-    height: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #e7e7e8;
-    border: 0px none #ffffff;
-    border-radius: 2px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #e7e7e8;
-  }
-  &::-webkit-scrollbar-thumb:active {
-    background: #e7e7e8;
-  }
-  &::-webkit-scrollbar-track {
-    background: #ffffff;
-    border: 0px none #ffffff;
-    border-radius: 1px;
-  }
-  &::-webkit-scrollbar-track:hover {
-    background: #ffffff;
-  }
-  &::-webkit-scrollbar-track:active {
-    background: #ffffff;
-  }
-  &::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-}
+// .filter-block-container {
+//   width: 100%;
+//   max-height: calc(100vh - 120px);
+//   overflow-y: scroll;
+//   position: sticky;
+//   top: 120px;
+//   //padding-left: 10px;
+//   z-index: 90;
+//   &::-webkit-scrollbar {
+//     width: 0px;
+//     height: 0px;
+//   }
+//   &::-webkit-scrollbar-button {
+//     width: 6px;
+//     height: 6px;
+//   }
+//   &::-webkit-scrollbar-thumb {
+//     background: #e7e7e8;
+//     border: 0px none #ffffff;
+//     border-radius: 2px;
+//   }
+//   &::-webkit-scrollbar-thumb:hover {
+//     background: #e7e7e8;
+//   }
+//   &::-webkit-scrollbar-thumb:active {
+//     background: #e7e7e8;
+//   }
+//   &::-webkit-scrollbar-track {
+//     background: #ffffff;
+//     border: 0px none #ffffff;
+//     border-radius: 1px;
+//   }
+//   &::-webkit-scrollbar-track:hover {
+//     background: #ffffff;
+//   }
+//   &::-webkit-scrollbar-track:active {
+//     background: #ffffff;
+//   }
+//   &::-webkit-scrollbar-corner {
+//     background: transparent;
+//   }
+// }
 
 .filter-menu {
   position: fixed;
@@ -50,10 +50,14 @@
   height: 100%;
   box-shadow: inset 0px 0px 80px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-  transition: all .5s ease-in-out;
-
+  transition: all 0.5s ease-in-out;
+  overflow: scroll;
   &.active {
     left: 0;
+  }
+
+  &_scroller {
+    height: auto;
   }
 
   &_header {
@@ -71,10 +75,11 @@
 
   &_body {
     padding: 14px 20px;
-    height: 1860px;
+
+    // overflow: scroll;
 
     &-content {
-      overflow-y: scroll;
+      // height: 1860px;
     }
   }
 }
@@ -83,6 +88,10 @@
   display: block;
   background-color: transparent;
   z-index: 90;
+
+  @include l-lg {
+    display: none;
+  }
 
   .filters-block-open-btn {
     display: none;
@@ -166,6 +175,10 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 120%;
+
+  @include l-sm {
+    font-size: 12px;
+  }
   &.selected {
     font-weight: 500;
     border-color: $redColor;

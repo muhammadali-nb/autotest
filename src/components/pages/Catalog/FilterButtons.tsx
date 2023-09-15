@@ -48,7 +48,7 @@ const FilterButtons: React.FC<{
 	};
 	return (
 		<div
-			className={"d-md-flex gap-3 justify-content-between mb-px-25 flex-wrap"}>
+			className={"d-lg-flex gap-3 justify-content-between mb-px-25 flex-wrap"}>
 			{mode === "book" && (filterList?.new.values?.length ?? 0) > 0 && (
 				<div className="d-flex justify-content-between align-items-center  mb-3 mb-md-0">
 					<div className={"d-flex  gap-2 py-1 justify-content-start flex-wrap"}>
@@ -72,7 +72,7 @@ const FilterButtons: React.FC<{
 						))}
 					</div>
 					<FontAwesomeIcon
-						className="d-block d-md-none "
+						className="d-block d-lg-none "
 						onClick={() => isShowMobileFiler(true)}
 						style={{ width: "20px", height: "26px" }}
 						icon={faFilter}
@@ -82,7 +82,7 @@ const FilterButtons: React.FC<{
 			{mode === "book" && (filterList?.special.values?.length ?? 0) > 0 && (
 				<div
 					className={
-						"d-none d-md-flex gap-2 py-1 justify-content-start flex-wrap"
+						"d-none d-lg-flex gap-2 py-1 justify-content-start flex-wrap"
 					}>
 					<button
 						onClick={() => updateFilter("special", 0)}

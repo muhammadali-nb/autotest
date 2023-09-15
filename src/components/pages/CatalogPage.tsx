@@ -72,7 +72,7 @@ export const BottomMessage: React.FC<{
 	return (
 		<div
 			className={
-				"px-px-40 py-px-25 my-px-20 text-white d-flex justify-content-between align-items-bottom"
+				"bottom-message"
 			}
 			style={{
 				backgroundImage: `url('${bg}')`,
@@ -82,19 +82,19 @@ export const BottomMessage: React.FC<{
 			<div>
 				<div
 					className={
-						"font-size-20 font-weight-medium mb-px-15 line-height-120"
+						"bottom-message_description"
 					}>
 					{props.text1}
 				</div>
 				<div
 					className={
-						"font-size-32 font-weight-semibold text-uppercase line-height-120"
+						"bottom-message_header "
 					}>
 					{props.text2}
 				</div>
 			</div>
 			<div
-				className={"d-flex flex-column justify-content-end align-items-bottom"}>
+				className={"bottom-message_btn"}>
 				{props.button}
 			</div>
 		</div>

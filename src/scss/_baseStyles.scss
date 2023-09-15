@@ -243,18 +243,19 @@ body {
   color: #222222;
   max-width: 100%;
   letter-spacing: 0.01em;
-  font-family: Inter,
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  "Roboto",
-  "Oxygen",
-  "Ubuntu",
-  "Cantarell",
-  "Fira Sans",
-  "Droid Sans",
-  "Helvetica Neue",
-  sans-serif;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
 
   .site {
     max-width: 100%;
@@ -774,7 +775,6 @@ code {
     @include l-sm() {
       font-size: 12px;
     }
-
   }
 
   &_description {
@@ -798,10 +798,8 @@ code {
     padding: 10px 12px 10px 70px;
     background-position: 15px center;
 
-
     width: calc(100% - 24px);
   }
-
 }
 
 .modal-template {
@@ -974,12 +972,10 @@ code {
 
     @include l-sm {
       display: block;
-
     }
   }
 
   margin: 76px 0 68px 0;
-
 
   @include l-md {
     margin: 44px 0 44px 0;
@@ -993,7 +989,6 @@ code {
   }
 
   &-header {
-
     font-size: 52px;
     margin: 0 0 32px 0;
     font-weight: 500;
@@ -1004,13 +999,11 @@ code {
     @include l-md() {
       font-size: 42px;
       margin: 0 0 26px 0;
-
     }
     @include l-sm() {
       font-size: 32px;
       margin: 0 0 8px 0;
     }
-
   }
 
   &-description {
@@ -1031,7 +1024,6 @@ code {
     }
   }
 }
-
 
 .small-black-btn {
   outline: none;
@@ -1075,14 +1067,11 @@ code {
     @include l-sm {
       margin: 0;
     }
-
   }
-
 
   & > br {
     display: none;
   }
-
 
   @include l-sm() {
     &:not(:last-child) {
@@ -1095,7 +1084,6 @@ code {
     & > br {
       display: block;
     }
-
   }
 
   &:before {
@@ -1184,7 +1172,6 @@ code {
       height: 44px;
 
       background-size: 22px 22px;
-
     }
   }
 
@@ -1215,7 +1202,7 @@ code {
 
 .faq {
   margin: 40px 0;
-  
+
   @include l-sm {
     margin: 30px 0;
   }
@@ -1231,13 +1218,12 @@ code {
     margin-bottom: 20px;
 
     @include l-md {
-      font-size: 44px ;
+      font-size: 44px;
     }
 
     @include l-sm {
       font-size: 32px;
       margin-bottom: 12px;
-
     }
   }
 
@@ -1246,16 +1232,15 @@ code {
 
     @include l-md {
       margin: 0 0 70px 0;
-
     }
 
     @include l-sm {
       margin: 0 0 40px 0;
     }
   }
-  
+
   &_description {
-    color:  #606569 ;
+    color: #606569;
     font-size: 16px;
     margin: 0 0 60px 0;
 
@@ -1270,11 +1255,7 @@ code {
 
     //text-gray-color font-inter-medium
   }
-
-
 }
-
-
 
 .foldable {
   margin-bottom: 35px;
@@ -1318,7 +1299,6 @@ code {
     height: 24px;
     object-fit: contain;
 
-
     &.foldable-header-image-small {
       width: 18px;
       height: 18px;
@@ -1341,7 +1321,7 @@ code {
     @include l-md {
       font-size: 14px;
     }
-    @include  l-sm {
+    @include l-sm {
       font-size: 12px;
     }
   }
@@ -1745,7 +1725,6 @@ code {
   }
 }
 
-
 .arrange-leasing {
   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
   box-shadow: inset 0px 0px 60px rgba(0, 0, 0, 0.1);
@@ -1814,11 +1793,9 @@ code {
         @include l-sm {
           font-size: 12px;
         }
-
       }
 
       & > svg {
-
         width: 22px;
         height: 22px;
 
@@ -1836,7 +1813,6 @@ code {
 
   @include l-md {
     padding: 80px 0 50px 0;
-
   }
 
   @include l-sm {
@@ -1850,8 +1826,6 @@ code {
     }
 
     &_characteristic {
-
-
       &_table {
         &-top {
           position: relative;
@@ -1864,12 +1838,9 @@ code {
           }
         }
         &-header {
-
           font-weight: 600;
           text-transform: uppercase;
           font-size: 20px;
-
-
         }
 
         &-desc {
@@ -1882,11 +1853,12 @@ code {
         }
 
         th {
-          color: #FFFFFF;
+          color: #ffffff;
           font-weight: 600;
         }
 
-        td, th {
+        td,
+        th {
           font-size: 12px;
         }
 
@@ -1928,21 +1900,15 @@ code {
 
         & > h1 {
           font-size: 60px;
-
-
-
         }
 
         & > img {
           position: absolute;
           right: -10px;
           top: 0;
-          z-index: 20
-        ;
+          z-index: 20;
         }
-
       }
-
     }
   }
 
@@ -1961,7 +1927,6 @@ code {
 
       @include l-lg {
         grid-template-columns: 1fr 50px 1fr;
-
       }
 
       &_header {
@@ -1977,7 +1942,6 @@ code {
         //font-size-72 line-height-140 font-weight-semibold mb-px-20 text-uppercase
       }
     }
-
   }
 }
 
@@ -2055,13 +2019,11 @@ code {
   padding: 100px 0 80px 0;
 
   &_body {
-
-
     margin: 0 0 100px 0;
     @include l-md {
       margin: 0 0 70px 0;
     }
-    
+
     @include l-sm {
       margin: 0 0 40px 0;
     }
@@ -2070,7 +2032,6 @@ code {
 
   @include l-md {
     padding: 70px 0 50px 0;
-
   }
 
   @include l-sm {
@@ -2083,7 +2044,7 @@ code {
     font-size: 52px;
     margin: 0 0 60px 0;
     padding: 0 0 0 36px;
-    border-left: 6px solid #BF3535;
+    border-left: 6px solid #bf3535;
     //font-weight-semibold text-uppercase font-size-50 mb-px-40 line-height-120
 
     @include l-md {
@@ -2102,18 +2063,14 @@ code {
 .faq-contacts {
   //margin: 100px 0 90px;
   padding: 0 0 0 36px;
-  border-left: 6px solid #BF3535;
+  border-left: 6px solid #bf3535;
   @include l-md {
-
     padding: 0 0 0 24px;
   }
 
   @include l-sm {
-
-
     padding: 0 0 0 12px;
   }
-
 
   .faq-contacts-header {
     font-weight: 600;
@@ -2144,5 +2101,65 @@ code {
     @include l-sm {
       font-size: 12px;
     }
+  }
+}
+
+.bottom-message {
+  padding: 25px 40px;
+  color: #ffffff;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin: 20px 0 0 0;
+
+  @include l-md {
+    padding: 20px 20px;
+  }
+
+  @include l-sm {
+    padding: 14px 18px;
+  }
+
+  // px-px-40 py-px-25 my-px-20 text-white d-flex justify-content-between align-items-bottom
+
+  &_description {
+    font-size: 20px;
+    font-size: 600;
+    margin: 0 0 16px 0;
+
+    @include l-md {
+      font-size: 14px;
+      margin: 0 0 10px 0;
+    }
+
+    @include l-sm {
+      font-size: 12px;
+      margin: 0 0 6px 0;
+    }
+
+    // font-size-20 font-weight-medium mb-px-15 line-height-120
+  }
+
+  &_header {
+    font-size: 32px;
+    font-weight: 600;
+    // font-size-32 font-weight-semibold text-uppercase line-height-120
+
+    @include l-md {
+      font-size: 18px;
+    }
+
+    @include l-sm {
+      font-size: 16px;
+    }
+  }
+
+  &_btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+    // d-flex flex-column justify-content-end align-items-bottom
   }
 }
