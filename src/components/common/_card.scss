@@ -85,6 +85,10 @@
     font-size: 22px;
     margin-bottom: 10px;
   }
+
+  @include l-sm {
+    margin: 0 0 16px 0;
+  }
 }
 .car__card-payment {
   font-family: "Inter";
