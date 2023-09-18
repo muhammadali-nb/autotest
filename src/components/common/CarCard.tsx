@@ -136,9 +136,6 @@ const CarCard: React.FC<{
 		baseData.top?.special.values?.filter((i) => car.special.includes(i.id)) ??
 		[];
 
-
-
-
 	const brand =
 		baseData.left?.brands.values?.find((i) => car.brand === i.id)?.name ??
 		"неизвестно";
@@ -191,7 +188,7 @@ const CarCard: React.FC<{
 					<div
 						className={` ${
 							responsive
-								? "car__card-mobile-payment"
+								? "car__card-mobile-payment-value"
 								: "car__card-payment-value"
 						} `}>
 						{car.pay.toLocaleString()} ₽

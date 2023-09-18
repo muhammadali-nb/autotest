@@ -4,6 +4,7 @@ import { setFilter } from "../../../store/reducers/filterSlice";
 import { ButtonFilterData } from "../../../store/reducers/baseDataSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import filterIcon from "../../../img/common/filter-icon.svg";
 
 const ButtonSet: React.FC<{ data: ButtonFilterData }> = (props) => {
 	const filter = useAppSelector((state) => state.filter);
@@ -71,12 +72,19 @@ const FilterButtons: React.FC<{
 							</button>
 						))}
 					</div>
-					<FontAwesomeIcon
+					{/* <FontAwesomeIcon
 						className="d-block d-lg-none "
 						onClick={() => isShowMobileFiler(true)}
 						style={{ width: "20px", height: "26px" }}
 						icon={faFilter}
-					/>
+					/> */}
+
+					<div
+						className="d-block d-lg-none "
+						onClick={() => isShowMobileFiler(true)}>
+						
+						<img src={filterIcon} alt="" />
+					</div>
 				</div>
 			)}
 			{mode === "book" && (filterList?.special.values?.length ?? 0) > 0 && (

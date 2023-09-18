@@ -176,7 +176,7 @@ $selectedColor: #bf3535;
   left: 0;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(1, 1, 1, 0.5);
   z-index: 199;
   transform: scale(0);
@@ -189,7 +189,7 @@ $selectedColor: #bf3535;
 
   &_container {
     width: 380px;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

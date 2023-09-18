@@ -358,7 +358,10 @@
   }
 
   @include l-sm {
-    height: 43.5%;
+    height: 45%;
+
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 92.52%)
+      url("./../../../img/index/about_bg.webp");
   }
 }
 
@@ -530,10 +533,14 @@
       top: unset;
       position: relative;
 
-      margin-bottom: 20px;
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
 
       @include l-md {
-        margin-bottom: 44px;
+        &:not(:last-child) {
+          margin-bottom: 44px;
+        }
       }
     }
   }
@@ -620,6 +627,10 @@
 .index__offers {
   padding-top: 100px;
   padding-bottom: 100px;
+
+  @include l-md {
+    padding: 40px 0 48px 0;
+  }
 
   .index__offers-header {
     display: flex;
@@ -742,6 +753,10 @@
     padding-top: 60px;
     padding-bottom: 60px;
   }
+
+  @include l-sm {
+    padding: 40px 0 48px 0;
+  }
 }
 
 .index-offers-brand {
@@ -750,11 +765,21 @@
   justify-content: center;
   height: 100%;
   width: 100%;
+  padding: 0 16px;
 
   img {
     height: 80px;
-    max-width: 200px;
+    // max-width: 200px;
+    width: 100%;
     object-fit: contain;
+
+    @include l-md {
+      height: 46px;
+    }
+
+    @include l-sm {
+      height: 32px;
+    }
   }
 }
 
@@ -821,7 +846,6 @@
         // font-size: 14px;
         margin: 0 12px 0 0;
       }
-
     }
   }
 
@@ -848,11 +872,11 @@
 
       & > p {
         font-size: 12px;
-        margin: 0 8px 0 0;
+        margin: 0 16px 0 0;
       }
 
       & > img {
-        width: 76px;
+        width: 134px;
       }
     }
   }
@@ -879,5 +903,13 @@
 @include l-md {
   .great-deal {
     padding: 48px 0 0 0;
+  }
+}
+
+.catalog {
+  padding: 40px 0;
+
+  @include l-sm {
+    padding: 20px 0;
   }
 }

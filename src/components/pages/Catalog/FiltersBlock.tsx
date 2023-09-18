@@ -55,7 +55,7 @@ const FilterRange: React.FC<{
 		<Filter header={props.header} open={props.data.open ?? false}>
 			<div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
 				<input
-					className={"contacts__form-input small"}
+					className={"contacts__form-input small bg-transparent"}
 					value={props.value1 ?? props.min}
 					min={props.min}
 					max={props.value2 ?? props.max}
@@ -65,7 +65,7 @@ const FilterRange: React.FC<{
 					type={"number"}
 				/>
 				<input
-					className={"contacts__form-input small"}
+					className={"contacts__form-input small bg-transparent"}
 					value={props.value2 ?? props.max}
 					min={props.value1 ?? props.min}
 					max={props.max}
@@ -270,19 +270,17 @@ export const FiltersBlock: React.FC = (props) => {
 	const baseData = useAppSelector((state) => state.baseData);
 
 	return (
-		
-
-		<div className={'filters-block' + (open ? ' open' : '')}>
-		    <button className={'filters-block-open-btn'} onClick={() => setOpen(!open)}>
-		        <img src={caret} alt={''}/>
-		    </button>
-		    <div className={'filters-block-content'}>
-		        {
-		            Object.entries(baseData.left).map(([key, value]) => (
-		                <FilterCommon field={key} key={key} data={value}/>
-		            ))
-		        }
-		    </div>
+		<div className={"filters-block" + (open ? " open" : "")}>
+			<button
+				className={"filters-block-open-btn"}
+				onClick={() => setOpen(!open)}>
+				<img src={caret} alt={""} />
+			</button>
+			<div className={"filters-block-content"}>
+				{Object.entries(baseData.left).map(([key, value]) => (
+					<FilterCommon field={key} key={key} data={value} />
+				))}
+			</div>
 		</div>
 	);
 };
