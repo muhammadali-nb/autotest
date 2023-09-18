@@ -345,13 +345,13 @@
 .footer-contacts-bottom {
   display: flex;
 
-  @include l-sm {
-    display: none;
-  }
+  // @include l-sm {
+  //   display: none;
+  // }
 
   &-logo {
     gap: 8px;
-    // display: flex;
+    display: block;
 
     @include l-sm {
       gap: 4px;

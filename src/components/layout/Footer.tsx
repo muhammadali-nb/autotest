@@ -172,7 +172,7 @@ const SmallFooter = () => {
 						<span>ООО Восход</span>
 						<span>© 2023 год</span>
 					</div>
-					<div className={" footer-contacts-bottom "}>
+					<div className={" footer-contacts-bottom  d-none d-md-flex"}>
 						<Link
 							to={"/offer"}
 							className={
