@@ -904,3 +904,11 @@
     padding: 48px 0 0 0;
   }
 }
+
+.catalog {
+  padding: 40px 0;
+
+  @include l-sm {
+    padding: 20px 0;
+  }
+}

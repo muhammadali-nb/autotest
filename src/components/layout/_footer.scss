@@ -341,6 +341,32 @@
     }
   }
 }
+
+.footer-contacts-bottom {
+  display: flex;
+
+  @include l-sm {
+    display: none;
+  }
+
+  &-logo {
+    gap: 8px;
+    // display: flex;
+
+    @include l-sm {
+      gap: 4px;
+    }
+    span {
+      // font-size-14 font-weight-light
+      font-size: 14px;
+      font-weight: 500;
+      color: #babcbf;
+      @include l-sm {
+        font-size: 8px;
+      }
+    }
+  }
+}
 .footer-contacts-bottom-element {
   color: #babcbf;
   font-family: "Inter";

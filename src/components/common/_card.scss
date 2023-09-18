@@ -178,6 +178,10 @@
     padding: 10px 15px;
   }
 
+  @include l-sm {
+    padding: 8px 8px 12px 8px;
+  }
+
   &-same {
     font-family: "Inter";
     font-weight: 500;
@@ -231,7 +235,7 @@
     }
 
     @include l-sm {
-      font-size: 14px;
+      font-size: 16px;
     }
   }
 
@@ -252,8 +256,8 @@
       margin: 0 0 25px 0;
     }
     @include l-sm {
-      margin: 0 0 10px 0;
-      gap: 5px;
+      margin: 0 0 4px 0;
+      gap: 4px;
     }
   }
 
@@ -311,10 +315,7 @@
 
     @include l-sm {
       height: 100px;
-    }
-    @include l-sm {
-      height: 80px;
-      margin-bottom: 10px;
+      margin: 0 0 8px 0;
     }
   }
 
@@ -337,12 +338,11 @@
 
     @include l-md {
       font-size: 14px;
-      margin: 0 0 12px;
+      margin: 0;
     }
 
     @include l-sm {
       font-size: 10px;
-      margin: 0 0 8px 0;
     }
   }
 

@@ -71,38 +71,23 @@ export const BottomMessage: React.FC<{
 }> = (props) => {
 	return (
 		<div
-			className={
-				"bottom-message"
-			}
+			className={"bottom-message"}
 			style={{
 				backgroundImage: `url('${bg}')`,
 				backgroundPosition: "center",
 				borderRadius: "2px",
 			}}>
 			<div>
-				<div
-					className={
-						"bottom-message_description"
-					}>
-					{props.text1}
-				</div>
-				<div
-					className={
-						"bottom-message_header "
-					}>
-					{props.text2}
-				</div>
+				<div className={"bottom-message_description"}>{props.text1}</div>
+				<div className={"bottom-message_header "}>{props.text2}</div>
 			</div>
-			<div
-				className={"bottom-message_btn"}>
-				{props.button}
-			</div>
+			<div className={"bottom-message_btn"}>{props.button}</div>
 		</div>
 	);
 };
 
 const CatalogPage = () => {
-	const [isOpen, setOpen] = useState(false);
+	const [isOpen, setOpen] = useState<boolean>(false);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
@@ -118,49 +103,51 @@ const CatalogPage = () => {
 			title={title}
 			headerSelectedLink={"/catalog"}
 			footerSmall>
-			<Container fluid={"xxl"} className={"my-px-40"}>
-				<CatalogMobileMenu isActive={isOpen} setIsActive={setOpen} />
-				<div>
-					<Row>
-						<Col lg={4} xxl={3}>
-							<div
-								className={"sticky-no-scrollbar"}
-								style={{ maxWidth: "315px" }}>
-								<FiltersBlock />
-							</div>
-						</Col>
-						<Col lg={8} xxl={9}>
-							{/*<AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
-							<FilterButtons isShowMobileFiler={setOpen} />
-							<CarGrid />
-						</Col>
-					</Row>
-				</div>
-				<div></div>
-				{/*<div className={'d-flex'} style={{gap:'40px'}}>*/}
-				{/*    <div className={'sticky-no-scrollbar'} style={{maxWidth:'315px'}}>*/}
-				{/*        <FiltersBlock />*/}
-				{/*    </div>*/}
-				{/*    <div className={'flex-grow w-100'}>*/}
-				{/*        <AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
-				{/*        <FilterButtons />*/}
-				{/*        <CarGrid />*/}
-				{/*    </div>*/}
-				{/*</div>*/}
-				{/*{process.env.REACT_APP_NO_CATALOG !== 'true'*/}
-				{/*    ? <div className={'d-flex'} style={{gap:'40px'}}>*/}
-				{/*        <div className={'sticky-no-scrollbar'} style={{maxWidth:'315px'}}>*/}
-				{/*            <FiltersBlock />*/}
-				{/*        </div>*/}
-				{/*        <div className={'flex-grow w-100'}>*/}
-				{/*            <AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
-				{/*            <FilterButtons />*/}
-				{/*            <CarGrid />*/}
-				{/*        </div>*/}
-				{/*    </div>*/}
-				{/*    : <AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
-				{/*}*/}
-			</Container>
+			<div className="catalog">
+				<Container fluid={"xxl"} >
+					<CatalogMobileMenu isActive={isOpen} setIsActive={setOpen} />
+					<div>
+						<Row>
+							<Col lg={4} xxl={3}>
+								<div
+									className={"sticky-no-scrollbar"}
+									style={{ maxWidth: "315px" }}>
+									<FiltersBlock />
+								</div>
+							</Col>
+							<Col lg={8} xxl={9}>
+								{/*<AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
+								<FilterButtons isShowMobileFiler={setOpen} />
+								<CarGrid />
+							</Col>
+						</Row>
+					</div>
+
+					{/*<div className={'d-flex'} style={{gap:'40px'}}>*/}
+					{/*    <div className={'sticky-no-scrollbar'} style={{maxWidth:'315px'}}>*/}
+					{/*        <FiltersBlock />*/}
+					{/*    </div>*/}
+					{/*    <div className={'flex-grow w-100'}>*/}
+					{/*        <AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
+					{/*        <FilterButtons />*/}
+					{/*        <CarGrid />*/}
+					{/*    </div>*/}
+					{/*</div>*/}
+					{/*{process.env.REACT_APP_NO_CATALOG !== 'true'*/}
+					{/*    ? <div className={'d-flex'} style={{gap:'40px'}}>*/}
+					{/*        <div className={'sticky-no-scrollbar'} style={{maxWidth:'315px'}}>*/}
+					{/*            <FiltersBlock />*/}
+					{/*        </div>*/}
+					{/*        <div className={'flex-grow w-100'}>*/}
+					{/*            <AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
+					{/*            <FilterButtons />*/}
+					{/*            <CarGrid />*/}
+					{/*        </div>*/}
+					{/*    </div>*/}
+					{/*    : <AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
+					{/*}*/}
+				</Container>
+			</div>
 		</BaseLayout>
 	);
 };

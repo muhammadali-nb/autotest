@@ -75,8 +75,7 @@ const Paginator: React.FC<{ data: PaginatedResponse }> = ({ data }) => {
 		return <></>;
 	}
 	return (
-		<div
-			className={"paginator justify-content-center justify-content-lg-start"}>
+		<div className={"paginator"}>
 			<PaginationArrow disabled={page <= 3} link={link(1)}>
 				<FontAwesomeIcon icon={faAnglesLeft} />
 			</PaginationArrow>

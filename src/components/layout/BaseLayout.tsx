@@ -67,7 +67,7 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
         <DocumentMeta {...meta}>
             <div className={"site"}>
                 <MobileMenu menuRef={ref} setMenuIsOpen={setIsShow} menuIsOpen={isShow}/>
-                {!props.noTopPadding && <div style={{height: "80px"}}/>}
+                {!props.noTopPadding && <div className="no-top-padding"/>}
                 <Header
                     burgerMenuIsShow={isShow}
                     setBurgerMenuIsShow={setIsShow}

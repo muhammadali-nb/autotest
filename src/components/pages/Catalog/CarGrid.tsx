@@ -55,7 +55,7 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 				text1={"Не нашли ничего подходящего?"}
 				text2={"Предложите свой вариант!"}
 			/>
-			<div className={"mt-px-60"}>
+			<div className={"catalog__grid-paginator"}>
 				<Paginator data={cars} />
 			</div>
 		</div>

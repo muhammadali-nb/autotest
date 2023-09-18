@@ -12,7 +12,7 @@ const CatalogMobileMenu = ({
 	isActive: boolean;
 	setIsActive: (e: boolean) => void;
 }) => {
-	const baseData = useAppSelector((state) => state.baseData);
+	const baseData:any = useAppSelector((state) => state.baseData);
 	return (
 		<div className={`filter-menu ${isActive && "active"}  `}>
 			<div className="filter-menu_scroller">
@@ -25,7 +25,7 @@ const CatalogMobileMenu = ({
 					<FontAwesomeIcon icon={faCheck} onClick={() => setIsActive(false)} />
 				</div>
 				<div className="filter-menu_body">
-					{Object.entries(baseData.left).map(([key, value]) => (
+					{Object.entries(baseData.left).map(([key, value]: any) => (
 						<FilterCommon field={key} key={key} data={value} />
 					))}
 				</div>
