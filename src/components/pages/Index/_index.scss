@@ -593,6 +593,10 @@
       font-size: 24px;
       color: #222222;
     }
+
+    @include l-sm {
+      font-size: 20px;
+    }
   }
 
   .index__about-badge-divider {
@@ -828,6 +832,7 @@
   }
 
   &_more {
+    margin: 8px 0 0 0;
     cursor: pointer;
     display: block;
     & > p {

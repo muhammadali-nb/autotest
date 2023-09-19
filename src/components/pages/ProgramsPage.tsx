@@ -17,6 +17,10 @@ import coverLetter from "../../img/common/cover-letter.png";
 import coverNumber from "../../img/common/cover-number.png";
 import coverLetter02 from "../../img/common/cover-letter-02.png";
 
+import first from "../../img/common/number-faq/01.svg";
+import second from "../../img/common/number-faq/02.svg";
+import third from "../../img/common/number-faq/03.svg";
+
 const Header: React.FC<{ text: string | ReactNode }> = (props) => (
 	<div className={"arrange-leasing_header"}>{props.text}</div>
 );
@@ -34,7 +38,9 @@ const FirstBlock = () => (
 					автомобилем уже сегодня и при закрытии договора получаете его в
 					собственность.
 				</div>
-				<div className={"cited-description"} style={{ maxWidth: "1000px" }}>
+				<div
+					className={"cited-description second"}
+					style={{ maxWidth: "1000px" }}>
 					В конце срока лизинга гибкие решения позволяют вам определить, что
 					делать с автомобилем:
 				</div>
@@ -106,7 +112,9 @@ const HowBlock = () => (
 		<Container fluid={"xxl"}>
 			<Header text={"Как оформить лизинг?"} />
 			<div
-				className={"mb-px-60 font-size-16 line-height-140 font-weight-medium"}>
+				className={
+					"arrange-leasing_side font-size-16 line-height-140 font-weight-medium"
+				}>
 				<h3 className={"arrange-leasing_options"}>Общие требования:</h3>
 				<div className={"arrange-leasing_options-item"}>
 					<FontAwesomeIcon icon={faCircleCheck} />
@@ -360,7 +368,11 @@ const StepBlock = () => {
 								каталога или предложите свой вариант
 							</p>
 						</div>
-						<h1 className={"first-number"}>01</h1>
+						{/* <h1 className={"first-number"}>01</h1> */}
+
+						<div>
+							<img src={first} alt="" />
+						</div>
 						<img src={coverNumber} alt="" />
 					</div>
 					<div className={"step-block_mobile_characteristic_card"}>
@@ -370,7 +382,11 @@ const StepBlock = () => {
 								Обратитесь к нам <br />в любое удобное для вас время
 							</p>
 						</div>
-						<h1>02</h1>
+						{/* <h1>02</h1> */}
+
+						<div>
+							<img src={second} alt="" />
+						</div>
 					</div>
 					<div className={"step-block_mobile_characteristic_card"}>
 						<div>
@@ -379,7 +395,11 @@ const StepBlock = () => {
 								Договор заключается <br />в течении одного дня
 							</p>
 						</div>
-						<h1>03</h1>
+						{/* <h1>03</h1> */}
+
+						<div>
+							<img src={third} alt="" />
+						</div>
 					</div>
 				</Container>
 				<div className="mt-5">
@@ -395,7 +415,7 @@ const StepBlock = () => {
 							<img src={coverLetter} alt="" />
 						</div>
 					</Container>
-					<table className="table table-striped step-block_mobile_characteristic_table">
+					<table className="table table-striped step-block_mobile_characteristic_table first">
 						<thead>
 							<tr>
 								<th
@@ -406,7 +426,7 @@ const StepBlock = () => {
 								<th
 									scope="col"
 									className={"step-block_mobile_characteristic_table-right"}>
-									Автомобили с Новые автомобили
+									Новые автомобили
 								</th>
 							</tr>
 						</thead>
@@ -535,7 +555,7 @@ const FaqBlock = () => {
 					чАСТО ЗАДАВАЕМЫЕ <br /> ВОПРОСЫ
 				</h1>
 				<Row className={"faq-block_body gx-lg-5 gx-sm-0"}>
-					<Col sm={12} lg={6}>
+					<Col sm={12} lg={6} className="px-0 px-md-3">
 						<div className={"w-100"}>
 							{questions1.map((i, ind) => (
 								<FoldableQuestion key={ind} header={i.title}>
@@ -544,7 +564,7 @@ const FaqBlock = () => {
 							))}
 						</div>
 					</Col>
-					<Col sm={12} lg={6}>
+					<Col sm={12} lg={6} className="px-0 px-md-3">
 						<div className={"w-100"}>
 							{questions2.map((i, ind) => (
 								<FoldableQuestion key={ind} header={i.title}>
