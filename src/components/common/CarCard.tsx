@@ -2,7 +2,7 @@ import React from "react";
 import { useAppSelector } from "../../store/hooks";
 import { Link } from "react-router-dom";
 import { type BaseState } from "../../store/reducers/baseDataSlice";
-import caretRight from "./../../img/common/caret-right.png";
+import caretRight from "./../../img/common/caret-right.svg";
 import CarBookingForm from "./CarBookingForm";
 import CarRentForm from "./CarRentForm";
 

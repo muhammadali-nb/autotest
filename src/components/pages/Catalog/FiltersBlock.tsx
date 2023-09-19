@@ -55,7 +55,7 @@ const FilterRange: React.FC<{
 		<Filter header={props.header} open={props.data.open ?? false}>
 			<div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
 				<input
-					className={"contacts__form-input small bg-transparent"}
+					className={"contacts__form-input small bg-transparent filter-block-input"}
 					value={props.value1 ?? props.min}
 					min={props.min}
 					max={props.value2 ?? props.max}
@@ -65,7 +65,7 @@ const FilterRange: React.FC<{
 					type={"number"}
 				/>
 				<input
-					className={"contacts__form-input small bg-transparent"}
+					className={"contacts__form-input small bg-transparent filter-block-input"}
 					value={props.value2 ?? props.max}
 					min={props.value1 ?? props.min}
 					max={props.max}
@@ -108,7 +108,7 @@ const FilterCheckbox: React.FC<{
 	};
 	return (
 		<Filter header={data.name} open={data.open ?? false}>
-			<div className={"ps-3"}>
+			<div className={"ps-0 ps-lg-3"}>
 				<FormCheck
 					label={"Все"}
 					className={"my-px-10 font-size-14 font-weight-semibold"}
@@ -155,7 +155,7 @@ const FilterModelSet: React.FC<{
 
 	return (
 		<Filter header={brand.name} small={true} open={true} showCaret={false}>
-			<div className={"ps-3"}>
+			<div className={"ps-0 ps-lg-3"}>
 				{models.slice(0, showAmount).map((i, index) => (
 					<FormCheck
 						key={index}
@@ -202,7 +202,7 @@ const FilterModels: React.FC<{
 	};
 	return (
 		<Filter header={data.name} open={data.open ?? false}>
-			<div className={"ps-3"}>
+			<div className={"ps-0 ps-lg-3"}>
 				<FormCheck
 					label={"Все"}
 					checked={filter[field]?.length === 0}
@@ -277,6 +277,7 @@ export const FiltersBlock: React.FC = (props) => {
 				<img src={caret} alt={""} />
 			</button>
 			<div className={"filters-block-content"}>
+				{/* <FilterCommon/> */}
 				{Object.entries(baseData.left).map(([key, value]) => (
 					<FilterCommon field={key} key={key} data={value} />
 				))}

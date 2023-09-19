@@ -284,7 +284,7 @@
   &_bgtext {
     font-family: "Lato";
     position: absolute !important;
-    top: 16px;
+    top: 40px;
     right: 0;
     line-height: 100%;
     font-size: 100px;
@@ -358,10 +358,9 @@
   }
 
   @include l-sm {
-    height: 45%;
+    height: 47%;
 
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 92.52%)
-      url("./../../../img/index/about_bg.webp");
+    background: rgba(0, 0, 0, 0.8) url("./../../../img/index/about_bg.webp");
   }
 }
 
@@ -399,8 +398,12 @@
 
   @include l-sm() {
     font-size: 12px;
-    margin-bottom: 0;
+    margin-bottom: 8px;
   }
+}
+
+.filter-block-input {
+  width: 120px;
 }
 
 .index__about-labels {

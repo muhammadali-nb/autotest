@@ -13,7 +13,7 @@ import question from "../../img/common/mobile_menu-icons/question.svg";
 import ticked from "../../img/common/mobile_menu-icons/ticked.svg";
 import loginIcon from "../../img/common/mobile_menu-icons/login.svg";
 import AdvanceLogin from "../common/AdvanceLogin";
-
+import arrow from "../../img/common/menu-arrow.svg";
 interface MobileMenuProps {
 	menuIsOpen: boolean;
 	setMenuIsOpen: (e: boolean) => void;
@@ -50,14 +50,18 @@ const MobileMenu = (props: MobileMenuProps) => {
 				ref={menuRef}
 				className={`mobile-menu_container ${menuIsOpen ? "active" : ""} `}>
 				<div>
-					<div className={"d-flex align-items-center gap-2"}>
-						<FontAwesomeIcon
+					<div className={"d-flex align-items-center gap-px-15"}>
+						{/* <FontAwesomeIcon
 							color={"#fff"}
 							width={20}
 							height={20}
 							onClick={() => setMenuIsOpen(false)}
 							icon={faArrowLeft}
-						/>
+						/> */}
+
+						<div onClick={() => setMenuIsOpen(false)}>
+							<img src={arrow} alt="" />
+						</div>
 						<HeaderLogoImage image={"light"} width={"100px"} height={"24px"} />
 					</div>
 					<div>
