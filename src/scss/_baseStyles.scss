@@ -981,7 +981,7 @@ code {
     width: 24px;
     height: 4px;
     background-color: $redColor;
-    margin: 0 0 8px 0;
+    margin: 0 0 12px 0;
 
     @include l-sm {
       display: block;
@@ -995,7 +995,7 @@ code {
   }
 
   @include l-sm {
-    margin: 28px 0;
+    margin: 24px 0;
     padding: 0;
 
     border: none;
@@ -1021,19 +1021,26 @@ code {
 
   &-description {
     font-size: 16px;
-    margin: 0 0 24px 0;
+    // margin: 0 0 24px 0;
     font-weight: 500;
     //line-height: 16.8px;
     //font-size-16 mb-px-20 font-weight-medium line-height-140 ls-001
-
+    &.second {
+      margin: 24px 0;
+    }
     @include l-md() {
       font-size: 14px;
-      margin: 0 0 18px 0;
+      &.second {
+        margin: 18px 0;
+      }
     }
 
     @include l-md() {
       font-size: 12px;
-      margin: 0 0 14px 0;
+
+      &.second {
+        margin: 8px 0 24px 0;
+      }
     }
   }
 }
@@ -1078,7 +1085,7 @@ code {
     }
 
     @include l-sm {
-      margin: 0;
+      margin: 16px 0 0 0;
     }
   }
 
@@ -1088,10 +1095,10 @@ code {
 
   @include l-sm() {
     &:not(:last-child) {
-      margin: 0 0 10px 0;
+      margin: 0 0 8px 0;
     }
     font-size: 12px;
-    padding: 12px 20px 12px 60px;
+    padding: 8px 20px 8px 44px;
     width: 100%;
 
     & > br {
@@ -1117,6 +1124,12 @@ code {
     background-position: center;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
+
+    @include l-sm {
+      width: 33px;
+      // height: 33px;
+      background-size: 16px 18px;
+    }
   }
 }
 
@@ -1147,6 +1160,7 @@ code {
 
     @include l-sm {
       font-size: 18px;
+      margin: 0 0 8px 0;
     }
     //font-weight-semibold font-size-24 mb-px-10 text-uppercase
   }
@@ -1156,6 +1170,7 @@ code {
     font-size: 16px;
     margin: 10px 0 0 0;
     @include l-sm {
+      margin: 8px 0 0 0;
       font-size: 12px;
     }
     //font-weight-medium font-size-16 line-height-140 ls-001
@@ -1736,7 +1751,7 @@ code {
   }
 
   @include l-sm {
-    margin: 40px 0 0 0;
+    margin: 32px 0 0 0;
   }
   //mt-px-80 mb-px-40
 
@@ -1766,7 +1781,15 @@ code {
     padding: 70px 0 50px 0;
   }
   @include l-sm {
-    padding: 30px 0;
+    padding: 24px 0;
+  }
+
+  &_side {
+    margin: 0 0 60px 0;
+
+    @include l-md {
+      margin: 0 0 32px 0;
+    }
   }
 
   &_header {
@@ -1789,7 +1812,7 @@ code {
 
     @include l-sm {
       font-size: 20px;
-      margin: 0 0 40px 0;
+      margin: 0 0 32px 0;
     }
   }
 
@@ -1805,7 +1828,7 @@ code {
       font-size: 18px;
     }
     @include l-sm {
-      margin: 0 0 14px 0;
+      margin: 0 0 16px 0;
       font-size: 14px;
     }
 
@@ -1813,6 +1836,10 @@ code {
       display: flex;
       align-items: start;
       margin: 0 0 15px 0;
+
+      @include l-sm {
+        margin: 0 0 12px 0;
+      }
 
       & > p {
         font-size: 16px;
@@ -1841,13 +1868,13 @@ code {
 
 .step-block {
   padding: 100px 0 80px 0;
-
+  margin: 10px 0 0 0;
   @include l-md {
     padding: 80px 0 50px 0;
   }
 
   @include l-sm {
-    padding: 40px 0 30px 0;
+    padding: 32px 0 0 0;
   }
 
   &_mobile {
@@ -1858,6 +1885,10 @@ code {
 
     &_characteristic {
       &_table {
+        margin: 0;
+        &.first {
+          margin: 0 0 40px 0;
+        }
         &-top {
           position: relative;
 
@@ -1876,7 +1907,9 @@ code {
 
         &-desc {
           font-size: 12px;
-          margin: 16px 0 14px 0;
+          // margin: 16px 0 14px 0;
+
+          margin: 22px 0 24px 0;
         }
 
         & > thead {
@@ -1891,10 +1924,12 @@ code {
         td,
         th {
           font-size: 12px;
+          padding: 16px;
         }
 
         &-right {
           text-align: right;
+          font-weight: 500;
         }
 
         &-left {
@@ -1904,16 +1939,17 @@ code {
 
       &_card {
         display: flex;
-        align-items: center;
+        align-items: self-start;
         justify-content: space-between;
         position: relative;
+        padding: 0 3px 0 0;
 
         &:not(:last-child) {
           margin: 0 0 30px 0;
         }
 
         & > div {
-          & > h1 {
+          & > h2 {
             margin: 0 0 8px 0;
             font-weight: 600;
             font-size: 14px;
@@ -1936,7 +1972,7 @@ code {
         & > img {
           position: absolute;
           right: -10px;
-          top: 0;
+          top: -20px;
           z-index: 20;
         }
       }
@@ -2056,7 +2092,7 @@ code {
     }
 
     @include l-sm {
-      margin: 0 0 40px 0;
+      margin: 40px 0;
     }
   }
   //shadowed-bg pt-px-100 pb-px-80
@@ -2075,7 +2111,7 @@ code {
     font-size: 52px;
     margin: 0 0 60px 0;
     padding: 0 0 0 36px;
-    border-left: 6px solid #bf3535;
+    border-left: 4px solid #bf3535;
     //font-weight-semibold text-uppercase font-size-50 mb-px-40 line-height-120
 
     @include l-md {
@@ -2085,7 +2121,7 @@ code {
 
     @include l-sm {
       font-size: 20px;
-      margin: 0 0 40px 0;
+      margin: 0 0 32px 0;
       padding: 0 0 0 12px;
     }
   }
