@@ -32,6 +32,10 @@ export interface ButtonFilterData extends FilterDataBlock {
 export interface ModelCheckboxFilterData extends FilterDataBlock {
     values?: Array<IdValuedBranded>
 }
+
+export interface FilterSharesData extends FilterDataBlock {
+    values?: Array<IdValued>
+}
 export interface LeftFiltersData {
     price: SliderFilterData,
     year: SliderFilterData,
@@ -41,6 +45,7 @@ export interface LeftFiltersData {
     engine: CheckboxFilterData,
     gearbox: CheckboxFilterData,
     drive: CheckboxFilterData,
+    shares: FilterSharesData;
     fuel: CheckboxFilterData,
 }
 export interface TopFiltersData {
@@ -58,6 +63,26 @@ export interface BaseState {
 const mockBaseState: BaseState = {
     loaded: false,
     left: {
+        shares: {
+            name: 'Акции', type: "shares", values: [
+                {
+                    id: 1,
+                    name: "Все"
+                },
+                {
+                    id: 2,
+                    name: 'Лизинг до 7 лет'
+                },
+                {
+                    id: 3,
+                    name: 'Аванс 0%'
+                },
+                {
+                    id: 4,
+                    name: 'Гарантия 150 тыс. км '
+                }
+            ]
+        },
         price: { name: "Цена", type: "slider2", from: 500000, to: 5000000, open: true },
         brands: {
             name: "Марки", type: "checkbox", open: true, values: [
@@ -164,6 +189,7 @@ const mockBaseState: BaseState = {
 const emptyMockBaseState: BaseState = {
     left: {
         price: { name: "Цена", type: "slider2", from: 500000, to: 5000000 },
+        shares: { name: "Акции", type: "shares", values: [] },
         year: { name: "Год выпуска", type: "slider2", from: 2018, to: 2023 },
         brands: { name: "Марки", type: "checkbox", values: [] },
         models: { name: "Модели", type: "models", values: [] },

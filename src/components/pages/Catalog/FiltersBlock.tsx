@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setFilter } from "../../../store/reducers/filterSlice";
 import {
 	CheckboxFilterData,
+	FilterSharesData,
 	IdValued,
 	ModelCheckboxFilterData,
 	SliderFilterData,
@@ -55,7 +56,9 @@ const FilterRange: React.FC<{
 		<Filter header={props.header} open={props.data.open ?? false}>
 			<div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
 				<input
-					className={"contacts__form-input small bg-transparent filter-block-input"}
+					className={
+						"contacts__form-input small bg-transparent filter-block-input"
+					}
 					value={props.value1 ?? props.min}
 					min={props.min}
 					max={props.value2 ?? props.max}
@@ -65,7 +68,9 @@ const FilterRange: React.FC<{
 					type={"number"}
 				/>
 				<input
-					className={"contacts__form-input small bg-transparent filter-block-input"}
+					className={
+						"contacts__form-input small bg-transparent filter-block-input"
+					}
 					value={props.value2 ?? props.max}
 					min={props.value1 ?? props.min}
 					max={props.max}
@@ -217,6 +222,18 @@ const FilterModels: React.FC<{
 	);
 };
 
+const FilterShares = (props) => {
+	return (
+		<Filter header={props.data.name} open={props.data.open ?? false}>
+			<div>
+				{props.values.map((item) => (
+					<p>{item.title}</p>
+				))}
+			</div>
+		</Filter>
+	);
+};
+
 export const FilterCommon: React.FC<{
 	field: string;
 	data: CheckboxFilterData | SliderFilterData | ModelCheckboxFilterData;
@@ -263,6 +280,17 @@ export const FilterCommon: React.FC<{
 			}}
 		/>
 	);
+	if (props.data.type === "shares") {
+		return (
+			<FilterShares
+				field={props.field}
+				data={props.data as FilterSharesData}
+				onChange={(v) => {
+					setFilterValue(props.field, v);
+				}}
+			/>
+		);
+	}
 };
 
 export const FiltersBlock: React.FC = (props) => {
