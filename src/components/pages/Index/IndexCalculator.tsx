@@ -157,7 +157,11 @@ const IndexCalculator: React.FC<IndexCalculatorProps> = (props) => {
 						: "" + (props.smallValue ? " font-size-20" : "")
 				}
 			/>
-			<div className={"d-flex w-100 justify-content-between mt-px-20"}>
+			<div
+				className={
+					"d-flex w-100 justify-content-between calculator-slider-value "
+				}>
+				{/* mt-px-20 */}
 				<IndexCalculatorPeriodIndicator
 					amount={daySum()}
 					suffix={" ₽"}

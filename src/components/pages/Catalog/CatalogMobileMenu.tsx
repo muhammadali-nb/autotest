@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect } from "react";
 import { HeaderLogoImage } from "../../layout/Header";
 import { faArrowLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../../store/hooks";
@@ -12,7 +12,13 @@ const CatalogMobileMenu = ({
 	isActive: boolean;
 	setIsActive: (e: boolean) => void;
 }) => {
-	const baseData:any = useAppSelector((state) => state.baseData);
+	const baseData: any = useAppSelector((state) => state.baseData);
+
+	useEffect(() => {
+		if (isActive) document.body.style.overflow = "hidden";
+		else document.body.style.overflow = "unset";
+	}, [isActive]);
+
 	return (
 		<div className={`filter-menu ${isActive && "active"}  `}>
 			<div className="filter-menu_scroller">

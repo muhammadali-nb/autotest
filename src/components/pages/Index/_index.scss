@@ -17,8 +17,12 @@
     height: 100%;
     top: 0;
     left: 0;
-    // background: linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 92.52%);
-    background: rgba(0, 0, 0, 0.80);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.24) 92.52%);
+
+    @include l-md {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
     z-index: 20;
   }
 
@@ -50,11 +54,11 @@
       margin: 0 0 76px 0;
       //text-transform: uppercase;
       @include l-xxl {
-        font-size: 58px;
+        font-size: 42px;
       }
-      @include l-md {
-        font-size: 48px;
-      }
+      // @include l-md {
+      //   font-size: 48px;
+      // }
 
       @include l-sm {
         margin: 0 0 52px 0;
@@ -62,12 +66,12 @@
 
       .muted {
         font-weight: 400;
-        font-size: 52px;
+        font-size: 56px;
         color: #d9d9d9;
         line-height: 120%;
         margin: 6px 0 0 0;
         @include l-xxl() {
-          font-size: 48px;
+          font-size: 38px;
         }
         @include l-md() {
           font-size: 36px;
@@ -126,7 +130,7 @@
   line-height: 150%;
   max-width: 480px;
   width: 100%;
-  margin: 140px 0 0 0;
+  margin: 160px 0 0 0;
   @include l-lg() {
     margin-top: 60px;
     font-size: 14px;
@@ -390,20 +394,30 @@
   line-height: 140%;
   letter-spacing: 0.01em;
   color: #ffffff;
-  margin-bottom: 35px;
+  &:not(:last-child) {
+    margin-bottom: 35px;
+  }
   @include l-md() {
     font-size: 16px;
-    margin-bottom: 24px;
+    // margin-bottom: 24px;
+    font-weight: 500;
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
   }
 
   @include l-sm() {
     font-size: 12px;
-    margin-bottom: 8px;
+    // margin-bottom: 8px;
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
   }
 }
 
 .filter-block-input {
   width: 120px;
+  font-size: 14px !important;
 }
 
 .index__about-labels {
@@ -411,10 +425,12 @@
   flex-wrap: wrap;
   gap: 40px 80px;
   margin-top: 80px;
+  flex-direction: row;
   @include l-md {
     margin-top: 40px;
     margin-bottom: 100px;
-    display: block;
+    gap: 0;
+    flex-direction: column-reverse;
   }
 
   @include l-sm {
@@ -426,10 +442,11 @@
   display: block;
   gap: 0;
   @include l-md() {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 8px;
-    &:not(:last-child) {
+    &:not(:first-child) {
       margin: 0 0 20px 0;
     }
   }

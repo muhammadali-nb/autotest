@@ -13,6 +13,7 @@ import teleB from "./../../img/common/footer/tele-b.png";
 import teleW from "./../../img/common/footer/tele-w.png";
 import ContactsForm from "../common/ContactsForm";
 import { Link } from "react-router-dom";
+import Utils from "../../Utils";
 
 const FooterMap: React.FC<{ full: boolean; noContacts: boolean }> = ({
 	full,
@@ -119,24 +120,37 @@ export const FooterContacts = () => {
 					</div>
 					<div className="footer-contacts-blocks">
 						<FooterContactsBlock theme="dark" image={geoImage} text={"Адрес"}>
-							{/*{lines.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
-							Санкт-Петербург <br />
+							{lines.map((i, index) => (
+								<div key={index} className={"mb-px-10 line-height-120"}>
+									{i}
+								</div>
+							))}
+							{/* Санкт-Петербург <br />
 							Торфяная дорога 7Ф <br />
-							БЦ «Гулливер» 2 оф. 104 <br />
+							БЦ «Гулливер» 2 оф. 104 <br /> */}
 						</FooterContactsBlock>
 						<FooterContactsBlock
 							theme="dark"
 							image={clockImage}
 							text={"Время работы"}>
-							{/*{lines2.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
-							пн-вс: с 10.00 - 19.00
+							{lines2.map((i, index) => (
+								<div key={index} className={"mb-px-10 line-height-120"}>
+									{i}
+								</div>
+							))}
+							{/* пн-вс: с 10.00 - 19.00 */}
 						</FooterContactsBlock>
 						<FooterContactsBlock
 							theme="dark"
 							image={phoneImage}
 							text={"Телефон"}>
-							{/*<a href={'tel:' + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")} >{process.env.REACT_APP_PHONE}</a>*/}
-							+7 (812) 317-68-15
+							<a
+								href={
+									"tel:" + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")
+								}>
+								{process.env.REACT_APP_PHONE}
+							</a>
+							{/* +7 (812) 317-68-15 */}
 						</FooterContactsBlock>
 					</div>
 					<div className={"footer-contacts-links"}>
@@ -172,7 +186,7 @@ const SmallFooter = () => {
 						<span>ООО Восход</span>
 						<span>© 2023 год</span>
 					</div>
-					<div className={" footer-contacts-bottom  d-none d-md-flex"}>
+					<div className={" footer-contacts-bottom "}>
 						<Link
 							to={"/offer"}
 							className={

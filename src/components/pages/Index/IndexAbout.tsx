@@ -90,7 +90,7 @@ const IndexAboutContent = () => {
 	return (
 		<Container fluid={"xxl"} style={{ position: "relative", zIndex: 40 }}>
 			<Row>
-				<Col lg={6}>
+				<Col sm={12} lg={6}>
 					<div className={"index__about-header"}>О&nbsp;компании</div>
 					<div className={"index__about-text"}>
 						Наша компания создана в 2012 году.
@@ -106,7 +106,7 @@ const IndexAboutContent = () => {
 					</div>
 				</Col>
 				<Col lg={6}></Col>
-				<Col lg={4}>
+				<Col sm={12} lg={4}>
 					<div className={"index__about-labels"}>
 						<IndexLabel big={">10"} small={"Лет работы"} />
 						<IndexLabel big={">500"} small={"Автомобилей"} />

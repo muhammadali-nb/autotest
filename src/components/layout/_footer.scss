@@ -266,6 +266,10 @@
       font-weight: 300;
       font-size: 16px;
       line-height: 120%;
+
+      // & > br {
+      //   margin: 0 0 10px 0;
+      // }
       @include l-md {
         font-size: 14px;
       }
