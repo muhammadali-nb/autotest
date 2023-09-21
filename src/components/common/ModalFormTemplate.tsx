@@ -109,7 +109,11 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 ) => {
 	return (
 		<div style={{ marginTop: "20px" }}>
-			{/*{props.error && <div className={'my-2 text-red-color font-size-12'}>Подтвердите согласие с условиями политики</div>}*/}
+			{props.error && (
+				<div className={"my-2 text-red-color font-size-12"}>
+					Подтвердите согласие с условиями политики
+				</div>
+			)}
 			<FormCheck
 				checked={props.confirmed}
 				onChange={props.onChange}
@@ -132,6 +136,19 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 					</span>
 				}
 			/>
+
+			<p className="form-mobile-policy">
+				Нажимая на кнопку “Забронировать”, вы соглашаетесь с
+				<Link
+					to={"/policy"}
+					target={"_blank"}
+					className={
+						"default-link dark underlined form-mobile-policy-link " +
+						(props.error ? "text-red-color" : "")
+					}>
+					Условиями обработки персональных данных
+				</Link>
+			</p>
 		</div>
 	);
 };

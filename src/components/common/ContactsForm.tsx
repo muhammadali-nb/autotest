@@ -1,4 +1,4 @@
-import React, {RefObject, useState} from "react";
+import React, { RefObject, useState } from "react";
 import {
 	ModalTemplateConfirm,
 	ModalTemplateInput,
@@ -28,7 +28,12 @@ const ContactsFormSent = (props) => (
 	</div>
 );
 
-const ContactsForm: React.FC<{ big?: boolean, className?: string, contactsFormRef?: RefObject<HTMLDivElement> }> = (props) => {
+const ContactsForm: React.FC<{
+	big?: boolean;
+	className?: string;
+	contactsFormRef?: RefObject<HTMLDivElement>;
+	toggle?: boolean;
+}> = (props) => {
 	const [data, setData] = useState<CallRequestData>({
 		name: "",
 		lastName: "",
@@ -71,7 +76,9 @@ const ContactsForm: React.FC<{ big?: boolean, className?: string, contactsFormRe
 		setPassed(Object.keys(errors).length === 0);
 	};
 	return (
-		<div className={"d-flex flex-column w-100 h-100"} ref={props.contactsFormRef}>
+		<div
+			className={"d-flex flex-column w-100 h-100"}
+			ref={props.contactsFormRef}>
 			{sent && <ContactsFormSent {...props} />}
 			{!sent && (
 				<div
@@ -80,12 +87,13 @@ const ContactsForm: React.FC<{ big?: boolean, className?: string, contactsFormRe
 					}>
 					<div
 						className={"d-grid"}
-						style={{ gridTemplateColumns: "1fr ", gridColumnGap: "15px" }}>
+						style={{ gridTemplateColumns: "1fr 1fr ", gridColumnGap: "15px" }}>
 						<div style={{ gridColumn: props.big ? "span 1" : "" }}>
 							<ModalTemplateInput
 								required
 								error={data.errors["name"]}
 								small={!props.big}
+								className={`${props.toggle && "input-form-toggle"}`}
 								onInput={(e: any) => update("name", e.target.value)}
 								placeholder={"Имя"}
 							/>
@@ -95,6 +103,7 @@ const ContactsForm: React.FC<{ big?: boolean, className?: string, contactsFormRe
 								required
 								error={data.errors["lastName"]}
 								small={!props.big}
+								className={`${props.toggle && "input-form-toggle"}`}
 								onInput={(e: any) => update("lastName", e.target.value)}
 								placeholder={"Фамилия"}
 							/>
@@ -104,6 +113,7 @@ const ContactsForm: React.FC<{ big?: boolean, className?: string, contactsFormRe
 								name={"phone"}
 								required
 								error={data.errors["phone"]}
+								className={`${props.toggle && "input-form-toggle"}`}
 								small={true}
 								onInput={(e: any) => update("phone", e.target.value)}
 								onChange={(e: any) => update("phone", e.target.value)}
@@ -114,6 +124,7 @@ const ContactsForm: React.FC<{ big?: boolean, className?: string, contactsFormRe
 								type={"email"}
 								name={"email"}
 								error={data.errors["email"]}
+								className={`${props.toggle && "input-form-toggle"}`}
 								small={true}
 								onInput={(e: any) => update("email", e.target.value)}
 								placeholder={"E-mail"}

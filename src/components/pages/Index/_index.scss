@@ -283,7 +283,7 @@
   &_bgtext {
     font-family: "Lato";
     position: absolute !important;
-    top: 40px;
+    top: 38px;
     right: 0;
     line-height: 100%;
     font-size: 100px;
@@ -837,10 +837,16 @@
     margin: 8px 0 0 0;
     cursor: pointer;
     display: block;
+
     & > p {
       margin: 0 0 0 0;
       font-weight: 600;
       font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    & > img {
+      width: 224px;
     }
   }
 

@@ -14,6 +14,8 @@ import teleW from "./../../img/common/footer/tele-w.png";
 import ContactsForm from "../common/ContactsForm";
 import { Link } from "react-router-dom";
 
+
+
 const FooterMap: React.FC<{ full: boolean; noContacts: boolean }> = ({
 	full,
 	noContacts,

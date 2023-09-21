@@ -222,13 +222,25 @@ const FilterModels: React.FC<{
 	);
 };
 
-const FilterShares = (props) => {
+const FilterShares = ({
+	values,
+	// open,
+	name,
+	onChange,
+}: {
+	values: FilterSharesData;
+	name: string;
+	// open: boolean;
+	onChange: (e: any) => void;
+}) => {
+	console.log(values);
+
 	return (
-		<Filter header={props.data.name} open={props.data.open ?? false}>
+		<Filter header={name}>
 			<div>
-				{props.values.map((item) => (
-					<p>{item.title}</p>
-				))}
+				{/* {values.map((item: any) => (
+					<p>{item.name}</p>
+				))} */}
 			</div>
 		</Filter>
 	);
@@ -236,14 +248,28 @@ const FilterShares = (props) => {
 
 export const FilterCommon: React.FC<{
 	field: string;
-	data: CheckboxFilterData | SliderFilterData | ModelCheckboxFilterData;
+	data:
+		| CheckboxFilterData
+		| SliderFilterData
+		| ModelCheckboxFilterData
+		| FilterSharesData;
 }> = (props) => {
 	const filter = useAppSelector((state) => state.filter);
 	const dispatch = useAppDispatch();
 	const setFilterValue = (key: string, value: any) => {
 		dispatch(setFilter({ ...filter, [key]: value }));
 	};
-
+	if (props.data.type === "shares") {
+		return (
+			<FilterShares
+				name={props.field}
+				values={props.data as FilterSharesData}
+				onChange={(v) => {
+					setFilterValue(props.field, v);
+				}}
+			/>
+		);
+	}
 	if (props.data.type === "slider2") {
 		let d = props.data as SliderFilterData;
 		return (
@@ -280,17 +306,6 @@ export const FilterCommon: React.FC<{
 			}}
 		/>
 	);
-	if (props.data.type === "shares") {
-		return (
-			<FilterShares
-				field={props.field}
-				data={props.data as FilterSharesData}
-				onChange={(v) => {
-					setFilterValue(props.field, v);
-				}}
-			/>
-		);
-	}
 };
 
 export const FiltersBlock: React.FC = (props) => {
