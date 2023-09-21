@@ -15,6 +15,8 @@ import ContactsForm from "../common/ContactsForm";
 import { Link } from "react-router-dom";
 import Utils from "../../Utils";
 
+
+
 const FooterMap: React.FC<{ full: boolean; noContacts: boolean }> = ({
 	full,
 	noContacts,

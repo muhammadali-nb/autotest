@@ -36,7 +36,24 @@ $defaultColor: #222222;
 }
 .form-check {
   padding-left: 25px;
+  display: block;
+  @include l-md {
+    display: none;
+  }
 }
+
+.form-mobile-policy {
+  display: none;
+  font-size: 10px;
+
+  &-link {
+    color: #bf3535 !important;
+  }
+  @include l-md {
+    display: block;
+  }
+}
+
 .form-check-input {
   transition: all 0.15s ease-in-out;
   border-color: $defaultColor;
@@ -82,9 +99,14 @@ $defaultColor: #222222;
   .container-sm,
   .container-xl,
   .container-xxl {
-    max-width: 1400px;
-    padding: 0;
+    max-width: 1432px;
+    width: 100%;
+    // padding: 0 16px !important;
   }
+}
+
+.container-xxl {
+  padding: 0 16px !important;
 }
 
 .modal-content {

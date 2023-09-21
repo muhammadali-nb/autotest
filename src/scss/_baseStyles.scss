@@ -10,6 +10,10 @@
   cursor: default;
 }
 
+// .container {
+//   max-width: 1px;
+// }
+
 .sticky-no-scrollbar {
   width: 100%;
   max-height: calc(100vh - 120px);
@@ -530,6 +534,11 @@ main {
     padding: 15px 25px;
     font-size: 16px;
     font-weight: 600;
+
+    @include l-md {
+      padding: 12px 16px;
+      font-size: 12px;
+    }
   }
 
   &.dark {
@@ -930,6 +939,9 @@ code {
   padding-bottom: 15px;
   position: relative;
   font-size: 16px;
+  // @include l-md {
+  //   width: 50%;
+  // }
 
   &.error {
     .contacts__form-input {

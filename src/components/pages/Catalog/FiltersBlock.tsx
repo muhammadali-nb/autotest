@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setFilter } from "../../../store/reducers/filterSlice";
 import {
 	CheckboxFilterData,
+	FilterSharesData,
 	IdValued,
 	ModelCheckboxFilterData,
 	SliderFilterData,
@@ -55,7 +56,9 @@ const FilterRange: React.FC<{
 		<Filter header={props.header} open={props.data.open ?? false}>
 			<div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
 				<input
-					className={"contacts__form-input small bg-transparent filter-block-input"}
+					className={
+						"contacts__form-input small bg-transparent filter-block-input"
+					}
 					value={props.value1 ?? props.min}
 					min={props.min}
 					max={props.value2 ?? props.max}
@@ -65,7 +68,9 @@ const FilterRange: React.FC<{
 					type={"number"}
 				/>
 				<input
-					className={"contacts__form-input small bg-transparent filter-block-input"}
+					className={
+						"contacts__form-input small bg-transparent filter-block-input"
+					}
 					value={props.value2 ?? props.max}
 					min={props.value1 ?? props.min}
 					max={props.max}
@@ -217,16 +222,54 @@ const FilterModels: React.FC<{
 	);
 };
 
+const FilterShares = ({
+	values,
+	// open,
+	name,
+	onChange,
+}: {
+	values: FilterSharesData;
+	name: string;
+	// open: boolean;
+	onChange: (e: any) => void;
+}) => {
+	console.log(values);
+
+	return (
+		<Filter header={name}>
+			<div>
+				{/* {values.map((item: any) => (
+					<p>{item.name}</p>
+				))} */}
+			</div>
+		</Filter>
+	);
+};
+
 export const FilterCommon: React.FC<{
 	field: string;
-	data: CheckboxFilterData | SliderFilterData | ModelCheckboxFilterData;
+	data:
+		| CheckboxFilterData
+		| SliderFilterData
+		| ModelCheckboxFilterData
+		| FilterSharesData;
 }> = (props) => {
 	const filter = useAppSelector((state) => state.filter);
 	const dispatch = useAppDispatch();
 	const setFilterValue = (key: string, value: any) => {
 		dispatch(setFilter({ ...filter, [key]: value }));
 	};
-
+	if (props.data.type === "shares") {
+		return (
+			<FilterShares
+				name={props.field}
+				values={props.data as FilterSharesData}
+				onChange={(v) => {
+					setFilterValue(props.field, v);
+				}}
+			/>
+		);
+	}
 	if (props.data.type === "slider2") {
 		let d = props.data as SliderFilterData;
 		return (
