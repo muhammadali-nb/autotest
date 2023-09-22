@@ -1038,7 +1038,7 @@ code {
     //line-height: 16.8px;
     //font-size-16 mb-px-20 font-weight-medium line-height-140 ls-001
     &.second {
-      margin: 24px 0;
+      margin: 24px 0 40px 0;
     }
     @include l-md() {
       font-size: 14px;
@@ -1084,7 +1084,7 @@ code {
   width: fit-content;
 
   &:not(:last-child) {
-    margin: 0 0 22px 0;
+    margin: 0 0 25px 0;
   }
 
   letter-spacing: 0.01em;
@@ -1159,6 +1159,12 @@ code {
     width: 30px;
     height: 4px;
     background-color: $redColor;
+
+    display: none;
+
+    @include l-md {
+      display: block;
+    }
   }
 
   &_header {
@@ -1805,6 +1811,8 @@ code {
     font-weight: 600;
     text-transform: uppercase;
     font-size: 52px;
+    border-left: 6px solid $redColor;
+    padding: 0 0 0 36px;
 
     &:first-child {
       @include l-sm {
@@ -1812,11 +1820,13 @@ code {
       }
     }
 
-    margin: 0 0 60px 0;
+    margin: 0 0 40px 0;
     //font-weight-semibold text-uppercase font-size-50 mb-px-40 line-height-120
 
     @include l-md {
       font-size: 36px;
+      border: none;
+      padding: 0;
     }
 
     @include l-sm {

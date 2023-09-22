@@ -14,7 +14,9 @@ import teleW from "./../../img/common/footer/tele-w.png";
 import ContactsForm from "../common/ContactsForm";
 import { Link } from "react-router-dom";
 
-
+import vkMb from "../../img/common/footer/social-icons-mb/vk.svg";
+import whMb from "../../img/common/footer/social-icons-mb/whatsapp.svg";
+import telegramMb from "../../img/common/footer/social-icons-mb/telegram.svg";
 
 const FooterMap: React.FC<{ full: boolean; noContacts: boolean }> = ({
 	full,
@@ -84,12 +86,15 @@ export const FooterLink: React.FC<{ img: any; hover?: any; link: string }> = (
 	props
 ) => {
 	return (
-		<Link to={props.link} className={"footer-contacts-link"}>
+		<Link to={props.link} className={`footer-contacts-link ${!props.hover && "mobile"}`}>
 			<img src={props.img} className={"default-image"} alt="" />
-			<img src={props.hover} className={"hover-image"} alt="" />
+			{!props.hover === undefined && (
+				<img src={props.hover} className={"hover-image"} alt="" />
+			)}
 		</Link>
 	);
 };
+
 export const FooterBottom = () => {
 	return (
 		<div className={"footer-contacts-bottom"}>
@@ -141,7 +146,7 @@ export const FooterContacts = () => {
 							+7 (812) 317-68-15
 						</FooterContactsBlock>
 					</div>
-					<div className={"footer-contacts-links"}>
+					<div className={"footer-contacts-links d-none d-lg-flex"}>
 						<FooterLink
 							img={vkW}
 							hover={vkB}
@@ -155,6 +160,23 @@ export const FooterContacts = () => {
 						<FooterLink
 							img={teleW}
 							hover={teleB}
+							link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
+						/>
+					</div>
+					<div className={"footer-contacts-links d-flex d-lg-none"}>
+						<FooterLink
+							img={vkMb}
+							// hover={vkB}
+							link={process.env.REACT_APP_VK_LINK ?? "/"}
+						/>
+						<FooterLink
+							img={whMb}
+							// hover={wappB}
+							link={process.env.REACT_APP_WAPP_LINK ?? "/"}
+						/>
+						<FooterLink
+							img={telegramMb}
+							// hover={teleB}
 							link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
 						/>
 					</div>

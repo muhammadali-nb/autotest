@@ -57,7 +57,7 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 			/>
 			<div className={"catalog__grid-paginator"}>
 				<Paginator data={cars} />
-			</div>
+			</div>                                             
 		</div>
 	);
 };
