@@ -181,7 +181,7 @@ const StepBlock = () => {
 			<Container fluid={"xxl"}>
 				<Header text={"Я подхожу, что дальше?"} />
 				<div className={"step-block_descktop"}>
-					<Row>
+					<Row className="mb-px-100">
 						<Col md={4}>
 							<Step bgText={"01"} type={"first"}>
 								Выбираете

@@ -223,24 +223,42 @@ const FilterModels: React.FC<{
 };
 
 const FilterShares = ({
-	values,
+	data,
 	// open,
 	name,
 	onChange,
 }: {
-	values: FilterSharesData;
+	data: FilterSharesData;
 	name: string;
 	// open: boolean;
 	onChange: (e: any) => void;
 }) => {
-	console.log(values);
-
+	const filterList = useAppSelector((state) => state.baseData.top);
+	const filter = useAppSelector((state) => state.filter);
+	const dispatch = useAppDispatch();
+	const updateFilter = (block: string, value) => {
+		dispatch(setFilter({ ...filter, [block]: value }));
+	};
 	return (
-		<Filter header={name}>
-			<div>
-				{/* {values.map((item: any) => (
-					<p>{item.name}</p>
-				))} */}
+		<Filter header={data.name} open={data.open}>
+			<div className={"d-flex  gap-2 py-1 justify-content-start flex-wrap"}>
+				<button
+					onClick={() => updateFilter("new", 0)}
+					className={
+						"catalog__filter-btn " + (filter.new === 0 ? " selected" : "")
+					}>
+					Все
+				</button>
+				{filterList?.new.values?.map((i, index) => (
+					<button
+						key={i.id}
+						onClick={() => updateFilter("new", i.id)}
+						className={
+							"catalog__filter-btn " + (filter.new === i.id ? " selected" : "")
+						}>
+						{i.name}
+					</button>
+				))}
 			</div>
 		</Filter>
 	);
@@ -262,8 +280,8 @@ export const FilterCommon: React.FC<{
 	if (props.data.type === "shares") {
 		return (
 			<FilterShares
-				name={props.field}
-				values={props.data as FilterSharesData}
+				name={props.data.name}
+				data={props.data as FilterSharesData}
 				onChange={(v) => {
 					setFilterValue(props.field, v);
 				}}
@@ -321,9 +339,11 @@ export const FiltersBlock: React.FC = (props) => {
 			</button>
 			<div className={"filters-block-content"}>
 				{/* <FilterCommon/> */}
-				{Object.entries(baseData.left).map(([key, value]) => (
-					<FilterCommon field={key} key={key} data={value} />
-				))}
+				{Object.entries(baseData.left)
+					.filter(([key, value]) => value.type !== "shares")
+					.map(([key, value]) => (
+						<FilterCommon field={key} key={key} data={value} />
+					))}
 			</div>
 		</div>
 	);

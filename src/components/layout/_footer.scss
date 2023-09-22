@@ -329,6 +329,15 @@
         display: block;
       }
     }
+
+    &.mobile {
+      border: none;
+      background-color: transparent;
+
+      .default-image {
+        display: block;
+      }
+    }
   }
 }
 .footer-contacts-bottom {

@@ -104,7 +104,7 @@ const CatalogPage = () => {
 			headerSelectedLink={"/catalog"}
 			footerSmall>
 			<div className="catalog">
-				<Container fluid={"xxl"} >
+				<Container fluid={"xxl"}>
 					<CatalogMobileMenu isActive={isOpen} setIsActive={setOpen} />
 					<div>
 						<Row>

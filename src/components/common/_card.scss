@@ -374,6 +374,7 @@
       font-weight: 600;
       font-size: 22px;
       line-height: 130%;
+
       margin-bottom: 15px;
       @include l-md {
         font-size: 18px;
@@ -381,7 +382,7 @@
       }
       @include l-sm {
         font-size: 14px;
-        margin: 0 0 5px 0;
+        margin: 4px 0 5px 0;
       }
     }
 

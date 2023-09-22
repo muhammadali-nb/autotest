@@ -63,18 +63,9 @@ export interface BaseState {
 const mockBaseState: BaseState = {
     loaded: false,
     left: {
-
         price: { name: "Цена", type: "slider2", from: 500000, to: 5000000, open: true },
-        brands: {
-            name: "Марки", type: "checkbox", open: true, values: [
-                { id: 1, name: 'Mercedes' },
-                { id: 2, name: 'Kia' },
-                { id: 3, name: 'Toyota' },
-                { id: 4, name: 'ВАЗ' },
-            ]
-        },
         shares: {
-            name: 'Акции', type: "shares", values: [
+            name: 'Акции', type: "shares", open: true, values: [
                 {
                     id: 1,
                     name: "Все"
@@ -93,6 +84,15 @@ const mockBaseState: BaseState = {
                 }
             ]
         },
+        brands: {
+            name: "Марки", type: "checkbox", open: true, values: [
+                { id: 1, name: 'Mercedes' },
+                { id: 2, name: 'Kia' },
+                { id: 3, name: 'Toyota' },
+                { id: 4, name: 'ВАЗ' },
+            ]
+        },
+
         models: {
             name: "Модели",
             type: "models",
