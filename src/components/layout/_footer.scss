@@ -339,14 +339,14 @@
   padding: 10px 0;
   align-items: flex-start;
 
-  @include l-md {
-    display: none !important;
-  }
-  // &-policy {
-  //   @include l-md {
-  //     display: none;
-  //   }
+  // @include l-md {
+  //   display: none !important;
   // }
+  &-policy {
+    @include l-md {
+      display: none;
+    }
+  }
 
   @include l-xl {
     flex-direction: column;
