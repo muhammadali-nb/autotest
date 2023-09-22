@@ -144,8 +144,8 @@ function IndexSteps(props) {
 				<Row>
 					<Col xs={12}>
 						<IndexStepMobile
-							id={"index-step2-mb"}
-							step="02"
+							id={"index-step1-mb"}
+							step="01"
 							header={"Выбрать автомобиль"}
 							description={
 								<p>

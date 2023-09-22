@@ -97,7 +97,7 @@ export const FooterBottom = () => {
 			<span className={"footer-contacts-bottom-element"}>
 				ООО ВОСХОД ⓒ 2023 год
 			</span>
-			<div className={"line-height-100"}>
+			<div className={"line-height-100 footer-contacts-bottom-policy "}>
 				<Link
 					to={"/offer"}
 					className={"footer-contacts-bottom-element me-px-20"}>

@@ -338,6 +338,16 @@
   width: 100%;
   padding: 10px 0;
   align-items: flex-start;
+
+  @include l-md {
+    display: none !important;
+  }
+  // &-policy {
+  //   @include l-md {
+  //     display: none;
+  //   }
+  // }
+
   @include l-xl {
     flex-direction: column;
   }
@@ -349,7 +359,7 @@
   @include l-sm {
     margin: 0;
     padding-top: 0;
-    & > div {
+    div {
       display: none;
     }
 
