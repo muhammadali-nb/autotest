@@ -359,6 +359,7 @@
   @include l-md {
     height: 50%;
     clip-path: polygon(0 0, 100% 0, 100% 94%, 0% 100%);
+    background: rgba(0, 0, 0, 0.8);
   }
 
   @include l-sm {

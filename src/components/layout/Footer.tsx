@@ -13,14 +13,13 @@ import teleB from "./../../img/common/footer/tele-b.png";
 import teleW from "./../../img/common/footer/tele-w.png";
 import ContactsForm from "../common/ContactsForm";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 import Utils from "../../Utils";
-=======
+
 
 import vkMb from "../../img/common/footer/social-icons-mb/vk.svg";
 import whMb from "../../img/common/footer/social-icons-mb/whatsapp.svg";
 import telegramMb from "../../img/common/footer/social-icons-mb/telegram.svg";
->>>>>>> mobile-version
+
 
 const FooterMap: React.FC<{ full: boolean; noContacts: boolean }> = ({
 	full,
