@@ -62,7 +62,7 @@ const SecondBlock = () => (
 	<div className={"second-block"}>
 		<Container fluid={"xxl"}>
 			<div className={"second-block_header "}>
-				Преимущества лизинга для физических лиц:
+				Преимущества лизинга <br /> для физических лиц:
 			</div>
 			<Row>
 				<Col md={6}>
@@ -76,15 +76,6 @@ const SecondBlock = () => (
 					</div>
 				</Col>
 				<Col md={6}>
-					<div className={"leasing__imaged-block li-jewel "}>
-						<div className={"leasing__imaged-block_header"}>Доступно</div>
-						<div className={"leasing__imaged-block_divider"} />
-						<div className={"leasing__imaged-block_description "}>
-							Лизинг позволяет приобрести автомобиль более высокого класса
-						</div>
-					</div>
-				</Col>
-				<Col md={6}>
 					<div className={"leasing__imaged-block li-card "}>
 						<div className={"leasing__imaged-block_header"}>Выгодно</div>
 						<div className={"leasing__imaged-block_divider"} />
@@ -94,6 +85,16 @@ const SecondBlock = () => (
 						</div>
 					</div>
 				</Col>
+				<Col md={6}>
+					<div className={"leasing__imaged-block li-jewel "}>
+						<div className={"leasing__imaged-block_header"}>Доступно</div>
+						<div className={"leasing__imaged-block_divider"} />
+						<div className={"leasing__imaged-block_description "}>
+							Лизинг позволяет приобрести автомобиль более высокого класса
+						</div>
+					</div>
+				</Col>
+
 				<Col md={6}>
 					<div className={"leasing__imaged-block li-document "}>
 						<div className={"leasing__imaged-block_header"}>Быстро</div>

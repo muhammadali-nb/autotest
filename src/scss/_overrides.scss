@@ -37,9 +37,9 @@ $defaultColor: #222222;
 .form-check {
   padding-left: 25px;
   display: block;
-  // @include l-md {
-  //   display: none;
-  // }
+  @include l-md {
+    display: none;
+  }
 }
 
 .form-mobile-policy {

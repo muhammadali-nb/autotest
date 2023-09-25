@@ -513,34 +513,35 @@
   &.index-1 {
     left: calc(67% - 45px);
     top: 100px;
-    max-width: 30%;
+    max-width: 500px;
   }
 
   &.index-2 {
     left: calc(58% - 45px);
     top: 317px;
-    max-width: 40%;
+    max-width: 592px;
   }
 
   &.index-3 {
     left: calc(48.7% - 45px);
     top: 550px;
-    max-width: 40%;
+    max-width: 500px;
   }
 
   &.index-4 {
     left: calc(41% - 45px);
     top: 740px;
-    max-width: 40%;
+    max-width: 486px;
+    width: 100%;
   }
 
   @include l-xl {
-    &.index-1,
-    &.index-2,
-    &.index-3,
-    &.index-4 {
-      max-width: 40%;
-    }
+    // &.index-1,
+    // &.index-2,
+    // &.index-3,
+    // &.index-4 {
+    //   max-width: 40%;
+    // }
   }
   @include l-lg {
     color: white;
@@ -806,6 +807,9 @@
       height: 32px;
     }
   }
+  .kia-brand {
+    height: 34px !important;
+  }
 }
 
 .great-deal {
@@ -860,57 +864,93 @@
     & > p {
       margin: 0 0 0 0;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 18px;
+      letter-spacing: 0.18px;
+      line-height: normal;
       text-transform: uppercase;
+      // transform: translateY(2px);
+      color: #606569;
+    }
+
+    & > svg {
+      width: 222px;
+    }
+
+    & > svg path {
+      color: red;
+      fill: red;
     }
 
     & > img {
       width: 224px;
+      height: auto;
+      transform: translateY(1px);
     }
-  }
 
-  @include l-lg {
-    &_more {
-      display: flex;
-      align-items: center;
-
-      & > p {
-        // font-size: 14px;
-        margin: 0 12px 0 0;
-      }
+    &-gray {
+      display: block;
     }
-  }
 
-  @include l-md {
-    &_more {
-      display: flex;
-      align-items: center;
+    &-black {
+      display: none;
+    }
 
-      & > p {
-        font-size: 14px;
-        margin: 0 8px 0 0;
+    &:hover {
+      .great-deal_more-gray {
+        display: none !important;
       }
 
-      & > img {
-        width: 82px;
+      .great-deal_more-black {
+        display: block !important;
+      }
+
+      p {
+        color: #222222;
       }
     }
-  }
 
-  @include l-sm {
-    &_more {
-      display: flex;
-      align-items: center;
+    // @include l-lg {
+    //   .great-deal_more {
+    //     display: flex !important;
+    //     align-items: center;
 
-      & > p {
-        font-size: 12px;
-        margin: 0 16px 0 0;
-      }
+    //     & > p {
+    //       // font-size: 14px;
+    //       margin: 0 12px 0 0;
+    //     }
+    //   }
+    // }
 
-      & > img {
-        width: 134px;
-      }
-    }
+    // @include l-md {
+    //   .great-deal_more {
+    //     display: flex !important;
+    //     align-items: center;
+    //     & > p {
+    //       // transform: translateY(0);
+    //       font-size: 14px;
+    //       margin: 0 8px 0 0;
+    //     }
+
+    //     & > img {
+    //       width: 82px;
+    //       // fill: #606569;
+    //     }
+    //   }
+    // }
+
+    // @include l-sm {
+    //   .great-deal_more {
+    //     & > p {
+    //       font-size: 12px;
+    //       margin: 0 16px 0 0;
+    //     }
+
+    //     & > img {
+    //       width: 134px;
+    //       // fill: #606569;
+    //     }
+    //   }
+    // }
   }
 
   &_cars {
@@ -921,6 +961,10 @@
 
     &-container {
       overflow: scroll;
+      &::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari, and Opera */
+      }
+      scrollbar-width: none; /* for Firefox */
       padding: 0 0 12px 0;
     }
   }
@@ -943,5 +987,55 @@
 
   @include l-sm {
     padding: 20px 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .great-deal_more {
+    display: flex !important;
+    align-items: center;
+    & > p {
+      // transform: translateY(0);
+      font-size: 16px;
+      margin: 0 8px 0 0;
+    }
+
+    & > img {
+      width: 134px;
+      // fill: #606569;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .great-deal_more {
+    display: flex !important;
+    align-items: center;
+    & > p {
+      // transform: translateY(0);
+      font-size: 14px;
+      margin: 0 8px 0 0;
+    }
+
+    & > img {
+      width: 134px;
+      // fill: #606569;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .great-deal_more {
+    display: flex !important;
+    align-items: center;
+    & > p {
+      // transform: translateY(0);
+      font-size: 12px;
+      margin: 0 16px 0 0;
+    }
+
+    & > img {
+      width: 134px;
+      // fill: #606569;
+    }
   }
 }

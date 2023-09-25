@@ -138,7 +138,7 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 			/>
 
 			<p className="form-mobile-policy">
-				Нажимая на кнопку “Забронировать”, вы соглашаетесь с
+				Нажимая на кнопку “Забронировать”, вы соглашаетесь с{" "}
 				<Link
 					to={"/policy"}
 					target={"_blank"}

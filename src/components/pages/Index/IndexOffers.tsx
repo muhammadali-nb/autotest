@@ -104,8 +104,8 @@ const IndexOffers = () => {
 					<div className={"index-offers-brand"}>
 						<img src={"/dummy/logo-hyundai.png"} alt={""} />
 					</div>
-					<div className={"index-offers-brand"}>
-						<img src={"/dummy/logo-kia.png"} alt={""} />
+					<div className={"index-offers-brand "}>
+						<img src={"/dummy/logo-kia.png"} className="kia-brand" alt={""} />
 					</div>
 					<div className={"index-offers-brand"}>
 						<img src={"/dummy/logo-toyota.png"} alt={""} />
@@ -131,8 +131,8 @@ const IndexOffers = () => {
 					<div className={"index-offers-brand"}>
 						<img src={"/dummy/logo-hyundai.png"} alt={""} />
 					</div>
-					<div className={"index-offers-brand"}>
-						<img src={"/dummy/logo-kia.png"} alt={""} />
+					<div className={"index-offers-brand kia"}>
+						<img src={"/dummy/logo-kia.png"} className="kia-brand" alt={""} />
 					</div>
 					<div className={"index-offers-brand"}>
 						<img src={"/dummy/logo-toyota.png"} alt={""} />

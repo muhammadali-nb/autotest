@@ -531,12 +531,11 @@ main {
   }
 
   &.big {
-    padding: 15px 25px;
+    padding: 12px 16px;
     font-size: 16px;
     font-weight: 600;
 
     @include l-md {
-      padding: 12px 16px;
       font-size: 12px;
     }
   }
@@ -1004,6 +1003,8 @@ code {
 
   @include l-md {
     margin: 44px 0 44px 0;
+    background: var(--default-white, #fff);
+    box-shadow: 0px 15px 24px -15px rgba(0, 0, 0, 0.08);
   }
 
   @include l-sm {
@@ -1106,6 +1107,7 @@ code {
   }
 
   @include l-sm() {
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.05);
     &:not(:last-child) {
       margin: 0 0 8px 0;
     }
@@ -1140,7 +1142,7 @@ code {
     @include l-sm {
       width: 33px;
       // height: 33px;
-      background-size: 16px 18px;
+      background-size: 22px 22px;
     }
   }
 }
@@ -1203,7 +1205,8 @@ code {
     height: 88px;
     width: 88px;
     border: 2px solid #f2f3f6;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    // box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 9.83351px 0px rgba(0, 0, 0, 0.15);
     border-radius: 100px;
     background-color: #ffffff;
     background-size: 48px 48px;
@@ -1761,6 +1764,13 @@ code {
 .second-block {
   margin: 80px 0;
 
+  br {
+    display: none;
+
+    @include l-md {
+      display: block;
+    }
+  }
   @include l-md {
     margin: 60px 0;
   }

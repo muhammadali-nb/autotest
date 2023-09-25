@@ -15,11 +15,9 @@ import ContactsForm from "../common/ContactsForm";
 import { Link } from "react-router-dom";
 import Utils from "../../Utils";
 
-
 import vkMb from "../../img/common/footer/social-icons-mb/vk.svg";
 import whMb from "../../img/common/footer/social-icons-mb/whatsapp.svg";
 import telegramMb from "../../img/common/footer/social-icons-mb/telegram.svg";
-
 
 const FooterMap: React.FC<{ full: boolean; noContacts: boolean }> = ({
 	full,
@@ -89,9 +87,11 @@ export const FooterLink: React.FC<{ img: any; hover?: any; link: string }> = (
 	props
 ) => {
 	return (
-		<Link to={props.link} className={`footer-contacts-link ${!props.hover && "mobile"}`}>
+		<Link
+			to={props.link}
+			className={`footer-contacts-link ${!props.hover && "mobile"}`}>
 			<img src={props.img} className={"default-image"} alt="" />
-			{!props.hover === undefined && (
+			{props.hover !== undefined && (
 				<img src={props.hover} className={"hover-image"} alt="" />
 			)}
 		</Link>

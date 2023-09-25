@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import CarCard from "../../common/CarCard";
 import carImage from "../../../img/index/car.webp";
 import { Col, Container, Row } from "react-bootstrap";
-import arrowImage from "../../../img/index/gray-arrow.svg";
+import arrowImageBlack from "../../../img/index/gray-arrow.svg";
+import arrowImageGray from "../../../img/index/arrow-gray.svg";
 import Animator from "../../../Animator";
 
 const IndexGreatDeals = () => {
@@ -26,7 +27,31 @@ const IndexGreatDeals = () => {
 					<h1>выгодные предложения</h1>
 					<div className="great-deal_more">
 						<p>Другие автомобили</p>
-						<img src={arrowImage} alt="push" />
+						<img
+							src={arrowImageBlack}
+							className="great-deal_more-black"
+							alt="push"
+						/>
+						<img
+							src={arrowImageGray}
+							className="great-deal_more-gray"
+							alt="push"
+						/>
+
+						{/* <div style={{ width: "200px" }}>
+							<svg
+								width="100%"
+								height="12"
+								viewBox="0 0 134 12"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									id="Vector"
+									d="M134 4.5L126.5 0.169873V8.83013L134 4.5ZM127.25 3.75H0V5.25H127.25V3.75Z"
+									fill="#606569"
+								/>
+							</svg>
+						</div> */}
 					</div>
 				</div>
 				<div className="great-deal_cars-container">
@@ -49,7 +74,6 @@ const IndexGreatDeals = () => {
 						</Col>
 						<Col xs={3}>
 							<CarCard
-							
 								responsive={false}
 								id={"great-deal_car2"}
 								car={{
