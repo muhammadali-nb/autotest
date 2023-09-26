@@ -1686,11 +1686,12 @@ code {
 .paginator {
   display: flex;
   gap: 20px;
-  justify-content: center;
+  justify-content: start;
+  margin-bottom: 40px;
 
   @include l-sm {
     gap: 8px;
-    justify-content: start;
+    margin: 0 0 20px 0;
   }
 
   .paginator-btn {
@@ -1722,15 +1723,28 @@ code {
       height: 33px;
     }
 
-    &:hover,
     &:active {
       background: $defaultColor;
       color: white;
     }
 
+    &:hover {
+      border: 2px solid #bf3535;
+      background-color: white;
+
+      color: #bf3535;
+    }
+
     &.active {
       background: $defaultColor;
       color: white;
+
+      &:hover {
+        border: 2px solid #bf3535;
+        background-color: white;
+        color: #bf3535;
+        color: #bf3535;
+      }
     }
 
     &.disabled {
@@ -1744,6 +1758,7 @@ code {
     @extend .paginator-btn;
     border-color: transparent;
     padding: 9px 0;
+    border: none;
 
     width: 20px;
 
@@ -1751,6 +1766,7 @@ code {
     &:active {
       background: white;
       color: rgba($defaultColor, 0.7);
+      border: none;
     }
 
     &.disabled {
@@ -2217,12 +2233,29 @@ code {
     padding: 14px 18px;
   }
 
+  &-desc {
+    display: flex;
+
+    @include l-md {
+      display: none;
+    }
+  }
+
+  &-mobile {
+    display: none;
+
+    @include l-md {
+      display: flex;
+    }
+  }
+
   // px-px-40 py-px-25 my-px-20 text-white d-flex justify-content-between align-items-bottom
 
   &_description {
     font-size: 20px;
     font-size: 600;
     margin: 0 0 16px 0;
+    text-transform: none;
 
     @include l-md {
       font-size: 14px;
@@ -2240,6 +2273,7 @@ code {
   &_header {
     font-size: 32px;
     font-weight: 600;
+    text-transform: uppercase;
     // font-size-32 font-weight-semibold text-uppercase line-height-120
 
     @include l-md {

@@ -51,13 +51,27 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 					))}
 			</div>
 			<BottomMessage
-				button={<CarRequestForm icon={<img src={chevron} />} light />}
+				className="bottom-message-desc"
+				button={<CarRequestForm text={"Оставить заявку"} light />}
 				text1={"Не нашли ничего подходящего?"}
 				text2={"Предложите свой вариант!"}
 			/>
+			<BottomMessage
+				className="bottom-message-mobile"
+				button={
+					<CarRequestForm
+						icon={<img src={chevron} />}
+						text={"Оставить заявку"}
+						light
+					/>
+				}
+				text1={"Не нашли ничего подходящего?"}
+				text2={"Предложите свой вариант!"}
+			/>
+
 			<div className={"catalog__grid-paginator"}>
 				<Paginator data={cars} />
-			</div>                                             
+			</div>
 		</div>
 	);
 };

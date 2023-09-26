@@ -983,10 +983,31 @@
 }
 
 .catalog {
-  padding: 40px 0;
+  padding: 40px 0 0 0;
 
+  &-alert {
+    margin: 0 0 60px 0;
+
+    @include l-md {
+      margin: 0 0 24px 0;
+    }
+
+    &_message {
+      font-size: 14px;
+      margin: 0;
+
+      span {
+        color: #bf3535;
+        cursor: pointer;
+      }
+      line-height: normal;
+      @include l-md {
+        font-size: 10px;
+      }
+    }
+  }
   @include l-sm {
-    padding: 20px 0;
+    padding: 20px 0 0 0;
   }
 }
 

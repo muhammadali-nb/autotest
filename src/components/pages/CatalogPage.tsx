@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactElement, ReactNode, useEffect, useState } from "react";
 import BaseLayout, { MetaTags } from "../layout/BaseLayout";
 import { Col, Container, Row } from "react-bootstrap";
 import FiltersBlock from "./Catalog/FiltersBlock";
@@ -10,11 +10,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import Api from "../../Api";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
+import CatalogLayout from "../layout/CatalogLayout";
+import Footer, { SmallFooter } from "../layout/Footer";
 
 export const AlertMessage: React.FC<{
 	page: string;
 	type: string;
 	className?: string;
+	local_message?: ReactElement;
 }> = (props) => {
 	const [show, setShow] = useState<boolean>(false);
 	const [message, setMessage] = useState<string>("");
@@ -52,11 +55,16 @@ export const AlertMessage: React.FC<{
 				(props.className ?? "")
 			}>
 			<img src={dangerBtn} alt={""} className={"_alert__image"} />
-			<div
-				className={"_alert__content"}
-				dangerouslySetInnerHTML={{
-					__html: process(message),
-				}}></div>
+
+			{!props.local_message ? (
+				<div
+					className={"_alert__content"}
+					dangerouslySetInnerHTML={{
+						__html: process(message),
+					}}></div>
+			) : (
+				props.local_message
+			)}
 			<button className={"_alert__close"} onClick={() => setShow(false)}>
 				<FontAwesomeIcon icon={faCircleXmark} size={"lg"} />
 			</button>
@@ -68,10 +76,11 @@ export const BottomMessage: React.FC<{
 	text1: string | ReactNode;
 	text2: string | ReactNode;
 	button: ReactNode;
+	className?: string;
 }> = (props) => {
 	return (
 		<div
-			className={"bottom-message"}
+			className={`bottom-message ${props.className}`}
 			style={{
 				backgroundImage: `url('${bg}')`,
 				backgroundPosition: "center",
@@ -98,7 +107,7 @@ const CatalogPage = () => {
 		keywords: "каталог,лизинг,авто,список,leasing",
 	};
 	return (
-		<BaseLayout
+		<CatalogLayout
 			meta={meta}
 			title={title}
 			headerSelectedLink={"/catalog"}
@@ -111,14 +120,29 @@ const CatalogPage = () => {
 							<Col lg={4} xxl={3}>
 								<div
 									className={"sticky-no-scrollbar"}
-									style={{ maxWidth: "315px" }}>
+									// style={{ maxWidth: "315px" }}
+								>
 									<FiltersBlock />
 								</div>
 							</Col>
 							<Col lg={8} xxl={9}>
-								{/*<AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
+								<AlertMessage
+									page={"catalog"}
+									type={"danger"}
+									className={"catalog-alert"}
+									local_message={
+										<p className="catalog-alert_message">
+											В каталоге представлены автомобили, которые проходят по
+											программам лизинга.
+											<br></br>
+											Если Вам необходим автомобиль в аренду перейдите в раздел{" "}
+											<span>Аренда.</span>
+										</p>
+									}
+								/>
 								<FilterButtons isShowMobileFiler={setOpen} />
 								<CarGrid />
+								<SmallFooter />
 							</Col>
 						</Row>
 					</div>
@@ -148,7 +172,7 @@ const CatalogPage = () => {
 					{/*}*/}
 				</Container>
 			</div>
-		</BaseLayout>
+		</CatalogLayout>
 	);
 };
 

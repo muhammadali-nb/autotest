@@ -201,6 +201,11 @@
 
 .filter__block {
   margin-bottom: 20px;
+
+  @include l-md {
+    // border-bottom: 1px solid #f2f3f6;
+    margin: 0 0 15px 0;
+  }
   &.small {
     margin: 10px 0;
     .filter__block-header {

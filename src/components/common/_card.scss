@@ -211,6 +211,11 @@
     color: $textColor;
     text-decoration: none;
 
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
     &:hover,
     &:active {
       color: $textColor;

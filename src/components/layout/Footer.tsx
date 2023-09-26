@@ -203,31 +203,31 @@ export const FooterContacts = () => {
 		</Container>
 	);
 };
-const SmallFooter = () => {
+export const SmallFooter = () => {
 	return (
 		<div className={"py-px-20"}>
-			<Container fluid={"xxl"}>
-				<div className={"d-flex justify-content-between"}>
-					<div className={"footer-contacts-bottom-logo"}>
-						<span>ООО Восход</span>
-						<span>© 2023 год</span>
-					</div>
-					<div className={"  footer-contacts-bottom-policy "}>
-						<Link
-							to={"/offer"}
-							className={
-								"footer-contacts-bottom-element text-gray-color me-px-10"
-							}>
-							Оферта
-						</Link>
-						<Link
-							to={"/policy"}
-							className={"footer-contacts-bottom-element text-gray-color"}>
-							Политика конфиденциальности
-						</Link>
-					</div>
+			{/* <Container fluid={"xxl"}> */}
+			<div className={"d-flex justify-content-between"}>
+				<div className={"footer-contacts-bottom-logo"}>
+					<span>ООО Восход</span>
+					<span>© 2023 год</span>
 				</div>
-			</Container>
+				<div className={"  footer-contacts-bottom-policy "}>
+					<Link
+						to={"/offer"}
+						className={
+							"footer-contacts-bottom-element text-gray-color me-px-10"
+						}>
+						Оферта
+					</Link>
+					<Link
+						to={"/policy"}
+						className={"footer-contacts-bottom-element text-gray-color"}>
+						Политика конфиденциальности
+					</Link>
+				</div>
+			</div>
+			{/* </Container> */}
 		</div>
 	);
 };

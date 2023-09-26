@@ -113,7 +113,7 @@ const FilterCheckbox: React.FC<{
 	};
 	return (
 		<Filter header={data.name} open={data.open ?? false}>
-			<div className={"ps-0 ps-lg-3"}>
+			<div>
 				<FormCheck
 					label={"Все"}
 					className={"my-px-10 font-size-14 font-weight-semibold"}
@@ -160,7 +160,7 @@ const FilterModelSet: React.FC<{
 
 	return (
 		<Filter header={brand.name} small={true} open={true} showCaret={false}>
-			<div className={"ps-0 ps-lg-3"}>
+			<div>
 				{models.slice(0, showAmount).map((i, index) => (
 					<FormCheck
 						key={index}
@@ -207,7 +207,7 @@ const FilterModels: React.FC<{
 	};
 	return (
 		<Filter header={data.name} open={data.open ?? false}>
-			<div className={"ps-0 ps-lg-3"}>
+			<div>
 				<FormCheck
 					label={"Все"}
 					checked={filter[field]?.length === 0}
@@ -241,7 +241,9 @@ const FilterShares = ({
 	};
 	return (
 		<Filter header={data.name} open={data.open}>
-			<div className={"d-flex  gap-2 py-1 justify-content-start flex-wrap"}>
+			<div
+				className={"d-flex  gap-2 py-px-15 justify-content-start flex-wrap"}
+				>
 				<button
 					onClick={() => updateFilter("new", 0)}
 					className={

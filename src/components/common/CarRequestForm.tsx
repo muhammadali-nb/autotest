@@ -164,6 +164,7 @@ const CarRequestForm: React.FC<{
 	text?: string | ReactNode;
 	small?: boolean;
 	icon?: ReactNode;
+	responsive?: boolean;
 }> = (props) => {
 	const [show, setShow] = useState(false);
 	const [sent, setSent] = useState(false);
@@ -173,11 +174,13 @@ const CarRequestForm: React.FC<{
 	return (
 		<>
 			{props.icon ? (
-				<div onClick={handleShow}>{props.icon}</div>
+				<div className={"car-request-form_icon "} onClick={handleShow}>
+					{props.icon}
+				</div>
 			) : (
 				<button
 					className={
-						"site-btn" +
+						"site-btn car-request-form_button" +
 						(props.light ? " light" : "") +
 						(props.small ? " small" : "")
 					}
