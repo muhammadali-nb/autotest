@@ -40,6 +40,16 @@ $defaultColor: #222222;
   // @include l-md {
   //   display: none;
   // }
+
+  margin: 8px 0;
+
+  &:first-child {
+    margin: 16px 0 8px 0;
+  }
+
+  &:last-child {
+    margin: 8px 0 0 0;
+  }
 }
 
 .form-mobile-policy {

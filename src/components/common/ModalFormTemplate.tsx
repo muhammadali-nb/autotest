@@ -117,6 +117,7 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 			<FormCheck
 				checked={props.confirmed}
 				onChange={props.onChange}
+				className="form-check-modal"
 				label={
 					<span
 						style={{ fontSize: "14px" }}

@@ -150,8 +150,8 @@ const HowBlock = () => (
 					<FontAwesomeIcon icon={faCircleCheck} />
 					&nbsp;&nbsp;
 					<p>
-						Водительское удостоверение (или другой документ, удостоверяющий
-						личность)
+						Водительское удостоверение <br /> (или другой документ,
+						удостоверяющий личность)
 					</p>
 				</div>
 			</div>
@@ -555,6 +555,10 @@ const FaqBlock = () => {
 				<h1 className={"faq-block_header"}>
 					чАСТО ЗАДАВАЕМЫЕ <br /> ВОПРОСЫ
 				</h1>
+				<p className={"faq-block_description"}>
+					В разделе Вопросы, вы также можете получить ответы по вопросам аренды
+					автомобиля
+				</p>
 				<Row className={"faq-block_body gx-lg-5 gx-sm-0"}>
 					<Col sm={12} lg={6} className="px-0 px-md-3">
 						<div className={"w-100"}>
