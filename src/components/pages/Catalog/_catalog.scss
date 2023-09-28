@@ -210,6 +210,10 @@
   padding: 16px 0;
   border-bottom: 1px solid #f2f3f6;
 
+  &:first-child {
+    padding: 0 0 16px 0;
+  }
+
   &.small {
     padding: 8px 0;
     border: none;

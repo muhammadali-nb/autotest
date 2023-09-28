@@ -117,7 +117,7 @@ const CatalogPage = () => {
 					<CatalogMobileMenu isActive={isOpen} setIsActive={setOpen} />
 					<div>
 						<Row>
-							<Col lg={4} xxl={3}>
+							<Col lg={3}>
 								<div
 									className={"sticky-no-scrollbar"}
 									// style={{ maxWidth: "315px" }}
@@ -125,7 +125,7 @@ const CatalogPage = () => {
 									<FiltersBlock />
 								</div>
 							</Col>
-							<Col lg={8} xxl={9}>
+							<Col lg={9}>
 								<AlertMessage
 									page={"catalog"}
 									type={"danger"}
@@ -146,30 +146,6 @@ const CatalogPage = () => {
 							</Col>
 						</Row>
 					</div>
-
-					{/*<div className={'d-flex'} style={{gap:'40px'}}>*/}
-					{/*    <div className={'sticky-no-scrollbar'} style={{maxWidth:'315px'}}>*/}
-					{/*        <FiltersBlock />*/}
-					{/*    </div>*/}
-					{/*    <div className={'flex-grow w-100'}>*/}
-					{/*        <AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
-					{/*        <FilterButtons />*/}
-					{/*        <CarGrid />*/}
-					{/*    </div>*/}
-					{/*</div>*/}
-					{/*{process.env.REACT_APP_NO_CATALOG !== 'true'*/}
-					{/*    ? <div className={'d-flex'} style={{gap:'40px'}}>*/}
-					{/*        <div className={'sticky-no-scrollbar'} style={{maxWidth:'315px'}}>*/}
-					{/*            <FiltersBlock />*/}
-					{/*        </div>*/}
-					{/*        <div className={'flex-grow w-100'}>*/}
-					{/*            <AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
-					{/*            <FilterButtons />*/}
-					{/*            <CarGrid />*/}
-					{/*        </div>*/}
-					{/*    </div>*/}
-					{/*    : <AlertMessage page={'catalog'} type={'danger'} className={'mb-px-60'} />*/}
-					{/*}*/}
 				</Container>
 			</div>
 		</CatalogLayout>

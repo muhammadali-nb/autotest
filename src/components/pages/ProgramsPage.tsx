@@ -180,7 +180,8 @@ const StepBlock = () => {
 	return (
 		<div className={"step-block"}>
 			<Container fluid={"xxl"}>
-				<Header text={"Я подхожу, что дальше?"} />
+				{/* <Header text={"Я подхожу, что дальше?"} /> */}
+				<h1 className={"step-block_header"}>Я подхожу, что дальше?</h1>
 				<div className={"step-block_descktop"}>
 					<Row className="mb-px-100">
 						<Col md={4}>
