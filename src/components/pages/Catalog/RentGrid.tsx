@@ -15,7 +15,7 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 	const [cars, setCars] = useState<RentResponse | ErrorResponse | undefined>(
 		undefined
 	);
-	const [isOpen, setOpen] = useState<boolean>(false);
+	
 
 	const filter = useAppSelector((state) => state.filter);
 	const [query, setQuery] = useSearchParams();
@@ -50,7 +50,7 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 		);
 	return (
 		<div>
-			<FilterButtons mode="rent" isShowMobileFiler={setOpen} />
+			
 
 			<div className={"catalog__grid"}>
 				{!Api.isError(cars) &&

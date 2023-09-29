@@ -12,7 +12,7 @@ const IndexOffers = () => {
 
 	return (
 		<div className={"index__offers"}>
-			{process.env.REACT_APP_NO_CATALOG !== "true" && (
+			{/* {process.env.REACT_APP_NO_CATALOG !== "true" && (
 				<Container fluid={"xxl"}>
 					<div className={"index__offers-header"}>
 						<span>выгодные предложения</span>
@@ -30,11 +30,12 @@ const IndexOffers = () => {
 						</div>
 					)}
 				</Container>
-			)}
+			)} */}
 			<div
-				className={
-					process.env.REACT_APP_NO_CATALOG !== "true" ? "mt-px-100" : ""
-				}>
+			// className={
+			// 	process.env.REACT_APP_NO_CATALOG !== "true" ? "mt-px-100" : ""
+			// }
+			>
 				<Carousel
 					additionalTransfrom={0}
 					arrows

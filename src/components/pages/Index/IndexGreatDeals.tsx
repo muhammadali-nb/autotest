@@ -5,6 +5,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import arrowImageBlack from "../../../img/index/gray-arrow.svg";
 import arrowImageGray from "../../../img/index/arrow-gray.svg";
 import Animator from "../../../Animator";
+import { Link } from "react-router-dom";
 
 const IndexGreatDeals = () => {
 	useEffect(() => {
@@ -27,16 +28,18 @@ const IndexGreatDeals = () => {
 					<h1>выгодные предложения</h1>
 					<div className="great-deal_more">
 						<p>Другие автомобили</p>
-						<img
-							src={arrowImageBlack}
-							className="great-deal_more-black"
-							alt="push"
-						/>
-						<img
-							src={arrowImageGray}
-							className="great-deal_more-gray"
-							alt="push"
-						/>
+						<Link to="/catalog">
+							<img
+								src={arrowImageBlack}
+								className="great-deal_more-black"
+								alt="push"
+							/>
+							<img
+								src={arrowImageGray}
+								className="great-deal_more-gray"
+								alt="push"
+							/>
+						</Link>
 
 						{/* <div style={{ width: "200px" }}>
 							<svg

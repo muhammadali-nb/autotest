@@ -82,7 +82,6 @@ const FilterButtons: React.FC<{
 					<div
 						className="d-block d-lg-none "
 						onClick={() => isShowMobileFiler(true)}>
-						
 						<img src={filterIcon} alt="" />
 					</div>
 				</div>
@@ -114,34 +113,42 @@ const FilterButtons: React.FC<{
 			)}
 
 			{mode === "rent" && (filterList?.new.values?.length ?? 0) > 0 && (
-				<div
-					className={
-						"d-flex mb-3 mb-md-0 gap-2 py-1 justify-content-start flex-wrap"
-					}>
-					<button
-						onClick={() => updateFilter("rent", 0)}
+				<div className="d-flex justify-content-between align-items-center  mb-3 mb-md-0">
+					<div
 						className={
-							"catalog__filter-btn " + (filter.rent === 0 ? " selected" : "")
+							//mb-0 mb-md-3
+							"d-flex  gap-2 py-1 justify-content-start flex-wrap"
 						}>
-						Все
-					</button>
-					{filterList?.rent.values?.map((i, index) => (
 						<button
-							key={i.id}
-							onClick={() => updateFilter("rent", i.id)}
+							onClick={() => updateFilter("rent", 0)}
 							className={
-								"catalog__filter-btn " +
-								(filter.rent === i.id ? " selected" : "")
+								"catalog__filter-btn " + (filter.rent === 0 ? " selected" : "")
 							}>
-							{i.name}
+							Все
 						</button>
-					))}
+						{filterList?.rent.values?.map((i, index) => (
+							<button
+								key={i.id}
+								onClick={() => updateFilter("rent", i.id)}
+								className={
+									"catalog__filter-btn " +
+									(filter.rent === i.id ? " selected" : "")
+								}>
+								{i.name}
+							</button>
+						))}
+					</div>
+					<div
+						className="d-block d-lg-none "
+						onClick={() => isShowMobileFiler(true)}>
+						<img src={filterIcon} alt="" />
+					</div>
 				</div>
 			)}
 			{mode === "rent" && (
 				<div
 					className={
-						"catalog__filter-container d-flex gap-2 py-1 justify-content-start flex-wrap"
+						"catalog__filter-container d-none d-lg-flex gap-2 py-1 justify-content-start flex-wrap"
 					}>
 					<button
 						onClick={() => updateFilter("available", undefined)}
