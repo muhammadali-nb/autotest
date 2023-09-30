@@ -33,7 +33,6 @@ const FoldableQuestion: React.FC<{
 							<path
 								d="M4.25 6.375L8.5 10.625L12.75 6.375"
 								stroke="#222222"
-								
 								stroke-width="2"
 								stroke-linecap="round"
 								stroke-linejoin="round"
