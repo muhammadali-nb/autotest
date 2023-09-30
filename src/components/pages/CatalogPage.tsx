@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from "react";
-import BaseLayout, { MetaTags } from "../layout/BaseLayout";
+import { MetaTags } from "../layout/BaseLayout";
 import { Col, Container, Row } from "react-bootstrap";
 import FiltersBlock from "./Catalog/FiltersBlock";
 import CarGrid from "./Catalog/CarGrid";
@@ -11,7 +11,7 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import Api from "../../Api";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import CatalogLayout from "../layout/CatalogLayout";
-import Footer, { SmallFooter } from "../layout/Footer";
+import { SmallFooter } from "../layout/Footer";
 
 export const AlertMessage: React.FC<{
 	page: string;
