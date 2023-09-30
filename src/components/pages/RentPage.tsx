@@ -10,6 +10,7 @@ import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { AlertMessage } from "./CatalogPage";
 import RentLayout from "../layout/RentLayout";
 import { SmallFooter } from "../layout/Footer";
+import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -62,7 +63,7 @@ const RentPageHeader = () => {
 							</div>
 
 							<Row className="g-xl-3 g-xxl-5">
-								<Col lg={4}>
+								<Col md={12} lg={4}>
 									<div className={"flex-grow pe-px-20 pt-px-5"}>
 										<div
 											className={
@@ -79,7 +80,7 @@ const RentPageHeader = () => {
 										</div>
 									</div>
 								</Col>
-								<Col lg={4}>
+								<Col md={6} lg={4}>
 									<FoldableQuestion small header={"Как арендовать автомобиль?"}>
 										<div>
 											<ul className={"foldable-ul"}>
@@ -111,7 +112,7 @@ const RentPageHeader = () => {
 										</div>
 									</FoldableQuestion>
 								</Col>
-								<Col lg={4}>
+								<Col md={6} lg={4}>
 									<FoldableQuestion small header={"Условия аренды"}>
 										<div>
 											<ul className={"foldable-ul"}>
@@ -229,12 +230,14 @@ const RentPageHeader = () => {
 					</div> */}
 						</div>
 					</Collapse>
+
 					<div
 						className={"mb-px-50"}
 						style={{ borderTop: "2px solid #F2F3F6" }}
 					/>
 				</Container>
 			</div>
+
 			<div className="d-block d-md-none rent-header-info">
 				<Container fluid={"xxl"}>
 					<div className="rent-header-info_body">
@@ -347,7 +350,9 @@ const RentPage = () => {
 			headerSelectedLink={"/rent"}
 			footerSmall>
 			<RentPageHeader />
-			<Container fluid={"xxl"} className={"mb-px-40 mt-px-30"}>
+			<Container fluid={"xxl"} className={" mt-px-30"}>
+				<CatalogMobileMenu isActive={isOpen} setIsActive={setOpen} />
+
 				{process.env.REACT_APP_NO_CATALOG !== "true" ? (
 					<Row>
 						<Col lg={3}>

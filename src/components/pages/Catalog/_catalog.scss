@@ -153,16 +153,21 @@
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 1fr 1fr;
-  @include l-xl {
-    grid-template-columns: 1fr 1fr;
-  }
+  // @include l-xl {
+  //   grid-template-columns: 1fr 1fr 1fr;
+  // }
+
+  // @include l-lg {
+
+  // }
+
   @include l-md {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 12px;
   }
+
   @include l-sm {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 8px;
+    grid-gap: 6px;
   }
 
   &-paginator {

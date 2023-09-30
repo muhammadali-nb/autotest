@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
 import Api, { ErrorResponse, RentResponse } from "../../../Api";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { CarRentCard } from "../../common/CarCard";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
 import { BottomMessage } from "../CatalogPage";
 import Paginator from "../../common/Paginator";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import FilterButtons from "./FilterButtons";
+import CarRequestForm from "../../common/CarRequestForm";
+import chevron from "../../../img/common/footer/chevron-for-bottom.svg";
 
 const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 	const [cars, setCars] = useState<RentResponse | ErrorResponse | undefined>(
 		undefined
 	);
-	
 
 	const filter = useAppSelector((state) => state.filter);
 	const [query, setQuery] = useSearchParams();
@@ -50,23 +48,30 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 		);
 	return (
 		<div>
-			
-
 			<div className={"catalog__grid"}>
 				{!Api.isError(cars) &&
 					cars.list.map((i, index) => <CarRentCard car={i} key={index} />)}
 			</div>
 			<BottomMessage
+				className="bottom-message-desc"
+				button={<CarRequestForm text={"Оставить заявку"} light />}
+				text1={"Нужен автомобиль в собственность?"}
+				text2={"Подумайте о Лизинге!"}
+			/>
+			<BottomMessage
+				className="bottom-message-mobile"
 				button={
-					<Link to={"/catalog"} className={"site-btn light"}>
-						Перейти&nbsp;&nbsp;
-						<FontAwesomeIcon icon={faArrowRight} />
-					</Link>
+					<CarRequestForm
+						icon={<img src={chevron} />}
+						text={"Оставить заявку"}
+						light
+					/>
 				}
 				text1={"Нужен автомобиль в собственность?"}
 				text2={"Подумайте о Лизинге!"}
 			/>
-			<div className={"mt-px-60"}>
+
+			<div className={"catalog__grid-paginator"}>
 				<Paginator data={cars} />
 			</div>
 		</div>
