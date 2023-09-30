@@ -6,7 +6,6 @@ import FilterButtons from "./Catalog/FilterButtons";
 import RentGrid from "./Catalog/RentGrid";
 import FoldableQuestion from "../common/FoldableQuestion";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleUp} from "@fortawesome/free-solid-svg-icons";
 import {AlertMessage} from "./CatalogPage";
 
 const RentPageHeader = () => {
