@@ -13,6 +13,7 @@ import teleB from "./../../img/common/footer/tele-b.png";
 import teleW from "./../../img/common/footer/tele-w.png";
 import ContactsForm from "../common/ContactsForm";
 import { Link } from "react-router-dom";
+import Utils from "../../Utils";
 
 import vkMb from "../../img/common/footer/social-icons-mb/vk.svg";
 import whMb from "../../img/common/footer/social-icons-mb/whatsapp.svg";
@@ -86,9 +87,11 @@ export const FooterLink: React.FC<{ img: any; hover?: any; link: string }> = (
 	props
 ) => {
 	return (
-		<Link to={props.link} className={`footer-contacts-link ${!props.hover && "mobile"}`}>
+		<Link
+			to={props.link}
+			className={`footer-contacts-link ${!props.hover && "mobile"}`}>
 			<img src={props.img} className={"default-image"} alt="" />
-			{!props.hover === undefined && (
+			{props.hover !== undefined && (
 				<img src={props.hover} className={"hover-image"} alt="" />
 			)}
 		</Link>
@@ -101,7 +104,7 @@ export const FooterBottom = () => {
 			<span className={"footer-contacts-bottom-element"}>
 				ООО ВОСХОД ⓒ 2023 год
 			</span>
-			<div className={"line-height-100"}>
+			<div className={"line-height-100 footer-contacts-bottom-policy "}>
 				<Link
 					to={"/offer"}
 					className={"footer-contacts-bottom-element me-px-20"}>
@@ -126,24 +129,37 @@ export const FooterContacts = () => {
 					</div>
 					<div className="footer-contacts-blocks">
 						<FooterContactsBlock theme="dark" image={geoImage} text={"Адрес"}>
-							{/*{lines.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
-							Санкт-Петербург <br />
+							{lines.map((i, index) => (
+								<div key={index} className={"mb-px-10 line-height-120"}>
+									{i}
+								</div>
+							))}
+							{/* Санкт-Петербург <br />
 							Торфяная дорога 7Ф <br />
-							БЦ «Гулливер» 2 оф. 104 <br />
+							БЦ «Гулливер» 2 оф. 104 <br /> */}
 						</FooterContactsBlock>
 						<FooterContactsBlock
 							theme="dark"
 							image={clockImage}
 							text={"Время работы"}>
-							{/*{lines2.map((i,index) => <div key={index} className={'mb-px-10 line-height-120'}>{i}</div>)}*/}
-							пн-вс: с 10.00 - 19.00
+							{lines2.map((i, index) => (
+								<div key={index} className={"mb-px-10 line-height-120"}>
+									{i}
+								</div>
+							))}
+							{/* пн-вс: с 10.00 - 19.00 */}
 						</FooterContactsBlock>
 						<FooterContactsBlock
 							theme="dark"
 							image={phoneImage}
 							text={"Телефон"}>
-							{/*<a href={'tel:' + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")} >{process.env.REACT_APP_PHONE}</a>*/}
-							+7 (812) 317-68-15
+							<a
+								href={
+									"tel:" + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")
+								}>
+								{process.env.REACT_APP_PHONE}
+							</a>
+							{/* +7 (812) 317-68-15 */}
 						</FooterContactsBlock>
 					</div>
 					<div className={"footer-contacts-links d-none d-lg-flex"}>
@@ -187,31 +203,31 @@ export const FooterContacts = () => {
 		</Container>
 	);
 };
-const SmallFooter = () => {
+export const SmallFooter = () => {
 	return (
 		<div className={"py-px-20"}>
-			<Container fluid={"xxl"}>
-				<div className={"d-flex justify-content-between"}>
-					<div className={"footer-contacts-bottom-logo"}>
-						<span>ООО Восход</span>
-						<span>© 2023 год</span>
-					</div>
-					<div className={" footer-contacts-bottom  d-none d-md-flex"}>
-						<Link
-							to={"/offer"}
-							className={
-								"footer-contacts-bottom-element text-gray-color me-px-10"
-							}>
-							Оферта
-						</Link>
-						<Link
-							to={"/policy"}
-							className={"footer-contacts-bottom-element text-gray-color"}>
-							Политика конфиденциальности
-						</Link>
-					</div>
+			{/* <Container fluid={"xxl"}> */}
+			<div className={"d-flex justify-content-between"}>
+				<div className={"footer-contacts-bottom-logo"}>
+					<span>ООО Восход</span>
+					<span>© 2023 год</span>
 				</div>
-			</Container>
+				<div className={"  footer-contacts-bottom-policy "}>
+					<Link
+						to={"/offer"}
+						className={
+							"footer-contacts-bottom-element text-gray-color me-px-10"
+						}>
+						Оферта
+					</Link>
+					<Link
+						to={"/policy"}
+						className={"footer-contacts-bottom-element text-gray-color"}>
+						Политика конфиденциальности
+					</Link>
+				</div>
+			</div>
+			{/* </Container> */}
 		</div>
 	);
 };

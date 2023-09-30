@@ -23,6 +23,11 @@
   //padding-left: 10px;
   z-index: 90;
 
+  &::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }
+  scrollbar-width: none; /* for Firefox */
+
   &.top100 {
     max-height: calc(100vh - 100px);
     top: 100px;
@@ -531,12 +536,12 @@ main {
   }
 
   &.big {
-    padding: 15px 25px;
+    padding: 12px 16px;
     font-size: 16px;
     font-weight: 600;
+    width: 100%;
 
     @include l-md {
-      padding: 12px 16px;
       font-size: 12px;
     }
   }
@@ -612,7 +617,7 @@ code {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
   gap: 20px;
   width: 100%;
@@ -1004,6 +1009,8 @@ code {
 
   @include l-md {
     margin: 44px 0 44px 0;
+    background: var(--default-white, #fff);
+    box-shadow: 0px 15px 24px -15px rgba(0, 0, 0, 0.08);
   }
 
   @include l-sm {
@@ -1106,6 +1113,7 @@ code {
   }
 
   @include l-sm() {
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.05);
     &:not(:last-child) {
       margin: 0 0 8px 0;
     }
@@ -1140,7 +1148,7 @@ code {
     @include l-sm {
       width: 33px;
       // height: 33px;
-      background-size: 16px 18px;
+      background-size: 22px 22px;
     }
   }
 }
@@ -1203,7 +1211,8 @@ code {
     height: 88px;
     width: 88px;
     border: 2px solid #f2f3f6;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    // box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 9.83351px 0px rgba(0, 0, 0, 0.15);
     border-radius: 100px;
     background-color: #ffffff;
     background-size: 48px 48px;
@@ -1328,11 +1337,13 @@ code {
     color: $textColor;
 
     @include l-md {
-      font-size: 18px;
+      font-size: 16px;
     }
 
     @include l-sm {
-      font-size: 14px;
+      font-weight: 500;
+      font-size: 12px;
+      padding: 0 0 8px 0;
     }
   }
 
@@ -1341,6 +1352,20 @@ code {
     width: 24px;
     height: 24px;
     object-fit: contain;
+
+    &_mobile {
+      width: 18px;
+      height: 18px;
+      transition: all 0.4s ease-in-out;
+
+      &.turned {
+        transform: rotate(180deg);
+        path {
+          // fill: red;
+          stroke: #bf3535;
+        }
+      }
+    }
 
     &.foldable-header-image-small {
       width: 18px;
@@ -1367,6 +1392,10 @@ code {
     @include l-sm {
       font-size: 12px;
     }
+  }
+
+  &.foldable-mobile {
+    width: 100%;
   }
 
   &.foldable-small {
@@ -1683,11 +1712,12 @@ code {
 .paginator {
   display: flex;
   gap: 20px;
-  justify-content: center;
+  justify-content: start;
+  margin-bottom: 40px;
 
   @include l-sm {
-    gap: 8px;
-    justify-content: start;
+    gap: 16px;
+    margin: 0 0 20px 0;
   }
 
   .paginator-btn {
@@ -1719,15 +1749,28 @@ code {
       height: 33px;
     }
 
-    &:hover,
     &:active {
       background: $defaultColor;
       color: white;
     }
 
+    &:hover {
+      border: 2px solid #bf3535;
+      background-color: white;
+
+      color: #bf3535;
+    }
+
     &.active {
       background: $defaultColor;
       color: white;
+
+      &:hover {
+        border: 2px solid #bf3535;
+        background-color: white;
+        color: #bf3535;
+        color: #bf3535;
+      }
     }
 
     &.disabled {
@@ -1741,6 +1784,7 @@ code {
     @extend .paginator-btn;
     border-color: transparent;
     padding: 9px 0;
+    border: none;
 
     width: 20px;
 
@@ -1748,6 +1792,7 @@ code {
     &:active {
       background: white;
       color: rgba($defaultColor, 0.7);
+      border: none;
     }
 
     &.disabled {
@@ -1761,6 +1806,13 @@ code {
 .second-block {
   margin: 80px 0;
 
+  br {
+    display: none;
+
+    @include l-md {
+      display: block;
+    }
+  }
   @include l-md {
     margin: 60px 0;
   }
@@ -1776,6 +1828,8 @@ code {
     opacity: 0.5;
     margin: 0 0 40px 0;
     font-size: 24px;
+    color: #606569 !important;
+    opacity: 0.6;
 
     @include l-sm {
       font-size: 16px;
@@ -1794,6 +1848,8 @@ code {
 
   @include l-md {
     padding: 70px 0 50px 0;
+    background: var(--default-white, #fff);
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.08) inset;
   }
   @include l-sm {
     padding: 24px 0;
@@ -1841,6 +1897,8 @@ code {
     text-transform: uppercase;
     margin: 0 0 20px 0;
     color: #606569;
+    opacity: 0.6;
+
     //font-size-24 font-weight-semibold text-uppercase mb-px-20 ls-001
 
     @include l-md {
@@ -1864,8 +1922,15 @@ code {
         font-size: 16px;
         margin: 0;
         line-height: initial;
+        br {
+          display: none;
+        }
+
         @include l-md {
           font-size: 14px;
+          br {
+            display: block;
+          }
         }
         @include l-sm {
           font-size: 12px;
@@ -1894,6 +1959,34 @@ code {
 
   @include l-sm {
     padding: 32px 0 0 0;
+  }
+
+  .step-block_header {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 52px;
+
+    // &:first-child {
+    //   @include l-sm {
+    //     width: 170px;
+    //   }
+    // }
+
+    margin: 0 0 40px 0;
+    //font-weight-semibold text-uppercase font-size-50 mb-px-40 line-height-120
+
+    @include l-md {
+      font-size: 36px;
+      border: none;
+      padding: 0;
+      width: 400px;
+    }
+
+    @include l-sm {
+      font-size: 20px;
+      margin: 0 0 32px 0;
+      width: 156px;
+    }
   }
 
   &_mobile {
@@ -1927,7 +2020,7 @@ code {
         &-desc {
           font-size: 12px;
           // margin: 16px 0 14px 0;
-
+          font-weight: 500;
           margin: 22px 0 24px 0;
         }
 
@@ -1999,7 +2092,7 @@ code {
   }
 
   &_descktop {
-    margin: 0 0 100px 0;
+    // margin: 0 0 100px 0;
     row-gap: 0;
     display: block !important;
     @include l-md {
@@ -2104,6 +2197,11 @@ code {
   box-shadow: inset 0px 0px 60px rgba(0, 0, 0, 0.1);
   padding: 100px 0 80px 0;
 
+  @include l-md {
+    background: var(--default-white, #fff);
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.08) inset;
+  }
+
   &_body {
     margin: 0 0 100px 0;
     @include l-md {
@@ -2144,6 +2242,25 @@ code {
       padding: 0 0 0 12px;
     }
   }
+
+  &_description {
+    display: none;
+    color: #606569;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 140%; /* 16.8px */
+    letter-spacing: 0.12px;
+    margin: 0 0 44px 0;
+    @include l-md {
+      display: block;
+    }
+
+    @include l-sm {
+      font-size: 12px;
+    }
+  }
 }
 
 .faq-contacts {
@@ -2167,6 +2284,7 @@ code {
 
     @include l-md {
       font-size: 18px;
+      margin: 0 0 12px 0;
     }
 
     @include l-sm {
@@ -2207,12 +2325,29 @@ code {
     padding: 14px 18px;
   }
 
+  &-desc {
+    display: flex;
+
+    @include l-md {
+      display: none;
+    }
+  }
+
+  &-mobile {
+    display: none;
+
+    @include l-md {
+      display: flex;
+    }
+  }
+
   // px-px-40 py-px-25 my-px-20 text-white d-flex justify-content-between align-items-bottom
 
   &_description {
     font-size: 20px;
     font-size: 600;
     margin: 0 0 16px 0;
+    text-transform: none;
 
     @include l-md {
       font-size: 14px;
@@ -2230,6 +2365,7 @@ code {
   &_header {
     font-size: 32px;
     font-weight: 600;
+    text-transform: uppercase;
     // font-size-32 font-weight-semibold text-uppercase line-height-120
 
     @include l-md {
@@ -2247,5 +2383,81 @@ code {
     justify-content: end;
     align-items: end;
     // d-flex flex-column justify-content-end align-items-bottom
+  }
+}
+
+.form-check-modal {
+  display: flex;
+
+  @include l-md {
+    display: none;
+  }
+}
+
+.rent-header-info {
+  padding: 24px 0 16px 0;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.08);
+  &_body {
+    padding: 0 0 0 20px;
+    border-left: 4px solid #bf3535;
+  }
+
+  &_title {
+    color: #222;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: 0.32px;
+    text-transform: uppercase;
+    margin: 0 0 8px 0;
+  }
+
+  &_description {
+    color: #222;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 14px */
+    letter-spacing: 0.1px;
+    margin: 0 0 8px 0;
+  }
+
+  &_phone {
+    color: #bf3535;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 16.8px */
+    letter-spacing: 0.12px;
+    margin: 0;
+  }
+
+  &_opener {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 20px 0 0 20px;
+
+    & > p {
+      margin: 0 0 0 4px;
+      color: #babcbf;
+      font-family: Inter;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 140%; /* 16.8px */
+      letter-spacing: 0.24px;
+      text-transform: uppercase;
+    }
+  }
+
+  &_collapse-body {
+    padding: 32px 0 0 0;
   }
 }

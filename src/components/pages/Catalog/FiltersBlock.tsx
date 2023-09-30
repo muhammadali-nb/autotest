@@ -113,10 +113,10 @@ const FilterCheckbox: React.FC<{
 	};
 	return (
 		<Filter header={data.name} open={data.open ?? false}>
-			<div className={"ps-0 ps-lg-3"}>
+			<div>
 				<FormCheck
 					label={"Все"}
-					className={"my-px-10 font-size-14 font-weight-semibold"}
+					className={" font-size-14 font-weight-semibold"}
 					checked={filter[field]?.length === 0}
 					onChange={(e) => clear()}
 				/>
@@ -124,9 +124,7 @@ const FilterCheckbox: React.FC<{
 					<FormCheck
 						key={i.id}
 						label={i.name}
-						className={
-							"my-px-10 font-size-14 text-default font-weight-semibold"
-						}
+						className={"font-size-14 text-default font-weight-semibold"}
 						onChange={(e) => setFilterValue(i.id)}
 						checked={filter[field]?.includes(i.id)}
 					/>
@@ -160,12 +158,12 @@ const FilterModelSet: React.FC<{
 
 	return (
 		<Filter header={brand.name} small={true} open={true} showCaret={false}>
-			<div className={"ps-0 ps-lg-3"}>
+			<div>
 				{models.slice(0, showAmount).map((i, index) => (
 					<FormCheck
 						key={index}
 						label={i.name}
-						className={"my-px-10 font-size-14 font-weight-semibold"}
+						className={" font-size-14 font-weight-semibold"}
 						onChange={(e) => setFilterValue(i.id)}
 						checked={filter[field]?.includes(i.id)}
 					/>
@@ -207,12 +205,12 @@ const FilterModels: React.FC<{
 	};
 	return (
 		<Filter header={data.name} open={data.open ?? false}>
-			<div className={"ps-0 ps-lg-3"}>
+			<div>
 				<FormCheck
 					label={"Все"}
 					checked={filter[field]?.length === 0}
 					onChange={(e) => clear()}
-					className={"my-px-10 font-size-14 font-weight-semibold"}
+					className={"font-size-14 font-weight-semibold"}
 				/>
 				{selected().map((i, index) => (
 					<FilterModelSet field={field} key={index} brand={i} data={data} />
@@ -241,7 +239,7 @@ const FilterShares = ({
 	};
 	return (
 		<Filter header={data.name} open={data.open}>
-			<div className={"d-flex  gap-2 py-1 justify-content-start flex-wrap"}>
+			<div className={"d-flex  gap-2 pt-px-15 justify-content-start flex-wrap"}>
 				<button
 					onClick={() => updateFilter("new", 0)}
 					className={

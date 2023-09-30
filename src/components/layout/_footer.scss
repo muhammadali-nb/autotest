@@ -266,6 +266,10 @@
       font-weight: 300;
       font-size: 16px;
       line-height: 120%;
+
+      // & > br {
+      //   margin: 0 0 10px 0;
+      // }
       @include l-md {
         font-size: 14px;
       }
@@ -343,6 +347,16 @@
   width: 100%;
   padding: 10px 0;
   align-items: flex-start;
+
+  // @include l-md {
+  //   display: none !important;
+  // }
+  &-policy {
+    @include l-md {
+      display: none;
+    }
+  }
+
   @include l-xl {
     flex-direction: column;
   }
@@ -354,7 +368,7 @@
   @include l-sm {
     margin: 0;
     padding-top: 0;
-    & > div {
+    div {
       display: none;
     }
 
@@ -396,7 +410,9 @@
   font-size: 13px;
   line-height: 120%;
   @include lg {
-    margin: 0 24px 0 0;
+    &:not(:last-child) {
+      margin: 0 24px 0 0; 
+    }
   }
 
   a {

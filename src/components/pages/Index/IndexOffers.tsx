@@ -12,7 +12,7 @@ const IndexOffers = () => {
 
 	return (
 		<div className={"index__offers"}>
-			{process.env.REACT_APP_NO_CATALOG !== "true" && (
+			{/* {process.env.REACT_APP_NO_CATALOG !== "true" && (
 				<Container fluid={"xxl"}>
 					<div className={"index__offers-header"}>
 						<span>выгодные предложения</span>
@@ -30,11 +30,12 @@ const IndexOffers = () => {
 						</div>
 					)}
 				</Container>
-			)}
+			)} */}
 			<div
-				className={
-					process.env.REACT_APP_NO_CATALOG !== "true" ? "mt-px-100" : ""
-				}>
+			// className={
+			// 	process.env.REACT_APP_NO_CATALOG !== "true" ? "mt-px-100" : ""
+			// }
+			>
 				<Carousel
 					additionalTransfrom={0}
 					arrows
@@ -104,8 +105,8 @@ const IndexOffers = () => {
 					<div className={"index-offers-brand"}>
 						<img src={"/dummy/logo-hyundai.png"} alt={""} />
 					</div>
-					<div className={"index-offers-brand"}>
-						<img src={"/dummy/logo-kia.png"} alt={""} />
+					<div className={"index-offers-brand "}>
+						<img src={"/dummy/logo-kia.png"} className="kia-brand" alt={""} />
 					</div>
 					<div className={"index-offers-brand"}>
 						<img src={"/dummy/logo-toyota.png"} alt={""} />
@@ -131,8 +132,8 @@ const IndexOffers = () => {
 					<div className={"index-offers-brand"}>
 						<img src={"/dummy/logo-hyundai.png"} alt={""} />
 					</div>
-					<div className={"index-offers-brand"}>
-						<img src={"/dummy/logo-kia.png"} alt={""} />
+					<div className={"index-offers-brand kia"}>
+						<img src={"/dummy/logo-kia.png"} className="kia-brand" alt={""} />
 					</div>
 					<div className={"index-offers-brand"}>
 						<img src={"/dummy/logo-toyota.png"} alt={""} />

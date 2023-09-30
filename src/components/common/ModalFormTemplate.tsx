@@ -117,9 +117,10 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 			<FormCheck
 				checked={props.confirmed}
 				onChange={props.onChange}
+				className="form-check-modal"
 				label={
 					<span
-						style={{ fontSize: "14px" }}
+						style={{ fontSize: "14px", marginLeft: "12px" }}
 						className={
 							"font-weight-medium " + (props.error ? "text-red-color" : "")
 						}>
@@ -138,7 +139,7 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 			/>
 
 			<p className="form-mobile-policy">
-				Нажимая на кнопку “Забронировать”, вы соглашаетесь с
+				Нажимая на кнопку “Забронировать”, вы соглашаетесь с{" "}
 				<Link
 					to={"/policy"}
 					target={"_blank"}

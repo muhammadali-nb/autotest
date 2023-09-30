@@ -62,7 +62,7 @@ const SecondBlock = () => (
 	<div className={"second-block"}>
 		<Container fluid={"xxl"}>
 			<div className={"second-block_header "}>
-				Преимущества лизинга для физических лиц:
+				Преимущества лизинга <br /> для физических лиц:
 			</div>
 			<Row>
 				<Col md={6}>
@@ -76,15 +76,6 @@ const SecondBlock = () => (
 					</div>
 				</Col>
 				<Col md={6}>
-					<div className={"leasing__imaged-block li-jewel "}>
-						<div className={"leasing__imaged-block_header"}>Доступно</div>
-						<div className={"leasing__imaged-block_divider"} />
-						<div className={"leasing__imaged-block_description "}>
-							Лизинг позволяет приобрести автомобиль более высокого класса
-						</div>
-					</div>
-				</Col>
-				<Col md={6}>
 					<div className={"leasing__imaged-block li-card "}>
 						<div className={"leasing__imaged-block_header"}>Выгодно</div>
 						<div className={"leasing__imaged-block_divider"} />
@@ -94,6 +85,16 @@ const SecondBlock = () => (
 						</div>
 					</div>
 				</Col>
+				<Col md={6}>
+					<div className={"leasing__imaged-block li-jewel "}>
+						<div className={"leasing__imaged-block_header"}>Доступно</div>
+						<div className={"leasing__imaged-block_divider"} />
+						<div className={"leasing__imaged-block_description "}>
+							Лизинг позволяет приобрести автомобиль более высокого класса
+						</div>
+					</div>
+				</Col>
+
 				<Col md={6}>
 					<div className={"leasing__imaged-block li-document "}>
 						<div className={"leasing__imaged-block_header"}>Быстро</div>
@@ -149,8 +150,8 @@ const HowBlock = () => (
 					<FontAwesomeIcon icon={faCircleCheck} />
 					&nbsp;&nbsp;
 					<p>
-						Водительское удостоверение (или другой документ, удостоверяющий
-						личность)
+						Водительское удостоверение <br /> (или другой документ,
+						удостоверяющий личность)
 					</p>
 				</div>
 			</div>
@@ -179,7 +180,8 @@ const StepBlock = () => {
 	return (
 		<div className={"step-block"}>
 			<Container fluid={"xxl"}>
-				<Header text={"Я подхожу, что дальше?"} />
+				{/* <Header text={"Я подхожу, что дальше?"} /> */}
+				<h1 className={"step-block_header"}>Я подхожу, что дальше?</h1>
 				<div className={"step-block_descktop"}>
 					<Row className="mb-px-100">
 						<Col md={4}>
@@ -554,6 +556,10 @@ const FaqBlock = () => {
 				<h1 className={"faq-block_header"}>
 					чАСТО ЗАДАВАЕМЫЕ <br /> ВОПРОСЫ
 				</h1>
+				<p className={"faq-block_description"}>
+					В разделе Вопросы, вы также можете получить ответы по вопросам аренды
+					автомобиля
+				</p>
 				<Row className={"faq-block_body gx-lg-5 gx-sm-0"}>
 					<Col sm={12} lg={6} className="px-0 px-md-3">
 						<div className={"w-100"}>
