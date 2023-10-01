@@ -626,6 +626,11 @@ code {
   position: relative;
   line-height: 120%;
 
+  @include l-sm {
+    padding: 8px 46px 8px 12px;
+    gap: 16px;
+  }
+
   a {
     color: $redColor;
     text-decoration: none;
@@ -641,6 +646,11 @@ code {
     width: 32px;
     height: 32px;
     object-fit: contain;
+
+    @include l-sm {
+      width: 30px;
+      height: 30px;
+    }
   }
 
   ._alert__content {
@@ -671,6 +681,13 @@ code {
     transition: all 0.15s ease-in-out;
     background: white;
     color: $lightGrayColor;
+
+    @include l-sm {
+      height: 18px;
+      width: 18px;
+      right: 22px;
+      top: 50%;
+    }
 
     &:hover,
     &:active {
@@ -705,12 +722,25 @@ code {
   transition: all 0.4s ease-in-out;
   opacity: 0;
 
-  &.show {
-    opacity: 1;
-  }
-
   &:hover {
     background: #444444;
+  }
+
+  @include l-md {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    border: 1px solid #f2f3f6;
+    background: #fff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background: #fff;
+    }
+  }
+
+  &.show {
+    opacity: 1;
   }
 }
 
@@ -721,10 +751,10 @@ code {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   background: $redColor;
-  border-radius: 10px;
+  border-radius: 8px;
   z-index: 60;
   border: unset;
   box-shadow: unset;

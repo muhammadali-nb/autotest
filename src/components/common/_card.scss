@@ -306,8 +306,8 @@
       gap: 7px;
     }
     @include l-md {
-      font-size: 12px;
-      padding: 10px 12px;
+      font-size: 10px;
+      padding: 6px 8px;
     }
 
     @include l-sm {
@@ -445,18 +445,33 @@
   }
 
   &_title {
-    margin: 0 0 6px 0;
+    margin: 0 0 10px 0;
+
+    @include l-md {
+      margin: 0 0 6px 0;
+    }
   }
 
   &_taglist {
-    margin: 0 0 8px 0;
+    margin: 0 0 12px 0;
+
+    @include l-sm {
+      margin: 0 0 8px 0;
+    }
   }
 
   &_payment {
-    font-size: 10px;
+    font-size: 14px;
+    @include l-sm {
+      font-size: 10px;
+    }
 
     &-value {
-      font-size: 14px;
+      font-size: 16px;
+      @include l-sm {
+        font-size: 14px;
+      }
+
       margin: 4px 0 0 0;
     }
   }
@@ -464,12 +479,14 @@
   &_deposit {
     color: #222;
     font-family: Inter;
-    font-size: 10px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     letter-spacing: 0.1px;
-
+    @include l-sm {
+      font-size: 10px;
+    }
     &-value {
       font-weight: 600 !important;
     }
