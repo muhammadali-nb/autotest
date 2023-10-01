@@ -244,7 +244,10 @@ export const CarRentCard: React.FC<{
 			<div className={"d-none d-md-block car__card"}>
 				<div>
 					<div className={"car__card-taglist"}>
-						<CarTag type={car.available ? "free" : "not-free"} car={car}>
+						<CarTag
+							small={true}
+							type={car.available ? "free" : "not-free"}
+							car={car}>
 							{car.available ? "Свободна" : "Занята"}
 						</CarTag>
 						{tags.map((i, index) => (
