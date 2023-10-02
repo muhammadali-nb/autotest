@@ -11,20 +11,20 @@ import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import { faPhoneVolume } from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
 import ModalFormTemplate from "../common/ModalFormTemplate";
 
-type HeaderType = "transparent" | "white" | "logo";
+export type HeaderType = "transparent" | "white" | "logo";
 export type HeaderImage = "dark" | "darkCred" | "light";
-type HeaderLink = {
+export type HeaderLink = {
 	text: string;
 	path?: string;
 	className?: string;
 };
-type HeaderProps = {
+export type HeaderProps = {
 	type: HeaderType;
 	image?: HeaderImage;
 	links?: Array<HeaderLink>;
 	selectedLink?: string;
 	burgerMenuIsShow?: boolean;
-	setBurgerMenuIsShow: (e: boolean) => void;
+	setBurgerMenuIsShow?: any;
 };
 
 export const defaultLinks = [
@@ -57,7 +57,7 @@ export const HeaderLogoImage: React.FC<{
 	);
 };
 
-const HeaderLinks: React.FC<{
+export const HeaderLinks: React.FC<{
 	links: Array<HeaderLink>;
 	light?: boolean;
 	selected?: string;
@@ -97,7 +97,9 @@ const HeaderLinks: React.FC<{
 	);
 };
 
-const LogoHeader: React.FC<{ image?: HeaderImage }> = ({ image = "dark" }) => {
+export const LogoHeader: React.FC<{ image?: HeaderImage }> = ({
+	image = "dark",
+}) => {
 	return (
 		<div className={"d-flex w-100 justify-content-center py-4"}>
 			<HeaderLogoImage image={image} height={"41px"} width={"172px"} />
@@ -105,12 +107,12 @@ const LogoHeader: React.FC<{ image?: HeaderImage }> = ({ image = "dark" }) => {
 	);
 };
 
-const WhiteHeader: React.FC<{
+export const WhiteHeader: React.FC<{
 	image?: HeaderImage;
 	links: Array<HeaderLink>;
 	selected?: string;
 	show?: boolean;
-	setMenuIsShow: (e: boolean) => void;
+	setMenuIsShow: any;
 }> = ({ image = "dark", links, selected, show = false, setMenuIsShow }) => {
 	return (
 		<div
@@ -139,10 +141,10 @@ const WhiteHeader: React.FC<{
 		</div>
 	);
 };
-const TransparentHeader: React.FC<{
+export const TransparentHeader: React.FC<{
 	links: Array<HeaderLink>;
 	selected?: string;
-	setMenuIsShow: (e: boolean) => void;
+	setMenuIsShow: any;
 }> = ({ links, selected, setMenuIsShow }) => {
 	// const func = async () => {
 	//
@@ -284,4 +286,3 @@ const Header: React.FC<HeaderProps> = ({
 };
 
 export default Header;
-export type { HeaderType };

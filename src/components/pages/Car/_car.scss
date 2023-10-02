@@ -1,4 +1,3 @@
-
 .car-page {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -9,19 +8,19 @@
   letter-spacing: 0.01em;
 
   .car-base-title {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-weight: 600;
     font-size: 64px;
     text-transform: uppercase;
     margin-bottom: 30px;
     line-height: 110%;
+    text-align: left;
     @include l-xl {
       font-size: 52px;
     }
     @include l-lg {
       font-size: 40px;
       margin-bottom: 20px;
-      text-align: center;
     }
     @include l-md {
       font-size: 32px;
@@ -53,6 +52,19 @@
       font-weight: 600;
     }
   }
+
+  .car-base-calculator {
+    padding: 40px 0 0 0;
+
+    @include l-md {
+      padding: 28px 0;
+    }
+    @include l-sm {
+      padding: 24px 0;
+      background: #fff;
+      box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.05);
+    }
+  }
 }
 
 .car-stat-block {
@@ -60,16 +72,22 @@
 }
 
 .car-stat-block-header {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-weight: 600;
   font-size: 24px;
   line-height: 120%;
   letter-spacing: 0.01em;
   text-transform: uppercase;
   margin-bottom: 24px;
+
   @include l-md {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     font-size: 20px;
+    padding: 0 16px;
+  }
+
+  @include l-sm {
+    font-size: 18px;
   }
 }
 
@@ -79,12 +97,34 @@
   font-weight: 500;
 }
 
+.car-stat-block-item_mobile {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &.gray {
+    background: rgba(242, 243, 246, 0.5);
+  }
+}
+
+// .car-stat-block_mobile {
+//   display: flex;
+//   justify-content: space-between;
+// }
+
 .car-stat-block-list {
   display: grid;
   margin-bottom: 15px;
   font-weight: 500;
   grid-gap: 15px;
   grid-template-columns: 2fr 1fr;
+
+  &_mobile {
+    display: block;
+  }
 
   .car-stat-block-item-name {
     color: $grayColor;
@@ -93,6 +133,10 @@
     width: 100%;
     text-transform: none;
     align-items: flex-end;
+
+    @include l-md {
+      font-size: 14px;
+    }
   }
 
   .car-stat-block-item-filler.dotted {
@@ -111,9 +155,12 @@
     width: 100%;
     flex-wrap: wrap;
     align-items: flex-end;
+
+    @include l-md {
+      font-size: 14px;
+    }
   }
 }
-
 
 .car-images {
   margin-bottom: 120px;
@@ -179,7 +226,7 @@
         height: 4px;
         width: 100%;
         border-radius: 20px;
-        background: #BABCBF;
+        background: #babcbf;
         transition: all 0.2s ease-in-out;
       }
 
@@ -200,15 +247,15 @@
 
 .car-info {
   border: unset;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-weight: 600;
   font-size: 16px;
   line-height: 120%;
   letter-spacing: 0.01em;
   text-transform: uppercase;
   color: #222222;
-  padding-bottom: 10px;
 
+  padding: 32px 0 10px 0;
 }
 
 .car-info-btns {
@@ -219,18 +266,24 @@
 
   @include l-md {
     margin: 0 0 40px;
+    gap: 12px;
   }
 
   @include l-sm {
-    margin: 0 0 30px 0;
+    margin: 0 0 24px 0;
+    gap: 8px;
   }
+}
+
+.car-info_detail {
+  padding: 0 16px;
 }
 
 .car-info-btn {
   background: transparent;
   border: unset;
   outline: none;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-weight: 600;
   font-size: 16px;
   line-height: 120%;
@@ -241,6 +294,11 @@
   position: relative;
   padding: 5px 0 10px;
 
+  @include l-sm {
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+  }
 
   &.big {
     font-size: 24px;
@@ -249,7 +307,6 @@
     @include l-sm {
       font-size: 16px;
       padding: 5px 0;
-
     }
   }
 
@@ -261,8 +318,8 @@
     width: 100%;
     display: block;
     border-radius: 20px;
-    background: #E7E7E8;
-    content: '';
+    background: #e7e7e8;
+    content: "";
     transition: all 0.2s ease-in-out;
   }
 
@@ -279,14 +336,13 @@
   }
 }
 
-
 .car-rent-modal-btn {
   height: 70px;
   width: 100%;
   display: flex;
   padding: 0;
 
-  border: 2px solid #F2F3F6;
+  border: 2px solid #f2f3f6;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   background: white;
@@ -298,7 +354,7 @@
   }
 
   &.error {
-    border: 2px solid #BF3535;
+    border: 2px solid #bf3535;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   }
 
