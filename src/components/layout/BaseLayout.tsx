@@ -32,7 +32,7 @@ export type BaseLayoutProps = {
 const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 	props: BaseLayoutProps
 ) => {
-	const bState = useAppSelector((state) => state.baseData);
+	const bState: any = useAppSelector((state) => state.baseData);
 	const dispatch = useAppDispatch();
 	const meta = {
 		title: props.title ?? process.env.REACT_APP_WEBSITE_NAME,
