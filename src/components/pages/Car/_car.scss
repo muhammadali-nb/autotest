@@ -7,21 +7,24 @@
   font-weight: 500;
   letter-spacing: 0.01em;
 
+  &_body {
+    @include l-md {
+      padding: 0 16px;
+    }
+  }
+
   .car-base-title {
     font-family: "Inter";
     font-weight: 600;
-    font-size: 64px;
+    font-size: 48px;
     text-transform: uppercase;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     line-height: 110%;
     text-align: left;
-    @include l-xl {
-      font-size: 52px;
-    }
-    @include l-lg {
-      font-size: 40px;
-      margin-bottom: 20px;
-    }
+    // @include l-xl {
+    //   font-size: 52px;
+    // }
+
     @include l-md {
       font-size: 32px;
     }
@@ -122,8 +125,8 @@
   grid-gap: 15px;
   grid-template-columns: 2fr 1fr;
 
-  &_mobile {
-    display: block;
+  @include l-md {
+    padding: 0 16px;
   }
 
   .car-stat-block-item-name {
@@ -276,7 +279,9 @@
 }
 
 .car-info_detail {
-  padding: 0 16px;
+  @include l-md {
+    padding: 0 16px;
+  }
 }
 
 .car-info-btn {
