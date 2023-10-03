@@ -58,6 +58,9 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 						price={car.main.price}
 						noAnim={true}
 					/>
+
+
+
 				</div>
 				<Container fluid={"xxl"} className="d-block d-lg-none">
 					<IndexCalculator

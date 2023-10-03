@@ -1,7 +1,7 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 @import "./scss/variables";
-@import './fonts/fonts';
+@import "./fonts/fonts";
 @import "./scss/mix";
 @import "./scss/overrides";
 @import "./scss/baseStyles";
@@ -13,3 +13,4 @@
 @import "components/pages/Car/car";
 @import "components/pages/Catalog/catalog";
 @import "components/pages/Index/index";
+@import "components/pages/PersonalAccount/personal-account";
