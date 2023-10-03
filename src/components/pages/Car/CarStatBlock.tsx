@@ -7,6 +7,7 @@ export interface CarStatBlockProps {
 	column2Width?: number | string;
 	dotted?: boolean;
 	data: Array<StatBlock>;
+	type?: "descktop" | "mobile";
 }
 
 export const CarStatBlockItem: React.FC<{
@@ -54,7 +55,7 @@ export const CarStatBlockEntry: React.FC<{
 	};
 	return (
 		<>
-			<div className={"d-none d-md-block car-stat-block"}>
+			<div className={" car-stat-block"}>
 				{block && <div className={"car-stat-block-header"}>{block.name}</div>}
 				<div className={"car-stat-block-list"} style={style}>
 					{block?.list.map((item, index) => (
@@ -63,25 +64,37 @@ export const CarStatBlockEntry: React.FC<{
 					{!block && children}
 				</div>
 			</div>
-			<div className={"d-block d-md-none mb-px-15 car-stat-block_mobile"}>
-				{block && <div className={"car-stat-block-header"}>{block.name}</div>}
-				<div className={"car-stat-block-list_mobile"}>
-					{block?.list.map((item, index) => (
-						<CarStatBlockItemMob id={index + 1} key={index} data={item} />
-					))}
-					{!block && children}
-				</div>
-			</div>
 		</>
+	);
+};
+
+export const CarStatBlockEntryMob: React.FC<{
+	block?: StatBlock;
+	children?: any;
+}> = ({ block, children }) => {
+	return (
+		<div className={" mb-px-15 car-stat-block_mobile"}>
+			{block && <div className={"car-stat-block-header"}>{block.name}</div>}
+			<div className={"car-stat-block-list_mobile"}>
+				{block?.list.map((item, index) => (
+					<CarStatBlockItemMob id={index + 1} key={index} data={item} />
+				))}
+				{!block && children}
+			</div>
+		</div>
 	);
 };
 
 export const CarStatBlock: React.FC<CarStatBlockProps> = (props) => {
 	return (
 		<div className={"car-stat-block-container"}>
-			{props.data.map((block, index) => (
-				<CarStatBlockEntry key={index} settings={props} block={block} />
-			))}
+			{props.type === "descktop"
+				? props.data.map((block, index) => (
+						<CarStatBlockEntry key={index} settings={props} block={block} />
+				  ))
+				: props.data.map((block, index) => (
+						<CarStatBlockEntryMob key={index} block={block} />
+				  ))}
 		</div>
 	);
 };

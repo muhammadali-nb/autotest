@@ -31,16 +31,18 @@ const CarPage = () => {
 			title={title}
 			headerSelectedLink={"/catalog"}
 			footerSmall>
-			<Container fluid={"xxl"} className={"car-page pt-px-20"}>
+			<Container
+				fluid={"xxl"}
+				className={"d-none d-lg-block car-page pt-px-20"}>
 				<LoadError response={car} />
 				{!Api.isError(car) && (
 					<Row className={"gx-5"}>
 						<Col lg={6} className={"d-none d-lg-block"}>
 							<CarImages car={car} />
-							<CarInfo car={car} />
+							<CarInfo type={"descktop"} car={car} />
 						</Col>
 						<Col lg={6}>
-							<div className={"sticky-no-scrollbar top100"}>
+							<div className={"sticky-no-scrollbar top100 "}>
 								<div className={"d-block d-lg-none"}>
 									<CarImages car={car} />
 								</div>
@@ -50,8 +52,12 @@ const CarPage = () => {
 					</Row>
 				)}
 			</Container>
-			<div className={"d-block d-lg-none"}>
-				<CarInfo car={car} />
+			<div className={" d-block d-lg-none "}>
+				<Container fluid={"xxl"}>
+					<CarImages car={car} />
+				</Container>
+				<CarBase car={car} />
+				<CarInfo type={"mobile"} car={car} />
 			</div>
 		</CarDetailLayout>
 	);

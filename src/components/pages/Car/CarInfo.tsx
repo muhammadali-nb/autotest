@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { CarData } from "../../common/CarCard";
 import CarStatBlock, { CarStatBlockItemMob } from "./CarStatBlock";
 
-const CarInfo: React.FC<{ car: CarData }> = (props) => {
+const CarInfo: React.FC<{ car: CarData; type: "mobile" | "descktop" }> = (
+	props
+) => {
 	const [page, setPage] = useState("tech");
 	return (
 		<div className={"car-info "}>
@@ -25,6 +27,7 @@ const CarInfo: React.FC<{ car: CarData }> = (props) => {
 			<div className={"my-3"}>
 				{page === "tech" && (
 					<CarStatBlock
+						type={props.type}
 						column1Width={"2.5fr"}
 						dotted={true}
 						data={props.car.tech}
@@ -32,7 +35,11 @@ const CarInfo: React.FC<{ car: CarData }> = (props) => {
 					// <CarStatBlockItemMob  data={props.car.tech} />
 				)}
 				{page === "standard" && (
-					<CarStatBlock column1Width={"4fr"} data={props.car.standard} />
+					<CarStatBlock
+						type={props.type}
+						column1Width={"4fr"}
+						data={props.car.standard}
+					/>
 				)}
 			</div>
 		</div>

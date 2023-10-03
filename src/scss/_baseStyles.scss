@@ -76,6 +76,15 @@
   }
 }
 
+.sticky-no-scroll_car {
+  @include l-md {
+    overflow: unset;
+    max-height: 100% !important;
+    // position: unset;
+    // z-index: 1;
+  }
+}
+
 .text-default {
   color: $textColor !important;
 }

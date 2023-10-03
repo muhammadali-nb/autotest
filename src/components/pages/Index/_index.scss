@@ -876,15 +876,14 @@
       width: 222px;
     }
 
-    & > svg path {
-      color: red;
-      fill: red;
-    }
-
-    & > img {
+    img {
       width: 224px;
       height: auto;
       transform: translateY(1px);
+
+      @include l-sm {
+        width: 134px;
+      }
     }
 
     &-gray {

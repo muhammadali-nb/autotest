@@ -1,11 +1,12 @@
 import React from "react";
 import { CarData, CarPreorderButton, CarSameLink } from "../../common/CarCard";
 import { useAppSelector } from "../../../store/hooks";
-import CarStatBlock from "./CarStatBlock";
+import CarStatBlock, { CarStatBlockItem } from "./CarStatBlock";
 import IndexCalculator from "../Index/IndexCalculator";
+import { Container } from "react-bootstrap";
 
-const CarBase: React.FC<{ car: CarData }> = ({ car }) => {
-	const data = useAppSelector((state) => state.baseData);
+const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
+	const data: any = useAppSelector((state) => state.baseData);
 	const brand =
 		data.left.brands.values?.find((i) => i.id === car.main.brand)?.name ?? "";
 	const model =
@@ -13,43 +14,59 @@ const CarBase: React.FC<{ car: CarData }> = ({ car }) => {
 
 	return (
 		<div className={"car-base"}>
-			<div className={"car-base-title"}>
-				{brand}&nbsp;
-				<span className={"text-red-color"}>{model}</span>
-			</div>
-			<div className={"car-base-price"}>
-				<div className={"mb-px-5"}>Цена</div>
-				<div className={"car-base-price-value"}>
-					{car.main.price.toLocaleString()}&nbsp;₽
+			<div className="car-base_body">
+				<div className={"car-base-title"}>
+					{brand}&nbsp;
+					<span className={"text-red-color"}>{model}</span>
 				</div>
-			</div>
-			<div className={"car-base-payment"}>
-				Минимальный платеж от{" "}
-				<span className={"car-base-payment-value"}>
-					{car.main.pay.toLocaleString()}&nbsp;₽
-				</span>
-			</div>
-			<div className={"mb-px-30"}>
-				<CarSameLink
-					car={car.main}
-					className={"d-inline"}
-					text={"Показать похожие модели"}
-				/>
+				<div className={"car-base-price"}>
+					<div className={"mb-px-5"}>Цена</div>
+					<div className={"car-base-price-value"}>
+						{car.main.price.toLocaleString()}&nbsp;₽
+					</div>
+				</div>
+				<div className={"car-base-payment"}>
+					Минимальный платеж от{" "}
+					<span className={"car-base-payment-value"}>
+						{car.main.pay.toLocaleString()}&nbsp;₽
+					</span>
+				</div>
+				<div className={"mb-px-30"}>
+					<CarSameLink
+						car={car.main}
+						className={"d-inline"}
+						text={"Показать похожие модели"}
+					/>
+				</div>
 			</div>
 			<div className={"d-none d-lg-block mb-px-40"}>
 				<CarPreorderButton car={car.main} w100={false} />
 			</div>
-			<div className={"my-3"}>
-				<CarStatBlock column1Width={"auto"} data={car.info} />
+			<div className={"d-none d-lg-block my-3"}>
+				<CarStatBlock type={"descktop"} column1Width={"auto"} data={car.info} />
 			</div>
+			<div className="d-block d-lg-none">
+				<CarStatBlock type={"descktop"} column1Width={"auto"} data={car.info} />
+			</div>
+
 			<div className={" car-base-calculator "} style={{ maxWidth: "500px" }}>
 				<h1 className="car-stat-block-header">Калькулятор</h1>
-				<IndexCalculator
-					fontBold={true}
-					hidePrice={true}
-					price={car.main.price}
-					noAnim={true}
-				/>
+				<div className="d-none d-lg-block">
+					<IndexCalculator
+						fontBold={true}
+						hidePrice={true}
+						price={car.main.price}
+						noAnim={true}
+					/>
+				</div>
+				<Container fluid={"xxl"} className="d-block d-lg-none">
+					<IndexCalculator
+						fontBold={true}
+						hidePrice={true}
+						price={car.main.price}
+						noAnim={true}
+					/>
+				</Container>
 			</div>
 		</div>
 	);
