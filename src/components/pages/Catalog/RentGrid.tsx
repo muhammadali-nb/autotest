@@ -18,6 +18,7 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 	const filter = useAppSelector((state) => state.filter);
 	const [query, setQuery] = useSearchParams();
 	const [timer, setTimer] = useState<NodeJS.Timeout>();
+	// console.log(cars);
 	useEffect(() => {
 		const fetchCarData = async () => {
 			setCars(undefined);

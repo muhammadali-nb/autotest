@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import  { MetaTags } from "../layout/BaseLayout";
+import { MetaTags } from "../layout/BaseLayout";
 import { Col, Collapse, Container, Row } from "react-bootstrap";
 import FiltersBlock from "./Catalog/FiltersBlock";
 import FilterButtons from "./Catalog/FilterButtons";
