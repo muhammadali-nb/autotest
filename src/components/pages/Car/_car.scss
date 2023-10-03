@@ -71,7 +71,9 @@
 }
 
 .car-stat-block {
-  margin-bottom: 30px;
+  @include l-md {
+    margin-bottom: 30px;
+  }
 }
 
 .car-stat-block-header {
@@ -120,7 +122,7 @@
 
 .car-stat-block-list {
   display: grid;
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
   font-weight: 500;
   grid-gap: 15px;
   grid-template-columns: 2fr 1fr;
