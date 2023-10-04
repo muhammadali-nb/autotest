@@ -1,3 +1,4 @@
+
 import { BaseState, mockBaseState } from "./store/reducers/baseDataSlice";
 import { CarData, CarDataInfo, CarRentDataInfo } from "./components/common/CarCard";
 import { Filter } from "./store/reducers/filterSlice";
@@ -273,6 +274,13 @@ export const mockRentCarData: () => CarRentDataInfo = () => {
     available: Math.random() > 0.5
   }
 }
+
+
+
+export const defaultRentCarsDetail: CarRentDataInfo = {
+  ...mockRentCarData()
+}
+
 export const defaultRentCars: RentResponse = {
   per_page: 24,
   page: 1,
@@ -481,6 +489,26 @@ let Api = {
       return await new Promise<ErrorResponse>((resolve, reject) => resolve(defaultError))
     }
 
+  },
+
+  rentCarAsync(id): Promise<CarRentDataInfo | ErrorResponse> {
+    if (process.env.REACT_APP_TEST === "true") {
+      const res = defaultRentCarsDetail;
+      let p = new Promise<CarRentDataInfo>((resolve, reject) => {
+        setTimeout(() => {
+          resolve(res);
+        }, 100);
+      })
+      return p;
+    }
+    return this.getEndpoint('rent' + id)
+  },
+  async rentCar(id) {
+    try {
+      return await this.rentCarAsync(id);
+    } catch (e) {
+      return await new Promise<ErrorResponse>((resolve, reject) => resolve(defaultError))
+    }
   },
 
   carAsync(id): Promise<CarData | ErrorResponse> {

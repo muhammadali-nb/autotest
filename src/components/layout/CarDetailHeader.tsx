@@ -11,7 +11,7 @@ import {
 import { Container } from "react-bootstrap";
 import CallRequestForm from "../common/CallRequestForm";
 import arrowLeft from "../../img/car-detail/arrow-left.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const WhiteHeader: React.FC<{
 	image?: HeaderImage;
@@ -20,6 +20,7 @@ export const WhiteHeader: React.FC<{
 	show?: boolean;
 	setMenuIsShow?: (e: boolean) => void;
 }> = ({ image = "dark", links, selected, show = false, setMenuIsShow }) => {
+	const navigate = useNavigate();
 	return (
 		<div
 			className={"py-3 bg-white opacity-" + (show ? 100 : 0)}
@@ -29,9 +30,9 @@ export const WhiteHeader: React.FC<{
 			}}>
 			<Container fluid={"xxl"}>
 				<div className={"header-mobile"}>
-					<Link to={"/catalog"}>
+					<div onClick={() => navigate(-1)}>
 						<img src={arrowLeft} alt="" />
-					</Link>
+					</div>
 					<HeaderLogoImage height={"24px"} width={"100px"} image={image} />
 					{/*<FontAwesomeIcon className='header-mobile_phone header-mobile_phone_dark' icon={faPhoneVolume} />*/}
 					<CallRequestForm light={false} />
@@ -50,6 +51,7 @@ export const TransparentHeader: React.FC<{
 	selected?: string;
 	setMenuIsShow?: (e: boolean) => void;
 }> = ({ links, selected, setMenuIsShow }) => {
+	const navigate = useNavigate();
 	// const func = async () => {
 	//
 	//     // setTimeout(function (){
@@ -127,7 +129,7 @@ export const TransparentHeader: React.FC<{
 			style={{ zIndex: 1000 }}>
 			<Container fluid={"xxl"}>
 				<div className={"header-mobile"}>
-					<div>
+					<div onClick={() => navigate(-1)}>
 						<img src={arrowLeft} alt="" />
 					</div>
 					<HeaderLogoImage height={"24px"} width={"100px"} image={"light"} />

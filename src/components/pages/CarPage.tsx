@@ -13,6 +13,7 @@ import { CarDetailLayout } from "../layout/CarDetailLayout";
 
 const CarPage = () => {
 	const car = useLoaderData() as CarData;
+	// console.log(car);
 	const data = useAppSelector((state) => state.baseData);
 	const brand =
 		data.left.brands.values?.find((i) => i.id === car.main.brand)?.name ?? "";

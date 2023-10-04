@@ -20,6 +20,9 @@ import OfferPage from "./components/pages/OfferPage";
 import CarPage, { carDataLoader } from "./components/pages/CarPage";
 import RentPage from "./components/pages/RentPage";
 import PersonalAccountPage from "./components/pages/PersonalAccount/PersonalAccountPage";
+import RentCarDetail, {
+	carRentDataLoader,
+} from "./components/pages/Rent/RentCarDetail";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -32,6 +35,11 @@ const router = createBrowserRouter(
 				loader={carDataLoader}
 			/>
 			<Route path={"rent"} element={<RentPage />} />
+			<Route
+				path={"rent/:id"}
+				element={<RentCarDetail />}
+				loader={carRentDataLoader}
+			/>
 			<Route
 				path={"programs"}
 				element={<ProgramsPage />}

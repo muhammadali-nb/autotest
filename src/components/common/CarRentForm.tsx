@@ -640,7 +640,7 @@ const CarRequestFormContent: React.FC<{
 		</div>
 	);
 };
-const CarRequestFormImage: React.FC<{
+export const CarRequestFormImage: React.FC<{
 	closeFunc: () => void;
 	car: CarRentDataInfo;
 }> = (props) => {
