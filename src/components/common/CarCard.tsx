@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { type BaseState } from "../../store/reducers/baseDataSlice";
 import caretRight from "./../../img/common/caret-right.svg";
 import CarBookingForm from "./CarBookingForm";
@@ -229,6 +229,8 @@ export const CarRentCard: React.FC<{
 	car: CarRentDataInfo;
 }> = ({ car }) => {
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
+	const navigate = useNavigate();
+	// console.log(car);
 
 	const tags =
 		baseData.top?.rent.values?.filter((i) => car.special.includes(i.id)) ?? [];
@@ -291,7 +293,10 @@ export const CarRentCard: React.FC<{
 
 				<CarRentForm car={car} wide={true} step={"start"} />
 			</div>
-			<div className="d-block d-md-none car-rent-card">
+
+			<div
+				onClick={() => navigate(`/rent/${car.id}`)}
+				className="d-block d-md-none car-rent-card">
 				<div className="car-rent-card_image">
 					<img src={CarImage} alt={brand + " " + model} />
 				</div>

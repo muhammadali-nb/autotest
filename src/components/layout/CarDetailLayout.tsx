@@ -61,8 +61,8 @@ export const CarDetailLayout = (props: BaseLayoutProps) => {
 					<SmallFooter />
 				</Container>
 
-				<Scroller />
-				<ToggleSentUserData />
+				{/* <Scroller />
+				<ToggleSentUserData /> */}
 				<Cookies />
 			</div>
 		</DocumentMeta>
