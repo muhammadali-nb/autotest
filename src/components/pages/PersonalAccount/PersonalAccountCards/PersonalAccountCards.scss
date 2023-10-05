@@ -1,0 +1,26 @@
+.personal-account_cards {
+  display: flex;
+  align-items: center;
+
+  &-bank,
+  &-score {
+    position: relative;
+    height: 54px;
+  }
+
+  &-bank {
+    margin: 0 0 0 14px;
+  }
+
+  &-add {
+    border-radius: 4px;
+    border: 2px solid var(--Grey-2, #babcbf);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 54px;
+    margin: 0 0 0 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

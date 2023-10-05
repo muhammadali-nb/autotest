@@ -5,11 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import Api from "../../Api";
 import { setBaseState } from "../../store/reducers/baseDataSlice";
 import Footer, { SmallFooter } from "./Footer";
-import Scroller from "../common/Scroller";
-import ToggleSentUserData from "../common/ToggleSentUserData";
 import Cookies from "../common/Cookies";
-import Header from "./Header";
-import MobileMenu from "./MobileMenu";
 import CarDetailHeader from "./CarDetailHeader";
 import { Container } from "react-bootstrap";
 
