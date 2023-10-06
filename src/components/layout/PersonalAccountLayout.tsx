@@ -10,6 +10,7 @@ import Cookies from "../common/Cookies";
 import MobileMenu from "./MobileMenu";
 import { useOutside } from "../../hooks/useOutside";
 import ToggleSentUserData from "../common/ToggleSentUserData";
+import PersonalAccountMenuBurger from "../common/personal-account/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 
 export type MetaTags = {
 	description?: string;
@@ -86,7 +87,8 @@ const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 					noForm={props.footerNoForm}
 				/> */}
 				<Scroller />
-				<ToggleSentUserData />
+				{/* <ToggleSentUserData /> */}
+				<PersonalAccountMenuBurger />
 				<Cookies />
 			</div>
 		</DocumentMeta>

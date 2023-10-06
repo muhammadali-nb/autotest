@@ -24,3 +24,9 @@
     align-items: center;
   }
 }
+
+@media (max-width: 991px) {
+  .personal-account_cards {
+    display: none;
+  }
+}

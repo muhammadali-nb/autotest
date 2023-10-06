@@ -8,13 +8,14 @@ import BankCard from "../../common/personal-account/BankCard/BankCard";
 import { PersonalAccountCards } from "./PersonalAccountCards/PersonalAccountCards";
 import ScoreCard from "../../common/ScoreCard/ScoreCard";
 import PersonalAccountForm from "./PersonalAccountForm/PersonalAccountForm";
+import PersonalAccountSocials from "./PersonalAccountSocials/PersonalAccountSocials";
 
 const PersonalAccountPage = () => {
 	return (
 		<PersonalAccountLayout>
 			<Container fluid={"xxl"}>
 				<Row>
-					<Col lg={2}>
+					<Col className={"d-none d-lg-block"} lg={2}>
 						<PersonalAccountMenu />
 					</Col>
 					<Col lg={10}>
@@ -23,10 +24,14 @@ const PersonalAccountPage = () => {
 								<PersonalAccountData />
 								<PersonalAccountCards />
 							</div>
-							<div>
+							<div className="personal-account_page_body">
 								<PersonalAccountForm />
+								<PersonalAccountSocials />
 							</div>
-							<SmallFooter />
+							<SmallFooter className="d-none d-lg-block" />
+							<div className="d-block d-lg-none personal-account_footer">
+								ООО ВОСХОДⓒ 2023 год
+							</div>
 						</div>
 					</Col>
 				</Row>
