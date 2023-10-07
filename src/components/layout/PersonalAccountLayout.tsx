@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header, { HeaderImage, HeaderType } from "./Header";
 
 import { setBaseState } from "../../store/reducers/baseDataSlice";
@@ -11,6 +11,8 @@ import MobileMenu from "./MobileMenu";
 import { useOutside } from "../../hooks/useOutside";
 import ToggleSentUserData from "../common/ToggleSentUserData";
 import PersonalAccountMenuBurger from "../common/personal-account/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
+import PersonalAccountMenu from "../pages/PersonalAccount/PersonalAccountMenu";
+import PersonalAccountMenuMobile from "../pages/PersonalAccount/PersonalAccountMenuMobile";
 
 export type MetaTags = {
 	description?: string;
@@ -34,6 +36,7 @@ const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 ) => {
 	const bState: any = useAppSelector((state) => state.baseData);
 	const dispatch = useAppDispatch();
+
 	const meta = {
 		title: props.title ?? process.env.REACT_APP_WEBSITE_NAME,
 		description:
@@ -64,6 +67,7 @@ const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 		}
 	});
 	const { ref, isShow, setIsShow } = useOutside(false);
+
 	return (
 		<DocumentMeta {...meta}>
 			<div className={"site"}>
@@ -88,7 +92,8 @@ const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 				/> */}
 				<Scroller />
 				{/* <ToggleSentUserData /> */}
-				<PersonalAccountMenuBurger />
+
+				{/* <PersonalAccountMenuBurger /> */}
 				<Cookies />
 			</div>
 		</DocumentMeta>

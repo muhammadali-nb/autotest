@@ -9,8 +9,14 @@ import { PersonalAccountCards } from "./PersonalAccountCards/PersonalAccountCard
 import ScoreCard from "../../common/ScoreCard/ScoreCard";
 import PersonalAccountForm from "./PersonalAccountForm/PersonalAccountForm";
 import PersonalAccountSocials from "./PersonalAccountSocials/PersonalAccountSocials";
+import { useOutside } from "../../../hooks/useOutside";
+import PersonalAccountMenuMobile from "./PersonalAccountMenuMobile";
+import PersonalAccountMenuBurger from "../../common/personal-account/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 
 const PersonalAccountPage = () => {
+	// for menu personal account
+	const { ref, isShow, setIsShow } = useOutside(false);
+
 	return (
 		<PersonalAccountLayout>
 			<Container fluid={"xxl"}>
@@ -32,6 +38,12 @@ const PersonalAccountPage = () => {
 							<div className="d-block d-lg-none personal-account_footer">
 								ООО ВОСХОДⓒ 2023 год
 							</div>
+							<PersonalAccountMenuBurger onClick={() => setIsShow(!isShow)} />
+							<PersonalAccountMenuMobile
+								menuIsOpen={isShow}
+								setMenuIsOpen={setIsShow}
+								menuRef={ref}
+							/>
 						</div>
 					</Col>
 				</Row>
