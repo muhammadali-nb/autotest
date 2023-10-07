@@ -1,21 +1,9 @@
 import React, { RefObject, useEffect, useState } from "react";
-import { HeaderImage } from "../../layout/Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-//icons ../../../img/common/mobile_menu-icons/house.svg
-import house from "../../../img/common/mobile_menu-icons/house.svg";
-
-import dashboard from "../../../img/common/mobile_menu-icons/dashboard.svg";
-import phone from "../../../img/common/mobile_menu-icons/phone.svg";
-import question from "../../../img/common/mobile_menu-icons/question.svg";
-
-import loginIcon from "../../../img/common/mobile_menu-icons/login.svg";
-// import AdvanceLogin from "../../../img/common/mobile_menu-icons/";
+// icons for menu
 import closeMenu from "../../../img/personal-account/menu/chevron-left.svg";
 import arrow from "../../../img/personal-account/menu/arrow-left.svg";
-
 import user from "../../../img/personal-account/menu/user.svg";
 import car from "../../../img/personal-account/menu/car.svg";
 import ticked from "../../../img/personal-account/menu/ticket.svg";
@@ -52,7 +40,7 @@ const defaultLinks = [
 
 const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
 	const { menuIsOpen, setMenuIsOpen, menuRef } = props;
-	const [loginAdvanceIsShow, setLoginAdvanceIsShow] = useState(true);
+	// const [loginAdvanceIsShow, setLoginAdvanceIsShow] = useState(true);
 
 	useEffect(() => {
 		if (menuIsOpen) document.body.style.overflow = "hidden";
@@ -71,14 +59,7 @@ const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
 				} mobile-menu-personal-account_container`}>
 				<div>
 					<div className={"d-flex align-items-center gap-px-15"}>
-						{/* <FontAwesomeIcon
-							color={"#fff"}
-							width={20}
-							height={20}
-							onClick={() => setMenuIsOpen(false)}
-							icon={faArrowLeft}
-						/> */}
-
+					
 						<div onClick={() => setMenuIsOpen(false)}>
 							<img src={closeMenu} alt="close menu" />
 						</div>
@@ -102,14 +83,6 @@ const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
 					</div>
 				</div>
 				<div className="mobile-menu-personal-account_come-to-menu">
-					{/* <AdvanceLogin
-						isShow={loginAdvanceIsShow}
-						setIsShow={setLoginAdvanceIsShow}
-					/>
-					<div className="mobile-menu_login mt-4">
-						<img src={loginIcon} alt={"login"} />
-						<h5>Войти в ЛК</h5>
-					</div> */}
 					<img src={arrow} alt="" />
 					<p>Вернуться в меню</p>
 				</div>

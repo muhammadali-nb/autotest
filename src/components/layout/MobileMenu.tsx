@@ -1,7 +1,5 @@
 import React, { RefObject, useEffect, useState } from "react";
 import { HeaderLogoImage } from "./Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 //icons
@@ -15,7 +13,6 @@ import loginIcon from "../../img/common/mobile_menu-icons/login.svg";
 import AdvanceLogin from "../common/AdvanceLogin";
 import arrow from "../../img/common/menu-arrow.svg";
 
-import { ReactSVG } from "react-svg";
 
 interface MobileMenuProps {
 	menuIsOpen: boolean;
