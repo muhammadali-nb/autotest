@@ -1,10 +1,5 @@
 import React from "react";
 import "./PersonalAccountsSocials.scss";
-import { FooterLink } from "../../../layout/Footer";
-
-import vkMb from "../../../../img/common/footer/social-icons-mb/vk.svg";
-import whMb from "../../../../img/common/footer/social-icons-mb/whatsapp.svg";
-import telegramMb from "../../../../img/common/footer/social-icons-mb/telegram.svg";
 
 const PersonalAccountSocials = () => {
 	return (
