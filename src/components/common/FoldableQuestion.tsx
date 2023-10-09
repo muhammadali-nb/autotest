@@ -19,11 +19,18 @@ const FoldableQuestion: React.FC<{
 			}>
 			<button className={"foldable-header"} onClick={() => setOpen(!open)}>
 				<span>{props.header}</span>
-				<div style={{ width: "18px", height: "18px" }}>
+				<div
+					style={{
+						width: "18px",
+						height: "18px",
+						position: "absolute",
+						right: 0,
+						top: "50%",
+					}}>
 					{props.mobile ? (
 						<svg
-							width="17"
-							height="17"
+							// width="17"
+							// height="17"
 							viewBox="0 0 17 17"
 							fill="none"
 							className={
@@ -46,10 +53,10 @@ const FoldableQuestion: React.FC<{
 								(open ? "turned " : "") +
 								(props.small ? "foldable-header-image-small" : "")
 							}
-							style={{
-								width: "100%",
-								height: "100%",
-							}}
+							// style={{
+							// 	width: "100%",
+							// 	height: "100%",
+							// }}
 							alt={""}
 						/>
 					)}
