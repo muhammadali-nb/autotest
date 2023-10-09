@@ -17,7 +17,6 @@ const PersonalAccountForm = () => {
 					className="contacts__form-input personal-account_form-input"
 				/>
 			</div>
-
 			<div className={"personal-account_form-topic"}>
 				<h3>Контакты</h3>
 				<input
@@ -31,7 +30,6 @@ const PersonalAccountForm = () => {
 					className="contacts__form-input personal-account_form-input"
 				/>
 			</div>
-
 			<div className={"personal-account_form-topic"}>
 				<h3>Дата рождения</h3>
 				<input
