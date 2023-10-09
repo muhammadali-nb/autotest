@@ -23,9 +23,9 @@ const FoldableQuestion: React.FC<{
 					style={{
 						width: "18px",
 						height: "18px",
-						position: "absolute",
-						right: 0,
-						top: "50%",
+						// position: "absolute",
+						// right: 0,
+						// top: "50%",
 					}}>
 					{props.mobile ? (
 						<svg

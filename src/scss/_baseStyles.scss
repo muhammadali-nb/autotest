@@ -1401,7 +1401,10 @@ code {
     width: 24px;
     height: 24px;
     object-fit: contain;
-    
+    @include l-md {
+      height: 18px;
+      width: 18px;
+    }
 
     &_mobile {
       width: 18px;
