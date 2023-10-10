@@ -38,7 +38,7 @@ export const CarStatBlockItemMob = ({
 	return (
 		<div
 			className={"car-stat-block-item_mobile " + (id % 2 === 0 ? "gray" : "")}>
-			<div>{data.name}</div>
+			<div className="car-stat-block-item_mobile-leftside">{data.name}</div>
 			<div>{data.value}</div>
 		</div>
 	);

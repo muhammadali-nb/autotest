@@ -67,7 +67,7 @@ export const CarSameLink: React.FC<{
 			style={style}
 			className={
 				!responsive
-					? "car__card-same  "
+					? "car__card-same  " + (className ?? "")
 					: "car__card-mobile-same  " + (className ?? "")
 			}>
 			<span>{text}</span>

@@ -56,6 +56,10 @@
     }
   }
 
+  .car-base-same_link > span {
+    font-size: 14px !important;
+  }
+
   .car-base-calculator {
     padding: 40px 0 0 0;
 
@@ -109,6 +113,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &-leftside {
+    max-width: 230px;
+  }
 
   &.gray {
     background: rgba(242, 243, 246, 0.5);
