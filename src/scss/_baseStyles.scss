@@ -1232,6 +1232,13 @@ code {
     font-weight: 500;
     font-size: 16px;
     margin: 10px 0 0 0;
+    max-width: 350px;
+
+    &:nth-child(3) {
+      max-width: 450px;
+    }
+    
+
     @include l-sm {
       margin: 8px 0 0 0;
       font-size: 12px;
