@@ -67,11 +67,29 @@ export const CarSameLink: React.FC<{
 			style={style}
 			className={
 				!responsive
-					? "car__card-same  "
+					? "car__card-same  " + (className ?? "")
 					: "car__card-mobile-same  " + (className ?? "")
 			}>
 			<span>{text}</span>
-			<img src={caretRight} alt={""} style={{ marginLeft: "5px" }} />
+			{/* <img src={caretRight} alt={""} style={{ marginLeft: "5px" }} /> */}
+
+			<svg
+				width="15"
+				height="15"
+				viewBox="0 0 15 15"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg">
+				<g id="Chevron Right">
+					<path
+						id="Shape"
+						d="M6.25 11.25L10 7.5L6.25 3.75"
+						stroke="#222222"
+						strokeWidth="1.57642"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</g>
+			</svg>
 		</Link>
 	);
 };

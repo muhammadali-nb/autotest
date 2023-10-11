@@ -167,15 +167,20 @@
   @include l-sm {
     font-size: 12px;
   }
+
+  & > svg {
+    margin: 0 0 0 5px;
+  }
+
   &:hover,
   &:active {
-    color: $textColor;
-    text-decoration: underline;
-  }
-  &-image {
-    height: 15px;
-    width: 15px;
-    object-fit: contain;
+    color: #bf3535;
+    // text-decoration: underline;
+    & > svg {
+      path {
+        stroke: #bf3535;
+      }
+    }
   }
 }
 

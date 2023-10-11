@@ -19,11 +19,11 @@ const FoldableQuestion: React.FC<{
 			}>
 			<button className={"foldable-header"} onClick={() => setOpen(!open)}>
 				<span>{props.header}</span>
-				<div style={{ width: "18px", height: "18px" }}>
+				<div>
 					{props.mobile ? (
 						<svg
-							width="17"
-							height="17"
+							// width="17"
+							// height="17"
 							viewBox="0 0 17 17"
 							fill="none"
 							className={
@@ -33,25 +33,48 @@ const FoldableQuestion: React.FC<{
 							<path
 								d="M4.25 6.375L8.5 10.625L12.75 6.375"
 								stroke="#222222"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
 							/>
 						</svg>
 					) : (
-						<img
-							src={open ? circleDown : circleUp}
-							className={
-								"foldable-header-image " +
-								(open ? "turned " : "") +
-								(props.small ? "foldable-header-image-small" : "")
-							}
-							style={{
-								width: "100%",
-								height: "100%",
-							}}
-							alt={""}
-						/>
+						<>
+							{" "}
+							<img
+								src={open ? circleDown : circleUp}
+								className={
+									"d-none d-md-block " +
+									"foldable-header-image " +
+									(open ? "turned " : "") +
+									(props.small ? "foldable-header-image-small" : "")
+								}
+								// style={{
+								// 	width: "100%",
+								// 	height: "100%",
+								// }}
+								alt={""}
+							/>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								viewBox="0 0 20 20"
+								fill="none"
+								className={
+									"d-block d-md-none " +
+									"foldable-header-image_mobile " +
+									(open ? "turned " : "")
+								}>
+								<path
+									d="M4.25 6.375L8.5 10.625L12.75 6.375"
+									stroke="#222222"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								/>
+							</svg>
+						</>
 					)}
 				</div>
 			</button>

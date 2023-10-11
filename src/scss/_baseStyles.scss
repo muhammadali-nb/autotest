@@ -1232,6 +1232,13 @@ code {
     font-weight: 500;
     font-size: 16px;
     margin: 10px 0 0 0;
+    max-width: 350px;
+
+    &:nth-child(3) {
+      max-width: 450px;
+    }
+    
+
     @include l-sm {
       margin: 8px 0 0 0;
       font-size: 12px;
@@ -1345,6 +1352,14 @@ code {
       margin: 0 0 40px 0;
     }
 
+    &-top {
+      margin: 0;
+
+      @include l-md {
+        width: 300px;
+      }
+    }
+
     //text-gray-color font-inter-medium
   }
 }
@@ -1375,6 +1390,7 @@ code {
     line-height: 140%;
     letter-spacing: 0.01em;
     color: $textColor;
+    position: relative;
 
     @include l-md {
       font-size: 16px;
@@ -1382,7 +1398,7 @@ code {
 
     @include l-sm {
       font-weight: 500;
-      font-size: 12px;
+      font-size: 14px;
       padding: 0 0 8px 0;
     }
   }
@@ -1392,6 +1408,10 @@ code {
     width: 24px;
     height: 24px;
     object-fit: contain;
+    @include l-md {
+      height: 18px;
+      width: 18px;
+    }
 
     &_mobile {
       width: 18px;
@@ -1399,7 +1419,7 @@ code {
       transition: all 0.4s ease-in-out;
 
       &.turned {
-        transform: rotate(180deg);
+        transform: rotate(180deg) translateX(3px);
         path {
           // fill: red;
           stroke: #bf3535;
@@ -2294,6 +2314,7 @@ code {
     line-height: 140%; /* 16.8px */
     letter-spacing: 0.12px;
     margin: 0 0 44px 0;
+    width: 300px;
     @include l-md {
       display: block;
     }
@@ -2313,8 +2334,9 @@ code {
   }
 
   @include l-sm {
-    padding: 0;
-    border: none;
+    padding: 0 0 0 12px;
+    border-left: 4px solid #bf3535;
+    // border: none;
   }
 
   .faq-contacts-header {

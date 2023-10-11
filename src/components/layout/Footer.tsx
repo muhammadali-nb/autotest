@@ -83,13 +83,18 @@ export const FooterContactsBlock: React.FC<{
 		</div>
 	);
 };
-export const FooterLink: React.FC<{ img: any; hover?: any; link: string }> = (
-	props
-) => {
+export const FooterLink: React.FC<{
+	img: any;
+	hover?: any;
+	link: string;
+	className?: string;
+}> = (props) => {
 	return (
 		<Link
 			to={props.link}
-			className={`footer-contacts-link ${!props.hover && "mobile"}`}>
+			className={`footer-contacts-link ${!props.hover && "mobile"} ${
+				props.className
+			} `}>
 			<img src={props.img} className={"default-image"} alt="" />
 			{props.hover !== undefined && (
 				<img src={props.hover} className={"hover-image"} alt="" />
@@ -203,9 +208,9 @@ export const FooterContacts = () => {
 		</Container>
 	);
 };
-export const SmallFooter = () => {
+export const SmallFooter = (props: { className?: string }) => {
 	return (
-		<div className={"py-px-20"}>
+		<div className={`py-px-20 ${props.className}`}>
 			{/* <Container fluid={"xxl"}> */}
 			<div className={"d-flex justify-content-between"}>
 				<div className={"footer-contacts-bottom-logo"}>

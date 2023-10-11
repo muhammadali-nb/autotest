@@ -1,7 +1,5 @@
 import React, { RefObject, useEffect, useState } from "react";
 import { HeaderLogoImage } from "./Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 //icons
@@ -14,6 +12,8 @@ import ticked from "../../img/common/mobile_menu-icons/ticked.svg";
 import loginIcon from "../../img/common/mobile_menu-icons/login.svg";
 import AdvanceLogin from "../common/AdvanceLogin";
 import arrow from "../../img/common/menu-arrow.svg";
+
+
 interface MobileMenuProps {
 	menuIsOpen: boolean;
 	setMenuIsOpen: (e: boolean) => void;
@@ -61,6 +61,7 @@ const MobileMenu = (props: MobileMenuProps) => {
 
 						<div onClick={() => setMenuIsOpen(false)}>
 							<img src={arrow} alt="" />
+							{/* <ReactSVG src={arrow} color="#222" fill="#222" /> */}
 						</div>
 						<HeaderLogoImage image={"light"} width={"100px"} height={"24px"} />
 					</div>

@@ -1,0 +1,50 @@
+.personal-account_form {
+  width: 450px;
+
+  &-topic > h3 {
+    color: var(--Text, #222);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%; /* 28px */
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    margin: 40px 0 20px 0;
+
+    &:first-child {
+      margin: 0 0 20px 0;
+    }
+  }
+
+  &-topic {
+    &:not(:first-child) {
+      margin: 40px 0 0 0;
+    }
+
+    & > input:not(:last-child) {
+      margin: 0 0 15px 0;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .personal-account_form {
+    width: 100%;
+
+    &-topic > h3 {
+      margin: 40px 0 8px 0;
+      font-size: 14px;
+
+      &:first-child {
+        margin: 40px 0 8px 0;
+      }
+    }
+    &-topic {
+      margin: 40px 0 0 0;
+
+      & > input:not(:last-child) {
+        margin: 0 0 12px 0;
+      }
+    }
+  }
+}

@@ -34,7 +34,7 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 				<div className={"mb-px-30"}>
 					<CarSameLink
 						car={car.main}
-						className={"d-inline"}
+						className={"d-inline car-base-same_link "}
 						text={"Показать похожие модели"}
 					/>
 				</div>
@@ -58,9 +58,6 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 						price={car.main.price}
 						noAnim={true}
 					/>
-
-
-
 				</div>
 				<Container fluid={"xxl"} className="d-block d-lg-none">
 					<IndexCalculator

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
-import { CarData, CarRentDataInfo, CarSameLink } from "../../common/CarCard";
+import { useLoaderData } from "react-router-dom";
+import { CarRentDataInfo, CarSameLink } from "../../common/CarCard";
 import Api, { ErrorResponse } from "../../../Api";
-import CatalogLayout from "../../layout/CatalogLayout";
 import { CarDetailLayout } from "../../layout/CarDetailLayout";
-import CarImages from "../Car/CarImages";
-import { CarRequestFormImage } from "../../common/CarRentForm";
 import RentCarImagesCarousel from "./RentCarImagesCarousel";
 import { Container } from "react-bootstrap";
 
@@ -16,8 +13,6 @@ const RentCarDetail = () => {
 	// const [open, setOpen] = useState<boolean>(false);
 	// const [car, setCar] = useState<CarData | ErrorResponse | undefined>();
 	// const [index, setIndex] = useState(0);
-
-	console.log(car);
 
 	// useEffect(() => {
 	// 	const fetchCarData = async () => {
@@ -45,7 +40,7 @@ const RentCarDetail = () => {
 				<div className="car-detail_deposit">
 					Депозит от <span>6 950 ₽</span>
 				</div>
-				<CarSameLink car={car} />
+				<CarSameLink className="car-detail_same-link" car={car} />
 				<div className="car-detail_info">
 					<h4>Информация</h4>
 					<ul>
