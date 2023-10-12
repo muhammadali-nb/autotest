@@ -152,6 +152,7 @@ const CallRequestForm: React.FC<{
 	light?: boolean;
 	text?: string | ReactNode;
 	small?: boolean;
+	className?: string;
 }> = (props) => {
 	const [show, setShow] = useState(false);
 	const [sent, setSent] = useState(false);
@@ -163,7 +164,7 @@ const CallRequestForm: React.FC<{
 			{props.text ? (
 				<button
 					className={
-						"site-btn " +
+						`site-btn  ${props.className}  ` +
 						(props.light ? " light" : "") +
 						(props.small ? " small" : "")
 					}
@@ -180,6 +181,7 @@ const CallRequestForm: React.FC<{
 					onClick={handleShow}
 					src={props.light ? callIcon : callIconDark}
 					alt="order call"
+					className={props.className}
 				/>
 				// <FontAwesomeIcon
 				// 	onClick={handleShow}
