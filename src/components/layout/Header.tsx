@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+// import callIcon from "../../img/common/Phone-header.svg";
+// import callIconDark from "../../img/common/Phone-header-dark.svg"; // header phone icons
 import logoDark from "./../../img/logo-dark.svg";
 import logoDarkCred from "./../../img/logo-dark-cred.svg";
 import logoLight from "./../../img/logo-light.svg";
@@ -10,6 +12,9 @@ import CallRequestForm from "../common/CallRequestForm";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import { faPhoneVolume } from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
 import ModalFormTemplate from "../common/ModalFormTemplate";
+import { MobileModal } from "../common/MobileModal/MobileModal";
+import callIcon from "./../../img/common/Phone-header.svg";
+import callIconDark from "./../../img/common/Phone-header-dark.svg";
 
 export type HeaderType = "transparent" | "white" | "logo";
 export type HeaderImage = "dark" | "darkCred" | "light";
@@ -113,39 +118,56 @@ export const WhiteHeader: React.FC<{
 	selected?: string;
 	show?: boolean;
 	setMenuIsShow: any;
-}> = ({ image = "dark", links, selected, show = false, setMenuIsShow }) => {
+	setMobileModal: (e: boolean) => void;
+}> = ({
+	image = "dark",
+	links,
+	selected,
+	show = false,
+	setMenuIsShow,
+	setMobileModal,
+}) => {
 	return (
-		<div
-			className={"py-3 bg-white opacity-" + (show ? 100 : 0)}
-			style={{
-				boxShadow: "0px 5px 20px rgba(0, 0, 0, 0.07)",
-				transition: "all 0.2s ease-out",
-			}}>
-			<Container fluid={"xxl"}>
-				<div className={"header-mobile"}>
-					<FontAwesomeIcon
-						onClick={() => setMenuIsShow(true)}
-						className="header-mobile_burger header-mobile_burger_dark"
-						icon={faBars}
-					/>
+		<>
+			<div
+				className={"py-3 bg-white opacity-" + (show ? 100 : 0)}
+				style={{
+					boxShadow: "0px 5px 20px rgba(0, 0, 0, 0.07)",
+					transition: "all 0.2s ease-out",
+				}}>
+				<Container fluid={"xxl"}>
+					<div className={"header-mobile"}>
+						<FontAwesomeIcon
+							onClick={() => setMenuIsShow(true)}
+							className="header-mobile_burger header-mobile_burger_dark"
+							icon={faBars}
+						/>
 
-					<HeaderLogoImage height={"24px"} width={"100px"} image={image} />
-					{/*<FontAwesomeIcon className='header-mobile_phone header-mobile_phone_dark' icon={faPhoneVolume} />*/}
-					<CallRequestForm light={false} />
-				</div>
-				<div className={"header-desktop"}>
-					<HeaderLogoImage image={image} />
-					<HeaderLinks selected={selected} links={links ?? defaultLinks} />
-				</div>
-			</Container>
-		</div>
+						<HeaderLogoImage height={"24px"} width={"100px"} image={image} />
+						{/*<FontAwesomeIcon className='header-mobile_phone header-mobile_phone_dark' icon={faPhoneVolume} />*/}
+						<CallRequestForm className="d-none d-md-block" light={false} />
+						<img
+							src={callIconDark}
+							className="d-block d-md-none"
+							onClick={() => setMobileModal(true)}
+							alt=""
+						/>
+					</div>
+					<div className={"header-desktop"}>
+						<HeaderLogoImage image={image} />
+						<HeaderLinks selected={selected} links={links ?? defaultLinks} />
+					</div>
+				</Container>
+			</div>
+		</>
 	);
 };
 export const TransparentHeader: React.FC<{
 	links: Array<HeaderLink>;
 	selected?: string;
 	setMenuIsShow: any;
-}> = ({ links, selected, setMenuIsShow }) => {
+	setMobileModal: (e: boolean) => void;
+}> = ({ links, selected, setMenuIsShow, setMobileModal }) => {
 	// const func = async () => {
 	//
 	//     // setTimeout(function (){
@@ -229,7 +251,13 @@ export const TransparentHeader: React.FC<{
 						onClick={() => setMenuIsShow(true)}
 					/>
 					<HeaderLogoImage height={"24px"} width={"100px"} image={"light"} />
-					<CallRequestForm light={true} />
+					<CallRequestForm className="d-none d-md-block" light={true} />
+					<img
+						src={callIcon}
+						onClick={() => setMobileModal(true)}
+						className="d-block d-md-none"
+						alt=""
+					/>
 				</div>
 				<div className={"header-desktop"}>
 					<HeaderLogoImage image={"light"} />
@@ -253,6 +281,8 @@ const Header: React.FC<HeaderProps> = ({
 	burgerMenuIsShow,
 }: HeaderProps) => {
 	const [showWhite, setShowWhite] = useState(false);
+	const [callMobileModal, setCallMobileModal] = useState(false);
+
 	useEffect(() => {
 		let handler = () => {
 			if (window.pageYOffset > 150 && !showWhite) setShowWhite(true);
@@ -266,22 +296,27 @@ const Header: React.FC<HeaderProps> = ({
 
 	if (type === "logo") return <LogoHeader image={image} />;
 	return (
-		<div className={"header "}>
-			{type === "transparent" && !showWhite && (
-				<TransparentHeader
+		<>
+			<div className={"header "}>
+				{type === "transparent" && !showWhite && (
+					<TransparentHeader
+						setMenuIsShow={setBurgerMenuIsShow}
+						selected={selectedLink}
+						links={links}
+						setMobileModal={setCallMobileModal}
+					/>
+				)}
+				<WhiteHeader
+					show={type !== "transparent" || showWhite}
+					image={image}
+					links={links}
 					setMenuIsShow={setBurgerMenuIsShow}
 					selected={selectedLink}
-					links={links}
+					setMobileModal={setCallMobileModal}
 				/>
-			)}
-			<WhiteHeader
-				show={type !== "transparent" || showWhite}
-				image={image}
-				links={links}
-				setMenuIsShow={setBurgerMenuIsShow}
-				selected={selectedLink}
-			/>
-		</div>
+			</div>
+			<MobileModal active={callMobileModal} setActive={setCallMobileModal} />
+		</>
 	);
 };
 
