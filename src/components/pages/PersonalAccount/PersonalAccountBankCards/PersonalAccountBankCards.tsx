@@ -1,6 +1,6 @@
 import React from "react";
-import BankCard from "../../../common/personal-account/BankCard/BankCard";
-import "./PersonalAccountCards.scss";
+import BankCard from "../../../common/PersonalAccount/BankCard/BankCard";
+import "./PersonalAccountBankCards.scss";
 import ScoreCard from "../../../common/ScoreCard/ScoreCard";
 
 const cards = [

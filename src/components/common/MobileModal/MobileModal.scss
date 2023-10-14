@@ -1,0 +1,98 @@
+.mobile-modal {
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  overflow-x: scroll;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  &_header {
+    height: 40%;
+    width: 100%;
+    background-image: url("../../../img/common/modal-image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: -20px 0 0 0;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &-bottom {
+      & > h3 {
+        color: var(--default-white, #fff);
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 140%; /* 22.4px */
+        letter-spacing: 0.16px;
+        text-transform: uppercase;
+        margin: 0 0 8px 0;
+      }
+
+      & > p {
+        color: var(--default-white, #fff);
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 140%; /* 14px */
+        letter-spacing: 0.1px;
+        text-transform: uppercase;
+        margin: 0;
+      }
+    }
+  }
+
+  &_body {
+    padding: 24px 16px 0 16px;
+    background-color: #fff;
+    // height: 60%;
+
+    & > h1 {
+      color: var(--Text, #222);
+      font-family: Inter;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.24px;
+      text-transform: uppercase;
+      margin: 0 0 8px 0;
+    }
+
+    & > p {
+      color: var(--Grey-1, #606569);
+      font-feature-settings:
+        "clig" off,
+        "liga" off;
+      font-family: Inter;
+      font-size: 12px;
+
+      font-weight: 500;
+      line-height: 140%; /* 16.8px */
+      margin: 0 0 24px 0;
+    }
+
+    & > form {
+      margin: 0 0 40px 0;
+    }
+
+    &-input {
+      &:not(:last-child) {
+        margin: 0 0 12px 0;
+      }
+    }
+
+    &-company {
+      text-align: left;
+      padding: 0 0 16px 0;
+    }
+  }
+}

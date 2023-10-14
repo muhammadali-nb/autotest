@@ -1,22 +1,17 @@
 import React from "react";
 import PersonalAccountLayout from "../../layout/PersonalAccountLayout";
-import { Col, Container, Row } from "react-bootstrap";
-import { SmallFooter } from "../../layout/Footer";
-import PersonalAccountMenu from "./PersonalAccountMenu";
-import PersonalAccountData from "./PersonalAccountData";
-import BankCard from "../../common/PersonalAccount/BankCard/BankCard";
-import { PersonalAccountCards } from "./PersonalAccountBankCards/PersonalAccountBankCards";
-import ScoreCard from "../../common/ScoreCard/ScoreCard";
-import PersonalAccountForm from "./PersonalAccountForm/PersonalAccountForm";
-import PersonalAccountSocials from "./PersonalAccountSocials/PersonalAccountSocials";
+import PersonalAccountMenuMobile from "../PersonalAccount/PersonalAccountMenuMobile";
 import { useOutside } from "../../../hooks/useOutside";
-import PersonalAccountMenuMobile from "./PersonalAccountMenuMobile";
 import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 
-const PersonalAccountPage = () => {
+import { Col, Container, Row } from "react-bootstrap";
+import PersonalAccountMenu from "../PersonalAccount/PersonalAccountMenu";
+import PersonalAccountHeader from "../../common/PersonalAccount/PersonalAccountHeader/PersonalAccountHeader";
+import PersonalAccountCarCard from "../../common/PersonalAccount/PersonalAccountCarCard/PersonalAccountCarCard";
+
+const RentHistoryPage = () => {
 	// for menu personal account
 	const { ref, isShow, setIsShow } = useOutside(false);
-
 	return (
 		<PersonalAccountLayout>
 			<Container fluid={"xxl"}>
@@ -26,7 +21,11 @@ const PersonalAccountPage = () => {
 					</Col>
 					<Col lg={10}>
 						<div className="personal-account_page">
-							<div className="d-flex align-items-end justify-content-between">
+							<PersonalAccountHeader />
+							<div className="mt-px-65">
+								<PersonalAccountCarCard />
+							</div>
+							{/* <div className="d-flex align-items-end justify-content-between">
 								<PersonalAccountData />
 								<PersonalAccountCards />
 							</div>
@@ -37,7 +36,8 @@ const PersonalAccountPage = () => {
 							<SmallFooter className="d-none d-lg-block" />
 							<div className="d-block d-lg-none personal-account_footer">
 								ООО ВОСХОДⓒ 2023 год
-							</div>
+							</div> */}
+
 							<PersonalAccountMenuBurger onClick={() => setIsShow(!isShow)} />
 							<PersonalAccountMenuMobile
 								menuIsOpen={isShow}
@@ -52,4 +52,4 @@ const PersonalAccountPage = () => {
 	);
 };
 
-export default PersonalAccountPage;
+export default RentHistoryPage;

@@ -99,7 +99,10 @@ const FaqPage = () => {
 			headerSelectedLink={"/faq"}>
 			<div className={"faq"}>
 				<Container fluid={"xxl"}>
-					<div className={"faq_header"}>вопросы</div>
+					<div className={"faq_header d-none d-md-block"}>
+						Часто задаваемые вопросы
+					</div>
+					<div className={"faq_header d-block d-md-none"}>вопросы</div>
 					<div className={"faq_description faq_description-top "}>
 						Список ответов на часто задаваемые вопросы от наших клиентов
 						постоянно пополняется.

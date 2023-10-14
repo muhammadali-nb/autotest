@@ -40,7 +40,7 @@ const RentCarDetail = () => {
 				<div className="car-detail_deposit">
 					Депозит от <span>6 950 ₽</span>
 				</div>
-				<CarSameLink car={car} />
+				<CarSameLink className="car-detail_same-link" car={car} />
 				<div className="car-detail_info">
 					<h4>Информация</h4>
 					<ul>

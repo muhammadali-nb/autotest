@@ -8,7 +8,7 @@
   letter-spacing: 0.01em;
 
   &_body {
-    @include l-md {
+    @include l-lg {
       padding: 0 16px;
     }
   }
@@ -56,6 +56,10 @@
     }
   }
 
+  .car-base-same_link > span {
+    font-size: 14px !important;
+  }
+
   .car-base-calculator {
     padding: 40px 0 0 0;
 
@@ -85,7 +89,7 @@
   text-transform: uppercase;
   margin-bottom: 24px;
 
-  @include l-md {
+  @include l-lg {
     margin-bottom: 16px;
     font-size: 20px;
     padding: 0 16px;
@@ -110,6 +114,10 @@
   justify-content: space-between;
   align-items: center;
 
+  &-leftside {
+    max-width: 230px;
+  }
+
   &.gray {
     background: rgba(242, 243, 246, 0.5);
   }
@@ -127,7 +135,7 @@
   grid-gap: 15px;
   grid-template-columns: 2fr 1fr;
 
-  @include l-md {
+  @include l-lg {
     padding: 0 16px;
   }
 
@@ -281,7 +289,7 @@
 }
 
 .car-info_detail {
-  @include l-md {
+  @include l-lg {
     padding: 0 16px;
   }
 }
