@@ -13,7 +13,6 @@ import loginIcon from "../../img/common/mobile_menu-icons/login.svg";
 import AdvanceLogin from "../common/AdvanceLogin";
 import arrow from "../../img/common/menu-arrow.svg";
 
-
 interface MobileMenuProps {
 	menuIsOpen: boolean;
 	setMenuIsOpen: (e: boolean) => void;

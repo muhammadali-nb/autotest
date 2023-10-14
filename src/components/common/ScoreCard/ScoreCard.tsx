@@ -1,6 +1,6 @@
 import React from "react";
 import "./ScoreCard.scss";
-import { BankCardProps } from "../personal-account/BankCard/BankCard";
+import { BankCardProps } from "../PersonalAccount/BankCard/BankCard";
 
 const ScoreCard = (props: BankCardProps) => {
 	const { style, favorite, number } = props;
