@@ -385,8 +385,8 @@
   }
 
   @include l-sm {
-    margin: 0;
-    padding-top: 0;
+    // margin: 16px 0;
+    // padding-top: ;
     div {
       display: none;
     }
