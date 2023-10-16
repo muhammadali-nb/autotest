@@ -55,7 +55,11 @@
   &_body {
     padding: 24px 16px 0 16px;
     background-color: #fff;
-    // height: 60%;
+// <<<<<<< HEAD
+//     // height: 60%;
+// =======
+//     // height: 100%;
+// >>>>>>> mobile-version
 
     & > h1 {
       color: var(--Text, #222);

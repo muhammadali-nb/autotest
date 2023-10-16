@@ -150,7 +150,7 @@ export const WhiteHeader: React.FC<{
 							src={callIconDark}
 							className="d-block d-md-none"
 							onClick={() => setMobileModal(true)}
-							alt=""
+							alt="order call"
 						/>
 					</div>
 					<div className={"header-desktop"}>

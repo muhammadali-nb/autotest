@@ -79,7 +79,7 @@ const SecondBlock = () => (
 					<div className={"leasing__imaged-block li-card "}>
 						<div className={"leasing__imaged-block_header"}>Выгодно</div>
 						<div className={"leasing__imaged-block_divider"} />
-						<div className={" leasing__imaged-block_description "}>
+						<div className={" leasing__imaged-block_description options "}>
 							Приобретая автомобиль в лизинг, вы не увеличиваете свою кредитную
 							нагрузку и можете использовать кредитные продукты банков
 						</div>
@@ -561,8 +561,10 @@ const FaqBlock = () => {
 					автомобиля
 				</p>
 				<Row className={"faq-block_body gx-lg-5 gx-sm-0"}>
-					<Col sm={12} lg={6} className="px-0 px-md-3">
-						<div className={"w-100"}>
+					<Col sm={12} lg={6} className="px-0 px-md-3 faq-block_body-leftside">
+						<div
+						// className={"w-100"}
+						>
 							{questions1.map((i, ind) => (
 								<FoldableQuestion key={ind} header={i.title}>
 									{i.text}
@@ -570,8 +572,10 @@ const FaqBlock = () => {
 							))}
 						</div>
 					</Col>
-					<Col sm={12} lg={6} className="px-0 px-md-3">
-						<div className={"w-100"}>
+					<Col sm={12} lg={6} className="px-0 px-md-3 faq-block_body-rightside">
+						<div
+						// className={"w-100"}
+						>
 							{questions2.map((i, ind) => (
 								<FoldableQuestion key={ind} header={i.title}>
 									{i.text}
