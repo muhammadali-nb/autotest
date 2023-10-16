@@ -39,7 +39,8 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 					/>
 				</div>
 			</div>
-			<div className={"d-none d-lg-block mb-px-40"}>
+			<div
+				className={"d-none d-lg-block mb-px-40 car-base-payment-preorder-btn "}>
 				<CarPreorderButton car={car.main} w100={false} />
 			</div>
 			<div className={"d-none d-lg-block my-3"}>
@@ -49,8 +50,8 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 				<CarStatBlock type={"descktop"} column1Width={"auto"} data={car.info} />
 			</div>
 
-			<div className={" car-base-calculator "} style={{ maxWidth: "500px" }}>
-				<h1 className="car-stat-block-header">Калькулятор</h1>
+			<div className={" car-base-calculator "} >
+				<h1 className="car-stat-block-header d-block d-lg-none">Калькулятор</h1>
 				<div className="d-none d-lg-block">
 					<IndexCalculator
 						fontBold={true}

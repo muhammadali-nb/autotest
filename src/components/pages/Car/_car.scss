@@ -51,6 +51,10 @@
     font-size: 16px;
     margin-bottom: 15px;
 
+    &-preorder-btn {
+      width: 200px;
+    }
+
     .car-base-payment-value {
       font-weight: 600;
     }
@@ -58,13 +62,16 @@
 
   .car-base-same_link > span {
     font-size: 14px !important;
+    letter-spacing: 0.16px !important;
   }
 
   .car-base-calculator {
     padding: 40px 0 0 0;
+    max-width: 500px;
 
     @include l-md {
       padding: 28px 0;
+      max-width: 100%;
     }
     @include l-sm {
       padding: 24px 0;
@@ -75,6 +82,9 @@
 }
 
 .car-stat-block {
+  &:not(:last-child) {
+    margin: 0 0 30px 0;
+  }
   @include l-md {
     margin-bottom: 30px;
   }
