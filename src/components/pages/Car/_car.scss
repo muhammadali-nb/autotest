@@ -287,6 +287,28 @@
   justify-content: start;
   gap: 25px;
 
+  &_mobile {
+    border-width: 2px;
+    margin: 0 0 40px 0;
+    gap: 24px;
+    & > .nav-link {
+      color: #222;
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 140%; /* 22.4px */
+      letter-spacing: 0.16px;
+      text-transform: uppercase;
+      border-color: transparent;
+      padding: 8px 2px;
+      border: none;
+      &.active {
+        border-bottom: 2px solid #bf3535;
+        color: #222;
+      }
+    }
+  }
+
   @include l-md {
     margin: 0 0 40px;
     gap: 12px;
