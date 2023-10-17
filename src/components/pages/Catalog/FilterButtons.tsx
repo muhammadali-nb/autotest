@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setFilter } from "../../../store/reducers/filterSlice";
 import { ButtonFilterData } from "../../../store/reducers/baseDataSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import filterIcon from "../../../img/common/filter-icon.svg";
+import { RentFilterDateValue } from "../RentPage";
 
 const ButtonSet: React.FC<{ data: ButtonFilterData }> = (props) => {
 	const filter = useAppSelector((state) => state.filter);
@@ -40,7 +41,13 @@ const ButtonSet: React.FC<{ data: ButtonFilterData }> = (props) => {
 const FilterButtons: React.FC<{
 	mode?: "book" | "rent";
 	isShowMobileFiler: (e: boolean) => void;
-}> = ({ mode = "book", isShowMobileFiler }) => {
+	rentFilterData?: {
+		free: RentFilterDateValue;
+		tarif: RentFilterDateValue;
+	} | null;
+}> = ({ mode = "book", isShowMobileFiler, rentFilterData }) => {
+	const [selected, setSelected] = useState("all");
+
 	const filterList = useAppSelector((state) => state.baseData.top);
 	const filter = useAppSelector((state) => state.filter);
 	const dispatch = useAppDispatch();
@@ -120,19 +127,19 @@ const FilterButtons: React.FC<{
 							"d-flex  gap-2 py-1 justify-content-start flex-wrap"
 						}>
 						<button
-							onClick={() => updateFilter("rent", 0)}
+							onClick={() => setSelected("all")}
 							className={
-								"catalog__filter-btn " + (filter.rent === 0 ? " selected" : "")
+								"catalog__filter-btn " + (selected === "all" ? " selected" : "")
 							}>
 							Все
 						</button>
-						{filterList?.rent.values?.map((i, index) => (
+						{rentFilterData?.tarif?.values?.map((i, index) => (
 							<button
 								key={i.id}
-								onClick={() => updateFilter("rent", i.id)}
+								onClick={() => setSelected(i.id)}
 								className={
 									"catalog__filter-btn " +
-									(filter.rent === i.id ? " selected" : "")
+									(selected === i.id ? " selected" : "")
 								}>
 								{i.name}
 							</button>
@@ -158,7 +165,19 @@ const FilterButtons: React.FC<{
 						}>
 						Все
 					</button>
-					<button
+
+					{rentFilterData?.free?.values?.map((i, index) => (
+						<button
+							key={i.id}
+							onClick={() => updateFilter("rent", i.id)}
+							className={
+								"catalog__filter-btn "
+								// (filter.rent === i.id ? " selected" : "")
+							}>
+							{i.name}
+						</button>
+					))}
+					{/* <button
 						onClick={() => updateFilter("available", true)}
 						className={
 							"catalog__filter-btn " +
@@ -173,7 +192,7 @@ const FilterButtons: React.FC<{
 							(filter.available === false ? " selected" : "")
 						}>
 						Занята
-					</button>
+					</button> */}
 				</div>
 			)}
 		</div>

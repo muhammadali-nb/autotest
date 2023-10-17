@@ -50,7 +50,7 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 				<CarStatBlock type={"descktop"} column1Width={"auto"} data={car.info} />
 			</div>
 
-			<div className={" car-base-calculator "} >
+			<div className={" car-base-calculator "}>
 				<h1 className="car-stat-block-header d-block d-lg-none">Калькулятор</h1>
 				<div className="d-none d-lg-block">
 					<IndexCalculator
@@ -58,6 +58,7 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 						hidePrice={true}
 						price={car.main.price}
 						noAnim={true}
+						className=" car-base-calculator_slider"
 					/>
 				</div>
 				<Container fluid={"xxl"} className="d-block d-lg-none">
@@ -66,6 +67,7 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 						hidePrice={true}
 						price={car.main.price}
 						noAnim={true}
+						className="car-base-calculator_slider"
 					/>
 				</Container>
 			</div>

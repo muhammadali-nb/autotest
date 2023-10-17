@@ -23,6 +23,7 @@ import PersonalAccountPage from "./components/pages/PersonalAccount/PersonalAcco
 import RentCarDetail, {
 	carRentDataLoader,
 } from "./components/pages/Rent/RentCarDetail";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -56,10 +57,14 @@ const router = createBrowserRouter(
 	)
 );
 
+const queryClient = new QueryClient();
+
 const App = () => (
-	<YMaps>
-		<RouterProvider router={router} />
-	</YMaps>
+	<QueryClientProvider client={queryClient}>
+		<YMaps>
+			<RouterProvider router={router} />
+		</YMaps>
+	</QueryClientProvider>
 );
 
 export default App;
