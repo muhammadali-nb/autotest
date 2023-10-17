@@ -112,7 +112,7 @@ const FaqPage = () => {
 						Напишите нам, чтобы мы могли дополнить список.
 					</div>
 
-					<div className="nav nav-tabs car-info-btns_mobile">
+					<div className="nav nav-tabs car-info-btns_mobile d-flex d-md-none">
 						<button
 							onClick={() => {
 								setPage("leasing");
@@ -130,7 +130,7 @@ const FaqPage = () => {
 					</div>
 
 					<div
-						className={"car-info-btns justify-content-start d-none d-lg-block"}>
+						className={"car-info-btns justify-content-start d-none d-md-flex"}>
 						<button
 							className={
 								"car-info-btn big " + (page === "leasing" ? "active" : "")

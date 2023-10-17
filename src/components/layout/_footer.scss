@@ -39,11 +39,13 @@
   }
 
   &__contacts-container {
-    background-image: url("../../img/index/logo-bg-no-car.webp");
-    background-position: left 24% top 0;
-    background-size: cover;
-    & > div {
-      background-color: rgba(0, 0, 0, 0.8);
+    @include l-md {
+      background-image: url("../../img/index/logo-bg-no-car.webp");
+      background-position: left 24% top 0;
+      background-size: cover;
+      & > div {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
     }
   }
 
