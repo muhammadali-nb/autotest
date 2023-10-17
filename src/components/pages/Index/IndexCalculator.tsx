@@ -20,6 +20,7 @@ type IndexCalculatorProps = {
 	fontBold?: boolean;
 	smallValue?: boolean;
 	wideSpace?: boolean;
+	className?: string;
 	calculateInterestRate?: (values: IndexCalculatorValues) => number;
 };
 
@@ -46,7 +47,7 @@ const IndexCalculatorPeriodIndicator: React.FC<{
 	return (
 		<div
 			className={
-				"indexCalculatorPeriodIndicator" +
+				`indexCalculatorPeriodIndicator ` +
 				(props.right ? " text-end" : "") +
 				(props.bold ? " font-weight-medium" : "")
 			}>
@@ -106,8 +107,9 @@ const IndexCalculator: React.FC<IndexCalculatorProps> = (props) => {
 	return (
 		<div
 			className={
-				"d-flex align-items-center justify-content-center flex-column w-100" +
-				(props.noAnim ? "" : " anim-enter-bottom-2")
+				"d-flex align-items-center justify-content-center flex-column w-100 " +
+				(props.noAnim ? "" : " anim-enter-bottom-2 ") +
+				(props.className ?? "")
 			}
 			id={"logo_calc"}>
 			{!props.hidePrice && (

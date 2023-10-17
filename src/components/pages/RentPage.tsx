@@ -11,6 +11,8 @@ import { AlertMessage } from "./CatalogPage";
 import RentLayout from "../layout/RentLayout";
 import { SmallFooter } from "../layout/Footer";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
+import { useQuery } from "@tanstack/react-query";
+import RentService from "../../api-functions/rent-page/rent-service";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -331,8 +333,29 @@ const RentPageHeader = () => {
 	);
 };
 
+export type RentFilterDateValue = {
+	name: string;
+	type: string;
+	values: [
+		{
+			id: string;
+			name: string;
+		}
+	];
+};
+
+export interface RentFilterDate {
+	top: {
+		free: RentFilterDateValue;
+		tarif: RentFilterDateValue;
+	};
+}
+
 const RentPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
+	const [rentFiltersData, setRentFiltersData] = useState<null | RentFilterDate>(
+		null
+	);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -343,6 +366,12 @@ const RentPage = () => {
 		description: "Аренда автомобилей",
 		keywords: "аренда, авто, каталог,rent",
 	};
+
+	const { data, isLoading, error } = useQuery({
+		queryKey: ["rent-filter"],
+		queryFn: () => RentService.getFilter(),
+	});
+	
 	return (
 		<RentLayout
 			meta={meta}
@@ -359,7 +388,12 @@ const RentPage = () => {
 							<FiltersBlock />
 						</Col>
 						<Col lg={9}>
-							<FilterButtons mode="rent" isShowMobileFiler={setOpen} />
+							<FilterButtons
+								rentFilterData={!isLoading && data.top}
+								mode="rent"
+								isShowMobileFiler={setOpen}
+							/>
+
 							<RentGrid />
 							<SmallFooter />
 						</Col>
