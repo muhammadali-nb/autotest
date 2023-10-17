@@ -12,7 +12,7 @@ import RentLayout from "../layout/RentLayout";
 import { SmallFooter } from "../layout/Footer";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import { useQuery } from "@tanstack/react-query";
-import RentService from "../../api-functions/rent-page/rent-service";
+import rentService from "../../api-functions/rent-page/rent-service";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -369,9 +369,9 @@ const RentPage = () => {
 
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["rent-filter"],
-		queryFn: () => RentService.getFilter(),
+		queryFn: () => rentService.getFilter(),
 	});
-	
+
 	return (
 		<RentLayout
 			meta={meta}
