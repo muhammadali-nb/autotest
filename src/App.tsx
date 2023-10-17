@@ -23,11 +23,9 @@ import PersonalAccountPage from "./components/pages/PersonalAccount/PersonalAcco
 import RentCarDetail, {
 	carRentDataLoader,
 } from "./components/pages/Rent/RentCarDetail";
-<<<<<<< HEAD
+
 import RentHistoryPage from "./components/pages/RentHistory/RentHistoryPage";
-=======
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
->>>>>>> mobile-version
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
