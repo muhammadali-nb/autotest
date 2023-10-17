@@ -34,6 +34,19 @@
   flex-direction: column-reverse;
   width: 100%;
 
+  @include l-md {
+    background: none;
+  }
+
+  &__contacts-container {
+    background-image: url("../../img/index/logo-bg-no-car.webp");
+    background-position: left 24% top 0;
+    background-size: cover;
+    & > div {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+  }
+
   //@include media-breakpoint-down(md) {
   //  background-image: none !important;
   //}

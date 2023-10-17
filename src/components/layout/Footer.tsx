@@ -126,86 +126,88 @@ export const FooterContacts = () => {
 	const lines = process.env.REACT_APP_ADDRESS?.split("\n") ?? [];
 	const lines2 = process.env.REACT_APP_WORKTIME?.split("\n") ?? [];
 	return (
-		<Container fluid={"xxl"}>
-			<Row className={"g-0"}>
-				<Col xl={5} md={5} className={"footer__contacts "}>
-					<div className="footer-contacts-top">
-						<div>Контакты</div>
-					</div>
-					<div className="footer-contacts-blocks">
-						<FooterContactsBlock theme="dark" image={geoImage} text={"Адрес"}>
-							{lines.map((i, index) => (
-								<div key={index} className={"mb-px-10 line-height-120"}>
-									{i}
-								</div>
-							))}
-							{/* Санкт-Петербург <br />
+		<div className="footer__contacts-container">
+			<Container fluid={"xxl"}>
+				<Row className={"g-0"}>
+					<Col xl={5} md={5} className={"footer__contacts "}>
+						<div className="footer-contacts-top">
+							<div>Контакты</div>
+						</div>
+						<div className="footer-contacts-blocks">
+							<FooterContactsBlock theme="dark" image={geoImage} text={"Адрес"}>
+								{lines.map((i, index) => (
+									<div key={index} className={"mb-px-10 line-height-120"}>
+										{i}
+									</div>
+								))}
+								{/* Санкт-Петербург <br />
 							Торфяная дорога 7Ф <br />
 							БЦ «Гулливер» 2 оф. 104 <br /> */}
-						</FooterContactsBlock>
-						<FooterContactsBlock
-							theme="dark"
-							image={clockImage}
-							text={"Время работы"}>
-							{lines2.map((i, index) => (
-								<div key={index} className={"mb-px-10 line-height-120"}>
-									{i}
-								</div>
-							))}
-							{/* пн-вс: с 10.00 - 19.00 */}
-						</FooterContactsBlock>
-						<FooterContactsBlock
-							theme="dark"
-							image={phoneImage}
-							text={"Телефон"}>
-							<a
-								href={
-									"tel:" + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")
-								}>
-								{process.env.REACT_APP_PHONE}
-							</a>
-							{/* +7 (812) 317-68-15 */}
-						</FooterContactsBlock>
-					</div>
-					<div className={"footer-contacts-links d-none d-lg-flex"}>
-						<FooterLink
-							img={vkW}
-							hover={vkB}
-							link={process.env.REACT_APP_VK_LINK ?? "/"}
-						/>
-						<FooterLink
-							img={wappW}
-							hover={wappB}
-							link={process.env.REACT_APP_WAPP_LINK ?? "/"}
-						/>
-						<FooterLink
-							img={teleW}
-							hover={teleB}
-							link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
-						/>
-					</div>
-					<div className={"footer-contacts-links d-flex d-lg-none"}>
-						<FooterLink
-							img={vkMb}
-							// hover={vkB}
-							link={process.env.REACT_APP_VK_LINK ?? "/"}
-						/>
-						<FooterLink
-							img={whMb}
-							// hover={wappB}
-							link={process.env.REACT_APP_WAPP_LINK ?? "/"}
-						/>
-						<FooterLink
-							img={telegramMb}
-							// hover={teleB}
-							link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
-						/>
-					</div>
+							</FooterContactsBlock>
+							<FooterContactsBlock
+								theme="dark"
+								image={clockImage}
+								text={"Время работы"}>
+								{lines2.map((i, index) => (
+									<div key={index} className={"mb-px-10 line-height-120"}>
+										{i}
+									</div>
+								))}
+								{/* пн-вс: с 10.00 - 19.00 */}
+							</FooterContactsBlock>
+							<FooterContactsBlock
+								theme="dark"
+								image={phoneImage}
+								text={"Телефон"}>
+								<a
+									href={
+										"tel:" + Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")
+									}>
+									{process.env.REACT_APP_PHONE}
+								</a>
+								{/* +7 (812) 317-68-15 */}
+							</FooterContactsBlock>
+						</div>
+						<div className={"footer-contacts-links d-none d-lg-flex"}>
+							<FooterLink
+								img={vkW}
+								hover={vkB}
+								link={process.env.REACT_APP_VK_LINK ?? "/"}
+							/>
+							<FooterLink
+								img={wappW}
+								hover={wappB}
+								link={process.env.REACT_APP_WAPP_LINK ?? "/"}
+							/>
+							<FooterLink
+								img={teleW}
+								hover={teleB}
+								link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
+							/>
+						</div>
+						<div className={"footer-contacts-links d-flex d-lg-none"}>
+							<FooterLink
+								img={vkMb}
+								// hover={vkB}
+								link={process.env.REACT_APP_VK_LINK ?? "/"}
+							/>
+							<FooterLink
+								img={whMb}
+								// hover={wappB}
+								link={process.env.REACT_APP_WAPP_LINK ?? "/"}
+							/>
+							<FooterLink
+								img={telegramMb}
+								// hover={teleB}
+								link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
+							/>
+						</div>
 
-					<FooterBottom />
-				</Col>
-			</Row>
-		</Container>
+						<FooterBottom />
+					</Col>
+				</Row>
+			</Container>
+		</div>
 	);
 };
 export const SmallFooter = (props: { className?: string }) => {
@@ -244,7 +246,7 @@ const Footer: React.FC<{
 }> = (props) => {
 	if (props.small) return <SmallFooter />;
 	return (
-		<footer className={"footer"} style={{ backgroundImage: `url("${bg}")` }}>
+		<footer className={"footer"}>
 			<FooterMap
 				full={props.noContacts ?? false}
 				noContacts={props.noForm ?? false}
