@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
 import Api, { ErrorResponse, RentResponse } from "../../../Api";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { CarRentCard } from "../../common/CarCard";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
@@ -9,16 +9,24 @@ import { BottomMessage } from "../CatalogPage";
 import Paginator from "../../common/Paginator";
 import CarRequestForm from "../../common/CarRequestForm";
 import chevron from "../../../img/common/footer/chevron-for-bottom.svg";
+import { useQuery } from "@tanstack/react-query";
+import rentService from "../../../api-functions/rent-page/rent-service";
 
 const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 	const [cars, setCars] = useState<RentResponse | ErrorResponse | undefined>(
 		undefined
 	);
 
+	const [activePage, setActivePage] = useState(2);
+	const { data, error, isLoading } = useQuery({
+		queryKey: ["rent-cars", { activePage }],
+		queryFn: () => rentService.getCars(activePage),
+	});
+
 	const filter = useAppSelector((state) => state.filter);
 	const [query, setQuery] = useSearchParams();
 	const [timer, setTimer] = useState<NodeJS.Timeout>();
-	// console.log(cars);
+
 	useEffect(() => {
 		const fetchCarData = async () => {
 			setCars(undefined);
@@ -50,8 +58,8 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 	return (
 		<div>
 			<div className={"catalog__grid"}>
-				{!Api.isError(cars) &&
-					cars.list.map((i, index) => <CarRentCard car={i} key={index} />)}
+				{!isLoading &&
+					data.list.map((i, index) => <CarRentCard car={i} key={index} />)}
 			</div>
 			<BottomMessage
 				className="bottom-message-desc"
@@ -73,7 +81,7 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 			/>
 
 			<div className={"catalog__grid-paginator"}>
-				<Paginator data={cars} />
+				<Paginator data={!isLoading && data} />
 			</div>
 		</div>
 	);

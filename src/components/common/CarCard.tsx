@@ -6,6 +6,7 @@ import caretRight from "./../../img/common/caret-right.svg";
 import CarBookingForm from "./CarBookingForm";
 import CarRentForm from "./CarRentForm";
 import CarImage from "../../img/rent/auto_card.png";
+import CarImageDesktop from "../../img/index/car.webp";
 
 export type ImageInfo = {
 	thumb: string;
@@ -250,14 +251,14 @@ export const CarRentCard: React.FC<{
 	const navigate = useNavigate();
 	// console.log(car);
 
-	const tags =
-		baseData.top?.rent.values?.filter((i) => car.special.includes(i.id)) ?? [];
-	const brand =
-		baseData.left?.brands.values?.find((i) => car.brand === i.id)?.name ??
-		"неизвестно";
-	const model =
-		baseData.left?.models.values?.find((i) => car.model === i.id)?.name ??
-		"неизвестно";
+	// const tags =
+	// 	baseData.top?.rent.values?.filter((i) => car.special.includes(i.id)) ?? [];
+	// const brand =
+	// 	baseData.left?.brands.values?.find((i) => car.brand === i.id)?.name ??
+	// 	"неизвестно";
+	// const model =
+	// 	baseData.left?.models.values?.find((i) => car.model === i.id)?.name ??
+	// 	"неизвестно";
 
 	return (
 		<>
@@ -270,27 +271,27 @@ export const CarRentCard: React.FC<{
 							car={car}>
 							{car.available ? "Свободна" : "Занята"}
 						</CarTag>
-						{tags.map((i, index) => (
+						{/* {tags.map((i, index) => (
 							<CarTag small={true} key={index} car={car}>
 								{i.name}
 							</CarTag>
-						))}
+						))} */}
 					</div>
 
 					<CarRentForm
 						car={car}
 						btn={
 							<div className={"car__card-image"}>
-								<img src={car.thumb} alt={brand + " " + model} />
+								<img src={CarImageDesktop} alt={car.brand + " " + car.model} />
 							</div>
 						}
 					/>
 
 					<div className={"car__card-title mb-px-10"}>
-						{brand} <span className={"model"}>{model}</span>
+						{car.brand} <br /> <span className={"model"}>{car.model}</span>
 					</div>
 					<div className={"font-size-18 font-weight-semibold mb-px-20"}>
-						{car.regnum}
+						{car.regnum } &nbsp;
 					</div>
 					<div className={"car__card-payment mb-px-15"}>
 						<div className={"mb-px-5"}>Аренда</div>
@@ -316,21 +317,21 @@ export const CarRentCard: React.FC<{
 				onClick={() => navigate(`/rent/${car.id}`)}
 				className="d-block d-md-none car-rent-card">
 				<div className="car-rent-card_image">
-					<img src={CarImage} alt={brand + " " + model} />
+					<img src={CarImage} alt={car.brand + " " + car.model} />
 				</div>
 				<div className=" car-rent-card_body">
 					<div className="car__card-taglist car-rent-card_taglist">
 						<CarTag type={car.available ? "free" : "not-free"} car={car}>
 							{car.available ? "Свободна" : "Занята"}
 						</CarTag>
-						{tags.map((i, index) => (
+						{/* {tags.map((i, index) => (
 							<CarTag small={true} key={index} car={car}>
 								{i.name}
 							</CarTag>
-						))}
+						))} */}
 					</div>
 					<div className="car__card-mobile-title car-rent-card_title">
-						{brand} <span className={"model"}>{model}</span>
+						{car.brand} <span className={"model"}>{car.model}</span>
 					</div>
 					<div className={"car__card-payment car-rent-card_payment "}>
 						<div>Аренда</div>

@@ -3,26 +3,26 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 // import type { RootState } from '../store'
 
 // Define a type for the slice state
-export interface Filter{
-    price:{from:number, to:number},
-    year:{from:number, to:number},
-    brands:Array<number>,
-    models:Array<number>,
-    carcase:Array<number>,
-    engine:Array<number>,
-    gearbox:Array<number>,
-    drive:Array<number>,
-    fuel:Array<number>,
-    special:number,
-    new:number,
-    rent:number,
-    available?:boolean,
+export interface Filter {
+    price: { from: number, to: number },
+    year: { from: number, to: number },
+    brands: Array<number>,
+    models: Array<number>,
+    carcase: Array<number>,
+    engine: Array<number>,
+    gearbox: Array<number>,
+    drive: Array<number>,
+    fuel: Array<number>,
+    special: number,
+    new: number,
+    rent: number,
+    available?: boolean,
 }
-export const defaultFilter:Filter = {
-    price:{from:500000,to:5000000},
-    year:{from:2018,to:2023},
-    special:0,new:0,rent:0,available:undefined,
-    brands:[],models:[],carcase:[],engine:[],gearbox:[],drive:[],fuel:[],
+export const defaultFilter: Filter = {
+    price: { from: 500000, to: 5000000 },
+    year: { from: 2018, to: 2023 },
+    special: 0, new: 0, rent: 0, available: undefined,
+    brands: [], models: [], carcase: [], engine: [], gearbox: [], drive: [], fuel: [],
 }
 
 const initialState: Filter = defaultFilter;
@@ -33,7 +33,7 @@ export const filterSlice = createSlice({
     initialState,
     reducers: {
         setFilter: (state, action: PayloadAction<Filter>) => {
-            if(!action.payload)
+            if (!action.payload)
                 return;
             state.price = action.payload.price;
             state.year = action.payload.year;
@@ -52,7 +52,7 @@ export const filterSlice = createSlice({
     },
 })
 
-export const { setFilter} = filterSlice.actions;
+export const { setFilter } = filterSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 

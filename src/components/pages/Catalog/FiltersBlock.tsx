@@ -5,9 +5,11 @@ import caretUp from "./../../../img/common/caret-up-gray.png";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setFilter } from "../../../store/reducers/filterSlice";
 import {
+	BaseState,
 	CheckboxFilterData,
 	FilterSharesData,
 	IdValued,
+	LeftFiltersData,
 	ModelCheckboxFilterData,
 	SliderFilterData,
 } from "../../../store/reducers/baseDataSlice";
@@ -192,6 +194,7 @@ const FilterModels: React.FC<{
 	const baseData = useAppSelector((state) => state.baseData);
 	const filter = useAppSelector((state) => state.filter);
 	const dispatch = useAppDispatch();
+
 	const clear = () => {
 		dispatch(setFilter({ ...filter, [field]: [] }));
 	};
@@ -323,8 +326,9 @@ export const FilterCommon: React.FC<{
 		/>
 	);
 };
-
-export const FiltersBlock: React.FC = (props) => {
+export const FiltersBlock: React.FC<{ filterData?: BaseState }> = ({
+	filterData,
+}) => {
 	const [open, setOpen] = useState(false);
 	const baseData = useAppSelector((state) => state.baseData);
 
@@ -336,12 +340,19 @@ export const FiltersBlock: React.FC = (props) => {
 				<img src={caret} alt={""} />
 			</button>
 			<div className={"filters-block-content"}>
-				{/* <FilterCommon/> */}
-				{Object.entries(baseData.left)
+				{/* <FilterCommon /> */}
+				{/* {Object.entries(baseData.left)
 					.filter(([key, value]) => value.type !== "shares")
 					.map(([key, value]) => (
 						<FilterCommon field={key} key={key} data={value} />
-					))}
+					))} */}
+
+				{filterData &&
+					Object.entries(filterData.left)
+						.filter(([key, value]) => value.type !== "shares")
+						.map(([key, value]) => (
+							<FilterCommon field={key} key={key} data={value} />
+						))}
 			</div>
 		</div>
 	);

@@ -118,10 +118,7 @@ const CatalogPage = () => {
 					<div>
 						<Row>
 							<Col lg={3}>
-								<div
-									className={"sticky-no-scrollbar"}
-									// style={{ maxWidth: "315px" }}
-								>
+								<div className={"sticky-no-scrollbar"}>
 									<FiltersBlock />
 								</div>
 							</Col>

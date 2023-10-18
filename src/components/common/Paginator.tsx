@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { PaginatedResponse } from "../../Api";
 import { Link, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +8,7 @@ import {
 	faAnglesLeft,
 	faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { log } from "console";
 
 const PaginationItem: React.FC<{
 	children: string | ReactNode;
@@ -47,11 +48,14 @@ const PaginationArrow: React.FC<{
 	);
 };
 
-const Paginator: React.FC<{ data: PaginatedResponse }> = ({ data }) => {
+const Paginator: React.FC<{
+	data: PaginatedResponse;
+}> = ({ data }) => {
 	let items: Array<ReactNode> = [];
 	let [params] = useSearchParams();
 	const page = Number.parseInt(params.get("page") ?? "1");
 	let path = window.location.pathname;
+
 	const link = (page: number) => {
 		let old = params.get("page");
 		params.set("page", page.toString());

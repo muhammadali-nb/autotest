@@ -353,9 +353,6 @@ export interface RentFilterDate {
 
 const RentPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
-	const [rentFiltersData, setRentFiltersData] = useState<null | RentFilterDate>(
-		null
-	);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -385,7 +382,7 @@ const RentPage = () => {
 				{process.env.REACT_APP_NO_CATALOG !== "true" ? (
 					<Row>
 						<Col lg={3}>
-							<FiltersBlock />
+							<FiltersBlock filterData={!isLoading && data} />
 						</Col>
 						<Col lg={9}>
 							<FilterButtons
