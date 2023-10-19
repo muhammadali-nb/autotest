@@ -250,7 +250,7 @@ const FilterShares = ({
 					}>
 					Все
 				</button>
-				{filterList?.new.values?.map((i, index) => (
+				{data.values?.map((i, index) => (
 					<button
 						key={i.id}
 						onClick={() => updateFilter("new", i.id)}
@@ -291,6 +291,7 @@ export const FilterCommon: React.FC<{
 	}
 	if (props.data.type === "slider2") {
 		let d = props.data as SliderFilterData;
+
 		return (
 			<FilterRange
 				header={d.name}

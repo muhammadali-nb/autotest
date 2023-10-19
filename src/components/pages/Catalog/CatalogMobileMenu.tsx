@@ -8,9 +8,11 @@ import { FilterCommon } from "./FiltersBlock";
 const CatalogMobileMenu = ({
 	isActive,
 	setIsActive,
+	data,
 }: {
 	isActive: boolean;
 	setIsActive: (e: boolean) => void;
+	data: any;
 }) => {
 	const baseData: any = useAppSelector((state) => state.baseData);
 
@@ -31,9 +33,10 @@ const CatalogMobileMenu = ({
 					<FontAwesomeIcon icon={faCheck} onClick={() => setIsActive(false)} />
 				</div>
 				<div className="filter-menu_body">
-					{Object.entries(baseData.left).map(([key, value]: any) => (
-						<FilterCommon field={key} key={key} data={value} />
-					))}
+					{data &&
+						Object.entries(data.left).map(([key, value]: any) => (
+							<FilterCommon field={key} key={key} data={value} />
+						))}
 				</div>
 			</div>
 		</div>

@@ -17,7 +17,7 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 		undefined
 	);
 
-	const [activePage, setActivePage] = useState(2);
+	const [activePage, setActivePage] = useState("1");
 	const { data, error, isLoading } = useQuery({
 		queryKey: ["rent-cars", { activePage }],
 		queryFn: () => rentService.getCars(activePage),
@@ -27,27 +27,28 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 	const [query, setQuery] = useSearchParams();
 	const [timer, setTimer] = useState<NodeJS.Timeout>();
 
-	useEffect(() => {
-		const fetchCarData = async () => {
-			setCars(undefined);
-			console.log("fetching cars...");
-			let carData = await Api.rent(filter, query);
+	// useEffect(() => {
+	// 	// const fetchCarData = async () => {
+	// 	// 	setCars(undefined);
+	// 	// 	console.log("fetching cars...");
+	// 	// 	let carData = await Api.rent(filter, query);
 
-			// if(Api.isError(carData)){
-			//     //TODO:Error check!
-			//     return;
-			// }
-			setCars(carData);
-		};
-		if (!cars) fetchCarData();
-		else {
-			clearTimeout(timer);
-			setTimer(setTimeout(fetchCarData, 1000));
-		}
-	}, [filter, query]);
-	if (!cars) return <Loader />;
-	if (Api.isError(cars)) return <LoadError response={cars} />;
-	if (cars.list.length === 0)
+	// 	// 	// if(Api.isError(carData)){
+	// 	// 	//     //TODO:Error check!
+	// 	// 	//     return;
+	// 	// 	// }
+	// 	// 	setCars(carData);
+	// 	// };
+	// 	if (!data) fetchCarData();
+	// 	else {
+	// 		clearTimeout(timer);
+	// 		setTimer(setTimeout(fetchCarData, 1000));
+	// 	}
+	// }, [filter, query]);
+
+	if (isLoading) return <Loader />;
+	if (error) return <LoadError response={cars} />;
+	if (data.list.length === 0)
 		return (
 			<div
 				className={"d-flex w-100 text-center text-muted align-items-center"}
@@ -81,7 +82,7 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 			/>
 
 			<div className={"catalog__grid-paginator"}>
-				<Paginator data={!isLoading && data} />
+				<Paginator setActive={setActivePage} data={!isLoading && data} />
 			</div>
 		</div>
 	);

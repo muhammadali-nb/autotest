@@ -304,9 +304,9 @@ const RentPageHeader = () => {
 								<path
 									d="M4.25 10.625L8.5 6.375L12.75 10.625"
 									stroke="#BABCBF"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 							</svg>
 						) : (
@@ -319,9 +319,9 @@ const RentPageHeader = () => {
 								<path
 									d="M4.25 6.375L8.5 10.625L12.75 6.375"
 									stroke="#BABCBF"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								/>
 							</svg>
 						)}
@@ -377,7 +377,7 @@ const RentPage = () => {
 			footerSmall>
 			<RentPageHeader />
 			<Container fluid={"xxl"} className={" mt-px-30"}>
-				<CatalogMobileMenu isActive={isOpen} setIsActive={setOpen} />
+				<CatalogMobileMenu data={!isLoading && data} isActive={isOpen} setIsActive={setOpen} />
 
 				{process.env.REACT_APP_NO_CATALOG !== "true" ? (
 					<Row>
