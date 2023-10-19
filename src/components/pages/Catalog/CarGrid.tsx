@@ -14,7 +14,9 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 	const [cars, setCars] = useState<CatalogResponse | ErrorResponse | undefined>(
 		undefined
 	);
-	const [activePage, setActivePage] = useState(1);
+	const [activePage, setActivePage] = useState("1");
+	
+
 
 	const filter = useAppSelector((state) => state.filter);
 	const [query, setQuery] = useSearchParams();
@@ -72,7 +74,7 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 			/>
 
 			<div className={"catalog__grid-paginator"}>
-				<Paginator data={cars} />
+				<Paginator setActive={setActivePage} data={cars} />
 			</div>
 		</div>
 	);

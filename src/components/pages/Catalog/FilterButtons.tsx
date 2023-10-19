@@ -46,7 +46,8 @@ const FilterButtons: React.FC<{
 		tarif: RentFilterDateValue;
 	} | null;
 }> = ({ mode = "book", isShowMobileFiler, rentFilterData }) => {
-	const [selected, setSelected] = useState("all");
+	const [selectedState, setSelectedState] = useState("all");
+	const [selectedClass, setSelectedClass] = useState("all");
 
 	const filterList = useAppSelector((state) => state.baseData.top);
 	const filter = useAppSelector((state) => state.filter);
@@ -127,19 +128,20 @@ const FilterButtons: React.FC<{
 							"d-flex  gap-2 py-1 justify-content-start flex-wrap"
 						}>
 						<button
-							onClick={() => setSelected("all")}
+							onClick={() => setSelectedState("all")}
 							className={
-								"catalog__filter-btn " + (selected === "all" ? " selected" : "")
+								"catalog__filter-btn " +
+								(selectedState === "all" ? " selected" : "")
 							}>
 							Все
 						</button>
 						{rentFilterData?.tarif?.values?.map((i, index) => (
 							<button
 								key={i.id}
-								onClick={() => setSelected(i.id)}
+								onClick={() => setSelectedState(i.id)}
 								className={
 									"catalog__filter-btn " +
-									(selected === i.id ? " selected" : "")
+									(selectedState === i.id ? " selected" : "")
 								}>
 								{i.name}
 							</button>
@@ -158,10 +160,10 @@ const FilterButtons: React.FC<{
 						"catalog__filter-container d-none d-lg-flex gap-2 py-1 justify-content-start flex-wrap"
 					}>
 					<button
-						onClick={() => updateFilter("available", undefined)}
+						onClick={() => setSelectedClass("all")}
 						className={
 							"catalog__filter-btn " +
-							(typeof filter.available === "undefined" ? " selected" : "")
+							(selectedClass === "all" ? " selected" : "")
 						}>
 						Все
 					</button>
@@ -169,10 +171,10 @@ const FilterButtons: React.FC<{
 					{rentFilterData?.free?.values?.map((i, index) => (
 						<button
 							key={i.id}
-							onClick={() => updateFilter("rent", i.id)}
+							onClick={() => setSelectedClass(i.id)}
 							className={
-								"catalog__filter-btn "
-								// (filter.rent === i.id ? " selected" : "")
+								"catalog__filter-btn " +
+								(selectedClass === i.id ? " selected" : "")
 							}>
 							{i.name}
 						</button>

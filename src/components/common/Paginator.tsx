@@ -50,11 +50,16 @@ const PaginationArrow: React.FC<{
 
 const Paginator: React.FC<{
 	data: PaginatedResponse;
-}> = ({ data }) => {
+	setActive: (e: string) => void;
+}> = ({ data, setActive }) => {
 	let items: Array<ReactNode> = [];
 	let [params] = useSearchParams();
 	const page = Number.parseInt(params.get("page") ?? "1");
 	let path = window.location.pathname;
+
+	useEffect(() => {
+		setActive(params.get("page") ?? "1");
+	}, [page]);
 
 	const link = (page: number) => {
 		let old = params.get("page");
