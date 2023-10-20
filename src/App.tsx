@@ -39,7 +39,7 @@ const router = createBrowserRouter(
 			/>
 			<Route path={"rent"} element={<RentPage />} />
 			<Route
-				path={"rent/:id"}
+				path={"rent/:carID"}
 				element={<RentCarDetail />}
 				loader={carRentDataLoader}
 			/>

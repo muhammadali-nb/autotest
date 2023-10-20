@@ -1,5 +1,4 @@
 import React from "react";
-import "./PersonalAccountHeader.scss";
 
 const PersonalAccountHeader = () => {
 	return (

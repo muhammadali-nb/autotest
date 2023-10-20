@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DoubleSlider from "../../common/DoubleSlider";
 import { Collapse, FormCheck } from "react-bootstrap";
 import caretUp from "./../../../img/common/caret-up-gray.png";
@@ -16,9 +16,6 @@ import {
 
 import caret from "./../../../img/common/caret-right.png";
 import Utils from "../../../Utils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { HeaderLogoImage } from "../../layout/Header";
 
 const Filter: React.FC<{
 	header: string;
@@ -127,7 +124,7 @@ const FilterCheckbox: React.FC<{
 						key={i.id}
 						label={i.name}
 						className={"font-size-14 text-default font-weight-semibold"}
-						onChange={(e) => setFilterValue(i.id)}
+						onChange={(e) => setFilterValue(3)}
 						checked={filter[field]?.includes(i.id)}
 					/>
 				))}
@@ -200,11 +197,7 @@ const FilterModels: React.FC<{
 	};
 	const selected = () => {
 		if (filter.brands.length === 0) return baseData.left.brands.values ?? [];
-		return (
-			baseData.left.brands.values?.filter((i) =>
-				filter.brands.includes(i.id)
-			) ?? []
-		);
+		return data.values?.filter((i) => filter.brands.includes(i.id)) ?? [];
 	};
 	return (
 		<Filter header={data.name} open={data.open ?? false}>
@@ -215,7 +208,7 @@ const FilterModels: React.FC<{
 					onChange={(e) => clear()}
 					className={"font-size-14 font-weight-semibold"}
 				/>
-				{selected().map((i, index) => (
+				{data.values?.map((i, index) => (
 					<FilterModelSet field={field} key={index} brand={i} data={data} />
 				))}
 			</div>
@@ -295,7 +288,7 @@ export const FilterCommon: React.FC<{
 		return (
 			<FilterRange
 				header={d.name}
-				data={props.data}
+				data={d}
 				min={d.from ?? 0}
 				max={d.to ?? 100}
 				value1={filter[props.field].from}
