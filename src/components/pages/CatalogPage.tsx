@@ -125,7 +125,7 @@ const CatalogPage = () => {
 						<Row>
 							<Col lg={3}>
 								<div className={"sticky-no-scrollbar"}>
-									{/* <FiltersBlock filterData={baseData}  /> */}
+									<FiltersBlock filterData={baseData}  />
 								</div>
 							</Col>
 							<Col lg={9}>
