@@ -51,9 +51,43 @@ const FilterRange: React.FC<{
 	value2?: number;
 	onChange: any;
 }> = (props) => {
+	const [values, setValues] = useState([props.min, props.max]);
 	return (
 		<Filter header={props.header} open={props.data.open ?? false}>
 			<div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
+				<input
+					className={
+						"contacts__form-input small bg-transparent filter-block-input"
+					}
+					value={values[0]}
+					min={props.min}
+					max={props.max ?? props.max}
+					onChange={(e) => {
+						setValues([Number.parseInt(e.target.value), props.max]);
+					}}
+					type={"number"}
+				/>
+				<input
+					className={
+						"contacts__form-input small bg-transparent filter-block-input"
+					}
+					value={values[1]}
+					min={props.min}
+					max={props.max}
+					onChange={(e) => {
+						setValues([props.min, Number.parseInt(e.target.value)]);
+					}}
+					type={"number"}
+				/>
+			</div>
+			<DoubleSlider
+				min={props.min}
+				max={props.max}
+				pearling
+				onChange={setValues}
+				value={values}
+			/>
+			{/* <div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
 				<input
 					className={
 						"contacts__form-input small bg-transparent filter-block-input"
@@ -85,7 +119,7 @@ const FilterRange: React.FC<{
 				pearling
 				onChange={(values) => props.onChange(values)}
 				defaultValue={[props.value1 ?? props.min, props.value2 ?? props.max]}
-			/>
+			/> */}
 		</Filter>
 	);
 };
@@ -119,7 +153,7 @@ const FilterCheckbox: React.FC<{
 					checked={filter[field]?.length === 0}
 					onChange={(e) => clear()}
 				/>
-				{data.values?.map((i:any, index) => (
+				{data.values?.map((i: any, index) => (
 					<FormCheck
 						key={i.id}
 						label={i.name}
@@ -231,7 +265,6 @@ const FilterModelSet: React.FC<{
 		</>
 	);
 };
-
 
 const FilterModels: React.FC<{
 	field: string;
@@ -452,6 +485,22 @@ export const FiltersBlock: React.FC<{ filterData?: BaseState }> = ({
 							<FilterCommon field={key} key={key} data={value} />
 						))}
 			</div>
+
+			<FilterRange
+				header="test-range"
+				max={100}
+				min={10}
+				value1={10}
+				value2={100}
+				data={{
+					name: "Цена",
+					type: "slider2",
+					from: 2500,
+					to: 3500,
+					open: true,
+				}}
+				onChange={() => ""}
+			/>
 		</div>
 	);
 };

@@ -23,7 +23,7 @@ const RentPageHeader = () => {
 	return (
 		<>
 			<div className={"mb-px-10 d-none d-md-block"}>
-				<Container fluid={"xxl my-px-50"}>
+				<Container fluid={"xxl my-px-50 mx-0"}>
 					<div className={"d-flex justify-content-end align-items-center"}>
 						<button
 							className={
@@ -236,7 +236,7 @@ const RentPageHeader = () => {
 					</Collapse>
 
 					<div
-						className={"mb-px-50"}
+						className={"mb-px-50 mt-px-10"}
 						style={{ borderTop: "2px solid #F2F3F6" }}
 					/>
 				</Container>
@@ -371,11 +371,11 @@ const RentPage = () => {
 		queryFn: () => rentService.getFilter(),
 	});
 
-	const dispatch = useAppDispatch();
+	// const dispatch = useAppDispatch();
 
-	useEffect(() => {
-		dispatch(getFilters());
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(getFilters());
+	// }, []);
 
 	return (
 		<RentLayout
