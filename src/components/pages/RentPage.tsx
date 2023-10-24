@@ -395,6 +395,7 @@ const RentPage = () => {
 					<Row>
 						<Col lg={3}>
 							<FiltersBlock filterData={!isLoading && data} />
+							
 						</Col>
 						<Col lg={9}>
 							<FilterButtons
