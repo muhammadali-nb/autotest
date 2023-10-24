@@ -7,6 +7,13 @@ class RentService {
   getCars(id: string) {
     return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=rent-cars&page=${id}`).then(res => res.data)
   }
+  getOneCar(id?: string) {
+    if (!id) {
+      return
+    }
+    return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=rent-car&id=${id}`).then(res => res.data)
+
+  }
 }
 
 export default new RentService()

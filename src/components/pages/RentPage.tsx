@@ -13,6 +13,8 @@ import { SmallFooter } from "../layout/Footer";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
+import { useAppDispatch } from "../../store/hooks";
+import { getFilters } from "../../store/reducers/filterSlice";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -21,7 +23,7 @@ const RentPageHeader = () => {
 	return (
 		<>
 			<div className={"mb-px-10 d-none d-md-block"}>
-				<Container fluid={"xxl my-px-50"}>
+				<Container fluid={"xxl my-px-50 mx-0"}>
 					<div className={"d-flex justify-content-end align-items-center"}>
 						<button
 							className={
@@ -234,7 +236,7 @@ const RentPageHeader = () => {
 					</Collapse>
 
 					<div
-						className={"mb-px-50"}
+						className={"mb-px-50 mt-px-10"}
 						style={{ borderTop: "2px solid #F2F3F6" }}
 					/>
 				</Container>
@@ -369,6 +371,12 @@ const RentPage = () => {
 		queryFn: () => rentService.getFilter(),
 	});
 
+	// const dispatch = useAppDispatch();
+
+	// useEffect(() => {
+	// 	dispatch(getFilters());
+	// }, []);
+
 	return (
 		<RentLayout
 			meta={meta}
@@ -377,12 +385,17 @@ const RentPage = () => {
 			footerSmall>
 			<RentPageHeader />
 			<Container fluid={"xxl"} className={" mt-px-30"}>
-				<CatalogMobileMenu data={!isLoading && data} isActive={isOpen} setIsActive={setOpen} />
+				<CatalogMobileMenu
+					data={!isLoading && data}
+					isActive={isOpen}
+					setIsActive={setOpen}
+				/>
 
 				{process.env.REACT_APP_NO_CATALOG !== "true" ? (
 					<Row>
 						<Col lg={3}>
 							<FiltersBlock filterData={!isLoading && data} />
+							
 						</Col>
 						<Col lg={9}>
 							<FilterButtons

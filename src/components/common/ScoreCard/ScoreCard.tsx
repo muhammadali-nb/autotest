@@ -1,5 +1,5 @@
 import React from "react";
-import "./ScoreCard.scss";
+
 import { BankCardProps } from "../PersonalAccount/BankCard/BankCard";
 
 const ScoreCard = (props: BankCardProps) => {

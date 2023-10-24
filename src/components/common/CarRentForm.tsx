@@ -543,17 +543,17 @@ const CarRequestFormContent: React.FC<{
 	setStep: (string) => void;
 	car: CarRentDataInfo;
 }> = (props) => {
-	const baseData: BaseState = useAppSelector((state) => state.baseData);
-	const brand =
-		baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
-		"неизвестно";
-	const model =
-		baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
-		"неизвестно";
-	const tags =
-		baseData.top?.rent.values?.filter((i) =>
-			props.car.special.includes(i.id)
-		) ?? [];
+	// const baseData: BaseState = useAppSelector((state) => state.baseData);
+	// const brand =
+	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
+	// 	"неизвестно";
+	// const model =
+	// 	baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
+	// 	"неизвестно";
+	// const tags =
+	// 	baseData.top?.rent.values?.filter((i) =>
+	// 		props.car.special.includes(i.id)
+	// 	) ?? [];
 
 	const statSettings: CarStatBlockProps = {
 		data: [],
@@ -568,7 +568,8 @@ const CarRequestFormContent: React.FC<{
 					className={
 						"font-size-40 line-height-120 font-weight-semibold text-uppercase mb-px-10"
 					}>
-					{brand} <span className={"text-red-color"}>{model}</span>
+					{props.car.brand}{" "}
+					<span className={"text-red-color"}>{props.car.model}</span>
 				</div>
 				<div
 					className={
@@ -582,11 +583,6 @@ const CarRequestFormContent: React.FC<{
 						car={props.car}>
 						{props.car.available ? "Свободна" : "Занята"}
 					</CarTag>
-					{tags.map((i, index) => (
-						<CarTag key={index} car={props.car}>
-							{i.name}
-						</CarTag>
-					))}
 				</div>
 				<div
 					className={

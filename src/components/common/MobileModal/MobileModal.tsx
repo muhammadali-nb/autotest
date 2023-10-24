@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./MobileModal.scss";
+
 
 import call from "../../../img/common/phone-call.svg";
 import back from "../../../img/common/back.svg";

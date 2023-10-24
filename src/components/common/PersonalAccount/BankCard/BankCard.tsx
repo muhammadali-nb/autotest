@@ -1,5 +1,5 @@
 import React from "react";
-import "./_bank-card.scss";
+
 
 export interface BankCardProps {
 	style?: object;
