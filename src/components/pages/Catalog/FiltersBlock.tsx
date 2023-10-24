@@ -485,22 +485,6 @@ export const FiltersBlock: React.FC<{ filterData?: BaseState }> = ({
 							<FilterCommon field={key} key={key} data={value} />
 						))}
 			</div>
-
-			<FilterRange
-				header="test-range"
-				max={100}
-				min={10}
-				value1={10}
-				value2={100}
-				data={{
-					name: "Цена",
-					type: "slider2",
-					from: 2500,
-					to: 3500,
-					open: true,
-				}}
-				onChange={() => ""}
-			/>
 		</div>
 	);
 };
