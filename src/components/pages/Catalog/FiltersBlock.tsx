@@ -16,6 +16,8 @@ import {
 
 import caret from "./../../../img/common/caret-right.png";
 import Utils from "../../../Utils";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Filter: React.FC<{
 	header: string;
@@ -45,13 +47,15 @@ const Filter: React.FC<{
 const FilterRange: React.FC<{
 	header: string;
 	data: SliderFilterData;
+	field: string;
 	min: number;
 	max: number;
-	value1?: number;
-	value2?: number;
+	// values: number[];
+	// setValues: (e: number[]) => void;
 	onChange: any;
 }> = (props) => {
-	const [values, setValues] = useState([props.min, props.max]);
+	const [values, setValues] = useState<any>([props.min, props.max]);
+
 	return (
 		<Filter header={props.header} open={props.data.open ?? false}>
 			<div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
@@ -421,15 +425,16 @@ export const FilterCommon: React.FC<{
 	}
 	if (props.data.type === "slider2") {
 		let d = props.data as SliderFilterData;
-
 		return (
 			<FilterRange
 				header={d.name}
 				data={d}
 				min={d.from ?? 0}
 				max={d.to ?? 100}
-				value1={filter[props.field].from}
-				value2={filter[props.field].to}
+				field={props.field}
+				// value1={filter[props.field].from}
+				// value2={filter[props.field].to}
+
 				onChange={(v) => {
 					setFilterValue(props.field, { from: v[0], to: v[1] });
 				}}

@@ -13,17 +13,17 @@ import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
 
 const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
-	const [cars, setCars] = useState<RentResponse | ErrorResponse | undefined>(
-		undefined
-	);
-
-	const [activePage, setActivePage] = useState("1");
-	const { data, error, isLoading } = useQuery({
-		queryKey: ["rent-cars", { activePage }],
-		queryFn: () => rentService.getCars(activePage),
-	});
+	// const [cars, setCars] = useState<RentResponse | ErrorResponse | undefined>(
+	// 	undefined
+	// );
 
 	const filter = useAppSelector((state) => state.filter);
+	const [activePage, setActivePage] = useState("1");
+	const { data, error, isLoading } = useQuery({
+		queryKey: ["rent-cars", { activePage, ...filter }],
+		queryFn: () => rentService.getCars(activePage, filter),
+	});
+
 	const [query, setQuery] = useSearchParams();
 	const [timer, setTimer] = useState<NodeJS.Timeout>();
 
@@ -47,7 +47,7 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 	// }, [filter, query]);
 
 	if (isLoading) return <Loader />;
-	if (error) return <LoadError response={cars} />;
+	if (error) return <LoadError response={data} />;
 	if (data.list.length === 0)
 		return (
 			<div
