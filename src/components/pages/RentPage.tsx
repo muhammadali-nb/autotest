@@ -23,7 +23,7 @@ const RentPageHeader = () => {
 	return (
 		<>
 			<div className={"mb-px-10 d-none d-md-block"}>
-				<Container fluid={"xxl my-px-50 mx-0"}>
+				<Container fluid={"xxl my-px-50 "}>
 					<div className={"d-flex justify-content-end align-items-center"}>
 						<button
 							className={
@@ -66,175 +66,97 @@ const RentPageHeader = () => {
 								Быстрая аренда автомобилей
 							</div>
 
-							<Row className="g-xl-3 g-xxl-5">
-								<Col md={12} lg={4}>
-									<div className={"flex-grow pe-px-20 pt-px-5"}>
-										<div
-											className={
-												"font-weight-regular font-size-14 line-height-140 mb-px-10"
-											}>
-											Вы можете забронировать автомобиль в аренду на сайте
-											самостоятельно или позвонить нам по телефону:
-										</div>
-										<div
-											className={
-												"font-weight-medium text-red-color font-size-14 mb-px-10"
-											}>
-											+7 (812) 317-68-15
-										</div>
+							<div className="rent-page_header-container">
+								<div
+									className={
+										"rent-page_header-info flex-grow pe-px-20 pt-px-5"
+									}>
+									<div
+										className={
+											"font-weight-regular font-size-14 line-height-140 mb-px-10"
+										}>
+										Вы можете забронировать автомобиль в аренду на сайте
+										самостоятельно или позвонить нам по телефону:
 									</div>
-								</Col>
-								<Col md={6} lg={4}>
-									<FoldableQuestion small header={"Как арендовать автомобиль?"}>
-										<div>
-											<ul className={"foldable-ul"}>
-												<li data-marker={"1"}>
-													забронировать автомобиль онлайн самостоятельно или
-													позвонить и уточнить наличие свободных автомобилей или
-													приехать и выбрать лично
-												</li>
-												<li data-marker={"2"}>
-													подписать договор аренды автомобиля
-												</li>
-												<li data-marker={"3"}>
-													внести оплату (залог + стоимость аренды)
-												</li>
-											</ul>
-										</div>
-									</FoldableQuestion>
-									<FoldableQuestion small header={"Требования к водителю"}>
-										<div>
-											<ul className={"foldable-ul"}>
-												<li>водительское удостоверение</li>
-												<li>паспорт</li>
-												<li>стаж вождения от 3-х лет</li>
-												<li>
-													постоянная или временная регистрация сроком не менее 6
-													месяцев на территории РФ
-												</li>
-											</ul>
-										</div>
-									</FoldableQuestion>
-								</Col>
-								<Col md={6} lg={4}>
-									<FoldableQuestion small header={"Условия аренды"}>
-										<div>
-											<ul className={"foldable-ul"}>
-												<li>
-													минимальное время проката от 2-х суток (максимальное
-													не ограничено)
-												</li>
-												<li>
-													автомобили технически исправны и не старше 3-х лет
-												</li>
-												<li>все автомобили застрахованы (ОСАГО, КАСКО)</li>
-												<li>автомобили чистые и заправлены</li>
-											</ul>
-										</div>
-									</FoldableQuestion>
-									<FoldableQuestion small header={"Условия возврата"}>
-										<div>
-											<ul className={"foldable-ul"}>
-												<li>
-													возврат автомобиля осуществляется в период с 10 до 11
-													утра
-												</li>
-												<li>автомобиль технически исправен</li>
-												<li>
-													сообщить о сдаче автомобиля необходимо не позднее чем
-													за 2-е суток и не старше 3-х лет
-												</li>
-												<li>автомобиль должен быть чистым и заправлен</li>
-											</ul>
-										</div>
-									</FoldableQuestion>
-								</Col>
-							</Row>
-
-							{/* <div
-						className={"d-flex w-100 justify-content-between pb-px-10"}
-						style={{ columnGap: "60px" }}>
-						<div className={"flex-grow pe-px-20 pt-px-5"}>
-							<div
-								className={
-									"font-weight-regular font-size-14 line-height-140 mb-px-10"
-								}>
-								Вы можете забронировать автомобиль в аренду на сайте
-								самостоятельно или позвонить нам по телефону:
+									<div
+										className={
+											"font-weight-medium text-red-color font-size-14 mb-px-10"
+										}>
+										+7 (812) 317-68-15
+									</div>
+								</div>
+								<div className="rent-page_header-collapse_container">
+									<div className="rent-page_header-collapse">
+										<FoldableQuestion
+											small
+											header={"Как арендовать автомобиль?"}>
+											<div>
+												<ul className={"foldable-ul"}>
+													<li data-marker={"1"}>
+														забронировать автомобиль онлайн самостоятельно или
+														позвонить и уточнить наличие свободных автомобилей
+														или приехать и выбрать лично
+													</li>
+													<li data-marker={"2"}>
+														подписать договор аренды автомобиля
+													</li>
+													<li data-marker={"3"}>
+														внести оплату (залог + стоимость аренды)
+													</li>
+												</ul>
+											</div>
+										</FoldableQuestion>
+										<FoldableQuestion small header={"Требования к водителю"}>
+											<div>
+												<ul className={"foldable-ul"}>
+													<li>водительское удостоверение</li>
+													<li>паспорт</li>
+													<li>стаж вождения от 3-х лет</li>
+													<li>
+														постоянная или временная регистрация сроком не менее
+														6 месяцев на территории РФ
+													</li>
+												</ul>
+											</div>
+										</FoldableQuestion>
+									</div>
+									<div className="rent-page_header-collapse">
+										<FoldableQuestion small header={"Условия аренды"}>
+											<div>
+												<ul className={"foldable-ul"}>
+													<li>
+														минимальное время проката от 2-х суток (максимальное
+														не ограничено)
+													</li>
+													<li>
+														автомобили технически исправны и не старше 3-х лет
+													</li>
+													<li>все автомобили застрахованы (ОСАГО, КАСКО)</li>
+													<li>автомобили чистые и заправлены</li>
+												</ul>
+											</div>
+										</FoldableQuestion>
+										<FoldableQuestion small header={"Условия возврата"}>
+											<div>
+												<ul className={"foldable-ul"}>
+													<li>
+														возврат автомобиля осуществляется в период с 10 до
+														11 утра
+													</li>
+													<li>автомобиль технически исправен</li>
+													<li>
+														сообщить о сдаче автомобиля необходимо не позднее
+														чем за 2-е суток и не старше 3-х лет
+													</li>
+													<li>автомобиль должен быть чистым и заправлен</li>
+												</ul>
+											</div>
+										</FoldableQuestion>
+									</div>
+								</div>
 							</div>
-							<div
-								className={
-									"font-weight-medium text-red-color font-size-14 mb-px-10"
-								}>
-								+7 (812) 317-68-15
-							</div>
-						</div>
-						<div>
-							<FoldableQuestion small header={"Как арендовать автомобиль?"}>
-								<div>
-									<ul className={"foldable-ul"}>
-										<li data-marker={"1"}>
-											забронировать автомобиль онлайн самостоятельно или
-											позвонить и уточнить наличие свободных автомобилей или
-											приехать и выбрать лично
-										</li>
-										<li data-marker={"2"}>
-											подписать договор аренды автомобиля
-										</li>
-										<li data-marker={"3"}>
-											внести оплату (залог + стоимость аренды)
-										</li>
-									</ul>
-								</div>
-							</FoldableQuestion>
-							<FoldableQuestion small header={"Требования к водителю"}>
-								<div>
-									<ul className={"foldable-ul"}>
-										<li>водительское удостоверение</li>
-										<li>паспорт</li>
-										<li>стаж вождения от 3-х лет</li>
-										<li>
-											постоянная или временная регистрация сроком не менее 6
-											месяцев на территории РФ
-										</li>
-									</ul>
-								</div>
-							</FoldableQuestion>
-						</div>
-						<div>
-							<FoldableQuestion small header={"Условия аренды"}>
-								<div>
-									<ul className={"foldable-ul"}>
-										<li>
-											минимальное время проката от 2-х суток (максимальное не
-											ограничено)
-										</li>
-										<li>автомобили технически исправны и не старше 3-х лет</li>
-										<li>все автомобили застрахованы (ОСАГО, КАСКО)</li>
-										<li>автомобили чистые и заправлены</li>
-									</ul>
-								</div>
-							</FoldableQuestion>
-							<FoldableQuestion small header={"Условия возврата"}>
-								<div>
-									<ul className={"foldable-ul"}>
-										<li>
-											возврат автомобиля осуществляется в период с 10 до 11 утра
-										</li>
-										<li>автомобиль технически исправен</li>
-										<li>
-											сообщить о сдаче автомобиля необходимо не позднее чем за
-											2-е суток и не старше 3-х лет
-										</li>
-										<li>автомобиль должен быть чистым и заправлен</li>
-									</ul>
-								</div>
-							</FoldableQuestion>
-						</div>
-					</div> */}
 						</div>
 					</Collapse>
-
 					<div
 						className={"mb-px-50 mt-px-10"}
 						style={{ borderTop: "2px solid #F2F3F6" }}
@@ -395,7 +317,6 @@ const RentPage = () => {
 					<Row>
 						<Col lg={3}>
 							<FiltersBlock filterData={!isLoading && data} />
-							
 						</Col>
 						<Col lg={9}>
 							<FilterButtons

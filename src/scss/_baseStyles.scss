@@ -2490,6 +2490,46 @@ code {
   }
 }
 
+.rent-page_header {
+  &-container {
+    display: flex;
+    justify-content: space-between;
+
+    @include l-xl {
+      display: block;
+    }
+  }
+
+  &-collapse_container {
+    display: flex;
+
+    @include l-xl {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+  }
+  &-collapse {
+    width: 400px;
+
+    @include l-xl {
+      width: 100%;
+
+      & > .foldable-small {
+        max-width: 100%;
+      }
+    }
+
+    &:last-child {
+      margin: 0 0 0 60px;
+
+      @include l-xl {
+        margin: 0;
+      }
+    }
+  }
+}
+
 .rent-header-info {
   padding: 24px 0 16px 0;
   border-radius: 2px;
