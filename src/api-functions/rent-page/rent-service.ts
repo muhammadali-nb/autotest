@@ -11,13 +11,14 @@ class RentService {
       return
     }
     return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=rent-cars&page=${id}` +
-      `${year.from > 0 && year.to > 0 ? `&year[]=${year.from}&year[]=${year.to}` : ""}` +
+      `${year.from && year.to ? `&year[]=${year.from}&year[]=${year.to}` : ""}` +
+      `${price.from && price.to ? `&price[]=${price.from}&price[]=${price.to}` : ""}` +
       `${brands.length > 0 ? "&brands[]=" + brands.join("&brands[]=") : ''}` +
       `${models.length > 0 ? "&models[]=" + models.join("&models[]=") : ''}`
     )
       .then(res => res.data)
   }
-  getOneCar(id?: string) {
+  getOneCar(id?: string| number) {
     if (!id) {
       return
     }

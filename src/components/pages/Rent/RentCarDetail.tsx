@@ -7,33 +7,33 @@ import RentCarImagesCarousel from "./RentCarImagesCarousel";
 import { Container } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
+import Loader from "../../common/Loader";
+import RentCarFullImage from "./RentCarFullImage";
 
 const RentCarDetail = () => {
 	const car = useLoaderData() as CarRentDataInfo;
 	const { carID } = useParams();
+	const [modalActive, setModalActive] = useState(false);
 
 	const { data, error, isLoading, isSuccess } = useQuery({
 		queryKey: ["rent-car"],
 		queryFn: () => rentService.getOneCar(carID),
 	});
-	// const [open, setOpen] = useState<boolean>(false);
-	// const [car, setCar] = useState<CarData | ErrorResponse | undefined>();
-	// const [index, setIndex] = useState(0);
 
-	// useEffect(() => {
-	// 	const fetchCarData = async () => {
-	// 		setCar(undefined);
-	// 		let carData = await Api.car(carID);
-	// 		setCar(carData);
-	// 	};
-	// 	fetchCarData();
-	// }, []);
+	useEffect(() => {
+		console.log(data);
+	}, [data]);
 
 	return (
 		<CarDetailLayout>
-			{isSuccess ? (
+			{isLoading ? (
+				<Loader />
+			) : isSuccess ? (
 				<>
-					<RentCarImagesCarousel car={car} />
+					<RentCarImagesCarousel
+						setFullScreen={setModalActive}
+						images={data.item.images}
+					/>
 					<Container fluid={"xxl"}>
 						<h1 className="car-detail_header">
 							{data.item.brand} <span>{data.item.model}</span>
@@ -54,7 +54,7 @@ const RentCarDetail = () => {
 							<ul>
 								<li>
 									<div>Год </div>
-									<span>2023</span>
+									<span>{data.item.year}</span>
 								</li>
 								<li>
 									<div>КПП </div>
@@ -69,6 +69,11 @@ const RentCarDetail = () => {
 					<div className="car-detail_tobook">
 						<button className="site-btn big">Забронировать</button>
 					</div>
+					<RentCarFullImage
+						images={isSuccess && data.item.images}
+						active={modalActive}
+						setActive={setModalActive}
+					/>
 				</>
 			) : (
 				<>

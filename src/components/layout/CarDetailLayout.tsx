@@ -54,7 +54,7 @@ export const CarDetailLayout = (props: BaseLayoutProps) => {
 				<main>{bState.loaded && props.children}</main>
 
 				<Container fluid={"xxl"}>
-					<SmallFooter />
+					<SmallFooter className="mb-px-70" />
 				</Container>
 
 				{/* <Scroller />

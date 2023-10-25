@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import DoubleSlider from "../../common/DoubleSlider";
 import { Collapse, FormCheck } from "react-bootstrap";
 import caretUp from "./../../../img/common/caret-up-gray.png";
@@ -16,8 +16,6 @@ import {
 
 import caret from "./../../../img/common/caret-right.png";
 import Utils from "../../../Utils";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
 const Filter: React.FC<{
 	header: string;
@@ -52,9 +50,44 @@ const FilterRange: React.FC<{
 	max: number;
 	// values: number[];
 	// setValues: (e: number[]) => void;
-	onChange: any;
+	// onChange: any;
 }> = (props) => {
-	const [values, setValues] = useState<any>([props.min, props.max]);
+	const [values, setValues] = useState<any>({
+		min: props.min,
+		max: props.max,
+	});
+	const [change, setChange] = useState([values.min, values.max]);
+	// const [maxValue, setMaxValue] = useState(0)
+	// const [mixValue, setMinValue ] = useState(2)
+	const dispatch = useAppDispatch();
+	const filter = useAppSelector((state) => state.filter);
+	const updateFilter = (event: ChangeEvent<HTMLInputElement>) => {
+		console.log(123);
+		setValues({ ...values, [event.target.name]: event.target.value });
+		setChange([values.min, values.max]);
+		dispatch(
+			setFilter({
+				...filter,
+				[props.field]: { from: values.min, to: values.max },
+			})
+		);
+	};
+
+	// useEffect(() => {
+	// 	// updateFilter();
+	// 	console.log(values);
+
+	// 	dispatch(
+	// 		setFilter({
+	// 			...filter,
+	// 			price: { from: values[0], to: values[1] },
+	// 		})
+	// 	);
+	// }, [values]);
+
+	// useEffect(() => {
+	// 	console.log(change);
+	// }, [change]);
 
 	return (
 		<Filter header={props.header} open={props.data.open ?? false}>
@@ -63,24 +96,22 @@ const FilterRange: React.FC<{
 					className={
 						"contacts__form-input small bg-transparent filter-block-input"
 					}
-					value={values[0]}
+					value={change[0]}
 					min={props.min}
 					max={props.max ?? props.max}
-					onChange={(e) => {
-						setValues([Number.parseInt(e.target.value), props.max]);
-					}}
+					name="min"
+					onChange={updateFilter}
 					type={"number"}
 				/>
 				<input
 					className={
 						"contacts__form-input small bg-transparent filter-block-input"
 					}
-					value={values[1]}
+					value={change[1]}
 					min={props.min}
 					max={props.max}
-					onChange={(e) => {
-						setValues([props.min, Number.parseInt(e.target.value)]);
-					}}
+					name="max"
+					onChange={updateFilter}
 					type={"number"}
 				/>
 			</div>
@@ -88,8 +119,8 @@ const FilterRange: React.FC<{
 				min={props.min}
 				max={props.max}
 				pearling
-				onChange={setValues}
-				value={values}
+				onChange={setChange}
+				value={change}
 			/>
 			{/* <div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
 				<input
@@ -320,12 +351,13 @@ const FilterModels: React.FC<{
 				))} */}
 
 				<>
-					{sortIntoArrays(data.values).map((_item: any) => (
+					{sortIntoArrays(data.values).map((_item: any, index) => (
 						<Filter
 							header={_item[0].brand}
 							small={true}
 							open={true}
-							showCaret={false}>
+							showCaret={false}
+							key={index}>
 							<div>
 								{_item.slice(0, showAmount).map((i, index) => (
 									<FormCheck
@@ -435,9 +467,9 @@ export const FilterCommon: React.FC<{
 				// value1={filter[props.field].from}
 				// value2={filter[props.field].to}
 
-				onChange={(v) => {
-					setFilterValue(props.field, { from: v[0], to: v[1] });
-				}}
+				// onChange={(v) => {
+				// 	setFilterValue(props.field, { from: v[0], to: v[1] });
+				// }}
 			/>
 		);
 	}

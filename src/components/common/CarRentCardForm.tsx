@@ -90,7 +90,7 @@ const CarRequestFormContent: React.FC<{
 					</span>
 				</div>
 				<div className={"mb-px-40"}>
-					<CarRentForm car={props.car} func={props.closeFunc} wide={false} />
+					<CarRentForm car_id={props.car.id} car={props.car} func={props.closeFunc} wide={false} />
 				</div>
 				<div
 					className={

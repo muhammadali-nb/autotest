@@ -1,30 +1,28 @@
-import React, { useState } from "react";
-import { CarData, CarRentDataInfo } from "../../common/CarCard";
+import React, { useEffect, useState } from "react";
 
-import caretLeft from "./../../../img/common/caret-left-big.svg";
-
-import caretRight from "./../../../img/common/caret-right-big.svg";
-import { Link, useNavigate } from "react-router-dom";
+import arrowLeft from "../../../img/car-detail/arrow-left.svg";
+import { TypeImages } from "./RentCarImagesCarousel";
 import { Carousel } from "react-bootstrap";
+import caretLeft from "./../../../img/common/caret-left-big.svg";
+import caretRight from "./../../../img/common/caret-right-big.svg";
 
-export type TypeImages = {
-	image: string;
-	id: number;
-};
-
-const RentCarImagesCarousel = ({
-	images,
-	setFullScreen,
-}: {
+interface RentCarFullImageProps {
+	active: boolean;
+	setActive: (e: boolean) => void;
 	images: TypeImages[];
-	setFullScreen: (e: boolean) => void;
-}) => {
-	const [index, setIndex] = useState(0);
-	const [showModal, setShowModal] = useState(false);
-	const navigate = useNavigate();
+}
 
-	const handleClose = () => setShowModal(false);
-	const handleShow = () => setShowModal(true);
+const RentCarFullImage = ({
+	active,
+	setActive,
+	images,
+}: RentCarFullImageProps) => {
+	const [index, setIndex] = useState(0);
+
+	useEffect(() => {
+		if (active) document.body.style.overflow = "hidden";
+		else document.body.style.overflow = "unset";
+	}, [active]);
 
 	const handleSelect = (selectedIndex) => {
 		// if (Api.isError(car)) return;
@@ -33,21 +31,28 @@ const RentCarImagesCarousel = ({
 		setIndex(selectedIndex);
 	};
 	return (
-		<div className={"car-images_rent"}>
+		<div className={"rent-car-fullimage" + `${active ? " active" : ""}`}>
+			<button className="rent-car-fullimage_close">
+				<img
+					src={arrowLeft}
+					alt="Back to car detail"
+					onClick={() => setActive(false)}
+				/>
+			</button>
+
 			<Carousel
 				activeIndex={index}
 				onSelect={handleSelect}
 				controls={false}
 				indicators={false}>
 				{images.map((_item) => (
-					<Carousel.Item key={_item.id} onClick={() => setFullScreen(true)}>
+					<Carousel.Item key={_item.id}>
 						<div
-							className={
-								"car-images-image-container cursor-pointer car-images_rent-image "
-							}
-							onClick={handleShow}>
+							className={"car-images-image-container cursor-pointer "}
+							// onClick={handleShow}
+						>
 							<img
-								className="d-block w-100 car-images-image"
+								className="d-block w-100 car-images-image "
 								src={_item.image}
 								alt=""
 							/>
@@ -55,7 +60,10 @@ const RentCarImagesCarousel = ({
 					</Carousel.Item>
 				))}
 			</Carousel>
-			<div className={"car-images-controls car-images_rent-controls mt-px-10"}>
+			<div
+				className={
+					"car-images-controls car-images_rent-controls mt-px-10 rent-car-fullimage_controls"
+				}>
 				<button
 					className={"car-images-controls-btn car-images_rent-controls_btn"}
 					onClick={() => handleSelect(index - 1)}>
@@ -87,4 +95,4 @@ const RentCarImagesCarousel = ({
 	);
 };
 
-export default RentCarImagesCarousel;
+export default RentCarFullImage;

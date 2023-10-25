@@ -25,6 +25,8 @@ import { Carousel } from "react-bootstrap";
 import caretLeft from "../../img/common/caret-left-big.svg";
 import caretRight from "../../img/common/caret-right-big.svg";
 import { CarImagesModal } from "../pages/Car/CarImages";
+import { useQuery } from "@tanstack/react-query";
+import rentService from "../../api-functions/rent-page/rent-service";
 
 const CarRentContacts: React.FC<{
 	closeFunc: () => void;
@@ -765,10 +767,11 @@ const CarBookingForm: React.FC<{
 	btn?: ReactNode;
 	step?: string;
 	car: CarRentDataInfo;
+	car_id: number;
 }> = (props) => {
 	const [show, setShow] = useState(false);
 	const [step, setStep] = useState(props.step ?? "rent");
-	const [data, setData] = useState<CallRequestData>({
+	const [state, setState] = useState<CallRequestData>({
 		name: "",
 		lastName: "",
 		phone: "",
@@ -776,6 +779,10 @@ const CarBookingForm: React.FC<{
 		errors: {},
 	});
 
+	// const { data, error, isLoading, isSuccess } = useQuery({
+	// 	queryKey: ["rent-car"],
+	// 	queryFn: () => rentService.getOneCar(props.car_id),
+	// });
 	const handleClose = () => setShow(false);
 	const handleShow = () => {
 		if (props.func) props.func();
@@ -810,8 +817,8 @@ const CarBookingForm: React.FC<{
 				)}
 				{step === "start" && (
 					<CarRentContacts
-						data={data}
-						setData={setData}
+						data={state}
+						setData={setState}
 						closeOnBack={props.step == "start"}
 						car={props.car}
 						closeFunc={handleClose}
@@ -820,7 +827,7 @@ const CarBookingForm: React.FC<{
 				)}
 				{step === "confirm" && (
 					<CarRentConfirmPhone
-						data={data}
+						data={state}
 						car={props.car}
 						closeFunc={handleClose}
 						setStep={setStep}
@@ -828,7 +835,7 @@ const CarBookingForm: React.FC<{
 				)}
 				{step === "payment" && (
 					<CarRentPaymentType
-						data={data}
+						data={state}
 						car={props.car}
 						closeFunc={handleClose}
 						setStep={setStep}

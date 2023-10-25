@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import Api, { ErrorResponse, RentResponse } from "../../../Api";
 import { useParams, useSearchParams } from "react-router-dom";
 import { CarRentCard } from "../../common/CarCard";
@@ -11,13 +11,14 @@ import CarRequestForm from "../../common/CarRequestForm";
 import chevron from "../../../img/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
+import { setFilter } from "../../../store/reducers/filterSlice";
 
 const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 	// const [cars, setCars] = useState<RentResponse | ErrorResponse | undefined>(
 	// 	undefined
 	// );
 
-	const filter = useAppSelector((state) => state.filter);
+	const filter = useAppSelector((state) => state.filter)
 	const [activePage, setActivePage] = useState("1");
 	const { data, error, isLoading } = useQuery({
 		queryKey: ["rent-cars", { activePage, ...filter }],

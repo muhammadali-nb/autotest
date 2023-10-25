@@ -13,8 +13,6 @@ import { SmallFooter } from "../layout/Footer";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
-import { useAppDispatch } from "../../store/hooks";
-import { getFilters } from "../../store/reducers/filterSlice";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -292,13 +290,6 @@ const RentPage = () => {
 		queryKey: ["rent-filter"],
 		queryFn: () => rentService.getFilter(),
 	});
-
-	// const dispatch = useAppDispatch();
-
-	// useEffect(() => {
-	// 	dispatch(getFilters());
-	// }, []);
-
 	return (
 		<RentLayout
 			meta={meta}
@@ -324,7 +315,6 @@ const RentPage = () => {
 								mode="rent"
 								isShowMobileFiler={setOpen}
 							/>
-
 							<RentGrid />
 							<SmallFooter />
 						</Col>
