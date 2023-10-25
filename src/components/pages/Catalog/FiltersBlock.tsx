@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import DoubleSlider from "../../common/DoubleSlider";
 import { Collapse, FormCheck } from "react-bootstrap";
 import caretUp from "./../../../img/common/caret-up-gray.png";
@@ -16,9 +16,6 @@ import {
 
 import caret from "./../../../img/common/caret-right.png";
 import Utils from "../../../Utils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { HeaderLogoImage } from "../../layout/Header";
 
 const Filter: React.FC<{
 	header: string;
@@ -48,15 +45,84 @@ const Filter: React.FC<{
 const FilterRange: React.FC<{
 	header: string;
 	data: SliderFilterData;
+	field: string;
 	min: number;
 	max: number;
-	value1?: number;
-	value2?: number;
-	onChange: any;
+	// values: number[];
+	// setValues: (e: number[]) => void;
+	// onChange: any;
 }> = (props) => {
+	const [values, setValues] = useState<any>({
+		min: props.min,
+		max: props.max,
+	});
+	const [change, setChange] = useState([values.min, values.max]);
+	// const [maxValue, setMaxValue] = useState(0)
+	// const [mixValue, setMinValue ] = useState(2)
+	const dispatch = useAppDispatch();
+	const filter = useAppSelector((state) => state.filter);
+	const updateFilter = (event: ChangeEvent<HTMLInputElement>) => {
+		console.log(123);
+		setValues({ ...values, [event.target.name]: event.target.value });
+		setChange([values.min, values.max]);
+		dispatch(
+			setFilter({
+				...filter,
+				[props.field]: { from: values.min, to: values.max },
+			})
+		);
+	};
+
+	// useEffect(() => {
+	// 	// updateFilter();
+	// 	console.log(values);
+
+	// 	dispatch(
+	// 		setFilter({
+	// 			...filter,
+	// 			price: { from: values[0], to: values[1] },
+	// 		})
+	// 	);
+	// }, [values]);
+
+	// useEffect(() => {
+	// 	console.log(change);
+	// }, [change]);
+
 	return (
 		<Filter header={props.header} open={props.data.open ?? false}>
 			<div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
+				<input
+					className={
+						"contacts__form-input small bg-transparent filter-block-input"
+					}
+					value={change[0]}
+					min={props.min}
+					max={props.max ?? props.max}
+					name="min"
+					onChange={updateFilter}
+					type={"number"}
+				/>
+				<input
+					className={
+						"contacts__form-input small bg-transparent filter-block-input"
+					}
+					value={change[1]}
+					min={props.min}
+					max={props.max}
+					name="max"
+					onChange={updateFilter}
+					type={"number"}
+				/>
+			</div>
+			<DoubleSlider
+				min={props.min}
+				max={props.max}
+				pearling
+				onChange={setChange}
+				value={change}
+			/>
+			{/* <div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
 				<input
 					className={
 						"contacts__form-input small bg-transparent filter-block-input"
@@ -88,7 +154,7 @@ const FilterRange: React.FC<{
 				pearling
 				onChange={(values) => props.onChange(values)}
 				defaultValue={[props.value1 ?? props.min, props.value2 ?? props.max]}
-			/>
+			/> */}
 		</Filter>
 	);
 };
@@ -122,7 +188,7 @@ const FilterCheckbox: React.FC<{
 					checked={filter[field]?.length === 0}
 					onChange={(e) => clear()}
 				/>
-				{data.values?.map((i, index) => (
+				{data.values?.map((i: any, index) => (
 					<FormCheck
 						key={i.id}
 						label={i.name}
@@ -138,13 +204,26 @@ const FilterCheckbox: React.FC<{
 
 const FilterModelSet: React.FC<{
 	field: string;
-	brand: IdValued;
+	brand: IdValued | any;
 	data: ModelCheckboxFilterData;
 }> = ({ field, data, brand }) => {
 	const filter: any = useAppSelector((state) => state.filter);
-	const [models, setModels] = useState(
-		data.values?.filter((i) => i.brand === brand.id) ?? []
+
+	const [models, setModels] = useState<any>(
+		data.values?.filter((i) => i.brand === brand.brand) ?? []
 	);
+
+	function sortIntoArrays(arr): any {
+		const sortedObj = arr.reduce((acc, curr) => {
+			if (!acc[curr.brand]) {
+				acc[curr.brand] = [];
+			}
+			acc[curr.brand].push(curr);
+			return acc;
+		}, {});
+		return Object.values(sortedObj);
+	}
+
 	const [showAmount, setShowAmount] = useState(5);
 	const dispatch = useAppDispatch();
 	const setFilterValue = (value: number) => {
@@ -159,33 +238,69 @@ const FilterModelSet: React.FC<{
 	};
 
 	return (
-		<Filter header={brand.name} small={true} open={true} showCaret={false}>
-			<div>
-				{models.slice(0, showAmount).map((i, index) => (
-					<FormCheck
-						key={index}
-						label={i.name}
-						className={" font-size-14 font-weight-semibold"}
-						onChange={(e) => setFilterValue(i.id)}
-						checked={filter[field]?.includes(i.id)}
-					/>
-				))}
-				{showAmount < models.length && (
-					<button
-						className={"small-black-btn"}
-						onClick={() => setShowAmount(showAmount + 10)}>
-						Ещё{" "}
-						{Utils.textFromCount(
-							models.length - showAmount,
-							["результат", "результата", "результатов"],
-							true
+		<>
+			<p>{"hello world"}</p>
+			{/* {sortIntoArrays(data.values).map((_item) => (
+				// <p>{_item[0].name}</p>
+				<Filter
+					header={_item[0].brand}
+					small={true}
+					open={false}
+					showCaret={false}>
+					<div>
+						{_item.slice(0, showAmount).map((i, index) => (
+							<FormCheck
+								key={index}
+								label={i.name}
+								className={" font-size-14 font-weight-semibold"}
+								// onChange={(e) => setFilterValue(i.id)}
+								// checked={filter[field]?.includes(i.id)}
+							/>
+						))}
+						{showAmount < _item.length && (
+							<button
+								className={"small-black-btn"}
+								onClick={() => setShowAmount(showAmount + 10)}>
+								Ещё{" "}
+								{Utils.textFromCount(
+									_item.length - showAmount,
+									["результат", "результата", "результатов"],
+									true
+								)}
+							</button>
 						)}
-					</button>
-				)}
-			</div>
-		</Filter>
+					</div>
+				</Filter>
+			))} */}
+			{/* <Filter header={brand.brand} small={true} open={true} showCaret={false}>
+				<div>
+					{models.slice(0, showAmount).map((i, index) => (
+						<FormCheck
+							key={index}
+							label={i.name}
+							className={" font-size-14 font-weight-semibold"}
+							onChange={(e) => setFilterValue(i.id)}
+							checked={filter[field]?.includes(i.id)}
+						/>
+					))}
+					{showAmount < models.length && (
+						<button
+							className={"small-black-btn"}
+							onClick={() => setShowAmount(showAmount + 10)}>
+							Ещё{" "}
+							{Utils.textFromCount(
+								models.length - showAmount,
+								["результат", "результата", "результатов"],
+								true
+							)}
+						</button>
+					)}
+				</div>
+			</Filter> */}
+		</>
 	);
 };
+
 const FilterModels: React.FC<{
 	field: string;
 	data: ModelCheckboxFilterData;
@@ -194,18 +309,34 @@ const FilterModels: React.FC<{
 	const baseData = useAppSelector((state) => state.baseData);
 	const filter = useAppSelector((state) => state.filter);
 	const dispatch = useAppDispatch();
+	const [showAmount, setShowAmount] = useState(5);
 
 	const clear = () => {
 		dispatch(setFilter({ ...filter, [field]: [] }));
 	};
-	const selected = () => {
-		if (filter.brands.length === 0) return baseData.left.brands.values ?? [];
-		return (
-			baseData.left.brands.values?.filter((i) =>
-				filter.brands.includes(i.id)
-			) ?? []
-		);
+
+	const sortIntoArrays = (arr) => {
+		const sortedObj = arr.reduce((acc, curr) => {
+			if (!acc[curr.brand]) {
+				acc[curr.brand] = [];
+			}
+			acc[curr.brand].push(curr);
+			return acc;
+		}, {});
+		return Object.values(sortedObj);
 	};
+
+	const setFilterValue = (value: number) => {
+		let data = [...filter[field]];
+		var index = data.indexOf(value);
+		if (index !== -1) {
+			data.splice(index, 1);
+		} else {
+			data.push(value);
+		}
+		dispatch(setFilter({ ...filter, [field]: data }));
+	};
+
 	return (
 		<Filter header={data.name} open={data.open ?? false}>
 			<div>
@@ -215,9 +346,44 @@ const FilterModels: React.FC<{
 					onChange={(e) => clear()}
 					className={"font-size-14 font-weight-semibold"}
 				/>
-				{selected().map((i, index) => (
+				{/* {selected().map((i, index) => (
 					<FilterModelSet field={field} key={index} brand={i} data={data} />
-				))}
+				))} */}
+
+				<>
+					{sortIntoArrays(data.values).map((_item: any, index) => (
+						<Filter
+							header={_item[0].brand}
+							small={true}
+							open={true}
+							showCaret={false}
+							key={index}>
+							<div>
+								{_item.slice(0, showAmount).map((i, index) => (
+									<FormCheck
+										key={index}
+										label={i.name}
+										className={" font-size-14 font-weight-semibold"}
+										onChange={(e) => setFilterValue(i.id)}
+										checked={filter[field]?.includes(i.id)}
+									/>
+								))}
+								{showAmount < _item.length && (
+									<button
+										className={"small-black-btn"}
+										onClick={() => setShowAmount(showAmount + 10)}>
+										Ещё{" "}
+										{Utils.textFromCount(
+											_item.length - showAmount,
+											["результат", "результата", "результатов"],
+											true
+										)}
+									</button>
+								)}
+							</div>
+						</Filter>
+					))}
+				</>
 			</div>
 		</Filter>
 	);
@@ -291,18 +457,19 @@ export const FilterCommon: React.FC<{
 	}
 	if (props.data.type === "slider2") {
 		let d = props.data as SliderFilterData;
-
 		return (
 			<FilterRange
 				header={d.name}
-				data={props.data}
+				data={d}
 				min={d.from ?? 0}
 				max={d.to ?? 100}
-				value1={filter[props.field].from}
-				value2={filter[props.field].to}
-				onChange={(v) => {
-					setFilterValue(props.field, { from: v[0], to: v[1] });
-				}}
+				field={props.field}
+				// value1={filter[props.field].from}
+				// value2={filter[props.field].to}
+
+				// onChange={(v) => {
+				// 	setFilterValue(props.field, { from: v[0], to: v[1] });
+				// }}
 			/>
 		);
 	}

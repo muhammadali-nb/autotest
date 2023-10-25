@@ -10,12 +10,12 @@ interface FilterDataBlock {
     open?: boolean
 }
 export interface SliderFilterData extends FilterDataBlock {
-    from?: number,
-    to?: number,
+    from: number,
+    to: number,
 
 }
 export interface IdValued {
-    id: number,
+    id: number | string,
     name: string,
 }
 export interface IdValuedBranded {
@@ -24,7 +24,7 @@ export interface IdValuedBranded {
     brand: number
 }
 export interface CheckboxFilterData extends FilterDataBlock {
-    values?: Array<IdValued>
+    values: Array<IdValued>
 }
 export interface ButtonFilterData extends FilterDataBlock {
     values?: Array<IdValued>

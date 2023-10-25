@@ -1,29 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { BaseState, IdValued } from './baseDataSlice'
 // import type { RootState } from '../store'
 
 // Define a type for the slice state
 export interface Filter {
-    price: { from: number, to: number },
-    year: { from: number, to: number },
-    brands: Array<number>,
-    models: Array<number>,
-    carcase: Array<number>,
-    engine: Array<number>,
-    gearbox: Array<number>,
-    drive: Array<number>,
-    fuel: Array<number>,
+    price: { from: number | null, to: number | null },
+    year: { from: number | null, to: number | null },
+    brands: Array<number | string>,
+    models: Array<number | string>,
+    carcase: Array<number | string>,
+    engine: Array<number | string>,
+    gearbox: Array<number | string>,
+    drive: Array<number | string>,
+    fuel: Array<number | string>,
     special: number,
     new: number,
     rent: number,
     available?: boolean,
 }
 export const defaultFilter: Filter = {
-    price: { from: 500000, to: 5000000 },
-    year: { from: 2018, to: 2023 },
+    price: { from: null, to: null },
+    year: { from: null, to: null },
     special: 0, new: 0, rent: 0, available: undefined,
     brands: [], models: [], carcase: [], engine: [], gearbox: [], drive: [], fuel: [],
 }
+
+
 
 const initialState: Filter = defaultFilter;
 
@@ -33,8 +37,10 @@ export const filterSlice = createSlice({
     initialState,
     reducers: {
         setFilter: (state, action: PayloadAction<Filter>) => {
-            if (!action.payload)
+            if (!action.payload) {
                 return;
+            }
+
             state.price = action.payload.price;
             state.year = action.payload.year;
             state.special = action.payload.special;
@@ -50,6 +56,7 @@ export const filterSlice = createSlice({
             state.available = action.payload.available;
         },
     },
+
 })
 
 export const { setFilter } = filterSlice.actions;

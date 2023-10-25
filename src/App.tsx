@@ -23,6 +23,8 @@ import PersonalAccountPage from "./components/pages/PersonalAccount/PersonalAcco
 import RentCarDetail, {
 	carRentDataLoader,
 } from "./components/pages/Rent/RentCarDetail";
+
+import RentHistoryPage from "./components/pages/RentHistory/RentHistoryPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter(
@@ -37,7 +39,7 @@ const router = createBrowserRouter(
 			/>
 			<Route path={"rent"} element={<RentPage />} />
 			<Route
-				path={"rent/:id"}
+				path={"rent/:carID"}
 				element={<RentCarDetail />}
 				loader={carRentDataLoader}
 			/>
@@ -51,6 +53,10 @@ const router = createBrowserRouter(
 			<Route path={"policy"} element={<PolicyPage />} />
 			<Route path={"userAgreement"} element={<UserAgreementPage />} />
 			<Route path="personal-account" element={<PersonalAccountPage />} />
+			<Route
+				path="personal-account/rent-history"
+				element={<RentHistoryPage />}
+			/>
 			<Route path={"offer"} element={<OfferPage />} />
 			<Route path={"*"} element={<NotExistsPage />} />
 		</Route>

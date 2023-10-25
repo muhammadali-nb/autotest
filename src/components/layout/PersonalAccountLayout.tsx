@@ -10,7 +10,7 @@ import Cookies from "../common/Cookies";
 import MobileMenu from "./MobileMenu";
 import { useOutside } from "../../hooks/useOutside";
 import ToggleSentUserData from "../common/ToggleSentUserData";
-import PersonalAccountMenuBurger from "../common/personal-account/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
+import PersonalAccountMenuBurger from "../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 import PersonalAccountMenu from "../pages/PersonalAccount/PersonalAccountMenu";
 import PersonalAccountMenuMobile from "../pages/PersonalAccount/PersonalAccountMenuMobile";
 

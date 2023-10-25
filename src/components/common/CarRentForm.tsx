@@ -25,6 +25,8 @@ import { Carousel } from "react-bootstrap";
 import caretLeft from "../../img/common/caret-left-big.svg";
 import caretRight from "../../img/common/caret-right-big.svg";
 import { CarImagesModal } from "../pages/Car/CarImages";
+import { useQuery } from "@tanstack/react-query";
+import rentService from "../../api-functions/rent-page/rent-service";
 
 const CarRentContacts: React.FC<{
 	closeFunc: () => void;
@@ -543,17 +545,17 @@ const CarRequestFormContent: React.FC<{
 	setStep: (string) => void;
 	car: CarRentDataInfo;
 }> = (props) => {
-	const baseData: BaseState = useAppSelector((state) => state.baseData);
-	const brand =
-		baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
-		"неизвестно";
-	const model =
-		baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
-		"неизвестно";
-	const tags =
-		baseData.top?.rent.values?.filter((i) =>
-			props.car.special.includes(i.id)
-		) ?? [];
+	// const baseData: BaseState = useAppSelector((state) => state.baseData);
+	// const brand =
+	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
+	// 	"неизвестно";
+	// const model =
+	// 	baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
+	// 	"неизвестно";
+	// const tags =
+	// 	baseData.top?.rent.values?.filter((i) =>
+	// 		props.car.special.includes(i.id)
+	// 	) ?? [];
 
 	const statSettings: CarStatBlockProps = {
 		data: [],
@@ -568,7 +570,8 @@ const CarRequestFormContent: React.FC<{
 					className={
 						"font-size-40 line-height-120 font-weight-semibold text-uppercase mb-px-10"
 					}>
-					{brand} <span className={"text-red-color"}>{model}</span>
+					{props.car.brand}{" "}
+					<span className={"text-red-color"}>{props.car.model}</span>
 				</div>
 				<div
 					className={
@@ -582,11 +585,6 @@ const CarRequestFormContent: React.FC<{
 						car={props.car}>
 						{props.car.available ? "Свободна" : "Занята"}
 					</CarTag>
-					{tags.map((i, index) => (
-						<CarTag key={index} car={props.car}>
-							{i.name}
-						</CarTag>
-					))}
 				</div>
 				<div
 					className={
@@ -769,10 +767,11 @@ const CarBookingForm: React.FC<{
 	btn?: ReactNode;
 	step?: string;
 	car: CarRentDataInfo;
+	car_id: number;
 }> = (props) => {
 	const [show, setShow] = useState(false);
 	const [step, setStep] = useState(props.step ?? "rent");
-	const [data, setData] = useState<CallRequestData>({
+	const [state, setState] = useState<CallRequestData>({
 		name: "",
 		lastName: "",
 		phone: "",
@@ -780,6 +779,10 @@ const CarBookingForm: React.FC<{
 		errors: {},
 	});
 
+	// const { data, error, isLoading, isSuccess } = useQuery({
+	// 	queryKey: ["rent-car"],
+	// 	queryFn: () => rentService.getOneCar(props.car_id),
+	// });
 	const handleClose = () => setShow(false);
 	const handleShow = () => {
 		if (props.func) props.func();
@@ -814,8 +817,8 @@ const CarBookingForm: React.FC<{
 				)}
 				{step === "start" && (
 					<CarRentContacts
-						data={data}
-						setData={setData}
+						data={state}
+						setData={setState}
 						closeOnBack={props.step == "start"}
 						car={props.car}
 						closeFunc={handleClose}
@@ -824,7 +827,7 @@ const CarBookingForm: React.FC<{
 				)}
 				{step === "confirm" && (
 					<CarRentConfirmPhone
-						data={data}
+						data={state}
 						car={props.car}
 						closeFunc={handleClose}
 						setStep={setStep}
@@ -832,7 +835,7 @@ const CarBookingForm: React.FC<{
 				)}
 				{step === "payment" && (
 					<CarRentPaymentType
-						data={data}
+						data={state}
 						car={props.car}
 						closeFunc={handleClose}
 						setStep={setStep}

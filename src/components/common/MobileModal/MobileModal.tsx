@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./MobileModal.scss";
+
 
 import call from "../../../img/common/phone-call.svg";
 import back from "../../../img/common/back.svg";
@@ -63,8 +63,8 @@ export const MobileModal = ({
 							placeholder="Комментарий"></textarea>
 					</div>
 				</form>
-				<button className="site-btn dark">перезвоните мне</button>
-				<p className="form-mobile-policy mt-px-15">
+				<button className="site-btn dark mb-px-25">перезвоните мне</button>
+				<p className="form-mobile-policy ">
 					Нажимая на кнопку “Забронировать”, вы соглашаетесь с{" "}
 					<Link
 						to={"/policy"}

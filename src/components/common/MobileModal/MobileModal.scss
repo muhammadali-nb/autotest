@@ -1,5 +1,5 @@
 .mobile-modal {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   position: fixed;
   top: 0;
@@ -55,7 +55,11 @@
   &_body {
     padding: 24px 16px 0 16px;
     background-color: #fff;
-    // height: 100%;
+// <<<<<<< HEAD
+//     // height: 60%;
+// =======
+//     // height: 100%;
+// >>>>>>> mobile-version
 
     & > h1 {
       color: var(--Text, #222);
@@ -92,6 +96,7 @@
 
     &-company {
       text-align: left;
+      padding: 0 0 16px 0;
     }
   }
 }

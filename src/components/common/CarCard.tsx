@@ -22,7 +22,7 @@ export type StatBlock = {
 };
 
 export interface CarDataInfo {
-	id: number | string;
+	id: number;
 	brand: number | string; //
 	model: number | string; // check
 	year: number | string;
@@ -39,6 +39,7 @@ export type CarRentDataInfo = CarDataInfo & {
 	run: number;
 	available: boolean;
 	small?: boolean;
+	image?: string;
 };
 
 export type CarData = {
@@ -119,7 +120,7 @@ export const CarRentButton: React.FC<{
 			{/*<button className={(className ? className : 'site-btn') + (w100?' w-100':'')}*/}
 			{/*        style={style}*/}
 			{/*>Забронировать</button>*/}
-			<CarRentForm car={car} wide={w100} />
+			<CarRentForm car={car} car_id={car.id} wide={w100} />
 		</div>
 	);
 };
@@ -280,9 +281,10 @@ export const CarRentCard: React.FC<{
 
 					<CarRentForm
 						car={car}
+						car_id={car.id}
 						btn={
 							<div className={"car__card-image"}>
-								<img src={CarImageDesktop} alt={car.brand + " " + car.model} />
+								<img src={car.image} alt={car.brand + " " + car.model} />
 							</div>
 						}
 					/>
@@ -291,7 +293,7 @@ export const CarRentCard: React.FC<{
 						{car.brand} <br /> <span className={"model"}>{car.model}</span>
 					</div>
 					<div className={"font-size-18 font-weight-semibold mb-px-20"}>
-						{car.regnum } &nbsp;
+						{car.regnum} &nbsp;
 					</div>
 					<div className={"car__card-payment mb-px-15"}>
 						<div className={"mb-px-5"}>Аренда</div>
@@ -310,14 +312,14 @@ export const CarRentCard: React.FC<{
 					</div>
 				</div>
 
-				<CarRentForm car={car} wide={true} step={"start"} />
+				<CarRentForm car={car} car_id={car.id} wide={true} step={"start"} />
 			</div>
 
 			<div
 				onClick={() => navigate(`/rent/${car.id}`)}
 				className="d-block d-md-none car-rent-card">
 				<div className="car-rent-card_image">
-					<img src={CarImage} alt={car.brand + " " + car.model} />
+					<img src={car.image} alt={car.brand + " " + car.model} />
 				</div>
 				<div className=" car-rent-card_body">
 					<div className="car__card-taglist car-rent-card_taglist">

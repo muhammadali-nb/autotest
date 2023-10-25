@@ -15,8 +15,6 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 		undefined
 	);
 	const [activePage, setActivePage] = useState("1");
-	
-
 
 	const filter = useAppSelector((state) => state.filter);
 	const [query, setQuery] = useSearchParams();
