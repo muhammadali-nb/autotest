@@ -3,7 +3,7 @@ import { BaseState, mockBaseState } from "./store/reducers/baseDataSlice";
 import { CarData, CarDataInfo, CarRentDataInfo } from "./components/common/CarCard";
 import { Filter } from "./store/reducers/filterSlice";
 import _ from 'lodash';
-import { CatDataType } from "./types/rent-types";
+import { CarDataType } from "./types/rent-types";
 
 
 
@@ -657,7 +657,7 @@ let Api = {
       return await new Promise<ErrorResponse>((resolve, reject) => resolve(defaultError))
     }
   },
-  async carRentPaymentRequest(request: CallRequestData, car: CarRentDataInfo | CatDataType, payment: string = ''): Promise<CallRequestResponse | ErrorResponse> {
+  async carRentPaymentRequest(request: CallRequestData, car: CarRentDataInfo | CarDataType, payment: string = ''): Promise<CallRequestResponse | ErrorResponse> {
     if (process.env.REACT_APP_TEST === "true") {
       let isValid = payment === 'sbp';
       let res = { success: isValid, fields: { link: 'https://vk.com', error: '' } };

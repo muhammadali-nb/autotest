@@ -1,6 +1,6 @@
 import { TypeImages } from "../components/pages/Rent/RentCarImagesCarousel";
 
-export interface CatDataType {
+export interface CarDataType {
 	available: boolean;
 	available_at: boolean;
 	brand: string;

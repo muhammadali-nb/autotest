@@ -27,12 +27,12 @@ import caretRight from "../../img/common/caret-right-big.svg";
 import { CarImagesModal } from "../pages/Car/CarImages";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
-import { CatDataType } from "../../types/rent-types";
+import { CarDataType } from "../../types/rent-types";
 
 const CarRentContacts: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
-	car: CatDataType;
+	car: CarDataType;
 	setData: (CallRequestData) => void;
 	data: CallRequestData;
 	closeOnBack?: boolean;
@@ -164,7 +164,7 @@ const defaultSmsTimer = 20;
 const CarRentConfirmPhone: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
-	car: CatDataType;
+	car: CarDataType;
 	data: CallRequestData;
 }> = (props) => {
 	const [passed, setPassed] = useState(false);
@@ -396,7 +396,7 @@ const CarRentPaymentType: React.FC<{
 	closeFunc: () => void;
 	data: CallRequestData;
 	setStep: (string) => void;
-	car: CatDataType;
+	car: CarDataType;
 }> = (props) => {
 	const [payment, setPayment] = useState("");
 	const [passed, setPassed] = useState(false);
@@ -544,7 +544,7 @@ const CarRentFormConfirmed: React.FC<{ closeFunc: () => void }> = (props) => {
 const CarRequestFormContent: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
-	car: CatDataType;
+	car: CarDataType;
 }> = (props) => {
 	// const baseData: BaseState = useAppSelector((state) => state.baseData);
 	// const brand =
@@ -641,7 +641,7 @@ const CarRequestFormContent: React.FC<{
 };
 export const CarRequestFormImage: React.FC<{
 	closeFunc: () => void;
-	car: CatDataType;
+	car: CarDataType;
 }> = (props) => {
 	// const [car, setCar] = useState<CarData | ErrorResponse | undefined>();
 	const [index, setIndex] = useState(0);
@@ -768,7 +768,7 @@ const CarBookingForm: React.FC<{
 	func?: () => void;
 	btn?: ReactNode;
 	step?: string;
-	car: CatDataType | any;
+	car: CarDataType | any;
 	car_id: number;
 }> = (props) => {
 	const [show, setShow] = useState(false);

@@ -10,7 +10,7 @@ import CarInfo from "./Car/CarInfo";
 import LoadError from "../common/LoadError";
 import { useAppSelector } from "../../store/hooks";
 import { CarDetailLayout } from "../layout/CarDetailLayout";
-import { CatDataType } from "../../types/rent-types";
+import { CarDataType } from "../../types/rent-types";
 
 const CarPage = () => {
 	const car = useLoaderData() as any;

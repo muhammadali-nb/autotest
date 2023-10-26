@@ -8,7 +8,7 @@ import caretRight from "./../../../img/common/caret-right-big.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { CatDataType } from "../../../types/rent-types";
+import { CarDataType } from "../../../types/rent-types";
 import { TypeImages } from "../Rent/RentCarImagesCarousel";
 
 export const CarImagesModal: React.FC<{
@@ -109,7 +109,7 @@ export const CarImagesModal: React.FC<{
 	);
 };
 
-const CarImages: React.FC<{ car: CatDataType }> = ({ car }) => {
+const CarImages: React.FC<{ car: CarDataType }> = ({ car }) => {
 	const [index, setIndex] = useState(0);
 	const [showModal, setShowModal] = useState(false);
 	const navigate = useNavigate();
