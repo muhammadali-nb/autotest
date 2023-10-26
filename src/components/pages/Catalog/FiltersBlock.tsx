@@ -52,42 +52,20 @@ const FilterRange: React.FC<{
 	// setValues: (e: number[]) => void;
 	// onChange: any;
 }> = (props) => {
-	const [values, setValues] = useState<any>({
-		min: props.min,
-		max: props.max,
-	});
-	const [change, setChange] = useState([values.min, values.max]);
-	// const [maxValue, setMaxValue] = useState(0)
-	// const [mixValue, setMinValue ] = useState(2)
+	const [values, setValues] = useState([props.min, props.max]);
 	const dispatch = useAppDispatch();
 	const filter = useAppSelector((state) => state.filter);
-	const updateFilter = (event: ChangeEvent<HTMLInputElement>) => {
-		console.log(123);
-		setValues({ ...values, [event.target.name]: event.target.value });
-		setChange([values.min, values.max]);
-		dispatch(
-			setFilter({
-				...filter,
-				[props.field]: { from: values.min, to: values.max },
-			})
-		);
+	const updateFilter = (arg: Array<number>) => {
+		setValues(arg);
+		setTimeout(() => {
+			dispatch(
+				setFilter({
+					...filter,
+					[props.field]: { from: arg[0], to: arg[1] },
+				})
+			);
+		}, 2000);
 	};
-
-	// useEffect(() => {
-	// 	// updateFilter();
-	// 	console.log(values);
-
-	// 	dispatch(
-	// 		setFilter({
-	// 			...filter,
-	// 			price: { from: values[0], to: values[1] },
-	// 		})
-	// 	);
-	// }, [values]);
-
-	// useEffect(() => {
-	// 	console.log(change);
-	// }, [change]);
 
 	return (
 		<Filter header={props.header} open={props.data.open ?? false}>
@@ -96,22 +74,27 @@ const FilterRange: React.FC<{
 					className={
 						"contacts__form-input small bg-transparent filter-block-input"
 					}
-					value={change[0]}
+					value={values[0]}
 					min={props.min}
 					max={props.max ?? props.max}
 					name="min"
-					onChange={updateFilter}
+					onChange={(e) =>
+						setValues([Number.parseInt(e.target.value), values[1]])
+					}
 					type={"number"}
 				/>
 				<input
 					className={
 						"contacts__form-input small bg-transparent filter-block-input"
 					}
-					value={change[1]}
+					value={values[1]}
 					min={props.min}
 					max={props.max}
 					name="max"
-					onChange={updateFilter}
+					onChange={(e) =>
+						// updateFilter(values[0], Number.parseInt(e.target.value))
+						setValues([values[0], Number.parseInt(e.target.value)])
+					}
 					type={"number"}
 				/>
 			</div>
@@ -119,8 +102,10 @@ const FilterRange: React.FC<{
 				min={props.min}
 				max={props.max}
 				pearling
-				onChange={setChange}
-				value={change}
+				onChange={updateFilter}
+				value={values}
+				// onSliderClick={updateFilter}
+				// onChangeonBeforeChange={(e) => updateFilter(values[0], values[1])}
 			/>
 			{/* <div className={"d-flex justify-content-between mb-2 gap-3 pt-px-20"}>
 				<input

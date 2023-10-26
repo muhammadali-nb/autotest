@@ -27,23 +27,24 @@ import caretRight from "../../img/common/caret-right-big.svg";
 import { CarImagesModal } from "../pages/Car/CarImages";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
+import { CatDataType } from "../../types/rent-types";
 
 const CarRentContacts: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
-	car: CarRentDataInfo;
+	car: CatDataType;
 	setData: (CallRequestData) => void;
 	data: CallRequestData;
 	closeOnBack?: boolean;
 }> = (props) => {
 	const [passed, setPassed] = useState(false);
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
-	const brand =
-		baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
-		"неизвестно";
-	const model =
-		baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
-		"неизвестно";
+	// const brand =
+	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
+	// 	"неизвестно";
+	// const model =
+	// 	baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
+	// 	"неизвестно";
 
 	const send = () => {
 		let errors = Utils.validateForm(props.data);
@@ -100,7 +101,7 @@ const CarRentContacts: React.FC<{
 						}>
 						Бронирование
 						<br />
-						{brand} {model}
+						{props.car.brand} {props.car.model}
 					</div>
 					<div className={"call-content-text font-size-16"}>
 						Оставьте свой номер телефона,
@@ -163,7 +164,7 @@ const defaultSmsTimer = 20;
 const CarRentConfirmPhone: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
-	car: CarRentDataInfo;
+	car: CatDataType;
 	data: CallRequestData;
 }> = (props) => {
 	const [passed, setPassed] = useState(false);
@@ -172,12 +173,12 @@ const CarRentConfirmPhone: React.FC<{
 	const [idPrefix] = useState(Utils.randomString());
 	const [timer, setTimer] = useState(0);
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
-	const brand =
-		baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
-		"неизвестно";
-	const model =
-		baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
-		"неизвестно";
+	// const brand =
+	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
+	// 	"неизвестно";
+	// const model =
+	// 	baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
+	// 	"неизвестно";
 
 	useEffect(() => {
 		let id = "confirm" + props.car.id + idPrefix + "-0";
@@ -274,7 +275,7 @@ const CarRentConfirmPhone: React.FC<{
 						}>
 						Бронирование
 						<br />
-						{brand} {model}
+						{props.car.brand} {props.car.model}
 					</div>
 					<div className={"call-content-text font-size-16"}>
 						<span className={"text-default"}>Мы отправили вам код</span>
@@ -395,19 +396,19 @@ const CarRentPaymentType: React.FC<{
 	closeFunc: () => void;
 	data: CallRequestData;
 	setStep: (string) => void;
-	car: CarRentDataInfo;
+	car: CatDataType;
 }> = (props) => {
 	const [payment, setPayment] = useState("");
 	const [passed, setPassed] = useState(false);
 	const [error, setError] = useState("");
 	const [redButton, setRedButton] = useState(false);
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
-	const brand =
-		baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
-		"неизвестно";
-	const model =
-		baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
-		"неизвестно";
+	// const brand =
+	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
+	// 	"неизвестно";
+	// const model =
+	// 	baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
+	// 	"неизвестно";
 	const send = () => {
 		if (payment === "") {
 			setError("Выберите способ оплаты");
@@ -458,7 +459,7 @@ const CarRentPaymentType: React.FC<{
 						}>
 						Бронирование
 						<br />
-						{brand} {model}
+						{props.car.brand} {props.car.model}
 					</div>
 					<div
 						className={
@@ -543,7 +544,7 @@ const CarRentFormConfirmed: React.FC<{ closeFunc: () => void }> = (props) => {
 const CarRequestFormContent: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
-	car: CarRentDataInfo;
+	car: CatDataType;
 }> = (props) => {
 	// const baseData: BaseState = useAppSelector((state) => state.baseData);
 	// const brand =
@@ -625,7 +626,7 @@ const CarRequestFormContent: React.FC<{
 						/>
 						<CarStatBlockItem
 							settings={statSettings}
-							data={{ name: "КПП", value: "АКПП" }}
+							data={{ name: "КПП", value: props.car.kpp }}
 						/>
 						<CarStatBlockItem
 							settings={statSettings}
@@ -640,31 +641,31 @@ const CarRequestFormContent: React.FC<{
 };
 export const CarRequestFormImage: React.FC<{
 	closeFunc: () => void;
-	car: CarRentDataInfo;
+	car: CatDataType;
 }> = (props) => {
-	const [car, setCar] = useState<CarData | ErrorResponse | undefined>();
+	// const [car, setCar] = useState<CarData | ErrorResponse | undefined>();
 	const [index, setIndex] = useState(0);
 
 	const [showModal, setShowModal] = useState(false);
 	const handleClose = () => setShowModal(false);
 	const handleShow = () => setShowModal(true);
 
-	useEffect(() => {
-		const fetchCarData = async () => {
-			setCar(undefined);
-			let carData = await Api.car(props.car.id);
-			setCar(carData);
-		};
-		fetchCarData();
-	}, []);
+	// useEffect(() => {
+	// 	const fetchCarData = async () => {
+	// 		setCar(undefined);
+	// 		let carData = await Api.car(props.car.id);
+	// 		setCar(carData);
+	// 	};
+	// 	fetchCarData();
+	// }, []);
 	const handleSelect = (selectedIndex) => {
-		if (Api.isError(car)) return;
-		if (selectedIndex >= (car?.images?.length ?? 0)) selectedIndex = 0;
-		if (selectedIndex < 0) selectedIndex = (car?.images?.length ?? 1) - 1;
+		if (Api.isError(props.car)) return;
+		if (selectedIndex >= (props.car?.images?.length ?? 0)) selectedIndex = 0;
+		if (selectedIndex < 0) selectedIndex = (props.car?.images?.length ?? 1) - 1;
 		setIndex(selectedIndex);
 	};
 
-	if (!car)
+	if (!props.car)
 		return (
 			<div
 				className={
@@ -674,14 +675,14 @@ export const CarRequestFormImage: React.FC<{
 				<Loader />
 			</div>
 		);
-	if (Api.isError(car))
+	if (Api.isError(props.car))
 		return (
 			<div
 				className={
 					"d-flex flex-column position-relative justify-content-center align-items-center"
 				}
 				style={{ minWidth: "600px", maxWidth: "600px" }}>
-				<LoadError response={car} />
+				<LoadError response={props.car} />
 			</div>
 		);
 
@@ -691,7 +692,8 @@ export const CarRequestFormImage: React.FC<{
 			style={{ minWidth: "600px", maxWidth: "600px" }}>
 			<CarImagesModal
 				show={showModal}
-				car={car}
+				// car={props.car}
+				car_images={props.car.images}
 				handleClose={handleClose}
 				index={index}
 			/>
@@ -701,14 +703,14 @@ export const CarRequestFormImage: React.FC<{
 					onSelect={handleSelect}
 					controls={false}
 					indicators={false}>
-					{car.images.map((img, index) => (
-						<Carousel.Item key={index}>
+					{props.car.images.map((img, index) => (
+						<Carousel.Item key={img.id}>
 							<div
 								className={"car-images-image-container cursor-pointer"}
 								onClick={handleShow}>
 								<img
 									className="d-block w-100 car-images-image"
-									src={img.full}
+									src={img.image}
 									alt=""
 								/>
 							</div>
@@ -727,7 +729,7 @@ export const CarRequestFormImage: React.FC<{
 						<img src={caretLeft} width={16} height={32} alt="" />
 					</button>
 					<div className={"car-images-controls-sliders"}>
-						{car.images.map((i, ind) => (
+						{[...new Array(props.car.images.length)].map((i, ind) => (
 							<div
 								key={ind}
 								className={
@@ -766,7 +768,7 @@ const CarBookingForm: React.FC<{
 	func?: () => void;
 	btn?: ReactNode;
 	step?: string;
-	car: CarRentDataInfo;
+	car: CatDataType | any;
 	car_id: number;
 }> = (props) => {
 	const [show, setShow] = useState(false);
