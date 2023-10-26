@@ -20,10 +20,6 @@ const RentCarDetail = () => {
 		queryFn: () => rentService.getOneCar(carID),
 	});
 
-	useEffect(() => {
-		console.log(data);
-	}, [data]);
-
 	return (
 		<CarDetailLayout>
 			{isLoading ? (

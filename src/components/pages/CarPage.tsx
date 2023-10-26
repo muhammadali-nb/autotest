@@ -10,21 +10,22 @@ import CarInfo from "./Car/CarInfo";
 import LoadError from "../common/LoadError";
 import { useAppSelector } from "../../store/hooks";
 import { CarDetailLayout } from "../layout/CarDetailLayout";
+import { CatDataType } from "../../types/rent-types";
 
 const CarPage = () => {
-	const car = useLoaderData() as CarData;
-	// console.log(car);
-	const data = useAppSelector((state) => state.baseData);
-	const brand =
-		data.left.brands.values?.find((i) => i.id === car.main.brand)?.name ?? "";
-	const model =
-		data.left.models.values?.find((i) => i.id === car.main.model)?.name ?? "";
+	const car = useLoaderData() as any;
+	// // console.log(car);
+	// const data = useAppSelector((state) => state.baseData);
+	// const brand =
+	// 	data.left.brands.values?.find((i) => i.id === car.main.brand)?.name ?? "";
+	// const model =
+	// 	data.left.models.values?.find((i) => i.id === car.main.model)?.name ?? "";
 
 	const title =
-		brand + " " + model + " - " + process.env.REACT_APP_WEBSITE_NAME;
+		car.brand + " " + car.model + " - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
-		description: brand + " " + model + " в лизинг или аренду",
-		keywords: `аренда, лизинг,${brand},${model},${brand} ${model}`,
+		description: car.brand + " " + car.model + " в лизинг или аренду",
+		keywords: `аренда, лизинг,${car.brand},${car.model},${car.brand} ${car.model}`,
 	};
 	return (
 		<CarDetailLayout
