@@ -2,12 +2,8 @@ import React from "react";
 import { useAppSelector } from "../../store/hooks";
 import { Link, useNavigate } from "react-router-dom";
 import { type BaseState } from "../../store/reducers/baseDataSlice";
-import caretRight from "./../../img/common/caret-right.svg";
 import CarBookingForm from "./CarBookingForm";
 import CarRentForm from "./CarRentForm";
-import CarImage from "../../img/rent/auto_card.png";
-import CarImageDesktop from "../../img/index/car.webp";
-import { TypeImages } from "../pages/Rent/RentCarImagesCarousel";
 import { CatDataType } from "../../types/rent-types";
 
 export type ImageInfo = {
@@ -112,7 +108,7 @@ export const CarPreorderButton: React.FC<{
 };
 
 export const CarRentButton: React.FC<{
-	car:CatDataType;
+	car: CatDataType;
 	style?: React.CSSProperties;
 	className?: string;
 	w100?: boolean;
@@ -149,7 +145,7 @@ export const CarTag: React.FC<{
 };
 
 const CarCard: React.FC<{
-	car: CarDataInfo ;
+	car: CarDataInfo;
 	id?: string;
 	responsive: boolean;
 }> = ({ car, responsive, id }) => {

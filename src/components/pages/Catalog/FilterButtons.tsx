@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setFilter } from "../../../store/reducers/filterSlice";
 import { ButtonFilterData } from "../../../store/reducers/baseDataSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import filterIcon from "../../../img/common/filter-icon.svg";
 import { RentFilterDateValue } from "../RentPage";
 
-const ButtonSet: React.FC<{ data: ButtonFilterData }> = (props) => {
+export const ButtonSet: React.FC<{ data: ButtonFilterData }> = (props) => {
 	const filter = useAppSelector((state) => state.filter);
 	const dispatch = useAppDispatch();
 	const updateFilter = (block: string, value) => {
@@ -55,6 +53,10 @@ const FilterButtons: React.FC<{
 	const updateFilter = (block: string, value) => {
 		dispatch(setFilter({ ...filter, [block]: value }));
 	};
+
+	useEffect(() => {
+		console.log(filter);
+	}, [filter]);
 	return (
 		<div
 			className={"d-lg-flex gap-3 justify-content-between mb-px-25 flex-wrap"}>
@@ -102,7 +104,8 @@ const FilterButtons: React.FC<{
 					<button
 						onClick={() => updateFilter("special", 0)}
 						className={
-							"catalog__filter-btn " + (filter.special === 0 ? " selected" : "")
+							"catalog__filter-btn " +
+							(filter.special === "" ? " selected" : "")
 						}>
 						Все
 					</button>
@@ -128,20 +131,20 @@ const FilterButtons: React.FC<{
 							"d-flex  gap-2 py-1 justify-content-start flex-wrap"
 						}>
 						<button
-							onClick={() => setSelectedState("all")}
+							onClick={() => updateFilter("tarif", null)}
 							className={
 								"catalog__filter-btn " +
-								(selectedState === "all" ? " selected" : "")
+								(filter.tarif === null ? " selected" : "")
 							}>
 							Все
 						</button>
 						{rentFilterData?.tarif?.values?.map((i, index) => (
 							<button
 								key={i.id}
-								onClick={() => setSelectedState(i.id)}
+								onClick={() => updateFilter("tarif", i.id)}
 								className={
 									"catalog__filter-btn " +
-									(selectedState === i.id ? " selected" : "")
+									(filter.tarif === i.id ? " selected" : "")
 								}>
 								{i.name}
 							</button>
@@ -160,10 +163,10 @@ const FilterButtons: React.FC<{
 						"catalog__filter-container d-none d-lg-flex gap-2 py-1 justify-content-start flex-wrap"
 					}>
 					<button
-						onClick={() => setSelectedClass("all")}
+						onClick={() => updateFilter("tarif", null)}
 						className={
 							"catalog__filter-btn " +
-							(selectedClass === "all" ? " selected" : "")
+							(filter.special === null ? " selected" : "")
 						}>
 						Все
 					</button>
@@ -171,10 +174,10 @@ const FilterButtons: React.FC<{
 					{rentFilterData?.free?.values?.map((i, index) => (
 						<button
 							key={i.id}
-							onClick={() => setSelectedClass(i.id)}
+							onClick={() => updateFilter("special", i.id)}
 							className={
 								"catalog__filter-btn " +
-								(selectedClass === i.id ? " selected" : "")
+								(filter.special === i.id ? " selected" : "")
 							}>
 							{i.name}
 						</button>
