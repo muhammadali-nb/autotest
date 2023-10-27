@@ -57,14 +57,12 @@ const FilterRange: React.FC<{
 	const filter = useAppSelector((state) => state.filter);
 	const updateFilter = (arg: Array<number>) => {
 		setValues(arg);
-		setTimeout(() => {
-			dispatch(
-				setFilter({
-					...filter,
-					[props.field]: { from: arg[0], to: arg[1] },
-				})
-			);
-		}, 2000);
+		dispatch(
+			setFilter({
+				...filter,
+				[props.field]: { from: arg[0], to: arg[1] },
+			})
+		);
 	};
 
 	return (
@@ -102,8 +100,9 @@ const FilterRange: React.FC<{
 				min={props.min}
 				max={props.max}
 				pearling
-				onChange={updateFilter}
+				onChange={setValues}
 				value={values}
+				onAfterChange={updateFilter}
 				// onSliderClick={updateFilter}
 				// onChangeonBeforeChange={(e) => updateFilter(values[0], values[1])}
 			/>

@@ -15,7 +15,8 @@ export interface Filter {
     gearbox: Array<number | string>,
     drive: Array<number | string>,
     fuel: Array<number | string>,
-    special: number,
+    special: null | string,
+    tarif: null | string
     new: number,
     rent: number,
     available?: boolean,
@@ -23,7 +24,8 @@ export interface Filter {
 export const defaultFilter: Filter = {
     price: { from: null, to: null },
     year: { from: null, to: null },
-    special: 0, new: 0, rent: 0, available: undefined,
+    tarif: null,
+    special: null, new: 0, rent: 0, available: undefined,
     brands: [], models: [], carcase: [], engine: [], gearbox: [], drive: [], fuel: [],
 }
 
@@ -54,6 +56,7 @@ export const filterSlice = createSlice({
             state.fuel = action.payload.fuel;
             state.rent = action.payload.rent;
             state.available = action.payload.available;
+            state.tarif =  action.payload.tarif;
         },
     },
 

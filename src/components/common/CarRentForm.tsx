@@ -9,7 +9,7 @@ import ModalFormTemplate, {
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
 import Utils from "../../Utils";
-import { CarData, CarRentDataInfo, CarTag } from "./CarCard";
+import { CarTag } from "./CarCard";
 import { BaseState } from "../../store/reducers/baseDataSlice";
 import { useAppSelector } from "../../store/hooks";
 import sbpImg from "./../../img/common/sbp.png";
@@ -25,6 +25,7 @@ import { Carousel } from "react-bootstrap";
 import caretLeft from "../../img/common/caret-left-big.svg";
 import caretRight from "../../img/common/caret-right-big.svg";
 import { CarImagesModal } from "../pages/Car/CarImages";
+
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
 import { CarDataType } from "../../types/rent-types";
