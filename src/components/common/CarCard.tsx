@@ -4,7 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { type BaseState } from "../../store/reducers/baseDataSlice";
 import CarBookingForm from "./CarBookingForm";
 import CarRentForm from "./CarRentForm";
-import { CatDataType } from "../../types/rent-types";
+import CarImage from "../../img/rent/auto_card.png";
+import CarImageDesktop from "../../img/index/car.webp";
+import { TypeImages } from "../pages/Rent/RentCarImagesCarousel";
+import { CarDataType } from "../../types/rent-types";
+
 
 export type ImageInfo = {
 	thumb: string;
@@ -108,7 +112,8 @@ export const CarPreorderButton: React.FC<{
 };
 
 export const CarRentButton: React.FC<{
-	car: CatDataType;
+
+	car: CarDataType;
 	style?: React.CSSProperties;
 	className?: string;
 	w100?: boolean;
@@ -123,7 +128,7 @@ export const CarRentButton: React.FC<{
 	);
 };
 export const CarTag: React.FC<{
-	car: CatDataType | any;
+	car: CarDataType | any;
 	type?: "default" | "free" | "not-free";
 	style?: React.CSSProperties;
 	className?: string;
