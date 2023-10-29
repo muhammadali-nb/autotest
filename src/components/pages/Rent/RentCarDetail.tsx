@@ -20,6 +20,7 @@ const RentCarDetail = () => {
 		queryFn: () => rentService.getOneCar(carID),
 	});
 
+	
 	return (
 		<CarDetailLayout>
 			{isLoading ? (
