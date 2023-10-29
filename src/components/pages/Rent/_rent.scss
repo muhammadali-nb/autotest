@@ -1,6 +1,12 @@
 .car-images_rent {
-  &-image > img {
+  & > .carousel {
+    width: 100%;
     height: auto;
+  }
+
+  &-image > img {
+    height: 100%;
+    width: 100%;
   }
 
   &-controls {

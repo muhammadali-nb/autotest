@@ -16,7 +16,7 @@ const RentCarDetail = () => {
 	const [modalActive, setModalActive] = useState(false);
 
 	const { data, error, isLoading, isSuccess } = useQuery({
-		queryKey: ["rent-car"],
+		queryKey: ["rent-car", carID],
 		queryFn: () => rentService.getOneCar(carID),
 	});
 
