@@ -358,7 +358,7 @@ let Api = {
   getEndpoint(endpoint: string, params?: any, headers?: any) {
     let path = this.getApi() + "/" + _.trim(endpoint, '/');
     let query = new URLSearchParams(params).toString()
-    console.log(query, params);
+    // console.log(query, params);
     return fetch(path + "?" + query, {
       headers: this.getHeaders(headers),
       mode: "cors", // no-cors, *cors, same-origin

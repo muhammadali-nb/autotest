@@ -47,6 +47,7 @@ const CarRentContacts: React.FC<{
 	// 	"неизвестно";
 
 	const send = () => {
+		rentService.bookingCar();
 		let errors = Utils.validateForm(props.data);
 		if (Object.keys(errors).length > 0) {
 			props.setData({ ...props.data, errors: errors });
