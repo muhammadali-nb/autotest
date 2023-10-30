@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
 import Loader from "../../common/Loader";
 import RentCarFullImage from "./RentCarFullImage";
+import LoadError from "../../common/LoadError";
 
 const RentCarDetail = () => {
 	const car = useLoaderData() as CarRentDataInfo;
@@ -16,16 +17,15 @@ const RentCarDetail = () => {
 	const [modalActive, setModalActive] = useState(false);
 
 	const { data, error, isLoading, isSuccess } = useQuery({
-		queryKey: ["rent-car", carID],
+		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
 	});
 
-	
+	if (isLoading) return <Loader />;
+	if (error) <LoadError response={error} />;
 	return (
 		<CarDetailLayout>
-			{isLoading ? (
-				<Loader />
-			) : isSuccess ? (
+			{isSuccess ? (
 				<>
 					<RentCarImagesCarousel
 						setFullScreen={setModalActive}

@@ -54,9 +54,6 @@ const FilterButtons: React.FC<{
 		dispatch(setFilter({ ...filter, [block]: value }));
 	};
 
-	useEffect(() => {
-		console.log(filter);
-	}, [filter]);
 	return (
 		<div
 			className={"d-lg-flex gap-3 justify-content-between mb-px-25 flex-wrap"}>

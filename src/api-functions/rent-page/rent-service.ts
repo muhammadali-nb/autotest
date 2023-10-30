@@ -26,6 +26,9 @@ class RentService {
     }
     return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=rent-car&id=${id}`).then(res => res.data)
   }
+  bookingCar() {
+    return axios.get('https://taxivoshod.ru/api/login.php')
+  }
 }
 
 export default new RentService()
