@@ -7,8 +7,7 @@ import CarRentForm from "./CarRentForm";
 import CarImage from "../../img/rent/auto_card.png";
 import CarImageDesktop from "../../img/index/car.webp";
 import { TypeImages } from "../pages/Rent/RentCarImagesCarousel";
-import { CarDataType } from "../../types/rent-types";
-
+import { CarDataType } from "../../types/RentTypes";
 
 export type ImageInfo = {
 	thumb: string;
@@ -112,7 +111,6 @@ export const CarPreorderButton: React.FC<{
 };
 
 export const CarRentButton: React.FC<{
-
 	car: CarDataType;
 	style?: React.CSSProperties;
 	className?: string;
@@ -254,7 +252,6 @@ export const CarRentCard: React.FC<{
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
 	const navigate = useNavigate();
 	// console.log(car);
-
 	// const tags =
 	// 	baseData.top?.rent.values?.filter((i) => car.special.includes(i.id)) ?? [];
 	// const brand =

@@ -3,7 +3,7 @@ import { BaseState, mockBaseState } from "./store/reducers/baseDataSlice";
 import { CarData, CarDataInfo, CarRentDataInfo } from "./components/common/CarCard";
 import { Filter } from "./store/reducers/filterSlice";
 import _ from 'lodash';
-import { CarDataType } from "./types/rent-types";
+import { CarDataType } from "./types/RentTypes";
 
 
 
@@ -308,11 +308,13 @@ const defaultError: ErrorResponse = { error: 'Ошибка', message: 'Ошиб�
 export type CallRequestData = {
   name: string,
   lastName: string,
+  middleName: string,
   phone: string,
   confirm: boolean,
   comment?: string,
   email?: string,
   errors: object,
+
 }
 export interface CallRequestResponse { success: boolean, fields?: object }
 

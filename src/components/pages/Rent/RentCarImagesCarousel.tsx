@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { CarData, CarRentDataInfo } from "../../common/CarCard";
 
 import caretLeft from "./../../../img/common/caret-left-big.svg";
-
 import caretRight from "./../../../img/common/caret-right-big.svg";
-import { Link, useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 
 export type TypeImages = {
@@ -49,7 +48,7 @@ const RentCarImagesCarousel = ({
 							<img
 								className="d-block w-100 car-images-image"
 								src={_item.image}
-								alt=""
+								alt="car_image"
 							/>
 						</div>
 					</Carousel.Item>

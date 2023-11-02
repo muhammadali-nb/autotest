@@ -1,33 +1,36 @@
-import React, { ReactNode, useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import Api, { CallRequestData, ErrorResponse } from "../../Api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { ReactNode, useEffect, useState } from "react";
+import { Carousel } from "react-bootstrap";
+import Api, { CallRequestData } from "../../Api";
+import Utils from "../../Utils";
+import caretLeft from "../../img/common/caret-left-big.svg";
+import caretRight from "../../img/common/caret-right-big.svg";
+import { useAppSelector } from "../../store/hooks";
+import { BaseState } from "../../store/reducers/baseDataSlice";
+import { CarImagesModal } from "../pages/Car/CarImages";
+import {
+	CarStatBlockEntry,
+	CarStatBlockItem,
+	CarStatBlockProps,
+} from "../pages/Car/CarStatBlock";
+import bankCardImg from "./../../img/common/bank-card.png";
+import sbpImg from "./../../img/common/sbp.png";
+import { CarTag } from "./CarCard";
+import LoadError from "./LoadError";
+import Loader from "./Loader";
 import ModalFormTemplate, {
 	ModalTemplateConfirm,
 	ModalTemplateContent,
 	ModalTemplateInput,
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
-import Utils from "../../Utils";
-import { CarTag } from "./CarCard";
-import { BaseState } from "../../store/reducers/baseDataSlice";
-import { useAppSelector } from "../../store/hooks";
-import sbpImg from "./../../img/common/sbp.png";
-import bankCardImg from "./../../img/common/bank-card.png";
-import {
-	CarStatBlockEntry,
-	CarStatBlockItem,
-	CarStatBlockProps,
-} from "../pages/Car/CarStatBlock";
-import Loader from "./Loader";
-import LoadError from "./LoadError";
-import { Carousel } from "react-bootstrap";
-import caretLeft from "../../img/common/caret-left-big.svg";
-import caretRight from "../../img/common/caret-right-big.svg";
-import { CarImagesModal } from "../pages/Car/CarImages";
-import { useQuery } from "@tanstack/react-query";
-import rentService from "../../api-functions/rent-page/rent-service";
-import { CarDataType } from "../../types/rent-types";
+
+import axios, { AxiosResponse } from "axios";
+import { useAuth } from "../../hooks/useAuth";
+import { CarDataType } from "../../types/RentTypes";
+import FileInput from "./FileInput";
+import { AuthResponce } from "../../types/AuthContextTypes";
 
 const CarRentContacts: React.FC<{
 	closeFunc: () => void;
@@ -36,9 +39,12 @@ const CarRentContacts: React.FC<{
 	setData: (CallRequestData) => void;
 	data: CallRequestData;
 	closeOnBack?: boolean;
+	submit: () => void;
 }> = (props) => {
 	const [passed, setPassed] = useState(false);
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
+	const [phone, setPhone] = useState(props.data.phone);
+	const { user_status } = useAuth();
 	// const brand =
 	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
 	// 	"неизвестно";
@@ -47,30 +53,32 @@ const CarRentContacts: React.FC<{
 	// 	"неизвестно";
 
 	const send = () => {
-		rentService.bookingCar();
 		let errors = Utils.validateForm(props.data);
+
 		if (Object.keys(errors).length > 0) {
 			props.setData({ ...props.data, errors: errors });
 			setPassed(false);
 			return;
 		}
-		Api.carRentCodeRequest(props.data).then((resp) => {
-			if (Api.isError(resp)) {
-				props.setData({
-					...props.data,
-					errors: { server: "Ошибка соединения с сервером!" },
-				});
-				return;
-			}
+		props.submit();
 
-			if (resp.success) {
-				props.setStep("confirm");
-				setPassed(true);
-			} else {
-				props.setData({ ...props.data, errors: resp.fields ?? {} });
-				setPassed(false);
-			}
-		});
+		// Api.carRentCodeRequest(props.data).then((resp) => {
+		// 	if (Api.isError(resp)) {
+		// 		props.setData({
+		// 			...props.data,
+		// 			errors: { server: "Ошибка соединения с сервером!" },
+		// 		});
+		// 		return;
+		// 	}
+
+		// 	if (resp.success) {
+		// 		// props.setStep("confirm");
+		// 		setPassed(true);
+		// 	} else {
+		// 		props.setData({ ...props.data, errors: resp.fields ?? {} });
+		// 		setPassed(false);
+		// 	}
+		// });
 	};
 	const update = (field: string, value: any) => {
 		let errors = props.data.errors;
@@ -79,6 +87,8 @@ const CarRentContacts: React.FC<{
 		props.setData(newData);
 		errors = Utils.validateForm(newData);
 		setPassed(Object.keys(errors).length === 0);
+
+		// Utils.validatePhone(props.data.phone);
 	};
 	return (
 		<ModalTemplateContent>
@@ -113,28 +123,12 @@ const CarRentContacts: React.FC<{
 			</div>
 			<div>
 				<div>
-					<ModalTemplateInput
-						error={props.data.errors["name"]}
-						onInput={(e: any) => update("name", e.target.value)}
-						onChange={(e: any) => update("name", e.target.value)}
-						value={props.data.name}
-						small={false}
-						placeholder={"Имя"}
-					/>
-					<ModalTemplateInput
-						error={props.data.errors["lastName"]}
-						onInput={(e: any) => update("lastName", e.target.value)}
-						onChange={(e: any) => update("lastName", e.target.value)}
-						value={props.data.lastName}
-						small={false}
-						placeholder={"Фамилия"}
-					/>
 					<ModalTemplatePhone
-						error={props.data.errors["phone"]}
-						onInput={(e: any) => update("phone", e.target.value)}
-						value={props.data.phone}
+						// error={phone}
+						onInput={(e: any) => setPhone(e.target.value)}
+						value={phone}
 						small={false}
-						onChange={(e: any) => update("phone", e.target.value)}
+						onChange={(e: any) => setPhone(e.target.value)}
 					/>
 				</div>
 				{props.data.errors["server"] && (
@@ -144,36 +138,46 @@ const CarRentContacts: React.FC<{
 				)}
 			</div>
 
-			<div>
-				<button
-					className={"site-btn small " + (!passed ? "dark" : "")}
-					onClick={() => send()}>
-					Отправить код
-				</button>
-				<ModalTemplateConfirm
-					small={false}
-					error={props.data.errors["confirm"]}
-					confirmed={props.data.confirm}
-					onChange={(e) => update("confirm", e.target.checked)}
-				/>
-			</div>
+			{user_status === "banned" ? (
+				<p className="text-red-color my-px-10 font-fize-14">
+					Вы забанены, и не можете дальше продвигаться
+				</p>
+			) : (
+				<div>
+					<button
+						className={"site-btn small " + (!passed ? "dark" : "")}
+						onClick={() => send()}>
+						Отправить код
+					</button>
+					<ModalTemplateConfirm
+						small={false}
+						error={props.data.errors["confirm"]}
+						confirmed={props.data.confirm}
+						onChange={(e) => update("confirm", e.target.checked)}
+					/>
+				</div>
+			)}
 		</ModalTemplateContent>
 	);
 };
 
-const defaultSmsTimer = 20;
 const CarRentConfirmPhone: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
 	car: CarDataType;
 	data: CallRequestData;
+	timer: number;
+	repeatRequest: () => void;
 }> = (props) => {
 	const [passed, setPassed] = useState(false);
 	const [code, setCode] = useState("      ");
 	const [error, setError] = useState("");
 	const [idPrefix] = useState(Utils.randomString());
-	const [timer, setTimer] = useState(0);
+	const { register, isAuthenticated, has_profile, api_status, error_message } =
+		useAuth();
+	const [timer, setTimer] = useState(props.timer);
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
+
 	// const brand =
 	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
 	// 	"неизвестно";
@@ -186,7 +190,7 @@ const CarRentConfirmPhone: React.FC<{
 		let item = document.getElementById(id) as HTMLInputElement;
 		item?.focus();
 		item?.setSelectionRange(0, 1);
-		setTimer(defaultSmsTimer);
+		setTimer(props.timer);
 	}, []);
 	useEffect(() => {
 		if (timer > 0)
@@ -199,43 +203,42 @@ const CarRentConfirmPhone: React.FC<{
 		let seconds = ("0" + (timer % 60)).slice(-2);
 		return minutes + ":" + seconds;
 	};
-	const requestCode = () => {
-		Api.carRentCodeRequest(props.data).then((resp) => {
-			if (Api.isError(resp)) {
-				setError("Ошибка соединения с сервером!");
-				return;
-			}
-			if (resp.success) {
-				setTimer(defaultSmsTimer);
-			}
-		});
-	};
+	// const requestCode = () => {
+	// 	Api.carRentCodeRequest(props.data).then((resp) => {
+	// 		if (Api.isError(resp)) {
+	// 			setError("Ошибка соединения с сервером!");
+	// 			return;
+	// 		}
+	// 		if (resp.success) {
+	// 			setTimer(props.timer);
+	// 		}
+	// 	});
+	// };
 
-	const send = () => {
-		if (code.replace(/\D+/g, "").length < 6) {
+	useEffect(() => {
+		console.log(error_message);
+	}, [error_message]);
+
+	const send = async () => {
+		if (code.replace(/\D+/g, "").length < 5) {
 			setError("Укажите код подтверждения!");
 			setPassed(false);
 			return;
 		}
-		Api.carRentConfirmRequest(props.data, code).then((resp) => {
-			if (Api.isError(resp)) {
-				setError("Ошибка соединения с сервером!");
-				return;
-			}
 
-			if (resp.success) {
-				props.setStep("payment");
+		try {
+			const res: any = await register(props.data.phone, code);
+			if (res.success) {
+				props.setStep("create");
 				setPassed(true);
-			} else {
-				setError(
-					resp.fields && resp.fields["code"]
-						? resp.fields["code"]
-						: "Неправильный код подтверждения"
-				);
-				setPassed(false);
 			}
-		});
+		} catch (error) {
+			console.log(error);
+			setError("Неправильный код подтверждения");
+			setPassed(false);
+		}
 	};
+
 	const update = (index: number, value: string) => {
 		if (!value.replace(/\D/, "")) {
 			setPassed(false);
@@ -281,7 +284,7 @@ const CarRentConfirmPhone: React.FC<{
 					<div className={"call-content-text font-size-16"}>
 						<span className={"text-default"}>Мы отправили вам код</span>
 						<br />
-						на номер +7 (999) 999 - 99 -99
+						на номер +{props.data.phone}
 					</div>
 				</div>
 			</div>
@@ -322,13 +325,6 @@ const CarRentConfirmPhone: React.FC<{
 						maxLength={1}
 						onInput={(e: any) => update(4, e.target.value)}
 					/>
-					<ModalTemplateInput
-						small={false}
-						id={"confirm" + props.car.id + idPrefix + "-5"}
-						container_style={{ maxWidth: "40px" }}
-						maxLength={1}
-						onInput={(e: any) => update(5, e.target.value)}
-					/>
 				</div>
 				{timer > 0 && (
 					<div className={"my-px-10 font-size-14 text-gray-color"}>
@@ -341,13 +337,15 @@ const CarRentConfirmPhone: React.FC<{
 							className={
 								"default-link text-default text-decoration-underline font-size-14"
 							}
-							onClick={requestCode}>
+							onClick={props.repeatRequest}>
 							Отправить СМС ещё раз
 						</button>
 					</div>
 				)}
-				{error && (
-					<div className={"my-2 text-red-color font-size-14"}>{error}</div>
+				{error_message && (
+					<div className={"my-2 text-red-color font-size-14"}>
+						Неправильный код. Попробуйте еще.
+					</div>
 				)}
 			</div>
 
@@ -404,6 +402,7 @@ const CarRentPaymentType: React.FC<{
 	const [error, setError] = useState("");
 	const [redButton, setRedButton] = useState(false);
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
+	const { isAuthenticated, user_status, has_profile } = useAuth();
 	// const brand =
 	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
 	// 	"неизвестно";
@@ -448,7 +447,7 @@ const CarRentPaymentType: React.FC<{
 						className={
 							"default-link font-size-18 font-weight-semibold text-hover-default"
 						}
-						onClick={() => props.setStep("confirm")}>
+						onClick={() => props.setStep(isAuthenticated ? "rent" : "start")}>
 						<FontAwesomeIcon icon={faAngleLeft} />
 						&nbsp;&nbsp;ВЕРНУТЬСЯ
 					</button>
@@ -544,7 +543,7 @@ const CarRentFormConfirmed: React.FC<{ closeFunc: () => void }> = (props) => {
 
 const CarRequestFormContent: React.FC<{
 	closeFunc: () => void;
-	setStep: (string) => void;
+	setStep: () => void;
 	car: CarDataType;
 }> = (props) => {
 	// const baseData: BaseState = useAppSelector((state) => state.baseData);
@@ -608,7 +607,7 @@ const CarRequestFormContent: React.FC<{
 					<button
 						className={"site-btn big"}
 						onClick={() => {
-							props.setStep("start");
+							props.setStep();
 						}}>
 						Забронировать
 					</button>
@@ -763,6 +762,117 @@ export const CarRequestFormImage: React.FC<{
 	);
 };
 
+const CarRentCreateAccount: React.FC<{
+	closeFunc: () => void;
+	setStep: (string) => void;
+	car: CarDataType;
+	setData: (CallRequestData) => void;
+	data: CallRequestData;
+	closeOnBack?: boolean;
+}> = (props) => {
+	const [name, setName] = useState("");
+	const [surname, setSurname] = useState("");
+	const [patronymic, setPatronymic] = useState("");
+	const [driviringPermitImage, setDriviringPermitImage] = useState(null);
+	const [passed, setPassed] = useState(false);
+
+	const update = (field: string, value: any) => {
+		let errors = props.data.errors;
+		delete errors[field];
+		let newData = { ...props.data, [field]: value, errors: errors };
+		props.setData(newData);
+		errors = Utils.validateForm(newData);
+		setPassed(Object.keys(errors).length === 0);
+	};
+
+	const createAccount = async () => {
+		props.setStep("payment");
+		// axios.post(
+		// 	`https://taxivoshod.ru/api/voshod-auto/?w=update-profile`,
+		// 	JSON.stringify({
+		// 		first_name: name,
+		// 		last_name: surname,
+		// 		middle_name: patronymic,
+		// 	}),
+		// 	{
+		// 		withCredentials: true,
+		// 	}
+		// ).then(res => console.log(res.data))
+	};
+
+	return (
+		<ModalTemplateContent>
+			<div>
+				<div className={"mb-px-90"}>
+					<button
+						className={
+							"default-link font-size-18 font-weight-semibold text-hover-default"
+						}
+						onClick={() => {
+							props.closeOnBack ? props.closeFunc() : props.setStep("rent");
+						}}>
+						<FontAwesomeIcon icon={faAngleLeft} />
+						&nbsp;&nbsp;ВЕРНУТЬСЯ
+					</button>
+				</div>
+				<div>
+					<div
+						className={
+							"call-content-text-header font-size-40 line-height-120 mb-px-10"
+						}>
+						Бронирование
+						<br />
+						{props.car.brand} {props.car.model}
+					</div>
+					<div className={"call-content-text font-size-16"}>
+						Оставьте свой номер телефона,
+						<br />
+						для регистрации и оплаты бронирования
+					</div>
+				</div>
+			</div>
+			<div>
+				<ModalTemplateInput
+					placeholder="Фамилия"
+					value={surname}
+					small={false}
+					onChange={(e) => setSurname(e.target.value)}
+				/>
+				<ModalTemplateInput
+					placeholder="Имя"
+					value={name}
+					small={false}
+					onChange={(e) => setName(e.target.value)}
+				/>
+				<ModalTemplateInput
+					placeholder="Отчество"
+					value={patronymic}
+					small={false}
+					onChange={(e) => setPatronymic(e.target.value)}
+				/>
+
+				{/* <ModalTemplatePhone
+						error={props.data.errors["phone"]}
+						onInput={(e: any) => update("phone", e.target.value)}
+						value={props.data.phone}
+						small={false}
+						onChange={(e: any) => update("phone", e.target.value)}
+					/> */}
+
+				<FileInput />
+			</div>
+			<button
+				className={
+					"site-btn small "
+					// (!passed ? "dark" : "")
+				}
+				onClick={() => createAccount()}>
+				Перейти к оплате
+			</button>
+		</ModalTemplateContent>
+	);
+};
+
 const CarBookingForm: React.FC<{
 	wide?: boolean;
 	text?: string | ReactNode;
@@ -772,20 +882,51 @@ const CarBookingForm: React.FC<{
 	car: CarDataType | any;
 	car_id: number;
 }> = (props) => {
+	const { isAuthenticated, user_status, has_profile } = useAuth();
 	const [show, setShow] = useState(false);
-	const [step, setStep] = useState(props.step ?? "rent");
+	const [step, setStep] = useState<
+		"rent" | "start" | "confirm" | "create" | "payment" | "finish"
+	>("create");
 	const [state, setState] = useState<CallRequestData>({
 		name: "",
 		lastName: "",
 		phone: "",
 		confirm: false,
+		middleName: "",
 		errors: {},
 	});
 
-	// const { data, error, isLoading, isSuccess } = useQuery({
-	// 	queryKey: ["rent-car"],
-	// 	queryFn: () => rentService.getOneCar(props.car_id),
-	// });
+	const [timer, setTimer] = useState(0);
+	const confirmPhone = async () => {
+		if (user_status === "banned") {
+			return;
+		}
+		axios
+			.get(
+				`https://taxivoshod.ru/api/login.php?auth=1&reg=1&phone=${state.phone}`,
+				{ withCredentials: true }
+			)
+			.then((res) => {
+				if (res.data.success) {
+					setStep("confirm");
+					setTimer(res.data.timer ?? 59);
+				}
+			})
+			.catch((e) => console.log(e));
+	};
+
+	const ckeckSteps = () => {
+		if (isAuthenticated && has_profile) {
+			setStep("payment");
+		}
+		if (!has_profile && user_status === "need_auth") {
+			setStep("start");
+		}
+		if (isAuthenticated && !has_profile) {
+			setStep("create");
+		}
+	};
+
 	const handleClose = () => setShow(false);
 	const handleShow = () => {
 		if (props.func) props.func();
@@ -813,13 +954,14 @@ const CarBookingForm: React.FC<{
 				}>
 				{step === "rent" && (
 					<CarRequestFormContent
-						setStep={setStep}
+						setStep={ckeckSteps}
 						closeFunc={handleClose}
 						car={props.car}
 					/>
 				)}
 				{step === "start" && (
 					<CarRentContacts
+						submit={confirmPhone}
 						data={state}
 						setData={setState}
 						closeOnBack={props.step == "start"}
@@ -830,12 +972,25 @@ const CarBookingForm: React.FC<{
 				)}
 				{step === "confirm" && (
 					<CarRentConfirmPhone
+						timer={timer}
 						data={state}
+						repeatRequest={confirmPhone}
 						car={props.car}
 						closeFunc={handleClose}
 						setStep={setStep}
 					/>
 				)}
+				{step === "create" && (
+					<CarRentCreateAccount
+						data={state}
+						setData={setState}
+						closeOnBack={props.step == "start"}
+						car={props.car}
+						closeFunc={handleClose}
+						setStep={setStep}
+					/>
+				)}
+
 				{step === "payment" && (
 					<CarRentPaymentType
 						data={state}

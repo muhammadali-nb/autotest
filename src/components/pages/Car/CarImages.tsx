@@ -8,8 +8,9 @@ import caretRight from "./../../../img/common/caret-right-big.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { CarDataType } from "../../../types/rent-types";
+
 import { TypeImages } from "../Rent/RentCarImagesCarousel";
+import { CarDataType } from "../../../types/RentTypes";
 
 export const CarImagesModal: React.FC<{
 	show: boolean;
