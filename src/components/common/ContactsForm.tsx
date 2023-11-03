@@ -40,6 +40,7 @@ const ContactsForm: React.FC<{
 		phone: "",
 		confirm: false,
 		errors: {},
+		middleName: "",
 	});
 	const [sent, setSent] = useState(false);
 	const [passed, setPassed] = useState(false);

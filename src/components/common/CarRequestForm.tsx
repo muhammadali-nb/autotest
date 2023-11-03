@@ -20,6 +20,7 @@ const CarRequestFormContent: React.FC<{
 		phone: "",
 		confirm: false,
 		errors: {},
+		middleName: ''
 	});
 	const [passed, setPassed] = useState(false);
 	const send = () => {

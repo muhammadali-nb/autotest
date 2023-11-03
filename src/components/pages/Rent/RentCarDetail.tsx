@@ -10,11 +10,13 @@ import rentService from "../../../api-functions/rent-page/rent-service";
 import Loader from "../../common/Loader";
 import RentCarFullImage from "./RentCarFullImage";
 import LoadError from "../../common/LoadError";
+import { RentModalMobile } from "../../common/Rent/RentModalMobile";
 
 const RentCarDetail = () => {
 	const car = useLoaderData() as CarRentDataInfo;
 	const { carID } = useParams();
-	const [modalActive, setModalActive] = useState(false);
+	const [modalFullImage, setModalFullImage] = useState(false);
+	const [modalBookingCar, setModalBookingCar] = useState(false);
 
 	const { data, error, isLoading, isSuccess } = useQuery({
 		queryKey: [`rent-car-${carID}`, carID],
@@ -28,7 +30,7 @@ const RentCarDetail = () => {
 			{isSuccess ? (
 				<>
 					<RentCarImagesCarousel
-						setFullScreen={setModalActive}
+						setFullScreen={setModalFullImage}
 						images={data.item.images}
 					/>
 					<Container fluid={"xxl"}>
@@ -64,12 +66,20 @@ const RentCarDetail = () => {
 						</div>
 					</Container>
 					<div className="car-detail_tobook">
-						<button className="site-btn big">Забронировать</button>
+						<button
+							className="site-btn big"
+							onClick={() => setModalBookingCar(true)}>
+							Забронировать
+						</button>
 					</div>
 					<RentCarFullImage
 						images={isSuccess && data.item.images}
-						active={modalActive}
-						setActive={setModalActive}
+						active={modalFullImage}
+						setActive={setModalFullImage}
+					/>
+					<RentModalMobile
+						active={modalBookingCar}
+						setActive={setModalBookingCar}
 					/>
 				</>
 			) : (
