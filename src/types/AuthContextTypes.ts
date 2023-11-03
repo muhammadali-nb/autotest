@@ -22,3 +22,9 @@ export interface AuthInitialState {
   error_message: string | null
 }
 
+export type RegisterErrorType = {
+  message: string
+  success: boolean
+  timeout: number
+  reason: string
+}

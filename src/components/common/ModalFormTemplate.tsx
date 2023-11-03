@@ -9,6 +9,7 @@ interface ModalTemplateInputProps {
 	placeholder?: string;
 	onInput?: any;
 	onChange?: any;
+	name?: string;
 	value?: any;
 	confirmed?: boolean;
 	show_text?: any;
@@ -49,6 +50,7 @@ export const ModalTemplateInput: React.FC<ModalTemplateInputProps> = (
 				placeholder={props.placeholder}
 				value={props.value}
 				style={props.style}
+				name={props.name}
 			/>
 		</div>
 	);
@@ -73,6 +75,7 @@ export const ModalTemplateTextarea: React.FC<ModalTemplateInputProps> = (
 				className={"contacts__form-textarea " + (props.error ? " error" : "")}
 				onInput={props.onInput}
 				value={props.value ?? ""}
+				name={props.name}
 				placeholder={props.placeholder}></textarea>
 		</div>
 	);
@@ -96,9 +99,10 @@ export const ModalTemplatePhone: React.FC<ModalTemplateInputProps> = (
 			<InputMask
 				{...props}
 				className={"contacts__form-input " + (props.error ? " error" : "")}
-				mask="+7 999 999 99 99"
+				mask="+9 999 999 99 99"
 				maskChar=" "
 				type="tel"
+				name={props.name}
 				placeholder={"+7 000 000 00 00"}
 			/>
 		</div>
@@ -118,6 +122,7 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 				checked={props.confirmed}
 				onChange={props.onChange}
 				className="form-check-modal"
+				name={props.name}
 				label={
 					<span
 						style={{ fontSize: "14px", marginLeft: "12px" }}
