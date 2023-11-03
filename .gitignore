@@ -4,3 +4,6 @@ build/
 .idea/
 .DS_Store
 yarn.lock
+ssl/
+package.json
+
