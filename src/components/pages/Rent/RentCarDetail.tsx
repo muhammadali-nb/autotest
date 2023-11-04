@@ -19,7 +19,7 @@ const RentCarDetail = () => {
 	const { carID } = useParams();
 	const [modalFullImage, setModalFullImage] = useState(false);
 	const [modalBookingCar, setModalBookingCar] = useState(false);
-	const { isAuthenticated, has_profile } = useAuth();
+	const { isAuthenticated, has_profile, initialize } = useAuth();
 	const [step, setStep] = useState<CarBookingStepsType>("start");
 
 	const { data, error, isLoading, isSuccess } = useQuery({
@@ -28,6 +28,7 @@ const RentCarDetail = () => {
 	});
 
 	const checkSteps = () => {
+		initialize();
 		// if (!isAuthenticated && !has_profile) {
 		// 	setStep("start");
 		// } else if (isAuthenticated && has_profile) {
@@ -40,7 +41,7 @@ const RentCarDetail = () => {
 	};
 
 	if (isLoading) return <Loader />;
-	if (error) <LoadError response={error} />;
+	if (error) return <LoadError response={error} />;
 	return (
 		<CarDetailLayout>
 			{isSuccess ? (

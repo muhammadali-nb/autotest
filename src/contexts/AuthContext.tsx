@@ -75,6 +75,7 @@ export const AuthContext = createContext({
 	logout: () => Promise.resolve(),
 	register: (phone: string, code: string) => Promise.resolve({}),
 	registerConxfirm: () => Promise.resolve(),
+	initialize: () => Promise.resolve(),
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -121,7 +122,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const register = async (phone: string, password: string) => {
 		try {
 			const res: AxiosResponse<AuthResponce> = await axios.get(
-				`https://taxivoshod.ru/api/login.php?auth=1&reg=1& phone=${phone}&code=${password}`,
+				`https://taxivoshod.ru/api/login.php?auth=1&reg=1&phone=${phone}&code=${password}`,
 				{ withCredentials: true }
 			);
 
@@ -161,6 +162,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			value={{
 				...state,
 				register,
+				initialize,
 			}}>
 			{children}
 		</AuthContext.Provider>

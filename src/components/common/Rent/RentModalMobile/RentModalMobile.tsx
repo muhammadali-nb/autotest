@@ -30,11 +30,27 @@ export const RentModalMobile = ({
 		else document.body.style.overflow = "unset";
 	}, [active]);
 
+	const [data, setData] = useState({
+		phone: "",
+		confirm: true,
+		errors: {},
+	});
+
+	const [timer, setTimer] = useState(59);
+
 	const renderSteps = () => {
 		if (step === "start") {
 			return <RentModalMobileStart />;
 		} else if (step === "confirm") {
-			return <RentModalMobileConfirm />;
+			return (
+				<RentModalMobileConfirm
+					step={step}
+					setStep={setStep}
+					car={car}
+					phone={data.phone}
+					timerConfirm={timer}
+				/>
+			);
 		} else if (step === "create") {
 			return <RentModalMobileCreate />;
 		} else if (step === "payment") {
@@ -61,7 +77,19 @@ export const RentModalMobile = ({
 					</p>
 				</div>
 			</div>
-			<div className="mobile-modal_body">{renderSteps()}</div>
+			<div className="mobile-modal_body">
+				<h1>
+					Бронирование <br /> <span>Grand Vitara</span>
+				</h1>
+				<p>
+					Оставьте свой номер телефона <br /> и мы перезвоним вам в ближайшее
+					время
+				</p>
+				{renderSteps()}
+			</div>
+			<div className=" personal-account_footer mobile-modal_footer ">
+				ООО ВОСХОДⓒ 2023 год
+			</div>
 		</div>
 	);
 };

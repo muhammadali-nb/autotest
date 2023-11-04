@@ -871,8 +871,8 @@ code {
 
 .modal-template {
   display: flex;
-  border-radius: 3px;
-  overflow: hidden;
+  // border-radius: 3px;
+  // overflow: hidden;
 
   .modal-image-block {
     width: 55%;
@@ -1033,6 +1033,42 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
+  @include l-md {
+    height: 40px;
+    border: 1.5px solid #e7e7e8;
+    box-shadow: none;
+    padding: 0 12px 0 0;
+  }
+
+  &.selected {
+    justify-content: left;
+  }
+
+  &_selected-image {
+    height: 100%;
+    width: 70px;
+    border-radius: 2px;
+    background:
+      linear-gradient(
+        228deg,
+        rgba(78, 84, 89, 0.57) 27.81%,
+        rgba(78, 84, 89, 0.58) 44.96%,
+        rgba(78, 84, 89, 0.52) 93.65%
+      ),
+      lightgray -11.528px -2px / 134.933% 106.061% no-repeat;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+
+    @include l-md {
+      width: 40px;
+    }
+  }
+
+  &_icon {
+    display: block;
+    @include l-md {
+      display: none;
+    }
+  }
 
   & > p {
     font-size: 16px;
@@ -1041,6 +1077,10 @@ code {
     letter-spacing: 0.32px;
     text-transform: uppercase;
     margin: 0 0 0 20px;
+
+    @include l-md {
+      font-size: 12px;
+    }
   }
   & > input {
     display: none;
