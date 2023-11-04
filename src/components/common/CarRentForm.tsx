@@ -321,7 +321,7 @@ const CarRentConfirmPhone: React.FC<{
 	);
 };
 
-const CarRentPaymentButton: React.FC<{
+export const CarRentPaymentButton: React.FC<{
 	payment: string;
 	error: boolean;
 	image: string;
@@ -703,6 +703,12 @@ export const CarRequestFormImage: React.FC<{
 	);
 };
 
+// const jsons = JSON.stringify({
+// first_name: state.name,
+// last_name: state.lastName,
+// middle_name: state.middleName,
+// })}
+
 const CarRentCreateAccount: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
@@ -711,13 +717,16 @@ const CarRentCreateAccount: React.FC<{
 	data: ConfirmPhone | CallRequestData;
 	closeOnBack?: boolean;
 }> = (props) => {
+	const [base64, setBase64] = useState("");
 	const [state, setState] = useState<RentCreateAccountForm>({
 		name: "",
 		lastName: "",
 		middleName: "",
+		image: "",
 		errors: {},
 	});
 	const [passed, setPassed] = useState(false);
+	// const json = JSON.stringify();
 
 	const createAccount = async () => {
 		let errors = Utils.validateRentCreateAccont(state);
@@ -729,24 +738,52 @@ const CarRentCreateAccount: React.FC<{
 			return;
 		}
 
-		axios
-			.post(`https://taxivoshod.ru/api/voshod-auto/?w=update-profile`, {
-				body: JSON.stringify({
-					first_name: state.name,
-					last_name: state.lastName,
-					middle_name: state.middleName,
-				}),
-				withCredentials: true,
-			})
-			.then((res) => {
-				if (res.data.success) {
-					props.setStep("payment");
-					setPassed(true);
-				} else {
-					setPassed(false);
-				}
-			})
-			.catch((err) => console.log(state));
+		axios({
+			method: "post",
+			url: "https://taxivoshod.ru/api/voshod-auto/",
+			withCredentials: true,
+			data: {
+				w: "update-profile",
+				first_name: state.name,
+				last_name: state.lastName,
+				middle_name: state.middleName,
+			},
+		});
+
+		// axios
+		// 	.post(`https://taxivoshod.ru/api/voshod-auto/`, {
+		// 		withCredentials: true,
+		// 		data: {
+		// 			w: "update-profile",
+		// 			first_name: state.name,
+		// 			last_name: state.lastName,
+		// 			middle_name: state.middleName,
+		// 			license_photo: base64,
+		// 		},
+		// 	})
+		// 	.then((res) => {
+		// 		if (res.data.success) {
+		// 			props.setStep("payment");
+		// 			setPassed(true);
+		// 		} else {
+		// 			setPassed(false);
+		// 		}
+		// 	})
+		// 	.catch((err) => console.log(state));
+	};
+
+	const openAccount = () => {
+		axios({
+			method: "post",
+			url: "https://taxivoshod.ru/api/voshod-auto/",
+			withCredentials: true,
+			data: {
+				w: "update-profile",
+				first_name: state.name,
+				last_name: state.lastName,
+				middle_name: state.middleName,
+			},
+		});
 	};
 
 	const updateForm = (field: string, value: any) => {
@@ -815,11 +852,11 @@ const CarRentCreateAccount: React.FC<{
 					onChange={(e) => updateForm("middleName", e.target.value)}
 					onInput={(e) => updateForm("middleName", e.target.value)}
 				/>
-				<FileInput />
+				<FileInput upload={setBase64} />
 			</div>
 			<button
 				className={"site-btn small " + (!passed ? "dark" : "")}
-				onClick={() => createAccount()}>
+				onClick={() => openAccount()}>
 				Перейти к оплате
 			</button>
 		</ModalTemplateContent>
@@ -835,9 +872,9 @@ const CarBookingForm: React.FC<{
 	car: CarDataType | any;
 	car_id: number;
 }> = (props) => {
-	const { isAuthenticated, user_status, has_profile } = useAuth();
+	const { isAuthenticated, user_status, has_profile, initialize } = useAuth();
 	const [show, setShow] = useState(false);
-	const [step, setStep] = useState<CarBookingStepsType>("rent");
+	const [step, setStep] = useState<CarBookingStepsType>("create");
 	const [state, setState] = useState<ConfirmPhone>({
 		phone: "",
 		confirm: false,
@@ -863,6 +900,7 @@ const CarBookingForm: React.FC<{
 	};
 
 	const ckeckSteps = () => {
+		initialize();
 		if (isAuthenticated && has_profile) {
 			setStep("payment");
 		}

@@ -44,9 +44,6 @@ const FilterButtons: React.FC<{
 		tarif: RentFilterDateValue;
 	} | null;
 }> = ({ mode = "book", isShowMobileFiler, rentFilterData }) => {
-	const [selectedState, setSelectedState] = useState("all");
-	const [selectedClass, setSelectedClass] = useState("all");
-
 	const filterList = useAppSelector((state) => state.baseData.top);
 	const filter = useAppSelector((state) => state.filter);
 	const dispatch = useAppDispatch();
@@ -160,7 +157,7 @@ const FilterButtons: React.FC<{
 						"catalog__filter-container d-none d-lg-flex gap-2 py-1 justify-content-start flex-wrap"
 					}>
 					<button
-						onClick={() => updateFilter("tarif", null)}
+						onClick={() => updateFilter("special", null)}
 						className={
 							"catalog__filter-btn " +
 							(filter.special === null ? " selected" : "")
@@ -179,22 +176,6 @@ const FilterButtons: React.FC<{
 							{i.name}
 						</button>
 					))}
-					{/* <button
-						onClick={() => updateFilter("available", true)}
-						className={
-							"catalog__filter-btn " +
-							(filter.available === true ? " selected" : "")
-						}>
-						Свободна
-					</button>
-					<button
-						onClick={() => updateFilter("available", false)}
-						className={
-							"catalog__filter-btn " +
-							(filter.available === false ? " selected" : "")
-						}>
-						Занята
-					</button> */}
 				</div>
 			)}
 		</div>

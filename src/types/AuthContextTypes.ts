@@ -15,7 +15,7 @@ interface ResponseDataTypes {
 
 export interface AuthInitialState {
   isAuthenticated: boolean;
-  user_status: "need_auth" | "error" | "banned";
+  user_status: "need_auth" | "error" | "banned" | "success";
   has_profile: boolean
   isInitialized: boolean;
   api_status: "pending" | "success" | "error"

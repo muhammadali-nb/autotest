@@ -19,6 +19,7 @@ interface ModalTemplateInputProps {
 	style?: React.CSSProperties;
 	small: any;
 	[x: string]: any;
+	type?: string;
 }
 export const ModalTemplateInput: React.FC<ModalTemplateInputProps> = (
 	props
@@ -40,7 +41,7 @@ export const ModalTemplateInput: React.FC<ModalTemplateInputProps> = (
 			}>
 			<input
 				{...props}
-				type="text"
+				type={props.type ?? "text"}
 				onInput={props.onInput}
 				className={
 					"contacts__form-input " +

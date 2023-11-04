@@ -21,5 +21,6 @@ export interface RentCreateAccountForm {
 	name: string;
 	lastName: string;
 	middleName: string;
+	image: string;
 	errors: any;
 }

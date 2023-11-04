@@ -1,7 +1,24 @@
 import { RentCreateAccountForm } from './types/RentTypes';
 import { CallRequestData } from "./Api";
 import { ConfirmPhone } from './Api';
+
+
 let Utils = {
+
+    convertBase64(file) {
+        return new Promise((resolve, rejects) => {
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+            fileReader.onerror = (error) => {
+                rejects(error)
+            }
+        })
+    },
+
     validatePhone(phone: string) {
         return !!phone.replace(/\D+/g, '').match(/[78]\d{10}/)
     },

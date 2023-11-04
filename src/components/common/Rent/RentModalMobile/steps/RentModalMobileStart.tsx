@@ -4,17 +4,10 @@ import { ModalTemplatePhone } from "../../../ModalFormTemplate";
 
 const RentModalMobileStart = () => {
 	return (
-		<>
-			<h1>
-				Бронирование <br /> <span>Grand Vitara</span>
-			</h1>
-			<p>
-				Оставьте свой номер телефона <br /> и мы перезвоним вам в ближайшее
-				время
-			</p>
+		<div className="mobile-modal_body-start">
 			<form>
 				<ModalTemplatePhone
-					className="contacts__form-input mobile-modal_body-input"
+					className="contacts__form-input mobile-modal_body-start_input"
 					placeholder="+ 7 000 000 00 00"
 					small={true}
 				/>
@@ -32,10 +25,8 @@ const RentModalMobileStart = () => {
 					Условиями обработки персональных данных
 				</Link>
 			</p>
-			<div className=" personal-account_footer mobile-modal_body-company ">
-				ООО ВОСХОДⓒ 2023 год
-			</div>
-		</>
+			
+		</div>
 	);
 };
 
