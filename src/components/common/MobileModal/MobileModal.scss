@@ -55,11 +55,6 @@
   &_body {
     padding: 24px 16px 0 16px;
     background-color: #fff;
-    // <<<<<<< HEAD
-    //     // height: 60%;
-    // =======
-    //     // height: 100%;
-    // >>>>>>> mobile-version
 
     & > h1 {
       color: var(--Text, #222);
@@ -69,6 +64,11 @@
       letter-spacing: 0.24px;
       text-transform: uppercase;
       margin: 0 0 8px 0;
+      line-height: 24px;
+
+      & > span {
+        font-size: 16px;
+      }
     }
 
     & > p {

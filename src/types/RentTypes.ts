@@ -16,3 +16,10 @@ export interface CarDataType {
 	year: string;
 	kpp: string;
 }
+
+export interface RentCreateAccountForm {
+	name: string;
+	lastName: string;
+	middleName: string;
+	errors: any;
+}

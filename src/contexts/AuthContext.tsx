@@ -1,6 +1,10 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { ReactNode, createContext, useEffect, useReducer } from "react";
-import { AuthInitialState, AuthResponce } from "../types/AuthContextTypes";
+import {
+	AuthInitialState,
+	AuthResponce,
+	RegisterErrorType,
+} from "../types/AuthContextTypes";
 
 const actions = {
 	INITIALIZE: "INITIALIZE",
@@ -133,6 +137,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 			return res.data;
 		} catch (error) {
+			console.log((error as AxiosError).response);
 			dispatch({
 				type: actions.REGISTER,
 				payload: {
@@ -140,7 +145,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 					user: null,
 					api_status: "error",
 					has_profile: false,
-					error_message: (error as Error).message,
+					error_message: (error as AxiosError<RegisterErrorType>).response?.data
+						?.message,
 				},
 			});
 		}

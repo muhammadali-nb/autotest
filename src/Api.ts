@@ -316,6 +316,13 @@ export type CallRequestData = {
   errors: object,
 
 }
+
+export type ConfirmPhone = {
+  phone: string
+  errors: object
+  confirm: boolean
+}
+
 export interface CallRequestResponse { success: boolean, fields?: object }
 
 export interface MessageOfTheDay {
