@@ -713,12 +713,6 @@ export const CarRequestFormImage: React.FC<{
 	);
 };
 
-// const jsons = JSON.stringify({
-// first_name: state.name,
-// last_name: state.lastName,
-// middle_name: state.middleName,
-// })}
-
 const CarRentCreateAccount: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
@@ -736,7 +730,6 @@ const CarRentCreateAccount: React.FC<{
 		errors: {},
 	});
 	const [passed, setPassed] = useState(false);
-
 	const createAccount = async () => {
 		let errors = Utils.validateRentCreateAccont(state);
 
@@ -751,13 +744,17 @@ const CarRentCreateAccount: React.FC<{
 			const res = await fetch(
 				"https://taxivoshod.ru/api/voshod-auto/?w=update-profile",
 				{
-					credentials: "include",
 					method: "POST",
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+					},
 					body: JSON.stringify({
 						w: "update-profile",
 						first_name: state.name,
 						last_name: state.lastName,
 						middle_name: state.middleName,
+						license_photo: base64,
 					}),
 				}
 			);
@@ -860,7 +857,7 @@ const CarBookingForm: React.FC<{
 }> = (props) => {
 	const { isAuthenticated, user_status, has_profile, initialize } = useAuth();
 	const [show, setShow] = useState(false);
-	const [step, setStep] = useState<CarBookingStepsType>("create");
+	const [step, setStep] = useState<CarBookingStepsType>("confirm");
 	const [state, setState] = useState<ConfirmPhone>({
 		phone: "",
 		confirm: false,

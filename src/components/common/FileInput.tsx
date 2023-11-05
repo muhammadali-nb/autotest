@@ -13,7 +13,7 @@ const FileInput = ({ upload }: { upload: (e: any) => void }) => {
 		setFileName(file.name);
 		setImage(URL.createObjectURL(file));
 		const base64 = Utils.convertBase64(file);
-		upload(base64);
+		base64.then((res) => upload(res)).catch((err) => upload(""));
 	};
 
 	return (

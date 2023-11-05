@@ -62,6 +62,10 @@ const RentModalMobileStart = (props: {
 					className="contacts__form-input mobile-modal_body-start_input"
 					placeholder="+ 7 000 000 00 00"
 					small={true}
+					value={props.data.phone}
+					error={props.data.errors["phone"]}
+					onChange={(e) => update("phone", e.target.value)}
+					onInput={(e) => update("phone", e.target.value)}
 				/>
 			</form>
 			{user_status === "banned" ? (
@@ -71,7 +75,9 @@ const RentModalMobileStart = (props: {
 			) : (
 				<div>
 					<button
-						className={"site-btn small dark mb-px-25" + (!passed ? "dark" : "")}
+						className={
+							"site-btn small dark mb-px-25 " + (!passed ? "dark" : "")
+						}
 						onClick={send}>
 						Отправить код
 					</button>
