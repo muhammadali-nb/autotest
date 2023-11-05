@@ -761,8 +761,12 @@ const CarRentCreateAccount: React.FC<{
 					}),
 				}
 			);
+			if (!res.ok) {
+				throw new Error(res.statusText);
+			}
+			const data = await res.json();
 			props.setStep("payment");
-			console.log(res);
+			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -856,7 +860,7 @@ const CarBookingForm: React.FC<{
 }> = (props) => {
 	const { isAuthenticated, user_status, has_profile, initialize } = useAuth();
 	const [show, setShow] = useState(false);
-	const [step, setStep] = useState<CarBookingStepsType>("rent");
+	const [step, setStep] = useState<CarBookingStepsType>("create");
 	const [state, setState] = useState<ConfirmPhone>({
 		phone: "",
 		confirm: false,
