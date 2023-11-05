@@ -15,7 +15,7 @@ const actions = {
 
 const initialState: AuthInitialState = {
 	isAuthenticated: false,
-	user_status: "need_auth",
+	user_status: null,
 	has_profile: false,
 	isInitialized: false,
 	api_status: "pending",
@@ -24,14 +24,15 @@ const initialState: AuthInitialState = {
 
 const handlers = {
 	INITIALIZE: (state, action) => {
-		const { isAuthenticated, user, status, has_profile } = action.payload;
+		const { isAuthenticated, user, api_status, user_status, has_profile } =
+			action.payload;
 
 		return {
 			...state,
 			isAuthenticated,
 			isInitialized: true,
-			user,
-			status,
+			api_status,
+			user_status,
 			has_profile,
 		};
 	},
@@ -50,14 +51,14 @@ const handlers = {
 		user: null,
 	}),
 	REGISTER: (state, action) => {
-		const { user, status, has_profile, error_message, api_status } =
+		const { user, user_status, has_profile, error_message, api_status } =
 			action.payload;
 
 		return {
 			...state,
 			isAuthenticated: true,
 			user,
-			status,
+			user_status,
 			has_profile,
 			api_status,
 			error_message,
@@ -94,6 +95,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 						payload: {
 							isAuthenticated: true,
 							has_profile: true,
+							user_status: null,
 						},
 					});
 				} else {
@@ -132,6 +134,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 					isAuthenticated: true,
 					api_status: "success",
 					has_profile: false,
+					user_status: null,
 					err_message: null,
 				},
 			});
@@ -146,6 +149,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 					user: null,
 					api_status: "error",
 					has_profile: false,
+					user_status: (error as AxiosError<RegisterErrorType>).response?.data
+						?.reason,
 					error_message: (error as AxiosError<RegisterErrorType>).response?.data
 						?.message,
 				},

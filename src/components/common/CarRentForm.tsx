@@ -26,10 +26,11 @@ import ModalFormTemplate, {
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
 
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useAuth } from "../../hooks/useAuth";
 import { CarDataType, RentCreateAccountForm } from "../../types/RentTypes";
 import FileInput from "./FileInput";
+import { RegisterErrorType } from "../../types/AuthContextTypes";
 
 export type CarBookingStepsType =
 	| "rent"
@@ -726,7 +727,6 @@ const CarRentCreateAccount: React.FC<{
 		errors: {},
 	});
 	const [passed, setPassed] = useState(false);
-	// const json = JSON.stringify();
 
 	const createAccount = async () => {
 		let errors = Utils.validateRentCreateAccont(state);
@@ -738,18 +738,37 @@ const CarRentCreateAccount: React.FC<{
 			return;
 		}
 
-		axios({
-			method: "post",
-			url: "https://taxivoshod.ru/api/voshod-auto/",
-			withCredentials: true,
-			data: {
-				w: "update-profile",
-				first_name: state.name,
-				last_name: state.lastName,
-				middle_name: state.middleName,
-			},
-		});
+		try {
+			const res = await fetch(
+				"https://taxivoshod.ru/api/voshod-auto/?w=update-profile",
+				{
+					credentials: "include",
+					method: "POST",
+					body: JSON.stringify({
+						w: "update-profile",
+						first_name: state.name,
+						last_name: state.lastName,
+						middle_name: state.middleName,
+					}),
+				}
+			);
 
+			console.log(res);
+		} catch (error) {
+			console.log(error);
+		}
+
+		// const res = await axios({
+		// 	method: "POST",
+		// 	url: "https://taxivoshod.ru/api/voshod-auto/?w=update-profile",
+		// 	withCredentials: true,
+		// 	data: {
+		// 		w: "update-profile",
+		// 		first_name: state.name,
+		// 		last_name: state.lastName,
+		// 		middle_name: state.middleName,
+		// 	},
+		// });
 		// axios
 		// 	.post(`https://taxivoshod.ru/api/voshod-auto/`, {
 		// 		withCredentials: true,
@@ -856,7 +875,7 @@ const CarRentCreateAccount: React.FC<{
 			</div>
 			<button
 				className={"site-btn small " + (!passed ? "dark" : "")}
-				onClick={() => openAccount()}>
+				onClick={() => createAccount()}>
 				Перейти к оплате
 			</button>
 		</ModalTemplateContent>
@@ -880,6 +899,11 @@ const CarBookingForm: React.FC<{
 		confirm: false,
 		errors: {},
 	});
+
+	useEffect(() => {
+		if (user_status === "need_auth") setStep("start");
+	}, [user_status]);
+
 	const [timer, setTimer] = useState(0);
 	const confirmPhone = async () => {
 		if (user_status === "banned") {
