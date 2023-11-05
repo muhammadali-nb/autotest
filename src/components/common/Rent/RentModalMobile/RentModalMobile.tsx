@@ -61,9 +61,9 @@ export const RentModalMobile = ({
 				/>
 			);
 		} else if (step === "create") {
-			return <RentModalMobileCreate />;
+			return <RentModalMobileCreate step={step} car={car} setStep={setStep} />;
 		} else if (step === "payment") {
-			return <RentModalMobilePayment />;
+			return <RentModalMobilePayment car={car} />;
 		} else {
 			return <RentModalMobileFinish />;
 		}
