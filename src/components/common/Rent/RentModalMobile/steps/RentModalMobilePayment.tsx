@@ -17,7 +17,10 @@ const RentModalMobilePayment = () => {
 	return (
 		<div className="mobile-modal_body-payment">
 			<p className="mobile-modal_body-payment_price">К оплате: 5 000₽</p>
-			<div className={"d-flex flex-column w-100 gap-y-px-15"}>
+			<div
+				className={
+					"d-flex flex-column w-100 gap-y-px-15 mobile-modal_body-payment_types  "
+				}>
 				<CarRentPaymentButton
 					payment={payment}
 					error={redButton}

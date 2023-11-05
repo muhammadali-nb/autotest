@@ -6,6 +6,7 @@ import { CarDataType } from "../../../../../types/RentTypes";
 import { ModalTemplateInput } from "../../../ModalFormTemplate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { AxiosError } from "axios";
 
 const RentModalMobileConfirm = ({
 	timerConfirm,
@@ -22,7 +23,7 @@ const RentModalMobileConfirm = ({
 }) => {
 	const [passed, setPassed] = useState(false);
 	const [code, setCode] = useState("      ");
-	const [error, setError] = useState("");
+	const [error, setError] = useState<null | string>(null);
 	const [idPrefix] = useState(Utils.randomString());
 	const { register, error_message } = useAuth();
 	const [timer, setTimer] = useState(timerConfirm);
@@ -60,7 +61,7 @@ const RentModalMobileConfirm = ({
 				setPassed(true);
 			}
 		} catch (error) {
-			console.log(error);
+			setError("Неверный код. Пожалуйста, проверьте код и номер телефона");
 			setPassed(false);
 		}
 	};
@@ -130,6 +131,14 @@ const RentModalMobileConfirm = ({
 					onInput={(e: any) => update(4, e.target.value)}
 				/>
 			</div>
+			{error && (
+				<div className={"my-1 text-red-color font-size-10"}>{error}</div>
+			)}
+			{error_message && (
+				<div className={"my-1 text-red-color font-size-10"}>
+					{error_message}
+				</div>
+			)}
 			{timer > 0 && (
 				<p className="mobile-modal_body-confirm_timer">
 					Вы сможете запросить СМС через {timerToString()}
