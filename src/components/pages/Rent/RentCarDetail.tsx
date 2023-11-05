@@ -29,13 +29,13 @@ const RentCarDetail = () => {
 
 	const checkSteps = async () => {
 		initialize();
-		// if (!isAuthenticated && !has_profile) {
-		// 	setStep("start");
-		// } else if (isAuthenticated && has_profile) {
-		// 	setStep("payment");
-		// } else if (isAuthenticated && !has_profile) {
-		// 	setStep("create");
-		// }
+		if (!isAuthenticated && !has_profile) {
+			setStep("start");
+		} else if (isAuthenticated && has_profile) {
+			setStep("payment");
+		} else if (isAuthenticated && !has_profile) {
+			setStep("create");
+		}
 		setModalBookingCar(true);
 	};
 
