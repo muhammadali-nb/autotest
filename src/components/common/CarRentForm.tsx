@@ -893,7 +893,7 @@ const CarBookingForm: React.FC<{
 }> = (props) => {
 	const { isAuthenticated, user_status, has_profile, initialize } = useAuth();
 	const [show, setShow] = useState(false);
-	const [step, setStep] = useState<CarBookingStepsType>("create");
+	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [state, setState] = useState<ConfirmPhone>({
 		phone: "",
 		confirm: false,
