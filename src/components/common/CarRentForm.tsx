@@ -216,7 +216,7 @@ const CarRentConfirmPhone: React.FC<{
 			item?.setSelectionRange(0, 1);
 		}
 
-		let passed = output.replace(/\D+/g, "").length >= 6;
+		let passed = output.replace(/\D+/g, "").length >= 5;
 		setPassed(passed);
 		console.log("passed: " + passed);
 	};
@@ -245,7 +245,7 @@ const CarRentConfirmPhone: React.FC<{
 					<div className={"call-content-text font-size-16"}>
 						<span className={"text-default"}>Мы отправили вам код</span>
 						<br />
-						на номер +{props.data.phone}
+						на номер {props.data.phone}
 					</div>
 				</div>
 			</div>
