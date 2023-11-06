@@ -11,6 +11,7 @@ interface ResponseDataTypes {
   success: boolean
   has_profile: boolean
   error: string
+  result: number
 }
 
 export interface AuthInitialState {

@@ -2,7 +2,7 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { ReactNode, useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
-import Api, { CallRequestData, ConfirmPhone } from "../../Api";
+import Api, { CallRequestData, ConfirmPhone, ErrorResponse } from "../../Api";
 import Utils from "../../Utils";
 import caretLeft from "../../img/common/caret-left-big.svg";
 import caretRight from "../../img/common/caret-right-big.svg";
@@ -31,6 +31,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { CarDataType, RentCreateAccountForm } from "../../types/RentTypes";
 import FileInput from "./FileInput";
 import { RegisterErrorType } from "../../types/AuthContextTypes";
+import { error } from "console";
 
 export type CarBookingStepsType =
 	| "rent"
@@ -48,6 +49,7 @@ const CarRentContacts: React.FC<{
 	data: ConfirmPhone;
 	closeOnBack?: boolean;
 	submit: () => void;
+	error: string | null;
 }> = (props) => {
 	const [passed, setPassed] = useState(false);
 	const { user_status } = useAuth();
@@ -118,6 +120,9 @@ const CarRentContacts: React.FC<{
 					</div>
 				)}
 			</div>
+			{props.error && (
+				<p className="text-red-color my-px-10 font-fize-14">{props.error}</p>
+			)}
 			{user_status === "banned" ? (
 				<p className="text-red-color my-px-10 font-fize-14">
 					Вы забанены, и не можете дальше продвигаться
@@ -178,8 +183,10 @@ const CarRentConfirmPhone: React.FC<{
 	const send = async () => {
 		if (code.replace(/\D+/g, "").length < 5) {
 			setPassed(false);
+			setError("Укажите код подтверждения!");
 			return;
 		}
+		setError("");
 
 		try {
 			const res: any = await register(props.data.phone, code);
@@ -296,6 +303,9 @@ const CarRentConfirmPhone: React.FC<{
 						</button>
 					</div>
 				)}
+				{error.length > 0 && (
+					<div className={"my-2 text-red-color font-size-14"}>{error}</div>
+				)}
 				{error_message && (
 					<div className={"my-2 text-red-color font-size-14"}>
 						{error_message}
@@ -345,25 +355,39 @@ export const CarRentPaymentButton: React.FC<{
 		</button>
 	);
 };
+
+const pay_koef = {
+	card: 3,
+	sbp: 1,
+};
 const CarRentPaymentType: React.FC<{
 	closeFunc: () => void;
 	data: ConfirmPhone | any;
 	setStep: (string) => void;
 	car: CarDataType;
+	deposit: number;
+	setDeposit: (e: number) => void;
 }> = (props) => {
 	const [payment, setPayment] = useState("");
 	const [passed, setPassed] = useState(false);
 	const [error, setError] = useState("");
 	const [redButton, setRedButton] = useState(false);
-	const baseData: BaseState = useAppSelector((state) => state.baseData);
-	const { isAuthenticated, user_status, has_profile } = useAuth();
+	const { isAuthenticated } = useAuth();
+	const [cardPrice] = useState(
+		props.deposit - (props.deposit * pay_koef.card) / 100
+	);
+	const [sbpPrice] = useState(
+		props.deposit - (props.deposit * pay_koef.sbp) / 100
+	);
+	// const baseData: BaseState = useAppSelector((state) => state.baseData);
 	// const brand =
 	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
 	// 	"неизвестно";
 	// const model =
 	// 	baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
 	// 	"неизвестно";
-	const send = () => {
+
+	const send = async () => {
 		if (payment === "") {
 			setError("Выберите способ оплаты");
 			setPassed(false);
@@ -371,24 +395,26 @@ const CarRentPaymentType: React.FC<{
 			return;
 		}
 		setRedButton(false);
-		Api.carRentPaymentRequest(props.data, props.car, payment).then((resp) => {
-			if (Api.isError(resp)) {
-				setError("Ошибка соединения с сервером");
-				return;
-			}
-
-			if (resp.success) {
-				props.setStep("finish");
-				setPassed(true);
-			} else {
-				setError(resp.fields ? resp.fields["error"] : "");
-				setPassed(false);
-			}
-		});
+		try {
+			const res = await axios.get(
+				`https://taxivoshod.ru/api/voshod-auto/?w=pay&summ=${
+					payment === "sbp" ? sbpPrice : cardPrice
+				}&payment=${payment === "card" ? "classic" : "sbp"}`,
+				{ withCredentials: true }
+			);
+			console.log(res);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	const update = (ptype) => {
-		setRedButton(false);
+		if (ptype === "sbp") {
+			props.setDeposit(sbpPrice);
+		} else if (ptype === "card") {
+			props.setDeposit(cardPrice);
+		}
 		setPayment(ptype);
+		setRedButton(false);
 		setPassed(true);
 		setError("");
 	};
@@ -431,7 +457,7 @@ const CarRentPaymentType: React.FC<{
 						className={
 							"text-default font-size-32 line-height-140 font-weight-semibold"
 						}>
-						{props.car.rentpay} ₽
+						{props.deposit} ₽
 					</div>
 				</div>
 			</div>
@@ -462,7 +488,7 @@ const CarRentPaymentType: React.FC<{
 			<div>
 				<button
 					className={"site-btn small " + (!passed ? "dark" : "")}
-					onClick={() => send()}>
+					onClick={send}>
 					Перейти к оплате
 				</button>
 			</div>
@@ -499,6 +525,7 @@ const CarRequestFormContent: React.FC<{
 	closeFunc: () => void;
 	setStep: (e: any) => void;
 	car: CarDataType;
+	getDeposit: () => void;
 }> = (props) => {
 	const { isAuthenticated, user_status, has_profile, initialize } = useAuth();
 
@@ -517,6 +544,7 @@ const CarRequestFormContent: React.FC<{
 	const ckeckSteps = async () => {
 		await initialize();
 		if (isAuthenticated && has_profile) {
+			await props.getDeposit();
 			props.setStep("payment");
 		} else if (!has_profile && user_status === "need_auth") {
 			props.setStep("start");
@@ -720,6 +748,7 @@ const CarRentCreateAccount: React.FC<{
 	setData: (CallRequestData) => void;
 	data: ConfirmPhone | CallRequestData;
 	closeOnBack?: boolean;
+	getPayment: () => void;
 }> = (props) => {
 	const [base64, setBase64] = useState("");
 	const [state, setState] = useState<RentCreateAccountForm>({
@@ -762,8 +791,10 @@ const CarRentCreateAccount: React.FC<{
 				throw new Error(res.statusText);
 			}
 			const data = await res.json();
-			props.setStep("payment");
-			console.log(data);
+			if (data.result === 1) {
+				props.getPayment();
+				console.log(data);
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -855,9 +886,11 @@ const CarBookingForm: React.FC<{
 	car: CarDataType | any;
 	car_id: number;
 }> = (props) => {
-	const { isAuthenticated, user_status, has_profile, initialize } = useAuth();
+	const { user_status } = useAuth();
+	const [error_message, setErrorMessage] = useState<string | null>(null);
+	const [depositPrice, setDepositPrice] = useState(0);
 	const [show, setShow] = useState(false);
-	const [step, setStep] = useState<CarBookingStepsType>("confirm");
+	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [state, setState] = useState<ConfirmPhone>({
 		phone: "",
 		confirm: false,
@@ -880,7 +913,31 @@ const CarBookingForm: React.FC<{
 					setTimer(res.data.timer ?? 59);
 				}
 			})
-			.catch((e) => console.log(e.response));
+			.catch((e) => {
+				setErrorMessage(
+					(e as AxiosError<ErrorResponse>).response?.data.message ??
+						"Возникла ошибка с сервером поробуйте позже"
+				);
+				console.log(e);
+			});
+	};
+
+	const getPriceCar = async () => {
+		try {
+			const res = await axios.get(
+				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${props.car_id}`,
+				{
+					withCredentials: true,
+				}
+			);
+			if (res.data.result === 1) {
+				setDepositPrice(res.data.summ);
+				if (res.data.summ > 0) setStep("payment");
+				else setStep("finish");
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const handleClose = () => setShow(false);
@@ -910,6 +967,7 @@ const CarBookingForm: React.FC<{
 				}>
 				{step === "rent" && (
 					<CarRequestFormContent
+						getDeposit={getPriceCar}
 						setStep={setStep}
 						closeFunc={handleClose}
 						car={props.car}
@@ -917,6 +975,7 @@ const CarBookingForm: React.FC<{
 				)}
 				{step === "start" && (
 					<CarRentContacts
+						error={error_message}
 						submit={confirmPhone}
 						data={state}
 						setData={setState}
@@ -938,6 +997,7 @@ const CarBookingForm: React.FC<{
 				)}
 				{step === "create" && (
 					<CarRentCreateAccount
+						getPayment={getPriceCar}
 						data={state}
 						setData={setState}
 						closeOnBack={props.step == "start"}
@@ -949,6 +1009,8 @@ const CarBookingForm: React.FC<{
 
 				{step === "payment" && (
 					<CarRentPaymentType
+						deposit={depositPrice}
+						setDeposit={setDepositPrice}
 						data={state}
 						car={props.car}
 						closeFunc={handleClose}
