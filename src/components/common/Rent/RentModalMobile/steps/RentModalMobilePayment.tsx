@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { CarRentPaymentButton } from "../../../CarRentForm";
 import bankCardImg from "../../../../../img/common/bank-card.png";
 import sbpImg from "../../../../../img/common/sbp.png";
+import { CarDataType } from "../../../../../types/RentTypes";
 
-const RentModalMobilePayment = () => {
+const RentModalMobilePayment = ({ car }: { car: CarDataType }) => {
 	const [payment, setPayment] = useState("");
 	const [passed, setPassed] = useState(false);
 	const [error, setError] = useState("");
@@ -16,8 +17,13 @@ const RentModalMobilePayment = () => {
 	};
 	return (
 		<div className="mobile-modal_body-payment">
-			<p className="mobile-modal_body-payment_price">К оплате: 5 000₽</p>
-			<div className={"d-flex flex-column w-100 gap-y-px-15"}>
+			<p className="mobile-modal_body-payment_price">
+				К оплате: {car.rentpay}₽
+			</p>
+			<div
+				className={
+					"d-flex flex-column w-100 gap-y-px-15 mobile-modal_body-payment_types  "
+				}>
 				<CarRentPaymentButton
 					payment={payment}
 					error={redButton}

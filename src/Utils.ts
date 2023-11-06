@@ -35,7 +35,7 @@ let Utils = {
     validateConfirmPhone(request: ConfirmPhone) {
         let errors = {};
         if (!request.phone || request.phone.length < 0)
-            errors['phone'] = "Не указано фамилия";
+            errors['phone'] = "Не указан номер телефона";
         if (!request.confirm)
             errors['confirm'] = true;
         return errors;

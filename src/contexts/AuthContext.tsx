@@ -111,11 +111,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				}
 			})
 			.catch((err) => {
+				console.log((err as AxiosError).response);
 				dispatch({
 					type: actions.INITIALIZE,
 					payload: {
 						isAuthenticated: false,
 						user: null,
+						user_status: (err as AxiosError<AuthResponce>).response?.data
+							.reason,
+						has_profile: false,
 					},
 				});
 			});

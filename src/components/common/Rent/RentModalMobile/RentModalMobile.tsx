@@ -11,6 +11,8 @@ import RentModalMobileConfirm from "./steps/RentModalMobileConfirm";
 import RentModalMobileCreate from "./steps/RentModalMobileCreate";
 import RentModalMobilePayment from "./steps/RentModalMobilePayment";
 import RentModalMobileFinish from "./steps/RentModalMobileFinish";
+import { useAuth } from "../../../../hooks/useAuth";
+import axios from "axios";
 
 export const RentModalMobile = ({
 	active,
@@ -25,22 +27,29 @@ export const RentModalMobile = ({
 	setStep: (e: CarBookingStepsType) => void;
 	car: CarDataType;
 }) => {
-	useEffect(() => {
-		if (active) document.body.style.overflow = "hidden";
-		else document.body.style.overflow = "unset";
-	}, [active]);
-
+	const { initialize, user_status } = useAuth();
+	const [timer, setTimer] = useState(59);
 	const [data, setData] = useState({
 		phone: "",
 		confirm: true,
 		errors: {},
 	});
-
-	const [timer, setTimer] = useState(59);
+	useEffect(() => {
+		if (active) document.body.style.overflow = "hidden";
+		else document.body.style.overflow = "unset";
+	}, [active]);
 
 	const renderSteps = () => {
 		if (step === "start") {
-			return <RentModalMobileStart />;
+			return (
+				<RentModalMobileStart
+					setTimer={setTimer}
+					data={data}
+					setData={setData}
+					car={car}
+					setStep={setStep}
+				/>
+			);
 		} else if (step === "confirm") {
 			return (
 				<RentModalMobileConfirm
@@ -52,9 +61,9 @@ export const RentModalMobile = ({
 				/>
 			);
 		} else if (step === "create") {
-			return <RentModalMobileCreate />;
+			return <RentModalMobileCreate step={step} car={car} setStep={setStep} />;
 		} else if (step === "payment") {
-			return <RentModalMobilePayment />;
+			return <RentModalMobilePayment car={car} />;
 		} else {
 			return <RentModalMobileFinish />;
 		}
@@ -79,7 +88,7 @@ export const RentModalMobile = ({
 			</div>
 			<div className="mobile-modal_body">
 				<h1>
-					Бронирование <br /> <span>Grand Vitara</span>
+					Бронирование <br /> <span>{car.brand + " " + car.model}</span>
 				</h1>
 				<p>
 					Оставьте свой номер телефона <br /> и мы перезвоним вам в ближайшее

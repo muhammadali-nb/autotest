@@ -141,6 +141,25 @@
         text-transform: uppercase;
       }
 
+      &_types {
+        & > button {
+          height: fit-content;
+          & > .car-rent-modal-btn-image {
+            padding: 16px 8px 16px 16px;
+            width: fit-content;
+
+            & > img {
+              height: 20px;
+              width: 20px;
+            }
+          }
+
+          & > .car-rent-modal-btn-text {
+            font-size: 14px !important;
+          }
+        }
+      }
+
       &_offert {
         font-size: 10px;
         font-weight: 500;
