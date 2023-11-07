@@ -24,3 +24,6 @@ export interface RentCreateAccountForm {
 	image: string;
 	errors: any;
 }
+
+export type RentBookingPaymentStatus = null | "NEW" | "CONFIRMED" | "REFUNDED" | "CANCELLED"
+
