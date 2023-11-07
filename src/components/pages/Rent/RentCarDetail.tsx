@@ -20,7 +20,7 @@ const RentCarDetail = () => {
 	const [modalFullImage, setModalFullImage] = useState(false);
 	const [modalBookingCar, setModalBookingCar] = useState(false);
 	const { isAuthenticated, has_profile, initialize } = useAuth();
-	const [step, setStep] = useState<CarBookingStepsType>("start");
+	const [step, setStep] = useState<CarBookingStepsType>("rent");
 
 	const { data, error, isLoading, isSuccess } = useQuery({
 		queryKey: [`rent-car-${carID}`, carID],

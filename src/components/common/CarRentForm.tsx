@@ -6,8 +6,6 @@ import Api, { CallRequestData, ConfirmPhone, ErrorResponse } from "../../Api";
 import Utils from "../../Utils";
 import caretLeft from "../../img/common/caret-left-big.svg";
 import caretRight from "../../img/common/caret-right-big.svg";
-import { useAppSelector } from "../../store/hooks";
-import { BaseState } from "../../store/reducers/baseDataSlice";
 import { CarImagesModal } from "../pages/Car/CarImages";
 import {
 	CarStatBlockEntry,
@@ -25,20 +23,27 @@ import ModalFormTemplate, {
 	ModalTemplateInput,
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
-
 import axios, { AxiosError } from "axios";
 import { useAuth } from "../../hooks/useAuth";
-import { CarDataType, RentCreateAccountForm } from "../../types/RentTypes";
+import {
+	CarDataType,
+	RentBookingPaymentStatus,
+	RentCreateAccountForm,
+} from "../../types/RentTypes";
 import FileInput from "./FileInput";
-import { RegisterErrorType } from "../../types/AuthContextTypes";
-import { error } from "console";
-
+import {
+	ConfirmPaymentQR,
+	RegisterErrorType,
+} from "../../types/AuthContextTypes";
+import { redirect } from "react-router-dom";
 export type CarBookingStepsType =
 	| "rent"
 	| "start"
 	| "confirm"
 	| "create"
 	| "payment"
+	| "confirm_payment"
+	| "booking_result"
 	| "finish";
 
 const CarRentContacts: React.FC<{
@@ -357,8 +362,9 @@ export const CarRentPaymentButton: React.FC<{
 };
 
 const pay_koef = {
-	card: 3,
-	sbp: 1,
+	// процеты оплаты
+	card: 0.97,
+	sbp: 0.99,
 };
 const CarRentPaymentType: React.FC<{
 	closeFunc: () => void;
@@ -366,6 +372,7 @@ const CarRentPaymentType: React.FC<{
 	setStep: (string) => void;
 	car: CarDataType;
 	deposit: number;
+	setConfirmPayment: (e: ConfirmPaymentQR) => void;
 	setDeposit: (e: number) => void;
 }> = (props) => {
 	const [payment, setPayment] = useState("");
@@ -374,18 +381,15 @@ const CarRentPaymentType: React.FC<{
 	const [redButton, setRedButton] = useState(false);
 	const { isAuthenticated } = useAuth();
 	const [cardPrice] = useState(
-		props.deposit - (props.deposit * pay_koef.card) / 100
+		parseFloat((props.deposit / pay_koef.card).toFixed(2))
 	);
 	const [sbpPrice] = useState(
-		props.deposit - (props.deposit * pay_koef.sbp) / 100
+		parseFloat((props.deposit / pay_koef.sbp).toFixed(2))
 	);
-	// const baseData: BaseState = useAppSelector((state) => state.baseData);
-	// const brand =
-	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
-	// 	"неизвестно";
-	// const model =
-	// 	baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
-	// 	"неизвестно";
+
+	useEffect(() => {
+		console.log((props.deposit / pay_koef.sbp).toFixed(2));
+	}, [props.deposit]);
 
 	const send = async () => {
 		if (payment === "") {
@@ -399,10 +403,21 @@ const CarRentPaymentType: React.FC<{
 			const res = await axios.get(
 				`https://taxivoshod.ru/api/voshod-auto/?w=pay&summ=${
 					payment === "sbp" ? sbpPrice : cardPrice
-				}&payment=${payment === "card" ? "classic" : "sbp"}`,
+				}&payment=${payment === "card" ? "classic" : "sbp"}&car=${
+					props.car.id
+				}`,
 				{ withCredentials: true }
 			);
-			console.log(res);
+
+			if (res.data.result === 1) {
+				console.log(payment);
+				if (payment === "sbp") {
+					props.setConfirmPayment({ qr: res.data.qr, pid: res.data.pid });
+					props.setStep("confirm_payment");
+				} else if (payment === "card") {
+					window.location.replace("https://securepayments.tinkoff.ru/zkgqZ7VZ");
+				}
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -496,6 +511,180 @@ const CarRentPaymentType: React.FC<{
 	);
 };
 
+const CarRentPaymentTypeConfirm: React.FC<{
+	closeFunc: () => void;
+	data: ConfirmPhone | any;
+	setStep: (e: CarBookingStepsType) => void;
+	car: CarDataType;
+	deposit: number;
+	setDeposit: (e: number) => void;
+	confirmPayment: ConfirmPaymentQR;
+	setPaymentStatus: (e: RentBookingPaymentStatus) => void;
+	paymentStatus: RentBookingPaymentStatus;
+}> = (props) => {
+	const { isAuthenticated } = useAuth();
+
+	useEffect(() => {
+		if (props.paymentStatus === null || props.paymentStatus === "NEW") {
+			const interval = setInterval(() => {
+				axios
+					.get(
+						`https://taxivoshod.ru/api/voshod-auto/?w=check-pay&pid=${props.confirmPayment.pid}`
+					)
+					.then((res) => {
+						if (res.data.result === 1) {
+							props.setPaymentStatus(res.data.status);
+							if (res.data.status !== "NEW") props.setStep("booking_result");
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+						props.setPaymentStatus(null);
+						props.setStep("payment");
+					});
+			}, 2000);
+			return () => {
+				clearInterval(interval); // stops interval
+			};
+		}
+	}, [props.paymentStatus]);
+
+	return (
+		<ModalTemplateContent>
+			<div>
+				<div className={"mb-px-90"}>
+					<button
+						className={
+							"default-link font-size-18 font-weight-semibold text-hover-default"
+						}
+						onClick={() => props.setStep(isAuthenticated ? "rent" : "start")}>
+						<FontAwesomeIcon icon={faAngleLeft} />
+						&nbsp;&nbsp;ВЕРНУТЬСЯ
+					</button>
+				</div>
+				<div className={"mb-px-20"}>
+					<div
+						className={
+							"call-content-text-header font-size-40 line-height-120 mb-px-10"
+						}>
+						Бронирование
+						<br />
+						{props.car.brand} {props.car.model}
+					</div>
+					<div
+						className={
+							"font-size-16 line-height-140 font-weight-medium mb-px-40"
+						}>
+						Выберите форму оплаты
+					</div>
+					<div
+						className={
+							"text-default font-size-16 line-height-140 font-weight-semibold mb-px-5"
+						}>
+						К оплате:
+					</div>
+					<div
+						className={
+							"text-default font-size-32 line-height-140 font-weight-semibold"
+						}>
+						{props.deposit} ₽
+					</div>
+				</div>
+			</div>
+			<div>
+				<div className={"d-flex justify-content-center w-100"}>
+					<img
+						src={`data:image/svg+xml;utf8,${encodeURIComponent(
+							props.confirmPayment.qr
+						)}`}
+						alt=""
+						width={200}
+						height={200}
+					/>
+				</div>
+			</div>
+			<div style={{ height: "40px" }}>
+				<div className={"my-2 text-red-color font-size-12"}>
+					{/* {error || <>&nbsp;</>} */}
+				</div>
+			</div>
+		</ModalTemplateContent>
+	);
+};
+
+const CarRentBookingStatus: React.FC<{
+	paymentStatus: RentBookingPaymentStatus;
+	closeFunc: () => void;
+	car: CarDataType;
+}> = (props) => {
+	return (
+		<ModalTemplateContent>
+			<div style={{ marginTop: "162px" }}>
+				{props.paymentStatus === "CONFIRMED" ? (
+					<>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="60"
+							height="60"
+							viewBox="0 0 60 60"
+							fill="none">
+							<path
+								fillRule="evenodd"
+								clipRule="evenodd"
+								d="M0.667969 29.9998C0.667969 13.7995 13.801 0.666504 30.0013 0.666504C46.2017 0.666504 59.3346 13.7995 59.3346 29.9998C59.3346 46.2002 46.2017 59.3332 30.0013 59.3332C13.801 59.3332 0.667969 46.2002 0.667969 29.9998Z"
+								fill="#008F4B"
+							/>
+							<path
+								d="M20.2617 30.6319L26.9574 36.956L39.74 23.043"
+								stroke="white"
+								strokeWidth="4"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+						<div className={"call-content-text-header mt-px-30"}>
+							Оплата <br />
+							прошла успешно!
+						</div>
+						<div className={"call-content-text"}>
+							Mercedes-benz GLS 63 am 4 matic — забронирован!
+						</div>
+					</>
+				) : (
+					<>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="60"
+							height="60"
+							viewBox="0 0 60 60"
+							fill="none">
+							<path
+								fillRule="evenodd"
+								clipRule="evenodd"
+								d="M30.0013 0.666504C13.801 0.666504 0.667969 13.7995 0.667969 29.9998C0.667969 46.2002 13.801 59.3332 30.0013 59.3332C46.2017 59.3332 59.3346 46.2002 59.3346 29.9998C59.3346 13.7995 46.2017 0.666504 30.0013 0.666504ZM23.4155 20.5856C22.6345 19.8046 21.3681 19.8046 20.5871 20.5856C19.806 21.3667 19.806 22.633 20.5871 23.4141L27.1729 29.9998L20.5871 36.5856C19.806 37.3667 19.806 38.633 20.5871 39.4141C21.3681 40.1951 22.6345 40.1951 23.4155 39.4141L30.0013 32.8283L36.5871 39.4141C37.3681 40.1951 38.6345 40.1951 39.4155 39.4141C40.1966 38.633 40.1966 37.3667 39.4155 36.5856L32.8297 29.9998L39.4155 23.4141C40.1966 22.633 40.1966 21.3667 39.4155 20.5856C38.6345 19.8046 37.3681 19.8046 36.5871 20.5856L30.0013 27.1714L23.4155 20.5856Z"
+								fill="#BF3535"
+							/>
+						</svg>
+						<div className={"call-content-text-header mt-px-30"}>
+							Оплата <br /> была прервана
+						</div>
+						<div className={"call-content-text"}>
+							{props.paymentStatus === "REFUNDED"
+								? "Cредства возвращены"
+								: props.car.brand + " " + props.car.model}
+						</div>
+					</>
+				)}
+			</div>
+			<div>
+				<button className={"site-btn small"} onClick={() => props.closeFunc()}>
+					Закрыть
+				</button>
+			</div>
+		</ModalTemplateContent>
+	);
+};
+
 const CarRentFormConfirmed: React.FC<{ closeFunc: () => void }> = (props) => {
 	return (
 		<ModalTemplateContent>
@@ -528,18 +717,6 @@ const CarRequestFormContent: React.FC<{
 	getDeposit: () => void;
 }> = (props) => {
 	const { isAuthenticated, user_status, has_profile, initialize } = useAuth();
-
-	// const baseData: BaseState = useAppSelector((state) => state.baseData);
-	// const brand =
-	// 	baseData.left?.brands.values?.find((i) => props.car.brand === i.id)?.name ??
-	// 	"неизвестно";
-	// const model =
-	// 	baseData.left?.models.values?.find((i) => props.car.model === i.id)?.name ??
-	// 	"неизвестно";
-	// const tags =
-	// 	baseData.top?.rent.values?.filter((i) =>
-	// 		props.car.special.includes(i.id)
-	// 	) ?? [];
 
 	const ckeckSteps = async () => {
 		await initialize();
@@ -888,9 +1065,15 @@ const CarBookingForm: React.FC<{
 }> = (props) => {
 	const { user_status } = useAuth();
 	const [error_message, setErrorMessage] = useState<string | null>(null);
+	const [paymentStatus, setPaymentStatus] =
+		useState<RentBookingPaymentStatus>(null);
 	const [depositPrice, setDepositPrice] = useState(0);
 	const [show, setShow] = useState(false);
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
+	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
+		qr: "",
+		pid: "",
+	});
 	const [state, setState] = useState<ConfirmPhone>({
 		phone: "",
 		confirm: false,
@@ -940,7 +1123,14 @@ const CarBookingForm: React.FC<{
 		}
 	};
 
-	const handleClose = () => setShow(false);
+	useEffect(() => {
+		console.log(paymentStatus);
+	}, [paymentStatus]);
+
+	const handleClose = () => {
+		setShow(false);
+		setStep("rent");
+	};
 	const handleShow = () => {
 		if (props.func) props.func();
 		setShow(true);
@@ -1009,12 +1199,34 @@ const CarBookingForm: React.FC<{
 
 				{step === "payment" && (
 					<CarRentPaymentType
+						setConfirmPayment={setConfirmPaymentQR}
 						deposit={depositPrice}
 						setDeposit={setDepositPrice}
 						data={state}
 						car={props.car}
 						closeFunc={handleClose}
 						setStep={setStep}
+					/>
+				)}
+
+				{step === "confirm_payment" && (
+					<CarRentPaymentTypeConfirm
+						paymentStatus={paymentStatus}
+						setPaymentStatus={setPaymentStatus}
+						confirmPayment={confirmPaymentQR}
+						deposit={depositPrice}
+						setDeposit={setDepositPrice}
+						data={state}
+						car={props.car}
+						closeFunc={handleClose}
+						setStep={setStep}
+					/>
+				)}
+				{step === "booking_result" && (
+					<CarRentBookingStatus
+						paymentStatus={paymentStatus}
+						closeFunc={handleClose}
+						car={props.car}
 					/>
 				)}
 				{step === "finish" && <CarRentFormConfirmed closeFunc={handleClose} />}
