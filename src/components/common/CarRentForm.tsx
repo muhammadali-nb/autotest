@@ -387,6 +387,10 @@ const CarRentPaymentType: React.FC<{
 		parseFloat((props.deposit / pay_koef.sbp).toFixed(2))
 	);
 
+	useEffect(() => {
+		console.log((props.deposit / pay_koef.sbp).toFixed(2));
+	}, [props.deposit]);
+
 	const send = async () => {
 		if (payment === "") {
 			setError("Выберите способ оплаты");
@@ -1123,7 +1127,10 @@ const CarBookingForm: React.FC<{
 		console.log(paymentStatus);
 	}, [paymentStatus]);
 
-	const handleClose = () => setShow(false);
+	const handleClose = () => {
+		setShow(false);
+		setStep("rent");
+	};
 	const handleShow = () => {
 		if (props.func) props.func();
 		setShow(true);
