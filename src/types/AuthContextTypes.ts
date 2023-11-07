@@ -29,3 +29,8 @@ export type RegisterErrorType = {
   timeout: number
   reason: string
 }
+
+export type ConfirmPaymentQR = {
+  qr: string;
+  pid: string
+}
