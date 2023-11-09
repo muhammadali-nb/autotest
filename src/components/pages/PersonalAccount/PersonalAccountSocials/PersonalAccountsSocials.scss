@@ -1,0 +1,131 @@
+.personal-account-socials {
+  background: var(--default-white, #fff);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+
+  width: 300px;
+  padding: 25px 20px;
+  height: 400px;
+
+  &_divider {
+    width: 32px;
+    height: 4px;
+    background-color: #bf3535;
+    // display: none;
+    margin: 12px 0;
+  }
+
+  &_header {
+    color: var(--Text, #222);
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 0 0 15px 0;
+    border-bottom: 2px solid #f2f3f6;
+    margin: 0 0 25px 0;
+  }
+
+  &_name,
+  &_fullname {
+    color: var(--Text, #222);
+    font-family: Inter;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+  }
+
+  &_number,
+  &_email {
+    color: var(--Text, #222);
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  &_number {
+    margin: 20px 0 0 0;
+  }
+
+  &_email {
+    margin: 10px 0 0 0;
+  }
+
+  &_links {
+    margin: 25px 0 0 0;
+  }
+
+  &_link {
+    width: 28px !important;
+    height: 28px !important;
+    border: 2px solid;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:not(:last-child) {
+      margin: 0 0 20px 0;
+    }
+
+    svg {
+      width: 12px;
+    }
+    svg > path {
+      fill: #222;
+    }
+  }
+
+  &_worktime {
+    color: var(--Grey-1, #606569);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 19.6px */
+    margin: 0;
+    max-width: 197px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .personal-account-socials {
+    width: 100%;
+    height: auto;
+    position: relative;
+    &_divider {
+      display: block;
+    }
+    &_link {
+      &:not(:last-child) {
+        margin: 0 0 12px 0;
+      }
+    }
+
+    &_header {
+      font-size: 14px;
+      padding: 0;
+      border: none;
+      margin: 0;
+    }
+
+    &_worktime,
+    &_name,
+    &_fullname,
+    &_number,
+    &_email {
+      font-size: 12px;
+    }
+
+    &_worktime {
+      margin: 12px 0 0 0;
+    }
+
+    &_links {
+      margin: 0;
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+    }
+  }
+}

@@ -1,18 +1,29 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 @import "./scss/variables";
-@import './fonts/fonts';
+@import "./fonts/fonts";
 @import "./scss/mix";
 @import "./scss/overrides";
 @import "./scss/baseStyles";
 
-
-
-
 @import "components/common/card";
 @import "components/common/slider";
+@import "components/common/MobileModal/MobileModal.scss";
+@import "components/common/ScoreCard/ScoreCard.scss";
 @import "components/layout/footer";
 @import "components/layout/header";
 @import "components/pages/Car/car";
 @import "components/pages/Catalog/catalog";
 @import "components/pages/Index/index";
+@import "components/pages/Rent/rent";
+// @import "components/common/personal-account/BankCard/bank-card";
+
+// personal account styles
+@import "components/common/PersonalAccount/BankCard/bank-card";
+@import "components/pages/PersonalAccount/personal-account";
+@import "components/common/PersonalAccount/PersonalAccountHeader/PersonalAccountHeader.scss";
+@import "components/pages/PersonalAccount/PersonalAccountBankCards/PersonalAccountBankCards.scss";
+@import "components/common/PersonalAccount/PersonalAccountCarCard/personal-account-car-card";
+
+// rent styles
+@import "components/common/Rent/RentModalMobile/RentModalMobile.scss";

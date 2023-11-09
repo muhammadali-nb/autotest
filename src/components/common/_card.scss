@@ -1,21 +1,31 @@
-
-.car__card{
-  background: #FFFFFF;
+.car__card {
+  background: #ffffff;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   padding: 25px 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @include l-md {
+    padding: 16px;
+  }
   //min-width: 280px;
 }
-.car__card-taglist{
+
+.car__card-taglist {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 35px;
-  .car__card-tag{
-    font-family: 'Inter';
+  @include l-md {
+    margin: 0 0 12px 0;
+  }
+  @include l-sm {
+    margin: 0 0 8px 0;
+  }
+  .car__card-tag {
+    font-family: "Inter";
     font-weight: 500;
     font-size: 16px;
     line-height: 120%;
@@ -23,36 +33,45 @@
     display: flex;
     align-items: center;
     letter-spacing: 0.01em;
-    background: #E7E7E8;
+    background: #e7e7e8;
     border-radius: 2px;
-    &.free{
+
+    @include l-md {
+      font-size: 14px;
+    }
+    @include l-sm {
+      padding: 4px 12px;
+      font-size: 12px;
+    }
+
+    &.free {
       background: rgba(64, 129, 4, 0.2);
     }
-    &.not-free{
-      color:$grayColor;
+    &.not-free {
+      color: $grayColor;
     }
   }
-  @include l-lg{
+  @include l-lg {
     gap: 7px;
   }
 }
-.car__card-image{
+.car__card-image {
   display: block;
   width: 100%;
   height: 150px;
   margin-bottom: 55px;
-  img{
+  img {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
-  @include l-lg{
+  @include l-lg {
     height: 160px;
     margin-bottom: 15px;
   }
 }
-.car__card-title{
-  font-family: 'Inter';
+.car__card-title {
+  font-family: "Inter";
   font-weight: 500;
   font-size: 30px;
   line-height: 120%;
@@ -60,62 +79,421 @@
   text-transform: uppercase;
   margin-bottom: 20px;
   color: $textColor;
-  .model{
+  .model {
     color: $redColor;
   }
-  @include l-lg{
+  @include l-lg {
     font-size: 22px;
     margin-bottom: 10px;
   }
+
+  @include l-sm {
+    margin: 0 0 16px 0;
+  }
 }
-.car__card-payment{
-  font-family: 'Inter';
-  font-weight: 600;
+.car__card-payment {
+  font-family: "Inter";
+  font-weight: 500;
   font-size: 16px;
   line-height: 120%;
   letter-spacing: 0.01em;
   margin-bottom: 5px;
-  &-value{
+  &-value {
     margin-top: 5px;
     font-weight: 600;
     font-size: 22px;
     line-height: 130%;
     margin-bottom: 15px;
+
+    @include l-sm {
+      margin: 3px 0 8px 0;
+    }
+  }
+
+  @include l-sm {
+    font-size: 12px;
+
+    &-value {
+      font-size: 18px;
+    }
   }
 }
-.car__card-price{
-  font-family: 'Inter';
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 120%;
-  letter-spacing: 0.01em;
-  margin-bottom: 15px;
-  &-value{
-    font-weight: 700;
-    font-size: 16px;
-  }
-}
-.car__card-same{
-  font-family: 'Inter';
+.car__card-price {
+  font-family: "Inter";
   font-weight: 500;
   font-size: 16px;
   line-height: 120%;
   letter-spacing: 0.01em;
+  margin-bottom: 16px;
+
+  @include l-md {
+    margin: 0 0 10px 0;
+  }
+
+  @include l-sm {
+    margin: 0 0 8px 0;
+    font-size: 12px;
+  }
+
+  &-value {
+    font-weight: 600;
+    font-size: 16px;
+
+    @include l-md {
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}
+.car__card-same {
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 120%;
+  letter-spacing: 0.16px !important;
   display: flex;
   width: 100%;
-  gap: 10px;
+  // gap: 10px;
   //justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
   color: $textColor;
   text-decoration: none;
-  &:hover, &:active{
-    color: $textColor;
-    text-decoration: underline;
+
+  @include l-md {
+    font-size: 14px;
   }
-  &-image{
-    height: 15px;
-    width: 15px;
-    object-fit: contain;
+
+  @include l-sm {
+    font-size: 12px;
+  }
+
+  & > svg {
+    margin: 0 0 0 5px;
+  }
+
+  &:hover,
+  &:active {
+    color: #bf3535;
+    // text-decoration: underline;
+    & > svg {
+      path {
+        stroke: #bf3535;
+      }
+    }
+  }
+}
+
+.car__card-mobile {
+  background: #ffffff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 25px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  //min-width: 280px;
+
+  @include l-md {
+    padding: 10px 15px;
+  }
+
+  @include l-sm {
+    padding: 8px 8px 12px 8px;
+  }
+
+  &-same {
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0.01em;
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    //justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: $textColor;
+    text-decoration: none;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover,
+    &:active {
+      color: $textColor;
+      text-decoration: underline;
+    }
+    &-image {
+      height: 15px;
+      width: 15px;
+      object-fit: contain;
+    }
+
+    @include l-md {
+      display: none;
+    }
+  }
+
+  &-title {
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 120%;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: $textColor;
+    .model {
+      color: $redColor;
+    }
+    @include l-lg {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    @include l-md {
+      font-size: 18px;
+    }
+
+    @include l-sm {
+      font-size: 16px;
+      margin: 0 0 6px 0;
+    }
+  }
+
+  &-preorder {
+    display: block;
+    @include l-md {
+      display: none !important;
+    }
+  }
+
+  &-taglist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 35px;
+
+    @include l-md {
+      margin: 0 0 25px 0;
+    }
+    @include l-sm {
+      margin: 0 0 4px 0;
+      gap: 4px;
+    }
+  }
+
+  &-tag {
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.01em;
+    background: #e7e7e8;
+    border-radius: 2px;
+
+    &.free {
+      background: rgba(64, 129, 4, 0.2);
+    }
+
+    &.not-free {
+      color: $grayColor;
+    }
+
+    @include l-lg {
+      gap: 7px;
+    }
+    @include l-md {
+      font-size: 10px;
+      padding: 6px 8px;
+    }
+
+    @include l-sm {
+      font-size: 8px;
+      gap: 4px;
+      padding: 4px 6px;
+    }
+  }
+
+  &-image {
+    display: block;
+    width: 100%;
+    height: 150px;
+    margin-bottom: 55px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @include l-lg {
+      height: 160px;
+      margin-bottom: 15px;
+    }
+
+    @include l-sm {
+      height: 100px;
+      margin: 0 0 8px 0;
+    }
+  }
+
+  &-price {
+    font-family: "Inter";
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0.01em;
+    margin-bottom: 15px;
+
+    &-value {
+      font-weight: 700;
+      font-size: 16px;
+
+      @include l-md {
+        font-size: 14px;
+      }
+
+      @include l-sm {
+        font-size: 10px;
+      }
+    }
+
+    @include l-md {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    @include l-sm {
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
+
+  &-payment {
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0.01em;
+    margin-bottom: 5px;
+
+    &-value {
+      margin-top: 5px;
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 130%;
+
+      margin-bottom: 15px;
+      @include l-md {
+        font-size: 18px;
+        margin: 0 0 12px;
+      }
+      @include l-sm {
+        font-size: 14px;
+        margin: 4px 0 5px 0;
+      }
+    }
+
+    @include l-md {
+      font-size: 14px;
+    }
+    @include l-sm {
+      font-size: 10px;
+    }
+  }
+}
+
+.car-rent-card {
+  width: 100%;
+  border-radius: 2px;
+  background: var(--default-white, #fff);
+  box-shadow: 0px 0px 9.75767px 0px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  &_body {
+    padding: 8px 8px 12px 8px;
+  }
+
+  &_image {
+    display: block;
+    width: 100%;
+    // height: 100px;
+    position: relative;
+    padding: 60% 0 0 0;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    // @include l-lg {
+    //   height: 160px;
+    //   margin-bottom: 15px;
+    // }
+
+    // @include l-sm {
+    //   height: 100px;
+    //   margin: 0 0 8px 0;
+    // }
+  }
+
+  &_title {
+    margin: 0 0 10px 0;
+
+    @include l-md {
+      margin: 0 0 6px 0;
+    }
+  }
+
+  &_taglist {
+    margin: 0 0 12px 0;
+
+    @include l-sm {
+      margin: 0 0 8px 0;
+    }
+  }
+
+  &_payment {
+    font-size: 14px;
+    @include l-sm {
+      font-size: 10px;
+    }
+
+    &-value {
+      font-size: 16px;
+      @include l-sm {
+        font-size: 14px;
+      }
+
+      margin: 4px 0 0 0;
+    }
+  }
+
+  &_deposit {
+    color: #222;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.1px;
+    @include l-sm {
+      font-size: 10px;
+    }
+    &-value {
+      font-weight: 600 !important;
+    }
   }
 }

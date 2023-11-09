@@ -1,0 +1,187 @@
+.car-images_rent {
+  & > .carousel {
+    width: 100%;
+    height: auto;
+  }
+
+  &-image > img {
+    height: 100%;
+    width: 100%;
+  }
+
+  &-controls {
+    padding: 0 16px;
+
+    &_btn {
+      width: 8px !important;
+      height: 16px !important;
+      & > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &-slider {
+      max-width: 24px !important;
+      & > div {
+        height: 2px !important;
+      }
+    }
+  }
+}
+
+.car-detail_header {
+  color: #222;
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+
+  margin: 24px 0 0 0;
+
+  & > span {
+    color: #bf3535;
+  }
+}
+.car-detail_id {
+  color: #606569;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.16px;
+  text-transform: uppercase;
+  margin: 8px 0 0 0;
+}
+
+.car-detail_price {
+  color: #222;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  margin: 16px 0 0 0;
+
+  letter-spacing: 0.24px;
+  & > p {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.14px;
+    margin: 0;
+  }
+
+  &-value > span {
+    font-size: 16px;
+  }
+}
+
+.car-detail_deposit {
+  color: #222;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.14px;
+  margin: 12px 0;
+  & > span {
+    font-weight: 600;
+  }
+}
+
+.car-detail_info {
+  margin: 32px 0 0 0;
+  padding: 0 0 40px 0;
+  & > h4 {
+    color: #222;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.18px;
+    text-transform: uppercase;
+  }
+
+  & > ul {
+    padding: 0;
+    margin: 16px 0 0 0;
+
+    & > li {
+      display: flex;
+      align-items: center;
+
+      &:not(:last-child) {
+        margin: 0 0 12px 0;
+      }
+
+      & > div {
+        color: var(--Grey-1, #606569);
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        min-width: 74px;
+      }
+
+      & > span {
+        color: #222;
+        margin: 0 0 0 12px;
+      }
+    }
+  }
+}
+
+.car-detail_tobook {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 12px 16px 24px 16px;
+  background: var(--default-white, #fff);
+  box-shadow: 0px -5px 32px 0px rgba(0, 0, 0, 0.05);
+
+  width: 100%;
+}
+
+.car-detail_same-link > span {
+  font-size: 14px;
+}
+
+.rent-car-fullimage {
+  background-color: white;
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  transform: scale(0);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 80ms linear all;
+
+  &.active {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  &_close {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    border: none;
+    background-color: transparent;
+  }
+
+  &_controls {
+    position: absolute;
+    bottom: 24px;
+    left: 16px;
+    right: 16px;
+  }
+}

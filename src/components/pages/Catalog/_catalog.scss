@@ -1,51 +1,99 @@
+// .filter-block-container {
+//   width: 100%;
+//   max-height: calc(100vh - 120px);
+//   overflow-y: scroll;
+//   position: sticky;
+//   top: 120px;
+//   //padding-left: 10px;
+//   z-index: 90;
+//   &::-webkit-scrollbar {
+//     width: 0px;
+//     height: 0px;
+//   }
+//   &::-webkit-scrollbar-button {
+//     width: 6px;
+//     height: 6px;
+//   }
+//   &::-webkit-scrollbar-thumb {
+//     background: #e7e7e8;
+//     border: 0px none #ffffff;
+//     border-radius: 2px;
+//   }
+//   &::-webkit-scrollbar-thumb:hover {
+//     background: #e7e7e8;
+//   }
+//   &::-webkit-scrollbar-thumb:active {
+//     background: #e7e7e8;
+//   }
+//   &::-webkit-scrollbar-track {
+//     background: #ffffff;
+//     border: 0px none #ffffff;
+//     border-radius: 1px;
+//   }
+//   &::-webkit-scrollbar-track:hover {
+//     background: #ffffff;
+//   }
+//   &::-webkit-scrollbar-track:active {
+//     background: #ffffff;
+//   }
+//   &::-webkit-scrollbar-corner {
+//     background: transparent;
+//   }
+// }
 
-.filter-block-container{
-  width: 100%;
-  max-height: calc(100vh - 120px);
-  overflow-y: scroll;
-  position: sticky;
-  top: 120px;
-  //padding-left: 10px;
-  z-index: 90;
-  &::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
+.filter-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  z-index: 202;
+  width: 100vw;
+  height: 100vh;
+  box-shadow: inset 0px 0px 80px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: all 0.5s ease-in-out;
+  overflow: scroll;
+  &.active {
+    left: 0;
   }
-  &::-webkit-scrollbar-button {
-    width: 6px;
-    height: 6px;
+
+  &_scroller {
+    height: auto;
   }
-  &::-webkit-scrollbar-thumb {
-    background: #E7E7E8;
-    border: 0px none #ffffff;
-    border-radius: 2px;
+
+  &_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 203;
+
+    background-color: #ffffff;
+    padding: 16px 20px;
   }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #E7E7E8;
-  }
-  &::-webkit-scrollbar-thumb:active {
-    background: #E7E7E8;
-  }
-  &::-webkit-scrollbar-track {
-    background: #ffffff;
-    border: 0px none #ffffff;
-    border-radius: 1px;
-  }
-  &::-webkit-scrollbar-track:hover {
-    background: #ffffff;
-  }
-  &::-webkit-scrollbar-track:active {
-    background: #ffffff;
-  }
-  &::-webkit-scrollbar-corner {
-    background: transparent;
+
+  &_body {
+    padding: 16px 20px;
+
+    // overflow: scroll;
+
+    &-content {
+      // height: 1860px;
+    }
   }
 }
-.filters-block{
+
+.filters-block {
   display: block;
   background-color: transparent;
   z-index: 90;
-  .filters-block-open-btn{
+
+  @include l-lg {
+    display: none;
+  }
+
+  .filters-block-open-btn {
     display: none;
     width: 42px;
     height: 42px;
@@ -63,7 +111,7 @@
     box-shadow: 0 0.5rem 0.2rem rgba(0, 0, 0, 0.15) !important;
     border-left: unset;
     outline: none;
-    img{
+    img {
       width: 20px;
       height: 20px;
       object-fit: contain;
@@ -71,7 +119,7 @@
     }
   }
   transition: all 0.4s ease-in-out;
-  @include l-md{
+  @include l-md {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
     position: fixed;
     z-index: 90;
@@ -81,7 +129,7 @@
     left: -80%;
     top: 0;
     background: white;
-    .filters-block-content{
+    .filters-block-content {
       padding: 40px 10px 20px 10px;
       overflow-y: scroll;
       min-height: 100%;
@@ -89,34 +137,55 @@
       z-index: 90;
       position: relative;
     }
-    &.open{
+    &.open {
       left: 0;
-      .filters-block-open-btn img{
+      .filters-block-open-btn img {
         transform: rotate(180deg);
       }
     }
-    .filters-block-open-btn{
+    .filters-block-open-btn {
       display: flex;
     }
   }
 }
 
-
-
-.catalog__grid{
+.catalog__grid {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 1fr 1fr;
-  @include l-xl{
-    grid-template-columns: 1fr 1fr;
+  // @include l-xl {
+  //   grid-template-columns: 1fr 1fr 1fr;
+  // }
+
+  // @include l-lg {
+
+  // }
+
+  @include l-md {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 12px;
   }
-  @include l-sm{
-    grid-template-columns: 1fr;
+
+  @include l-sm {
+    grid-template-columns: repeat(2, 1fr);
+
+    grid-gap: 6px;
+  }
+
+  &-paginator {
+    margin: 60px 0 0 0;
+
+    @include l-md {
+      margin: 38px 0 0 0;
+    }
+
+    @include l-sm {
+      margin: 16px 0 0 0;
+    }
   }
 }
 
-.catalog__filter-btn{
-
+.catalog__filter-btn {
   background: $textColor;
   border-radius: 2px;
   padding: 5px 10px;
@@ -125,26 +194,43 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 120%;
-  &.selected{
+
+  @include l-sm {
+    font-size: 12px;
+  }
+  &.selected {
     font-weight: 500;
     border-color: $redColor;
     background: white;
-    color: $redColor
+    color: $redColor;
   }
 }
 
+.filter__block {
+  // margin-bottom: 20px;
 
-.filter__block{
-  margin-bottom: 20px;
-  &.small{
-    margin: 10px 0;
-    .filter__block-header{
+  // @include l-md {
+  //   // border-bottom: 1px solid #f2f3f6;
+  //   margin: 0 0 15px 0;
+  // }
+
+  padding: 16px 0;
+  border-bottom: 1px solid #f2f3f6;
+
+  &:first-child {
+    padding: 0 0 16px 0;
+  }
+
+  &.small {
+    padding: 8px 0;
+    border: none;
+    .filter__block-header {
       font-size: 16px;
       //color: #797979;
       //padding-left: 5px;
     }
   }
-  .filter__block-header{
+  .filter__block-header {
     padding-left: 0;
     display: flex;
     align-items: center;
@@ -152,22 +238,27 @@
     gap: 10px;
     outline: none;
     background: transparent;
-    color:$textColor;
+    color: $textColor;
     border: none;
-    font-family: 'Inter';
+    font-family: "Inter";
     font-weight: 600;
     font-size: 20px;
     line-height: 24px;
     letter-spacing: 0.01em;
-    .arrow{
+
+    @include l-sm {
+      font-size: 18px;
+      line-height: normal;
+    }
+    .arrow {
       transform: rotate(180deg);
       transition: all 0.3s ease-in-out;
       height: 5px;
       width: 10px;
       object-fit: fill;
     }
-    &.open{
-      .arrow{
+    &.open {
+      .arrow {
         transform: rotate(0);
       }
     }

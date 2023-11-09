@@ -1,35 +1,71 @@
-import {CallRequestData} from "./Api";
+import { RentCreateAccountForm } from './types/RentTypes';
+import { CallRequestData } from "./Api";
+import { ConfirmPhone } from './Api';
+
 
 let Utils = {
-    validatePhone(phone:string){
+
+    convertBase64(file) {
+        return new Promise((resolve, rejects) => {
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+            fileReader.onerror = (error) => {
+                rejects(error)
+            }
+        })
+    },
+
+    validatePhone(phone: string) {
         return !!phone.replace(/\D+/g, '').match(/[78]\d{10}/)
     },
-    validateForm(request:CallRequestData,needComment:string|boolean=false){
+    validateRentCreateAccont(request: RentCreateAccountForm) {
         let errors = {};
-        if(!request.name)
+        if (!request.lastName || request.lastName.length < 0)
+            errors['lastName'] = "Не указано фамилия";
+        if (!request.name || request.name.length < 0)
+            errors['name'] = "Не указано имя";
+        if (!request.middleName || request.middleName.length < 0)
+            errors['middleName'] = "Не указано отчество";
+        return errors;
+    },
+    validateConfirmPhone(request: ConfirmPhone) {
+        let errors = {};
+        if (!request.phone || request.phone.length < 0)
+            errors['phone'] = "Не указан номер телефона";
+        if (!request.confirm)
+            errors['confirm'] = true;
+        return errors;
+    },
+    validateForm(request: CallRequestData, needComment: string | boolean = false) {
+        let errors = {};
+        if (!request.name)
             errors['name'] = "Не указано имя";
         // if(!data.lastName)
         //     errors['lastName'] = "Не указано имя";
-        if(!request.phone || request.phone ==='+7')
+        if (!request.phone || request.phone === '+7')
             errors['phone'] = "Не указан номер телефона";
-        if(!Utils.validatePhone(request.phone))
+        if (!Utils.validatePhone(request.phone))
             errors['phone'] = "Телефон в неверном формате";
-        if(!request.confirm)
+        if (!request.confirm)
             errors['confirm'] = true;
-        if(needComment && !request.comment)
+        if (needComment && !request.comment)
             errors['comment'] = needComment;
         return errors;
     },
-    cleanPhone(phone:string){
-        if(!Utils.validatePhone(phone))
+    cleanPhone(phone: string) {
+        if (!Utils.validatePhone(phone))
             return '';
         let ph = phone.replace(/\D+/g, '');
-        if(ph.startsWith('7'))
+        if (ph.startsWith('7'))
             ph = "+" + ph;
         return ph.startsWith('7') ? "+" + ph : ph;
     },
 
-    textFromCount(n:number, words:Array<string>, withNum:boolean = true) {
+    textFromCount(n: number, words: Array<string>, withNum: boolean = true) {
         if (n >= 5 && n <= 20)
             return (withNum ? (n + " ") : "") + words[2];
 
@@ -45,7 +81,7 @@ let Utils = {
         return (withNum ? (n + " ") : "") + words[2];
     },
 
-    randomString(length:number = 16){
+    randomString(length: number = 16) {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const charactersLength = characters.length;

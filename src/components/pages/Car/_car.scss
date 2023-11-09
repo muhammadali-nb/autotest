@@ -1,92 +1,181 @@
-
-.car-page{
+.car-page {
   padding-top: 50px;
   padding-bottom: 50px;
 }
 
-.car-base{
+.car-base {
   font-weight: 500;
   letter-spacing: 0.01em;
-  .car-base-title{
-    font-family: 'Inter';
+
+  &_body {
+    @include l-lg {
+      padding: 0 16px;
+    }
+  }
+
+  .car-base-title {
+    font-family: "Inter";
     font-weight: 600;
-    font-size: 64px;
+    font-size: 48px;
     text-transform: uppercase;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     line-height: 110%;
-    @include l-xl{
-      font-size: 52px;
-    }
-    @include l-lg{
-      font-size: 40px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    @include l-md{
+    text-align: left;
+    // @include l-xl {
+    //   font-size: 52px;
+    // }
+
+    @include l-md {
       font-size: 32px;
     }
   }
-  .car-base-price{
+
+  .car-base-price {
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 5px;
     line-height: 120%;
-    .car-base-price-value{
+
+    .car-base-price-value {
       font-weight: 600;
       font-size: 32px;
       margin-bottom: 15px;
       line-height: 120%;
-      @include l-md{
+      @include l-md {
         font-size: 24px;
       }
     }
   }
-  .car-base-payment{
+
+  .car-base-payment {
     font-size: 16px;
-    margin-bottom: 15px;
-    .car-base-payment-value{
+    margin-bottom: 10px;
+
+    &-preorder-btn {
+      width: 200px;
+    }
+
+    .car-base-payment-value {
       font-weight: 600;
+    }
+  }
+
+  .car-base-same_link > span {
+    font-size: 16px;
+    letter-spacing: 0.16px !important;
+    @include l-md {
+      font-size: 14px !important;
+    }
+  }
+
+  .car-base-calculator {
+    padding: 40px 0 0 0;
+    max-width: 500px;
+
+    &_slider > div {
+      margin: 0 0 20px 0;
+
+      @include l-md {
+        margin: 0 0 16px 0;
+      }
+    }
+
+    @include l-md {
+      padding: 28px 0;
+      max-width: 100%;
+    }
+    @include l-sm {
+      padding: 24px 0;
+      background: #fff;
+      box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.05);
     }
   }
 }
 
-.car-stat-block{
-  margin-bottom: 30px;
+.car-stat-block {
+  &:not(:last-child) {
+    margin: 0 0 30px 0;
+  }
+  @include l-md {
+    margin-bottom: 30px;
+  }
 }
-.car-stat-block-header{
-   font-family: 'Inter';
-   font-weight: 600;
-   font-size: 24px;
-   line-height: 120%;
-   letter-spacing: 0.01em;
-   text-transform: uppercase;
-   margin-bottom: 24px;
-   @include l-md{
-     margin-bottom: 15px;
-     font-size: 20px;
-   }
- }
-.car-stat-block-item{
-  display:grid;
-  margin-bottom:15px;
-  font-weight:500;
+
+.car-stat-block-header {
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 120%;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+
+  @include l-lg {
+    margin-bottom: 16px;
+    font-size: 20px;
+    padding: 0 16px;
+  }
+
+  @include l-sm {
+    font-size: 18px;
+  }
 }
-.car-stat-block-list{
-  display:grid;
-  margin-bottom:15px;
-  font-weight:500;
+
+.car-stat-block-item {
+  display: grid;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.car-stat-block-item_mobile {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &-leftside {
+    max-width: 230px;
+    text-transform: none;
+  }
+
+  &.gray {
+    background: rgba(242, 243, 246, 0.5);
+  }
+}
+
+// .car-stat-block_mobile {
+//   display: flex;
+//   justify-content: space-between;
+// }
+
+.car-stat-block-list {
+  display: grid;
+  // margin-bottom: 15px;
+  font-weight: 500;
   grid-gap: 15px;
   grid-template-columns: 2fr 1fr;
-  .car-stat-block-item-name{
-    color:$grayColor;
+
+  @include l-lg {
+    padding: 0 16px;
+  }
+
+  .car-stat-block-item-name {
+    color: $grayColor;
     display: flex;
     line-height: 120%;
     width: 100%;
     text-transform: none;
     align-items: flex-end;
+
+    @include l-md {
+      font-size: 14px;
+    }
   }
-  .car-stat-block-item-filler.dotted{
-    color:$grayColor;
+
+  .car-stat-block-item-filler.dotted {
+    color: $grayColor;
     flex-grow: 1;
     transform: translateY(-0.4rem);
     line-height: 120%;
@@ -94,44 +183,51 @@
     border-bottom: dotted 2px $grayColor;
     min-width: 25px;
   }
-  .car-stat-block-item-value{
+
+  .car-stat-block-item-value {
     line-height: 120%;
     display: flex;
     width: 100%;
     flex-wrap: wrap;
     align-items: flex-end;
+
+    @include l-md {
+      font-size: 14px;
+    }
   }
 }
 
-
-
-.car-images{
+.car-images {
   margin-bottom: 120px;
-  @include l-lg{
+  @include l-lg {
     margin-bottom: 40px;
   }
 }
-.car-images-image-container{
+
+.car-images-image-container {
   padding: 20px 0;
   border-radius: 2px;
-  @include l-lg{
+  @include l-lg {
     padding: 0;
   }
 }
-.car-images-image{
+
+.car-images-image {
   width: 100%;
   height: 486px;
   object-fit: contain;
-  &.big{
+
+  &.big {
     height: 800px;
   }
 }
 
-.car-images-controls{
+.car-images-controls {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  .car-images-controls-btn{
+
+  .car-images-controls-btn {
     height: 42px;
     width: 42px;
     display: flex;
@@ -142,7 +238,8 @@
     outline: none;
     box-shadow: unset;
   }
-  .car-images-controls-sliders{
+
+  .car-images-controls-sliders {
     display: flex;
     justify-content: center;
     padding: 0 40px;
@@ -150,7 +247,7 @@
     //flex-grow: 1;
     gap: 10px;
 
-    .car-images-controls-slider{
+    .car-images-controls-slider {
       flex-grow: 1;
       height: 25px;
       display: flex;
@@ -159,48 +256,93 @@
       cursor: pointer;
       transition: all 0.2s ease-in-out;
       max-width: 50px;
+
       div {
         height: 4px;
         width: 100%;
         border-radius: 20px;
-        background: #BABCBF;
+        background: #babcbf;
         transition: all 0.2s ease-in-out;
       }
-      &:hover div{
+
+      &:hover div {
         background: #8c8c8c;
       }
-      &.active div{
+
+      &.active div {
         background: $textColor;
       }
-      &.white.active div{
+
+      &.white.active div {
         background: white;
       }
     }
   }
 }
-.car-info{
-  border:unset;
-  font-family: 'Inter';
+
+.car-info {
+  border: unset;
+  font-family: "Inter";
   font-weight: 600;
   font-size: 16px;
   line-height: 120%;
   letter-spacing: 0.01em;
   text-transform: uppercase;
   color: #222222;
-  padding-bottom: 10px;
 
+  padding: 32px 0 10px 0;
 }
-.car-info-btns{
-  padding-bottom: 60px;
+
+.car-info-btns {
+  margin: 0 0 60px 0;
   display: flex;
   justify-content: start;
   gap: 25px;
+
+  &_mobile {
+    border-width: 2px;
+    margin: 0 0 40px 0;
+    gap: 24px;
+    & > .nav-link {
+      color: #222;
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 140%; /* 22.4px */
+      letter-spacing: 0.16px;
+      text-transform: uppercase;
+      border-color: transparent;
+      padding: 8px 2px;
+      border: none;
+      &.active {
+        border-bottom: 2px solid #bf3535;
+        color: #222;
+      }
+    }
+  }
+
+  @include l-md {
+    margin: 0 0 40px;
+    gap: 12px;
+  }
+
+  @include l-sm {
+    margin: 0 0 24px 0;
+    gap: 8px;
+  }
 }
-.car-info-btn{
+
+.car-info_detail {
+  @include l-lg {
+    padding: 0 16px;
+  }
+}
+
+.car-info-btn {
   background: transparent;
   border: unset;
   outline: none;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-weight: 600;
   font-size: 16px;
   line-height: 120%;
@@ -210,11 +352,24 @@
   width: fit-content;
   position: relative;
   padding: 5px 0 10px;
-  &.big{
+
+  @include l-sm {
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+  }
+
+  &.big {
     font-size: 24px;
     padding: 5px 0 15px;
+
+    @include l-sm {
+      font-size: 16px;
+      padding: 5px 0;
+    }
   }
-  &::before{
+
+  &::before {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -222,55 +377,60 @@
     width: 100%;
     display: block;
     border-radius: 20px;
-    background: #E7E7E8;
-    content: '';
+    background: #e7e7e8;
+    content: "";
     transition: all 0.2s ease-in-out;
   }
-  &:hover{
-    &::before{
+
+  &:hover {
+    &::before {
       background: #a4a4a4;
     }
   }
-  &.active{
+
+  &.active {
     &::before {
       background: $redColor;
     }
   }
 }
 
-
-.car-rent-modal-btn{
+.car-rent-modal-btn {
   height: 70px;
   width: 100%;
   display: flex;
   padding: 0;
 
-  border: 2px solid #F2F3F6;
+  border: 2px solid #f2f3f6;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   background: white;
   align-items: center;
-  &.selected{
+
+  &.selected {
     border: 2px solid #222222;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   }
-  &.error{
-    border: 2px solid #BF3535;
+
+  &.error {
+    border: 2px solid #bf3535;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   }
 
-  .car-rent-modal-btn-text{
+  .car-rent-modal-btn-text {
     padding: 15px 20px 15px 0;
     display: flex;
     align-items: center;
   }
-  .car-rent-modal-btn-image{
+
+  .car-rent-modal-btn-image {
     width: 80px;
     display: flex;
     align-items: center;
     max-width: 80px;
     padding: 15px 20px;
-    img{
+
+    img {
       //width: 100%;
       height: 100%;
       object-fit: contain;
