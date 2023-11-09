@@ -1057,15 +1057,16 @@ const CarBookingForm: React.FC<{
 	btn?: ReactNode;
 	step?: string;
 	car: CarDataType | any;
-	car_id: number;
+	car_id: any;
 }> = (props) => {
-	const { user_status } = useAuth();
+	const { user_status, initialize } = useAuth();
 	const [error_message, setErrorMessage] = useState<string | null>(null);
 	const [paymentStatus, setPaymentStatus] =
 		useState<RentBookingPaymentStatus>(null);
 	const [depositPrice, setDepositPrice] = useState(0);
 	const [show, setShow] = useState(false);
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
+	const [timer, setTimer] = useState(0);
 	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
 		qr: "",
 		pid: "",
@@ -1076,7 +1077,13 @@ const CarBookingForm: React.FC<{
 		errors: {},
 	});
 
-	const [timer, setTimer] = useState(0);
+	const chekckUser = async () => {
+		await initialize();
+		if (user_status) {
+			setStep("rent");
+		}
+	};
+
 	const confirmPhone = () => {
 		if (user_status === "banned") {
 			return;
@@ -1120,9 +1127,8 @@ const CarBookingForm: React.FC<{
 	};
 
 	useEffect(() => {
-		console.log(paymentStatus);
-	}, [paymentStatus]);
-
+		chekckUser();
+	}, [step]);
 	const handleClose = () => setShow(false);
 	const handleShow = () => {
 		if (props.func) props.func();

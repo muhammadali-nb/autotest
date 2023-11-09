@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import Api, { ErrorResponse, RentResponse } from "../../../Api";
-import { useParams, useSearchParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useAppSelector } from "../../../store/hooks";
+import { useSearchParams } from "react-router-dom";
 import { CarRentCard } from "../../common/CarCard";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
@@ -11,14 +10,9 @@ import CarRequestForm from "../../common/CarRequestForm";
 import chevron from "../../../img/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
-import { setFilter } from "../../../store/reducers/filterSlice";
 
 const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
-	// const [cars, setCars] = useState<RentResponse | ErrorResponse | undefined>(
-	// 	undefined
-	// );
-
-	const filter = useAppSelector((state) => state.filter)
+	const filter = useAppSelector((state) => state.filter);
 	const [activePage, setActivePage] = useState("1");
 	const { data, error, isLoading } = useQuery({
 		queryKey: ["rent-cars", { activePage, ...filter }],
@@ -27,25 +21,6 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 
 	const [query, setQuery] = useSearchParams();
 	const [timer, setTimer] = useState<NodeJS.Timeout>();
-
-	// useEffect(() => {
-	// 	// const fetchCarData = async () => {
-	// 	// 	setCars(undefined);
-	// 	// 	console.log("fetching cars...");
-	// 	// 	let carData = await Api.rent(filter, query);
-
-	// 	// 	// if(Api.isError(carData)){
-	// 	// 	//     //TODO:Error check!
-	// 	// 	//     return;
-	// 	// 	// }
-	// 	// 	setCars(carData);
-	// 	// };
-	// 	if (!data) fetchCarData();
-	// 	else {
-	// 		clearTimeout(timer);
-	// 		setTimer(setTimeout(fetchCarData, 1000));
-	// 	}
-	// }, [filter, query]);
 
 	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={data} />;

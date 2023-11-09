@@ -13,6 +13,13 @@ import LoadError from "../../common/LoadError";
 import { RentModalMobile } from "../../common/Rent/RentModalMobile/RentModalMobile";
 import { useAuth } from "../../../hooks/useAuth";
 import { CarBookingStepsType } from "../../common/CarRentForm";
+import {
+	BrowserView,
+	MobileView,
+	isBrowser,
+	isMobile,
+} from "react-device-detect";
+import CarRentForm from "../../common/CarRentForm";
 
 const RentCarDetail = () => {
 	const car = useLoaderData() as CarRentDataInfo;
@@ -42,69 +49,82 @@ const RentCarDetail = () => {
 	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={error} />;
 	return (
-		<CarDetailLayout>
-			{isSuccess ? (
-				<>
-					<RentCarImagesCarousel
-						setFullScreen={setModalFullImage}
-						images={data.item?.images}
-					/>
-					<Container fluid={"xxl"}>
-						<h1 className="car-detail_header">
-							{data.item?.brand} <span>{data.item?.model}</span>
-						</h1>
-						<h4 className="car-detail_id">{data.item?.regnum}</h4>
-						<div className="car-detail_price">
-							<p>Цена</p>
-							<div className="car-detail_price-value">
-								{data.item?.rentpay} ₽ <span>/ день</span>
+		<>
+			<BrowserView>
+				<h1>pk view</h1>
+				<CarRentForm
+					car={data.item}
+					car_id={carID}
+					wide={true}
+					step={"start"}
+				/>
+			</BrowserView>
+			<MobileView>
+				<CarDetailLayout>
+					{isSuccess ? (
+						<>
+							<RentCarImagesCarousel
+								setFullScreen={setModalFullImage}
+								images={data.item?.images}
+							/>
+							<Container fluid={"xxl"}>
+								<h1 className="car-detail_header">
+									{data.item?.brand} <span>{data.item?.model}</span>
+								</h1>
+								<h4 className="car-detail_id">{data.item?.regnum}</h4>
+								<div className="car-detail_price">
+									<p>Цена</p>
+									<div className="car-detail_price-value">
+										{data.item?.rentpay} ₽ <span>/ день</span>
+									</div>
+								</div>
+								<div className="car-detail_deposit">
+									Депозит от <span>{data.item?.deposit} ₽</span>
+								</div>
+								<CarSameLink className="car-detail_same-link" car={car} />
+								<div className="car-detail_info">
+									<h4>Информация</h4>
+									<ul>
+										<li>
+											<div>Год </div>
+											<span>{data.item?.year}</span>
+										</li>
+										<li>
+											<div>КПП </div>
+											<span>{data.item?.kpp}</span>
+										</li>
+										<li>
+											<div>Пробег</div> <span>{data.item?.run}км</span>
+										</li>
+									</ul>
+								</div>
+							</Container>
+							<div className="car-detail_tobook">
+								<button className="site-btn big" onClick={checkSteps}>
+									Забронировать
+								</button>
 							</div>
-						</div>
-						<div className="car-detail_deposit">
-							Депозит от <span>{data.item?.deposit} ₽</span>
-						</div>
-						<CarSameLink className="car-detail_same-link" car={car} />
-						<div className="car-detail_info">
-							<h4>Информация</h4>
-							<ul>
-								<li>
-									<div>Год </div>
-									<span>{data.item?.year}</span>
-								</li>
-								<li>
-									<div>КПП </div>
-									<span>{data.item?.kpp}</span>
-								</li>
-								<li>
-									<div>Пробег</div> <span>{data.item?.run}км</span>
-								</li>
-							</ul>
-						</div>
-					</Container>
-					<div className="car-detail_tobook">
-						<button className="site-btn big" onClick={checkSteps}>
-							Забронировать
-						</button>
-					</div>
-					<RentCarFullImage
-						images={isSuccess && data.item?.images}
-						active={modalFullImage}
-						setActive={setModalFullImage}
-					/>
-					<RentModalMobile
-						step={step}
-						setStep={setStep}
-						active={modalBookingCar}
-						setActive={setModalBookingCar}
-						car={isSuccess && data.item}
-					/>
-				</>
-			) : (
-				<>
-					<h3>Машина не найдина, повторите попытку позже</h3>
-				</>
-			)}
-		</CarDetailLayout>
+							<RentCarFullImage
+								images={isSuccess && data.item?.images}
+								active={modalFullImage}
+								setActive={setModalFullImage}
+							/>
+							<RentModalMobile
+								step={step}
+								setStep={setStep}
+								active={modalBookingCar}
+								setActive={setModalBookingCar}
+								car={isSuccess && data.item}
+							/>
+						</>
+					) : (
+						<>
+							<h3>Машина не найдина, повторите попытку позже</h3>
+						</>
+					)}
+				</CarDetailLayout>
+			</MobileView>
+		</>
 	);
 };
 
