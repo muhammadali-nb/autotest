@@ -46,7 +46,7 @@ export type CarBookingStepsType =
 	| "booking_result"
 	| "finish";
 
-const CarRentContacts: React.FC<{
+export const CarRentContacts: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
 	car: CarDataType;
@@ -151,7 +151,7 @@ const CarRentContacts: React.FC<{
 	);
 };
 
-const CarRentConfirmPhone: React.FC<{
+export const CarRentConfirmPhone: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
 	car: CarDataType;
@@ -366,7 +366,7 @@ const pay_koef = {
 	card: 0.97,
 	sbp: 0.99,
 };
-const CarRentPaymentType: React.FC<{
+export const CarRentPaymentType: React.FC<{
 	closeFunc: () => void;
 	data: ConfirmPhone | any;
 	setStep: (string) => void;
@@ -511,7 +511,7 @@ const CarRentPaymentType: React.FC<{
 	);
 };
 
-const CarRentPaymentTypeConfirm: React.FC<{
+export const CarRentPaymentTypeConfirm: React.FC<{
 	closeFunc: () => void;
 	data: ConfirmPhone | any;
 	setStep: (e: CarBookingStepsType) => void;
@@ -612,7 +612,7 @@ const CarRentPaymentTypeConfirm: React.FC<{
 	);
 };
 
-const CarRentBookingStatus: React.FC<{
+export const CarRentBookingStatus: React.FC<{
 	paymentStatus: RentBookingPaymentStatus;
 	closeFunc: () => void;
 	car: CarDataType;
@@ -685,7 +685,9 @@ const CarRentBookingStatus: React.FC<{
 	);
 };
 
-const CarRentFormConfirmed: React.FC<{ closeFunc: () => void }> = (props) => {
+export const CarRentFormConfirmed: React.FC<{ closeFunc: () => void }> = (
+	props
+) => {
 	return (
 		<ModalTemplateContent>
 			<div style={{ marginTop: "130px" }}>
@@ -710,7 +712,7 @@ const CarRentFormConfirmed: React.FC<{ closeFunc: () => void }> = (props) => {
 	);
 };
 
-const CarRequestFormContent: React.FC<{
+export const CarRequestFormContent: React.FC<{
 	closeFunc: () => void;
 	setStep: (e: any) => void;
 	car: CarDataType;
@@ -918,7 +920,7 @@ export const CarRequestFormImage: React.FC<{
 	);
 };
 
-const CarRentCreateAccount: React.FC<{
+export const CarRentCreateAccount: React.FC<{
 	closeFunc: () => void;
 	setStep: (string) => void;
 	car: CarDataType;
@@ -1054,22 +1056,23 @@ const CarRentCreateAccount: React.FC<{
 	);
 };
 
-const CarBookingForm: React.FC<{
+export const CarBookingForm: React.FC<{
 	wide?: boolean;
 	text?: string | ReactNode;
 	func?: () => void;
 	btn?: ReactNode;
 	step?: string;
 	car: CarDataType | any;
-	car_id: number;
+	car_id: any;
 }> = (props) => {
-	const { user_status } = useAuth();
+	const { user_status, initialize } = useAuth();
 	const [error_message, setErrorMessage] = useState<string | null>(null);
 	const [paymentStatus, setPaymentStatus] =
 		useState<RentBookingPaymentStatus>(null);
 	const [depositPrice, setDepositPrice] = useState(0);
 	const [show, setShow] = useState(false);
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
+	const [timer, setTimer] = useState(0);
 	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
 		qr: "",
 		pid: "",
@@ -1080,7 +1083,13 @@ const CarBookingForm: React.FC<{
 		errors: {},
 	});
 
-	const [timer, setTimer] = useState(0);
+	const chekckUser = async () => {
+		await initialize();
+		if (user_status) {
+			setStep("rent");
+		}
+	};
+
 	const confirmPhone = () => {
 		if (user_status === "banned") {
 			return;
@@ -1127,10 +1136,7 @@ const CarBookingForm: React.FC<{
 		console.log(paymentStatus);
 	}, [paymentStatus]);
 
-	const handleClose = () => {
-		setShow(false);
-		setStep("rent");
-	};
+	const handleClose = () => setShow(false);
 	const handleShow = () => {
 		if (props.func) props.func();
 		setShow(true);

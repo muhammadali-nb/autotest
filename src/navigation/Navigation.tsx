@@ -1,5 +1,7 @@
 import {
 	Route,
+	Router,
+	Routes,
 	createBrowserRouter,
 	createRoutesFromElements,
 } from "react-router-dom";
@@ -21,10 +23,12 @@ import PersonalAccountPage from "../components/pages/PersonalAccount/PersonalAcc
 import RentHistoryPage from "../components/pages/RentHistory/RentHistoryPage";
 import OfferPage from "../components/pages/OfferPage";
 import NotExistsPage from "../components/pages/NotExistsPage";
+import TestPage from "../components/pages/Index/TestPage";
+import App from "../App";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route path="/">
+		<Route path="*" element={<App />}>
 			<Route index element={<IndexPage />} loader={indexLoader} />
 			<Route path={"catalog"} element={<CatalogPage />} />
 			<Route
@@ -32,12 +36,14 @@ export const router = createBrowserRouter(
 				element={<CarPage />}
 				loader={carDataLoader}
 			/>
-			<Route path={"rent"} element={<RentPage />} />
-			<Route
-				path={"rent/:carID"}
-				element={<RentCarDetail />}
-				loader={carRentDataLoader}
-			/>
+			<Route path="rent">
+				<Route index element={<RentPage />} />
+				<Route
+					path={":carID"}
+					element={<RentCarDetail />}
+					loader={carRentDataLoader}
+				/>
+			</Route>
 			<Route
 				path={"programs"}
 				element={<ProgramsPage />}
@@ -54,6 +60,8 @@ export const router = createBrowserRouter(
 			/>
 			<Route path={"offer"} element={<OfferPage />} />
 			<Route path={"*"} element={<NotExistsPage />} />
+			<Route path="test" element={<TestPage />} />
+			<Route path="test/:id" element={<TestPage />} />
 		</Route>
 	)
 );
