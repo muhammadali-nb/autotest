@@ -44,7 +44,7 @@
 .filter-menu {
   position: fixed;
   top: 0;
-  left: -100%;
+  left: -150%;
   z-index: 202;
   width: 100vw;
   height: 100vh;
@@ -52,12 +52,25 @@
   background-color: #ffffff;
   transition: all 0.5s ease-in-out;
   overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+    background-color: transparent;
+  }
+
   &.active {
     left: 0;
   }
 
   &_scroller {
     height: auto;
+    &::-webkit-scrollbar {
+      display: none;
+      background-color: transparent;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 
   &_header {
