@@ -252,7 +252,7 @@ export const CarRentCard: React.FC<{
 }> = ({ car, link }) => {
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
 	const navigate = useNavigate();
-
+	const location = useLocation();
 	// console.log(car);
 	// const tags =
 	// 	baseData.top?.rent.values?.filter((i) => car.special.includes(i.id)) ?? [];
@@ -265,7 +265,11 @@ export const CarRentCard: React.FC<{
 
 	return (
 		<>
-			<div className={"d-none d-md-block car__card"}>
+			<Link
+				to={`/rent/${car.id}`}
+				style={{ textDecoration: "none", color: "#222222" }}
+				state={{ backgroundLocation: location }}
+				className="d-none d-md-block car__card">
 				<div>
 					<div className={"car__card-taglist"}>
 						<CarTag
@@ -311,7 +315,7 @@ export const CarRentCard: React.FC<{
 				</div>
 
 				<CarRentForm car={car} car_id={car.id} wide={true} step={"start"} />
-			</div>
+			</Link>
 
 			<div
 				onClick={() => navigate(`/rent/${car.id}`)}
