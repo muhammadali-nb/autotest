@@ -50,15 +50,6 @@ const RentCarDetail = () => {
 	if (error) return <LoadError response={error} />;
 	return (
 		<>
-			<BrowserView>
-				<h1>pk view</h1>
-				<CarRentForm
-					car={data.item}
-					car_id={carID}
-					wide={true}
-					step={"start"}
-				/>
-			</BrowserView>
 			<MobileView>
 				<CarDetailLayout>
 					{isSuccess ? (
