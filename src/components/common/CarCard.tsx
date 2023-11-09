@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../../store/hooks";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { type BaseState } from "../../store/reducers/baseDataSlice";
 import CarBookingForm from "./CarBookingForm";
 import CarRentForm from "./CarRentForm";
@@ -248,9 +248,11 @@ const CarCard: React.FC<{
 
 export const CarRentCard: React.FC<{
 	car: CarRentDataInfo;
-}> = ({ car }) => {
+	link: string;
+}> = ({ car, link }) => {
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
 	const navigate = useNavigate();
+
 	// console.log(car);
 	// const tags =
 	// 	baseData.top?.rent.values?.filter((i) => car.special.includes(i.id)) ?? [];
@@ -279,15 +281,12 @@ export const CarRentCard: React.FC<{
 						))} */}
 					</div>
 
-					<CarRentForm
-						car={car}
-						car_id={car.id}
-						btn={
-							<div className={"car__card-image"}>
-								<img src={car.image} alt={car.brand + " " + car.model} />
-							</div>
-						}
-					/>
+					<Link to={`/rent/${car.id}`}>
+						<div className={"car__card-image"}>
+							<img src={car.image} alt={car.brand + " " + car.model} />
+						</div>
+					</Link>
+					{/* <CarRentForm car={car} car_id={car.id} btn={} /> */}
 
 					<div className={"car__card-title mb-px-10"}>
 						{car.brand} <br /> <span className={"model"}>{car.model}</span>

@@ -13,7 +13,7 @@ import { SmallFooter } from "../layout/Footer";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -291,6 +291,9 @@ const RentPage = () => {
 		queryKey: ["rent-filter"],
 		queryFn: () => rentService.getFilter(),
 	});
+
+	let location = useLocation();
+
 	return (
 		<RentLayout
 			meta={meta}

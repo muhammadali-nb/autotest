@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { CarRentDataInfo, CarSameLink } from "../../common/CarCard";
-import Api, { ErrorResponse } from "../../../Api";
+import Api, { ConfirmPhone, ErrorResponse } from "../../../Api";
 import { CarDetailLayout } from "../../layout/CarDetailLayout";
 import RentCarImagesCarousel from "./RentCarImagesCarousel";
 import { Container } from "react-bootstrap";
@@ -12,7 +12,18 @@ import RentCarFullImage from "./RentCarFullImage";
 import LoadError from "../../common/LoadError";
 import { RentModalMobile } from "../../common/Rent/RentModalMobile/RentModalMobile";
 import { useAuth } from "../../../hooks/useAuth";
-import { CarBookingStepsType } from "../../common/CarRentForm";
+import {
+	CarBookingStepsType,
+	CarRentBookingStatus,
+	CarRentConfirmPhone,
+	CarRentContacts,
+	CarRentCreateAccount,
+	CarRentFormConfirmed,
+	CarRentPaymentType,
+	CarRentPaymentTypeConfirm,
+	CarRequestFormContent,
+	CarRequestFormImage,
+} from "../../common/CarRentForm";
 import {
 	BrowserView,
 	MobileView,
@@ -20,19 +31,91 @@ import {
 	isMobile,
 } from "react-device-detect";
 import CarRentForm from "../../common/CarRentForm";
+import axios, { AxiosError } from "axios";
+import { ConfirmPaymentQR } from "../../../types/AuthContextTypes";
+import { RentBookingPaymentStatus } from "../../../types/RentTypes";
+import ModalFormTemplate from "../../common/ModalFormTemplate";
 
 const RentCarDetail = () => {
 	const car = useLoaderData() as CarRentDataInfo;
 	const { carID } = useParams();
 	const [modalFullImage, setModalFullImage] = useState(false);
 	const [modalBookingCar, setModalBookingCar] = useState(false);
-	const { isAuthenticated, has_profile, initialize } = useAuth();
+	const { isAuthenticated, has_profile, initialize, user_status } = useAuth();
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
-
+	const [error_message, setErrorMessage] = useState<string | null>(null);
+	const [paymentStatus, setPaymentStatus] =
+		useState<RentBookingPaymentStatus>(null);
+	const [depositPrice, setDepositPrice] = useState(0);
+	// const [show, setShow] = useState(false);
+	const [timer, setTimer] = useState(0);
+	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
+		qr: "",
+		pid: "",
+	});
+	const [state, setState] = useState<ConfirmPhone>({
+		phone: "",
+		confirm: false,
+		errors: {},
+	});
+	const navigate = useNavigate();
 	const { data, error, isLoading, isSuccess } = useQuery({
 		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
 	});
+
+	const chekckUser = async () => {
+		await initialize();
+		if (user_status) {
+			setStep("rent");
+		}
+	};
+
+	const confirmPhone = () => {
+		if (user_status === "banned") {
+			return;
+		}
+		axios
+			.get(
+				`https://taxivoshod.ru/api/login.php?auth=1&reg=1&phone=${state.phone}`,
+				{ withCredentials: true }
+			)
+			.then((res) => {
+				if (res.data.success) {
+					setStep("confirm");
+					setTimer(res.data.timer ?? 59);
+				}
+			})
+			.catch((e) => {
+				setErrorMessage(
+					(e as AxiosError<ErrorResponse>).response?.data.message ??
+						"Возникла ошибка с сервером поробуйте позже"
+				);
+				console.log(e);
+			});
+	};
+
+	const getPriceCar = async () => {
+		try {
+			const res = await axios.get(
+				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${carID}`,
+				{
+					withCredentials: true,
+				}
+			);
+			if (res.data.result === 1) {
+				setDepositPrice(res.data.summ);
+				if (res.data.summ > 0) setStep("payment");
+				else setStep("finish");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		chekckUser();
+	}, [step]);
 
 	const checkSteps = async () => {
 		initialize();
@@ -45,19 +128,103 @@ const RentCarDetail = () => {
 		}
 		setModalBookingCar(true);
 	};
+	const handleClose = () => {
+		navigate(-1);
+	};
 
 	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={error} />;
 	return (
 		<>
 			<BrowserView>
-				<h1>pk view</h1>
-				<CarRentForm
-					car={data.item}
-					car_id={carID}
-					wide={true}
-					step={"start"}
-				/>
+				<ModalFormTemplate
+					show={true}
+					onHide={handleClose}
+					centered
+					size={"xl"}
+					image={
+						step === "rent" ? (
+							<CarRequestFormImage closeFunc={handleClose} car={data.item} />
+						) : undefined
+					}>
+					{step === "rent" && (
+						<CarRequestFormContent
+							getDeposit={getPriceCar}
+							setStep={setStep}
+							closeFunc={handleClose}
+							car={data.item}
+						/>
+					)}
+					{step === "start" && (
+						<CarRentContacts
+							error={error_message}
+							submit={confirmPhone}
+							data={state}
+							setData={setState}
+							closeOnBack={step == "start"}
+							car={data.item}
+							closeFunc={handleClose}
+							setStep={setStep}
+						/>
+					)}
+					{step === "confirm" && (
+						<CarRentConfirmPhone
+							timer={timer}
+							data={state}
+							repeatRequest={confirmPhone}
+							car={data.item}
+							closeFunc={handleClose}
+							setStep={setStep}
+						/>
+					)}
+					{step === "create" && (
+						<CarRentCreateAccount
+							getPayment={getPriceCar}
+							data={state}
+							setData={setState}
+							// closeOnBack={step === "start"}
+							car={data.item}
+							closeFunc={handleClose}
+							setStep={setStep}
+						/>
+					)}
+
+					{step === "payment" && (
+						<CarRentPaymentType
+							setConfirmPayment={setConfirmPaymentQR}
+							deposit={depositPrice}
+							setDeposit={setDepositPrice}
+							data={state}
+							car={data.item}
+							closeFunc={handleClose}
+							setStep={setStep}
+						/>
+					)}
+
+					{step === "confirm_payment" && (
+						<CarRentPaymentTypeConfirm
+							paymentStatus={paymentStatus}
+							setPaymentStatus={setPaymentStatus}
+							confirmPayment={confirmPaymentQR}
+							deposit={depositPrice}
+							setDeposit={setDepositPrice}
+							data={state}
+							car={data.item}
+							closeFunc={handleClose}
+							setStep={setStep}
+						/>
+					)}
+					{step === "booking_result" && (
+						<CarRentBookingStatus
+							paymentStatus={paymentStatus}
+							closeFunc={handleClose}
+							car={data.item}
+						/>
+					)}
+					{step === "finish" && (
+						<CarRentFormConfirmed closeFunc={handleClose} />
+					)}
+				</ModalFormTemplate>
 			</BrowserView>
 			<MobileView>
 				<CarDetailLayout>
@@ -81,7 +248,7 @@ const RentCarDetail = () => {
 								<div className="car-detail_deposit">
 									Депозит от <span>{data.item?.deposit} ₽</span>
 								</div>
-								<CarSameLink className="car-detail_same-link" car={car} />
+								<CarSameLink className="car-detail_same-link" car={data.item} />
 								<div className="car-detail_info">
 									<h4>Информация</h4>
 									<ul>
@@ -129,7 +296,7 @@ const RentCarDetail = () => {
 };
 
 export const carRentDataLoader = async ({ request, params }) => {
-	return Api.rentCar(params.id); // d.json();
+	return Api.rentCar(params.carID); // d.json();
 };
 
 export default RentCarDetail;

@@ -36,7 +36,9 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 		<div>
 			<div className={"catalog__grid"}>
 				{!isLoading &&
-					data.list.map((i, index) => <CarRentCard car={i} key={index} />)}
+					data.list.map((i, index) => (
+						<CarRentCard link={`rent/${i.id}`} car={i} key={index} />
+					))}
 			</div>
 			<BottomMessage
 				className="bottom-message-desc"

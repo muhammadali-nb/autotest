@@ -9,18 +9,16 @@ import {
 import { YMaps } from "@pbe/react-yandex-maps";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./contexts/AuthContext";
-import TestModal from "./components/pages/TestModal";
+import RentCarDetail from "./components/pages/Rent/RentCarDetail";
 
 const queryClient = new QueryClient();
 
 const App = () => {
 	let location = useLocation();
-	// let state = location.state as { backgroundLocation?: Location };
-	// The `backgroundLocation` state is the location that we were at when one of
-	// the gallery links was clicked. If it's there, use it as the location for
-	// the <Routes> so we show the gallery in the background, behind the modal.
 	let state = location.state as { backgroundLocation?: Location };
-
+	useEffect(() => {
+		console.log(location);
+	}, [location]);
 	return (
 		<QueryClientProvider client={queryClient}>
 			<AuthProvider>
@@ -28,7 +26,7 @@ const App = () => {
 					<Outlet />
 					{state?.backgroundLocation && (
 						<Routes>
-							<Route path="/test/:id" element={<TestModal />} />
+							<Route path="/rent/:carID" element={<RentCarDetail />} />
 						</Routes>
 					)}
 				</YMaps>
