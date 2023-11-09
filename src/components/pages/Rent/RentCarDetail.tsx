@@ -81,23 +81,23 @@ const RentCarDetail = () => {
 							</ul>
 						</div>
 					</Container>
-					<div className="car-detail_tobook">
+					{/* <div className="car-detail_tobook">
 						<button className="site-btn big" onClick={checkSteps}>
 							Забронировать
 						</button>
-					</div>
+					</div> */}
 					<RentCarFullImage
 						images={isSuccess && data.item?.images}
 						active={modalFullImage}
 						setActive={setModalFullImage}
 					/>
-					<RentModalMobile
+					{/* <RentModalMobile
 						step={step}
 						setStep={setStep}
 						active={modalBookingCar}
 						setActive={setModalBookingCar}
 						car={isSuccess && data.item}
-					/>
+					/> */}
 				</>
 			) : (
 				<>

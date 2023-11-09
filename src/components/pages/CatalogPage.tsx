@@ -111,7 +111,6 @@ const CatalogPage = () => {
 
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
 
-
 	return (
 		<CatalogLayout
 			meta={meta}
@@ -120,35 +119,49 @@ const CatalogPage = () => {
 			footerSmall>
 			<div className="catalog">
 				<Container fluid={"xxl"}>
-					<CatalogMobileMenu data={baseData} isActive={isOpen} setIsActive={setOpen} />
-					<div>
-						<Row>
-							<Col lg={3}>
-								<div className={"sticky-no-scrollbar"}>
-									<FiltersBlock filterData={baseData}  />
-								</div>
-							</Col>
-							<Col lg={9}>
-								<AlertMessage
-									page={"catalog"}
-									type={"danger"}
-									className={"catalog-alert"}
-									local_message={
-										<p className="catalog-alert_message">
-											В каталоге представлены автомобили, которые проходят по
-											программам лизинга.
-											<br></br>
-											Если Вам необходим автомобиль в аренду перейдите в раздел{" "}
-											<span>Аренда.</span>
-										</p>
-									}
-								/>
-								<FilterButtons isShowMobileFiler={setOpen} />
-								<CarGrid />
-								<SmallFooter />
-							</Col>
-						</Row>
-					</div>
+					{process.env.REACT_APP_NO_CATALOG !== "true" ? (
+						<>
+							<CatalogMobileMenu
+								data={baseData}
+								isActive={isOpen}
+								setIsActive={setOpen}
+							/>
+							<div>
+								<Row>
+									<Col lg={3}>
+										<div className={"sticky-no-scrollbar"}>
+											<FiltersBlock filterData={baseData} />
+										</div>
+									</Col>
+									<Col lg={9}>
+										<AlertMessage
+											page={"catalog"}
+											type={"danger"}
+											className={"catalog-alert"}
+											local_message={
+												<p className="catalog-alert_message">
+													В каталоге представлены автомобили, которые проходят
+													по программам лизинга.
+													<br></br>
+													Если Вам необходим автомобиль в аренду перейдите в
+													раздел <span>Аренда.</span>
+												</p>
+											}
+										/>
+										<FilterButtons isShowMobileFiler={setOpen} />
+										<CarGrid />
+										<SmallFooter />
+									</Col>
+								</Row>
+							</div>
+						</>
+					) : (
+						<AlertMessage
+							page={"catalog"}
+							type={"danger"}
+							className={"mb-px-60"}
+						/>
+					)}
 				</Container>
 			</div>
 		</CatalogLayout>

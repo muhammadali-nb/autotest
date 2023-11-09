@@ -775,10 +775,10 @@ const CarRequestFormContent: React.FC<{
 						{props.car.deposit.toLocaleString()} ₽
 					</span>
 				</div>
-				<div className={"mb-px-40"}>
-					<button className={"site-btn big"} onClick={ckeckSteps}>
+				<div className={"mb-px-40"} style={{ height: "40px" }}>
+					{/* <button className={"site-btn big"} onClick={ckeckSteps}>
 						Забронировать
-					</button>
+					</button> */}
 				</div>
 				<div
 					className={
