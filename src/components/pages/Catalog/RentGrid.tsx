@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
-import { useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { CarRentCard } from "../../common/CarCard";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
@@ -21,7 +21,7 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 
 	const [query, setQuery] = useSearchParams();
 	const [timer, setTimer] = useState<NodeJS.Timeout>();
-
+	let location = useLocation();
 	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={data} />;
 	if (data.list.length === 0)
@@ -37,7 +37,12 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 			<div className={"catalog__grid"}>
 				{!isLoading &&
 					data.list.map((i, index) => (
-						<CarRentCard link={`rent/${i.id}`} car={i} key={index} />
+						<Link
+							to={`/rent/${i.id}`}
+							style={{ textDecoration: "none", color: "#222222" }}
+							state={{ backgroundLocation: location }}>
+							<CarRentCard link={`rent/${i.id}`} car={i} key={index} />
+						</Link>
 					))}
 			</div>
 			<BottomMessage

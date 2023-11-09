@@ -281,11 +281,10 @@ export const CarRentCard: React.FC<{
 						))} */}
 					</div>
 
-					<Link to={`/rent/${car.id}`}>
-						<div className={"car__card-image"}>
-							<img src={car.image} alt={car.brand + " " + car.model} />
-						</div>
-					</Link>
+					<div className={"car__card-image"}>
+						<img src={car.image} alt={car.brand + " " + car.model} />
+					</div>
+
 					{/* <CarRentForm car={car} car_id={car.id} btn={} /> */}
 
 					<div className={"car__card-title mb-px-10"}>

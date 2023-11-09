@@ -10,6 +10,7 @@ import { YMaps } from "@pbe/react-yandex-maps";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./contexts/AuthContext";
 import RentCarDetail from "./components/pages/Rent/RentCarDetail";
+import TestModal from "./components/common/TestModal";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,7 @@ const App = () => {
 					<Outlet />
 					{state?.backgroundLocation && (
 						<Routes>
-							<Route path="/rent/:carID" element={<RentCarDetail />} />
+							<Route path="/rent/:carID" element={<TestModal />} />
 						</Routes>
 					)}
 				</YMaps>

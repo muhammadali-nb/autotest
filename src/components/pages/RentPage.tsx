@@ -308,43 +308,20 @@ const RentPage = () => {
 					setIsActive={setOpen}
 				/>
 
-				{process.env.REACT_APP_NO_CATALOG !== "true" ? (
-					<Row>
-						<Col lg={3}>
-							<FiltersBlock filterData={!isLoading && data} />
-						</Col>
-						<Col lg={9}>
-							<FilterButtons
-								rentFilterData={!isLoading && data.top}
-								mode="rent"
-								isShowMobileFiler={setOpen}
-							/>
-							<RentGrid />
-							<SmallFooter />
-						</Col>
-					</Row>
-				) : (
-					// <div className={"d-flex"} style={{ gap: "40px" }}>
-					// 	<div
-					// 		className={"filter-block-container"}
-					// 		// style={{ maxWidth: "315px" }}
-					// 	>
-					// 		<FiltersBlock />
-					// 	</div>
-					// 	<div className={"flex-grow w-100"}>
-					// 		<AlertMessage
-					// 			page={"rent"}
-					// 			type={"danger"}
-					// 			className={"mb-px-60"}
-					// 		/>
-
-					// 		{/* <FilterButtons mode={'rent'} /> */}
-					// 		{/* dont forget to open */}
-					// 		<RentGrid />
-					// 	</div>
-					// </div>
-					<AlertMessage page={"rent"} type={"danger"} className={"mb-px-60"} />
-				)}
+				<Row>
+					<Col lg={3}>
+						<FiltersBlock filterData={!isLoading && data} />
+					</Col>
+					<Col lg={9}>
+						<FilterButtons
+							rentFilterData={!isLoading && data.top}
+							mode="rent"
+							isShowMobileFiler={setOpen}
+						/>
+						<RentGrid />
+						<SmallFooter />
+					</Col>
+				</Row>
 			</Container>
 		</RentLayout>
 	);
