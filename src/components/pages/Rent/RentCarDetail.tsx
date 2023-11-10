@@ -35,6 +35,7 @@ import axios, { AxiosError } from "axios";
 import { ConfirmPaymentQR } from "../../../types/AuthContextTypes";
 import { RentBookingPaymentStatus } from "../../../types/RentTypes";
 import ModalFormTemplate from "../../common/ModalFormTemplate";
+import RentPage from "../RentPage";
 
 const RentCarDetail = () => {
 	const car = useLoaderData() as CarRentDataInfo;
@@ -137,94 +138,7 @@ const RentCarDetail = () => {
 	return (
 		<>
 			<BrowserView>
-				<ModalFormTemplate
-					show={true}
-					onHide={handleClose}
-					centered
-					size={"xl"}
-					image={
-						step === "rent" ? (
-							<CarRequestFormImage closeFunc={handleClose} car={data.item} />
-						) : undefined
-					}>
-					{step === "rent" && (
-						<CarRequestFormContent
-							getDeposit={getPriceCar}
-							setStep={setStep}
-							closeFunc={handleClose}
-							car={data.item}
-						/>
-					)}
-					{step === "start" && (
-						<CarRentContacts
-							error={error_message}
-							submit={confirmPhone}
-							data={state}
-							setData={setState}
-							closeOnBack={step == "start"}
-							car={data.item}
-							closeFunc={handleClose}
-							setStep={setStep}
-						/>
-					)}
-					{step === "confirm" && (
-						<CarRentConfirmPhone
-							timer={timer}
-							data={state}
-							repeatRequest={confirmPhone}
-							car={data.item}
-							closeFunc={handleClose}
-							setStep={setStep}
-						/>
-					)}
-					{step === "create" && (
-						<CarRentCreateAccount
-							getPayment={getPriceCar}
-							data={state}
-							setData={setState}
-							// closeOnBack={step === "start"}
-							car={data.item}
-							closeFunc={handleClose}
-							setStep={setStep}
-						/>
-					)}
-
-					{step === "payment" && (
-						<CarRentPaymentType
-							setConfirmPayment={setConfirmPaymentQR}
-							deposit={depositPrice}
-							setDeposit={setDepositPrice}
-							data={state}
-							car={data.item}
-							closeFunc={handleClose}
-							setStep={setStep}
-						/>
-					)}
-
-					{step === "confirm_payment" && (
-						<CarRentPaymentTypeConfirm
-							paymentStatus={paymentStatus}
-							setPaymentStatus={setPaymentStatus}
-							confirmPayment={confirmPaymentQR}
-							deposit={depositPrice}
-							setDeposit={setDepositPrice}
-							data={state}
-							car={data.item}
-							closeFunc={handleClose}
-							setStep={setStep}
-						/>
-					)}
-					{step === "booking_result" && (
-						<CarRentBookingStatus
-							paymentStatus={paymentStatus}
-							closeFunc={handleClose}
-							car={data.item}
-						/>
-					)}
-					{step === "finish" && (
-						<CarRentFormConfirmed closeFunc={handleClose} />
-					)}
-				</ModalFormTemplate>
+				<RentPage />
 			</BrowserView>
 			<MobileView>
 				<CarDetailLayout>
