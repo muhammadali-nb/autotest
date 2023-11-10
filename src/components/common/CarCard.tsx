@@ -315,7 +315,7 @@ export const CarRentCard: React.FC<{
 				</div>
 
 				<CarRentForm car={car} car_id={car.id} wide={true} step={"start"} />
-			</div>
+			</Link>
 
 			<div
 				onClick={() => navigate(`/rent/${car.id}`)}
