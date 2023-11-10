@@ -314,7 +314,8 @@ export const CarRentCard: React.FC<{
 					</div>
 				</div>
 
-				<CarRentForm car={car} car_id={car.id} wide={true} step={"start"} />
+				{/* <CarRentForm car={car} car_id={car.id} wide={true} step={"start"} /> */}
+				<button className={"site-btn big"}>Забронировать</button>
 			</Link>
 
 			<div

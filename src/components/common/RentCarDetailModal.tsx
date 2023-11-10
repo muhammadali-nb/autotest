@@ -25,18 +25,14 @@ import Loader from "./Loader";
 import LoadError from "./LoadError";
 import ModalFormTemplate from "./ModalFormTemplate";
 
-const TestModal = () => {
+const RentCarDetailModal = () => {
 	const { carID } = useParams();
-	const car = useLoaderData() as CarRentDataInfo;
-	const [modalFullImage, setModalFullImage] = useState(false);
-	const [modalBookingCar, setModalBookingCar] = useState(false);
-	const { isAuthenticated, has_profile, initialize, user_status } = useAuth();
+	const { initialize, user_status } = useAuth();
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [error_message, setErrorMessage] = useState<string | null>(null);
 	const [paymentStatus, setPaymentStatus] =
 		useState<RentBookingPaymentStatus>(null);
 	const [depositPrice, setDepositPrice] = useState(0);
-	// const [show, setShow] = useState(false);
 	const [timer, setTimer] = useState(0);
 	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
 		qr: "",
@@ -106,23 +102,12 @@ const TestModal = () => {
 		chekckUser();
 	}, [step]);
 
-	const checkSteps = async () => {
-		initialize();
-		if (!isAuthenticated && !has_profile) {
-			setStep("start");
-		} else if (isAuthenticated && has_profile) {
-			setStep("payment");
-		} else if (isAuthenticated && !has_profile) {
-			setStep("create");
-		}
-		setModalBookingCar(true);
-	};
 	const handleClose = () => {
 		navigate(-1);
 	};
 
-	if (isLoading) return <></>;
 	if (error) return <LoadError response={error} />;
+	if (isLoading) return <></>;
 	return (
 		<ModalFormTemplate
 			show={true}
@@ -213,4 +198,4 @@ const TestModal = () => {
 	);
 };
 
-export default TestModal;
+export default RentCarDetailModal;
