@@ -6,6 +6,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  text-decoration: none;
+  color: #222;
 
   @include l-md {
     padding: 16px;

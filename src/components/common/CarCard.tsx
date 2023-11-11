@@ -256,7 +256,7 @@ export const CarRentCard: React.FC<{
 		<>
 			<Link
 				to={`/rent/${car.id}`}
-				style={{ textDecoration: "none", color: "#222222" }}
+				
 				state={{ backgroundLocation: location }}
 				className="d-none d-md-block car__card">
 				<div>
