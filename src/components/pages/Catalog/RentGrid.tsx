@@ -38,7 +38,7 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 				{!isLoading &&
 					data.list.map((i, index) => (
 						
-							<CarRentCard link={`rent/${i.id}`} car={i} key={index} />
+							<CarRentCard  car={i} key={index} />
 						
 					))}
 			</div>
