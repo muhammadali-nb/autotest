@@ -277,9 +277,9 @@ export interface RentFilterDate {
 const RentPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
+	// useEffect(() => {
+	// 	window.scrollTo(0, 0);
+	// }, []);
 
 	const title = "Аренда автомобилей - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {

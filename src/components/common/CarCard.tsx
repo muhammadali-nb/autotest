@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useAppSelector } from "../../store/hooks";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { type BaseState } from "../../store/reducers/baseDataSlice";
@@ -248,20 +248,9 @@ const CarCard: React.FC<{
 
 export const CarRentCard: React.FC<{
 	car: CarRentDataInfo;
-	link: string;
-}> = ({ car, link }) => {
-	const baseData: BaseState = useAppSelector((state) => state.baseData);
+}> = ({ car }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	// console.log(car);
-	// const tags =
-	// 	baseData.top?.rent.values?.filter((i) => car.special.includes(i.id)) ?? [];
-	// const brand =
-	// 	baseData.left?.brands.values?.find((i) => car.brand === i.id)?.name ??
-	// 	"неизвестно";
-	// const model =
-	// 	baseData.left?.models.values?.find((i) => car.model === i.id)?.name ??
-	// 	"неизвестно";
 
 	return (
 		<>

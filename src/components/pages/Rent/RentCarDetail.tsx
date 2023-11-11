@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { CarRentDataInfo, CarSameLink } from "../../common/CarCard";
 import Api, { ConfirmPhone, ErrorResponse } from "../../../Api";
@@ -12,14 +12,10 @@ import RentCarFullImage from "./RentCarFullImage";
 import LoadError from "../../common/LoadError";
 import { RentModalMobile } from "../../common/Rent/RentModalMobile/RentModalMobile";
 import { useAuth } from "../../../hooks/useAuth";
-import {
-	CarBookingStepsType,
-} from "../../common/CarRentForm";
-import {
-	BrowserView,
-	MobileView
-} from "react-device-detect";
+import { CarBookingStepsType } from "../../common/CarRentForm";
+import { BrowserView, MobileView } from "react-device-detect";
 import RentPage from "../RentPage";
+import RentCarDetailModal from "../../common/RentCarDetailModal";
 
 const RentCarDetail = () => {
 	const { carID } = useParams();
@@ -39,7 +35,6 @@ const RentCarDetail = () => {
 		}
 	};
 
-
 	useEffect(() => {
 		chekckUser();
 	}, [step]);
@@ -54,13 +49,16 @@ const RentCarDetail = () => {
 			setStep("create");
 		}
 		setModalBookingCar(true);
-	}
+	};
+
+	const car_id = 32;
 
 	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={error} />;
 	return (
 		<>
 			<BrowserView>
+				<RentCarDetailModal />
 				<RentPage />
 			</BrowserView>
 			<MobileView>
