@@ -52,20 +52,20 @@ const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 			},
 		},
 	};
-	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: "smooth" });
-		if (!bState.loaded) {
-			const loader = async () => {
-				let data = await Api.baseData();
-				if (Api.isError(data)) {
-					//TODO:Error check!
-					return;
-				}
-				dispatch(setBaseState(data));
-			};
-			loader();
-		}
-	});
+	// useEffect(() => {
+	// 	window.scrollTo({ top: 0, behavior: "smooth" });
+	// 	if (!bState.loaded) {
+	// 		const loader = async () => {
+	// 			let data = await Api.baseData();
+	// 			if (Api.isError(data)) {
+	// 				//TODO:Error check!
+	// 				return;
+	// 			}
+	// 			dispatch(setBaseState(data));
+	// 		};
+	// 		loader();
+	// 	}
+	// });
 	const { ref, isShow, setIsShow } = useOutside(false);
 
 	return (
@@ -84,7 +84,7 @@ const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 					type={props.headerType ?? "white"}
 					selectedLink={props.headerSelectedLink ?? "/"}
 				/>
-				<main>{bState.loaded && props.children}</main>
+				<main>{ props.children}</main>
 				{/* <Footer
 					small={props.footerSmall}
 					noContacts={props.footerNoContacts}

@@ -4,7 +4,7 @@ import { ModalTemplatePhone } from "../../../ModalFormTemplate";
 import { ConfirmPhone } from "../../../../../Api";
 import { CarDataType } from "../../../../../types/RentTypes";
 import { useAuth } from "../../../../../hooks/useAuth";
-import Utils from "../../../../../Utils";
+import Utils from "../../../../../utils/Utils";
 import axios from "axios";
 
 const RentModalMobileStart = (props: {

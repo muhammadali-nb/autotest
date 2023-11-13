@@ -49,20 +49,20 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 			},
 		},
 	};
-	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: "smooth" });
-		if (!bState.loaded) {
-			const loader = async () => {
-				let data = await Api.baseData();
-				if (Api.isError(data)) {
-					//TODO:Error check!
-					return;
-				}
-				dispatch(setBaseState(data));
-			};
-			loader();
-		}
-	});
+	// useEffect(() => {
+	// 	window.scrollTo({ top: 0, behavior: "smooth" });
+	// 	if (!bState.loaded) {
+	// 		const loader = async () => {
+	// 			let data = await Api.baseData();
+	// 			if (Api.isError(data)) {
+	// 				//TODO:Error check!
+	// 				return;
+	// 			}
+	// 			dispatch(setBaseState(data));
+	// 		};
+	// 		loader();
+	// 	}
+	// });
 	const { ref, isShow, setIsShow } = useOutside(false);
 	return (
 		<DocumentMeta {...meta}>
@@ -80,7 +80,7 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 					type={props.headerType ?? "white"}
 					selectedLink={props.headerSelectedLink ?? "/"}
 				/>
-				<main>{bState.loaded && props.children}</main>
+				<main>{ props.children}</main>
 
 				<Footer
 					small={props.footerSmall}

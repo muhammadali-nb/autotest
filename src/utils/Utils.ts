@@ -1,6 +1,6 @@
-import { RentCreateAccountForm } from './types/RentTypes';
-import { CallRequestData } from "./Api";
-import { ConfirmPhone } from './Api';
+import { RentCreateAccountForm } from '../types/RentTypes';
+import { CallRequestData } from "../Api";
+import { ConfirmPhone } from '../Api';
 
 
 let Utils = {

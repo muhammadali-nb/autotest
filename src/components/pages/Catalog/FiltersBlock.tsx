@@ -15,7 +15,7 @@ import {
 } from "../../../store/reducers/baseDataSlice";
 
 import caret from "./../../../img/common/caret-right.png";
-import Utils from "../../../Utils";
+import Utils from "../../../utils/Utils";
 
 const Filter: React.FC<{
 	header: string;

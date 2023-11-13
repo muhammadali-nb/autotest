@@ -6,7 +6,7 @@ import {
 	ModalTemplateTextarea,
 } from "./ModalFormTemplate";
 import Api, { CallRequestData } from "../../Api";
-import Utils from "../../Utils";
+import Utils from "../../utils/Utils";
 
 const ContactsFormSent = (props) => (
 	<div className={"contacts__form" + (props.big ? " contacts__form-big" : "")}>

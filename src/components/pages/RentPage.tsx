@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { MetaTags } from "../layout/BaseLayout";
 import { Col, Collapse, Container, Row } from "react-bootstrap";
 import FiltersBlock from "./Catalog/FiltersBlock";
@@ -13,7 +13,7 @@ import { SmallFooter } from "../layout/Footer";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -274,12 +274,14 @@ export interface RentFilterDate {
 	};
 }
 
-const RentPage = () => {
+const RentPage = ({ children }: { children?: ReactNode }) => {
 	const [isOpen, setOpen] = useState<boolean>(false);
 
-	// useEffect(() => {
-	// 	window.scrollTo(0, 0);
-	// }, []);
+	const { id = 1 } = useParams();
+
+	useEffect(() => {
+		console.log(id);
+	}, [id]);
 
 	const title = "Аренда автомобилей - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
@@ -291,8 +293,6 @@ const RentPage = () => {
 		queryKey: ["rent-filter"],
 		queryFn: () => rentService.getFilter(),
 	});
-
-	let location = useLocation();
 
 	return (
 		<RentLayout
@@ -317,12 +317,14 @@ const RentPage = () => {
 							rentFilterData={!isLoading && data.top}
 							mode="rent"
 							isShowMobileFiler={setOpen}
-						/>
-						<RentGrid />
+						/> 
+						<RentGrid activePage={id} />
 						<SmallFooter />
+						<Link to={"/rent/page/1/car/1"}>test</Link>
 					</Col>
 				</Row>
 			</Container>
+			{children}
 		</RentLayout>
 	);
 };

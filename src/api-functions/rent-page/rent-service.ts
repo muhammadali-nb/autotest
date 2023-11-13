@@ -5,7 +5,7 @@ class RentService {
   getFilter() {
     return axios.get('https://taxivoshod.ru/api/voshod-auto/?w=rent-filter', { withCredentials: true }).then(res => res.data)
   }
-  getCars(id: string, filter: Filter) {
+  getCars(id: string | number, filter: Filter) {
     const { year, brands, models, price, special, tarif } = filter
     if (!id) {
       return
