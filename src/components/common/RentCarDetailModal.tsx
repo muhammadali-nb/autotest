@@ -24,9 +24,11 @@ import axios, { AxiosError } from "axios";
 import Loader from "./Loader";
 import LoadError from "./LoadError";
 import ModalFormTemplate from "./ModalFormTemplate";
+import { useMounted } from "../../hooks/useMounted";
 
 const RentCarDetailModal = () => {
 	const { carID } = useParams();
+	const isMounted = useMounted();
 	const { initialize, user_status } = useAuth();
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [error_message, setErrorMessage] = useState<string | null>(null);
@@ -49,12 +51,22 @@ const RentCarDetailModal = () => {
 		queryFn: () => rentService.getOneCar(carID),
 	});
 
+	useEffect(() => {
+		//@ts-ignore
+		if (isMounted) document.body.style.overflow = "hidden";
+		else document.body.style.overflow = "unset";
+	}, [isMounted]);
+
 	const chekckUser = async () => {
 		await initialize();
 		if (user_status) {
 			setStep("rent");
 		}
 	};
+
+	useEffect(() => {
+		console.log(carID);
+	}, [carID]);
 
 	const confirmPhone = () => {
 		if (user_status === "banned") {

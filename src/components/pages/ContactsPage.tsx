@@ -18,7 +18,7 @@ import {
 import geoImage from "../../img/common/footer/contct-page-icons/Geolocation.svg";
 import clockImage from "../../img/common/footer/contct-page-icons/Clock 2.svg";
 import phoneImage from "../../img/common/footer/contct-page-icons/Phone 2.svg";
-import Utils from "../../Utils";
+import Utils from "../../utils/Utils";
 
 const ContactBlock: React.FC<{
 	icon: ReactNode;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../../../hooks/useAuth";
-import Utils from "../../../../../Utils";
+import Utils from "../../../../../utils/Utils";
 import { CarBookingStepsType } from "../../../CarRentForm";
 import { CarDataType } from "../../../../../types/RentTypes";
 import { ModalTemplateInput } from "../../../ModalFormTemplate";

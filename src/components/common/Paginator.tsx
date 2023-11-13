@@ -8,9 +8,8 @@ import {
 	faAnglesLeft,
 	faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { log } from "console";
 
-const PaginationItem: React.FC<{
+export const PaginationItem: React.FC<{
 	children: string | ReactNode;
 	link: string;
 	active?: boolean;
@@ -25,7 +24,7 @@ const PaginationItem: React.FC<{
 		</Link>
 	);
 };
-const PaginationArrow: React.FC<{
+export const PaginationArrow: React.FC<{
 	children: string | ReactNode;
 	link: string;
 	disabled?: boolean;

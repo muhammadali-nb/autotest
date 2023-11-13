@@ -3,9 +3,7 @@ import { Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { YMaps } from "@pbe/react-yandex-maps";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./contexts/AuthContext";
-import RentCarDetailModal from "./components/common/RentCarDetailModal";
-import RentPage from "./components/pages/RentPage";
-import RentCarDetail from "./components/pages/Rent/RentCarDetail";
+import ScrollToTop from "./utils/ScrollToTop";
 
 const queryClient = new QueryClient();
 const App = () => {
@@ -15,6 +13,7 @@ const App = () => {
 		<QueryClientProvider client={queryClient}>
 			<AuthProvider>
 				<YMaps>
+					<ScrollToTop />
 					<Outlet />
 					{/* {state?.backgroundLocation && (
 						<Routes>

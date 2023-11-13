@@ -1,17 +1,12 @@
 import React, { useEffect } from "react";
 import DocumentMeta from "react-document-meta";
 import { BaseLayoutProps } from "./BaseLayout";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import Api from "../../Api";
-import { setBaseState } from "../../store/reducers/baseDataSlice";
-import Footer, { SmallFooter } from "./Footer";
+import  { SmallFooter } from "./Footer";
 import Cookies from "../common/Cookies";
 import CarDetailHeader from "./CarDetailHeader";
 import { Container } from "react-bootstrap";
 
 export const CarDetailLayout = (props: BaseLayoutProps) => {
-	const bState: any = useAppSelector((state) => state.baseData);
-	const dispatch = useAppDispatch();
 	const meta = {
 		title: props.title ?? process.env.REACT_APP_WEBSITE_NAME,
 		description:
@@ -27,20 +22,6 @@ export const CarDetailLayout = (props: BaseLayoutProps) => {
 			},
 		},
 	};
-	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: "smooth" });
-		if (!bState.loaded) {
-			const loader = async () => {
-				let data = await Api.baseData();
-				if (Api.isError(data)) {
-					//TODO:Error check!
-					return;
-				}
-				dispatch(setBaseState(data));
-			};
-			loader();
-		}
-	});
 
 	return (
 		<DocumentMeta {...meta}>
@@ -51,7 +32,7 @@ export const CarDetailLayout = (props: BaseLayoutProps) => {
 					type={props.headerType ?? "white"}
 					selectedLink={props.headerSelectedLink ?? "/"}
 				/>
-				<main>{bState.loaded && props.children}</main>
+				<main>{ props.children}</main>
 
 				<Container fluid={"xxl"}>
 					<SmallFooter />

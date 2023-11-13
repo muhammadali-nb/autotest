@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { ReactNode, useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import Api, { CallRequestData, ConfirmPhone, ErrorResponse } from "../../Api";
-import Utils from "../../Utils";
+import Utils from "../../utils/Utils";
 import caretLeft from "../../img/common/caret-left-big.svg";
 import caretRight from "../../img/common/caret-right-big.svg";
 import { CarImagesModal } from "../pages/Car/CarImages";

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import DowloadImage from "../../img/common/download.svg";
-import Utils from "../../Utils";
+import Utils from "../../utils/Utils";
 
 const FileInput = ({ upload }: { upload: (e: any) => void }) => {
 	const [image, setImage] = useState<string | undefined>(undefined);

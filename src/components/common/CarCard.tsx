@@ -248,17 +248,11 @@ const CarCard: React.FC<{
 
 export const CarRentCard: React.FC<{
 	car: CarRentDataInfo;
+	onClick?: () => void;
 }> = ({ car }) => {
-	const navigate = useNavigate();
-	const location = useLocation();
-
 	return (
 		<>
-			<Link
-				to={`/rent/${car.id}`}
-				style={{ textDecoration: "none", color: "#222222" }}
-				state={{ backgroundLocation: location }}
-				className="d-none d-md-block car__card">
+			<div className="d-none d-md-block car__card">
 				<div>
 					<div className={"car__card-taglist"}>
 						<CarTag
@@ -305,11 +299,9 @@ export const CarRentCard: React.FC<{
 
 				{/* <CarRentForm car={car} car_id={car.id} wide={true} step={"start"} /> */}
 				<button className={"site-btn big"}>Забронировать</button>
-			</Link>
+			</div>
 
-			<div
-				onClick={() => navigate(`/rent/${car.id}`)}
-				className="d-block d-md-none car-rent-card">
+			<div className="d-block d-md-none car-rent-card">
 				<div className="car-rent-card_image">
 					<img src={car.image} alt={car.brand + " " + car.model} />
 				</div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ModalTemplateInput } from "../../../ModalFormTemplate";
 import FileInput from "../../../FileInput";
-import Utils from "../../../../../Utils";
+import Utils from "../../../../../utils/Utils";
 import {
 	CarDataType,
 	RentCreateAccountForm,

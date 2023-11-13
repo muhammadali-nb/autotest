@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import {
+	Link,
+	useLocation,
+	useNavigate,
+	useSearchParams,
+} from "react-router-dom";
 import { CarRentCard } from "../../common/CarCard";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
@@ -11,17 +16,18 @@ import chevron from "../../../img/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
 
-const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
+const RentGrid: React.FC<{
+	loader?: () => void;
+	activePage: string | number;
+}> = (props) => {
+	const navigate = useNavigate();
 	const filter = useAppSelector((state) => state.filter);
 	const [activePage, setActivePage] = useState("1");
 	const { data, error, isLoading } = useQuery({
 		queryKey: ["rent-cars", { activePage, ...filter }],
-		queryFn: () => rentService.getCars(activePage, filter),
+		queryFn: () => rentService.getCars(props.activePage, filter),
 	});
 
-	const [query, setQuery] = useSearchParams();
-	const [timer, setTimer] = useState<NodeJS.Timeout>();
-	let location = useLocation();
 	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={data} />;
 	if (data.list.length === 0)
@@ -37,9 +43,11 @@ const RentGrid: React.FC<{ loader?: () => void }> = (props) => {
 			<div className={"catalog__grid"}>
 				{!isLoading &&
 					data.list.map((i, index) => (
-						
-							<CarRentCard  car={i} key={index} />
-						
+						<Link
+							to={`/rent/page/${props.activePage}/car/${i.id}`}
+							style={{ textDecoration: "none", color: "#fff" }}>
+							<CarRentCard car={i} key={index} />
+						</Link>
 					))}
 			</div>
 			<BottomMessage

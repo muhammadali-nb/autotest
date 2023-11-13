@@ -99,9 +99,9 @@ export const BottomMessage: React.FC<{
 
 const CatalogPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
+	// useEffect(() => {
+	// 	window.scrollTo(0, 0);
+	// }, []);
 
 	const title = "Каталог - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
