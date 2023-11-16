@@ -10,9 +10,10 @@ import ModalFormTemplate, {
 } from "./ModalFormTemplate";
 import Utils from "../../utils/Utils";
 import { CarDataInfo } from "./CarCard";
+import { CarCatalogDataInfo } from "../../types/CatalogTypes";
 
 const CarBookingFormContent: React.FC<{
-	car: CarDataInfo;
+	car: CarDataInfo | CarCatalogDataInfo;
 	closeFunc: () => void;
 	setSent: (boolean) => void;
 }> = (props) => {
@@ -32,7 +33,8 @@ const CarBookingFormContent: React.FC<{
 			setPassed(false);
 			return;
 		}
-		Api.carBookRequest(data, props.car).then((resp) => {
+		//@ts-ignore
+		Api.carBookRequest(data, _).then((resp) => {
 			if (Api.isError(resp)) {
 				setData({
 					...data,
@@ -167,7 +169,7 @@ const CarBookingFormConfirmed: React.FC<{ closeFunc: () => void }> = (
 const CarBookingForm: React.FC<{
 	wide?: boolean;
 	text?: string | ReactNode;
-	car: CarDataInfo;
+	car: CarCatalogDataInfo;
 }> = (props) => {
 	const [show, setShow] = useState(false);
 	const [sent, setSent] = useState(false);

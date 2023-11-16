@@ -14,6 +14,8 @@ import CatalogLayout from "../layout/CatalogLayout";
 import { SmallFooter } from "../layout/Footer";
 import { BaseState } from "../../store/reducers/baseDataSlice";
 import { useAppSelector } from "../../store/hooks";
+import { useQuery } from "@tanstack/react-query";
+import catalogService from "../../api-functions/catalog-page/catalog-service";
 
 export const AlertMessage: React.FC<{
 	page: string;
@@ -99,10 +101,6 @@ export const BottomMessage: React.FC<{
 
 const CatalogPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
-	// useEffect(() => {
-	// 	window.scrollTo(0, 0);
-	// }, []);
-
 	const title = "Каталог - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
 		description: "Каталог автомобилей",
@@ -110,6 +108,10 @@ const CatalogPage = () => {
 	};
 
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
+	const { data, isLoading, error } = useQuery({
+		queryKey: ["catalog-filter"],
+		queryFn: () => catalogService.getFilter(),
+	});
 
 	return (
 		<CatalogLayout
@@ -120,7 +122,7 @@ const CatalogPage = () => {
 			<div className="catalog">
 				<Container fluid={"xxl"}>
 					<CatalogMobileMenu
-						data={baseData}
+						data={!isLoading && data}
 						isActive={isOpen}
 						setIsActive={setOpen}
 					/>
@@ -128,7 +130,7 @@ const CatalogPage = () => {
 						<Row>
 							<Col lg={3}>
 								<div className={"sticky-no-scrollbar"}>
-									<FiltersBlock filterData={baseData} />
+									<FiltersBlock filterData={!isLoading && data} />
 								</div>
 							</Col>
 							<Col lg={9}>
@@ -146,7 +148,10 @@ const CatalogPage = () => {
 										</p>
 									}
 								/>
-								<FilterButtons isShowMobileFiler={setOpen} />
+								<FilterButtons
+									isShowMobileFiler={setOpen}
+									catalogData={!isLoading && data.top}
+								/>
 								<CarGrid />
 								<SmallFooter />
 							</Col>

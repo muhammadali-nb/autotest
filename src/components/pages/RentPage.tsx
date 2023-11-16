@@ -256,7 +256,7 @@ const RentPageHeader = () => {
 	);
 };
 
-export type RentFilterDateValue = {
+export type FilterTopValues = {
 	name: string;
 	type: string;
 	values: [
@@ -269,14 +269,10 @@ export type RentFilterDateValue = {
 
 export interface RentFilterDate {
 	top: {
-		free: RentFilterDateValue;
-		tarif: RentFilterDateValue;
+		free: FilterTopValues;
+		tarif: FilterTopValues;
 	};
 }
-
-type RentParams = {
-	id: number;
-};
 
 const RentPage = ({ children }: { children?: ReactNode }) => {
 	const title = "Аренда автомобилей - " + process.env.REACT_APP_WEBSITE_NAME;

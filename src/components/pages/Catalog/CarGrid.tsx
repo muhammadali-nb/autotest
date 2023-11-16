@@ -9,14 +9,21 @@ import Paginator from "../../common/Paginator";
 import { BottomMessage } from "../CatalogPage";
 import CarRequestForm from "../../common/CarRequestForm";
 import chevron from "../../../img/common/footer/chevron-for-bottom.svg";
+import { useQuery } from "@tanstack/react-query";
+import catalogService from "../../../api-functions/catalog-page/catalog-service";
 
 const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 	const [cars, setCars] = useState<CatalogResponse | ErrorResponse | undefined>(
 		undefined
 	);
 	const [activePage, setActivePage] = useState("1");
-
 	const filter = useAppSelector((state) => state.filter);
+
+	const { data, error, isLoading } = useQuery({
+		queryKey: ["rent-cars", { activePage, ...filter }],
+		queryFn: () => catalogService.getCars(activePage, filter),
+	});
+
 	const [query, setQuery] = useSearchParams();
 	const [timer, setTimer] = useState<NodeJS.Timeout>();
 	useEffect(() => {
@@ -33,9 +40,9 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 		}
 	}, [filter, query]);
 
-	if (!cars) return <Loader />;
-	if (Api.isError(cars)) return <LoadError response={cars} />;
-	if (cars.list.length === 0)
+	if (isLoading) return <Loader />;
+	if (error) return <LoadError response={data} />;
+	if (data.list.length === 0)
 		return (
 			<div
 				className={"d-flex w-100 text-center text-muted align-items-center"}
@@ -45,10 +52,9 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 		);
 	return (
 		<div>
-			{/*<Paginator />*/}
 			<div className={"catalog__grid"}>
-				{!Api.isError(cars) &&
-					cars.list.map((i, index) => (
+				{!isLoading &&
+					data.list.map((i, index) => (
 						<CarCard responsive={true} car={i} key={index} />
 					))}
 			</div>
@@ -72,7 +78,7 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 			/>
 
 			<div className={"catalog__grid-paginator"}>
-				<Paginator setActive={setActivePage} data={cars} />
+				<Paginator setActive={setActivePage} data={data} />
 			</div>
 		</div>
 	);

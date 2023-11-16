@@ -67,11 +67,9 @@ const IndexGreatDeals = () => {
 									id: 1,
 									brand: "Porsche",
 									model: "911 GT3",
-									year: 2023,
 									price: 120.0,
-									pay: 112.0,
-									thumb: carImage,
-									special: [1, 2, 3],
+									min_pay: 112.0,
+									image: carImage,
 								}}
 							/>
 						</Col>
@@ -83,11 +81,9 @@ const IndexGreatDeals = () => {
 									id: 1,
 									brand: "Porsche",
 									model: "911 GT3",
-									year: 2023,
 									price: 120.0,
-									pay: 112.0,
-									thumb: carImage,
-									special: [1, 2, 3],
+									min_pay: 112.0,
+									image: carImage,
 								}}
 							/>
 						</Col>
@@ -99,11 +95,9 @@ const IndexGreatDeals = () => {
 									id: 1,
 									brand: "Porsche",
 									model: "911 GT3",
-									year: 2023,
 									price: 120.0,
-									pay: 112.0,
-									thumb: carImage,
-									special: [1, 2, 3],
+									min_pay: 112.0,
+									image: carImage,
 								}}
 							/>
 						</Col>
@@ -115,11 +109,9 @@ const IndexGreatDeals = () => {
 									id: 1,
 									brand: "Porsche",
 									model: "911 GT3",
-									year: 2023,
 									price: 120.0,
-									pay: 112.0,
-									thumb: carImage,
-									special: [1, 2, 3],
+									min_pay: 112.0,
+									image: carImage,
 								}}
 							/>
 						</Col>
