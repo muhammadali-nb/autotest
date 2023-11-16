@@ -15,17 +15,17 @@ import CarRequestForm from "../../common/CarRequestForm";
 import chevron from "../../../img/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
+import RentPaginator from "../../common/Rent/RentPaginator";
 
 const RentGrid: React.FC<{
 	loader?: () => void;
-	activePage: string | number;
-}> = (props) => {
-	const navigate = useNavigate();
+	activePage: number;
+}> = ({ activePage, loader }) => {
 	const filter = useAppSelector((state) => state.filter);
-	const [activePage, setActivePage] = useState("1");
+	// const [activePage, setActivePage] = useState("1");
 	const { data, error, isLoading } = useQuery({
 		queryKey: ["rent-cars", { activePage, ...filter }],
-		queryFn: () => rentService.getCars(props.activePage, filter),
+		queryFn: () => rentService.getCars(activePage, filter),
 	});
 
 	if (isLoading) return <Loader />;
@@ -44,9 +44,10 @@ const RentGrid: React.FC<{
 				{!isLoading &&
 					data.list.map((i, index) => (
 						<Link
-							to={`/rent/page/${props.activePage}/car/${i.id}`}
+							key={i.id}
+							to={`/rent/page/${activePage}/car/${i.id}`}
 							style={{ textDecoration: "none", color: "#fff" }}>
-							<CarRentCard car={i} key={index} />
+							<CarRentCard car={i} />
 						</Link>
 					))}
 			</div>
@@ -70,7 +71,7 @@ const RentGrid: React.FC<{
 			/>
 
 			<div className={"catalog__grid-paginator"}>
-				<Paginator setActive={setActivePage} data={!isLoading && data} />
+				<RentPaginator activePage={activePage} data={!isLoading && data} />
 			</div>
 		</div>
 	);

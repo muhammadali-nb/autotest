@@ -111,7 +111,6 @@ const CatalogPage = () => {
 
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
 
-
 	return (
 		<CatalogLayout
 			meta={meta}
@@ -120,12 +119,16 @@ const CatalogPage = () => {
 			footerSmall>
 			<div className="catalog">
 				<Container fluid={"xxl"}>
-					<CatalogMobileMenu data={baseData} isActive={isOpen} setIsActive={setOpen} />
+					<CatalogMobileMenu
+						data={baseData}
+						isActive={isOpen}
+						setIsActive={setOpen}
+					/>
 					<div>
 						<Row>
 							<Col lg={3}>
 								<div className={"sticky-no-scrollbar"}>
-									<FiltersBlock filterData={baseData}  />
+									<FiltersBlock filterData={baseData} />
 								</div>
 							</Col>
 							<Col lg={9}>
