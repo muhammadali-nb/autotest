@@ -8,6 +8,7 @@ import CarImage from "../../img/rent/auto_card.png";
 import CarImageDesktop from "../../img/index/car.webp";
 import { TypeImages } from "../pages/Rent/RentCarImagesCarousel";
 import { CarDataType } from "../../types/RentTypes";
+import { CarCatalogDataInfo } from "../../types/CatalogTypes";
 
 export type ImageInfo = {
 	thumb: string;
@@ -52,7 +53,7 @@ export type CarData = {
 };
 
 export const CarSameLink: React.FC<{
-	car: CarDataInfo;
+	car: CarDataInfo | CarCatalogDataInfo;
 	style?: React.CSSProperties;
 	className?: string;
 	text?: string;
@@ -98,7 +99,7 @@ export const CarSameLink: React.FC<{
 };
 
 export const CarPreorderButton: React.FC<{
-	car: CarDataInfo;
+	car: CarCatalogDataInfo;
 	style?: React.CSSProperties;
 	className?: string;
 	w100?: boolean;
@@ -148,22 +149,22 @@ export const CarTag: React.FC<{
 };
 
 const CarCard: React.FC<{
-	car: CarDataInfo;
+	car: CarCatalogDataInfo;
 	id?: string;
 	responsive: boolean;
 }> = ({ car, responsive, id }) => {
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
 
-	const tags =
-		baseData.top?.special.values?.filter((i) => car.special.includes(i.id)) ??
-		[];
+	// const tags =
+	// 	baseData.top?.special.values?.filter((i) => car.special.includes(i.id)) ??
+	// 	[];
 
-	const brand =
-		baseData.left?.brands.values?.find((i) => car.brand === i.id)?.name ??
-		"неизвестно";
-	const model =
-		baseData.left?.models.values?.find((i) => car.model === i.id)?.name ??
-		"неизвестно";
+	// const brand =
+	// 	baseData.left?.brands.values?.find((i) => car.brand === i.id)?.name ??
+	// 	"неизвестно";
+	// const model =
+	// 	baseData.left?.models.values?.find((i) => car.model === i.id)?.name ??
+	// 	"неизвестно";
 
 	return (
 		<div
@@ -176,11 +177,11 @@ const CarCard: React.FC<{
 					className={` ${
 						responsive ? "car__card-mobile-taglist" : "car__card-taglist"
 					}  `}>
-					{tags.map((i, index) => (
+					{/* {tags.map((i, index) => (
 						<CarTag small={responsive} key={index} car={car}>
 							{i.name}
 						</CarTag>
-					))}
+					))} */}
 
 					{/* {car.special.map((i, index) => (
 						<CarTag key={index} small={false} car={car}>
@@ -194,13 +195,13 @@ const CarCard: React.FC<{
 					className={`${
 						responsive ? "car__card-mobile-image" : "car__card-image"
 					}`}>
-					<img src={car.thumb} alt={brand + " " + model} />
+					<img src={car.image} alt={car.brand + " " + car.model} />
 				</Link>
 				<div
 					className={` ${
 						responsive ? "car__card-mobile-title" : "car__card-title"
 					} `}>
-					{brand} <span className={"model"}>{model}</span>
+					{car.brand} <span className={"model"}>{car.model}</span>
 				</div>
 				<div
 					className={` ${
@@ -213,7 +214,7 @@ const CarCard: React.FC<{
 								? "car__card-mobile-payment-value"
 								: "car__card-payment-value"
 						} `}>
-						{car.pay.toLocaleString()} ₽
+						{car.min_pay.toLocaleString()} ₽
 					</div>
 				</div>
 				<div

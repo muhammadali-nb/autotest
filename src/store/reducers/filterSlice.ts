@@ -29,8 +29,6 @@ export const defaultFilter: Filter = {
     brands: [], models: [], carcase: [], engine: [], gearbox: [], drive: [], fuel: [],
 }
 
-
-
 const initialState: Filter = defaultFilter;
 
 export const filterSlice = createSlice({

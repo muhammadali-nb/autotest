@@ -20,9 +20,8 @@ import RentPaginator from "../../common/Rent/RentPaginator";
 const RentGrid: React.FC<{
 	loader?: () => void;
 	activePage: number;
-}> = ({ activePage, loader }) => {
-	const filter = useAppSelector((state) => state.filter);
-	// const [activePage, setActivePage] = useState("1");
+}> = ({ activePage }) => {
+	const filter: any = useAppSelector((state) => state.filter);
 	const { data, error, isLoading } = useQuery({
 		queryKey: ["rent-cars", { activePage, ...filter }],
 		queryFn: () => rentService.getCars(activePage, filter),
@@ -46,7 +45,7 @@ const RentGrid: React.FC<{
 						<Link
 							key={i.id}
 							to={`/rent/page/${activePage}/car/${i.id}`}
-							style={{ textDecoration: "none", color: "#fff" }}>
+							style={{ textDecoration: "none" }}>
 							<CarRentCard car={i} />
 						</Link>
 					))}
