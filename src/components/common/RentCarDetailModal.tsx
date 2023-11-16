@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserView } from "react-device-detect";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { CarRentDataInfo } from "./CarCard";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import {
 	CarBookingStepsType,
@@ -21,14 +19,13 @@ import { ConfirmPhone, ErrorResponse } from "../../Api";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
 import axios, { AxiosError } from "axios";
-import Loader from "./Loader";
 import LoadError from "./LoadError";
 import ModalFormTemplate from "./ModalFormTemplate";
-import { useMounted } from "../../hooks/useMounted";
+import Loader from "./Loader";
 
 const RentCarDetailModal = () => {
+	const location = useLocation();
 	const { carID } = useParams();
-	const isMounted = useMounted();
 	const { initialize, user_status } = useAuth();
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [error_message, setErrorMessage] = useState<string | null>(null);
@@ -46,27 +43,17 @@ const RentCarDetailModal = () => {
 		errors: {},
 	});
 	const navigate = useNavigate();
-	const { data, error, isLoading, isSuccess } = useQuery({
+	const { data, error, isLoading } = useQuery({
 		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
 	});
 
-	useEffect(() => {
-		//@ts-ignore
-		if (isMounted) document.body.style.overflow = "hidden";
-		else document.body.style.overflow = "unset";
-	}, [isMounted]);
-
 	const chekckUser = async () => {
 		await initialize();
-		if (user_status) {
-			setStep("rent");
+		if (user_status === "need_auth") {
+			setStep("start");
 		}
 	};
-
-	useEffect(() => {
-		console.log(carID);
-	}, [carID]);
 
 	const confirmPhone = () => {
 		if (user_status === "banned") {
@@ -118,8 +105,8 @@ const RentCarDetailModal = () => {
 		navigate(-1);
 	};
 
+	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={error} />;
-	if (isLoading) return <></>;
 	return (
 		<ModalFormTemplate
 			show={true}
@@ -166,7 +153,6 @@ const RentCarDetailModal = () => {
 					getPayment={getPriceCar}
 					data={state}
 					setData={setState}
-					// closeOnBack={step === "start"}
 					car={data.item}
 					closeFunc={handleClose}
 					setStep={setStep}

@@ -274,21 +274,19 @@ export interface RentFilterDate {
 	};
 }
 
+type RentParams = {
+	id: number;
+};
+
 const RentPage = ({ children }: { children?: ReactNode }) => {
-	const [isOpen, setOpen] = useState<boolean>(false);
-
-	const { id = 1 } = useParams();
-
-	useEffect(() => {
-		console.log(id);
-	}, [id]);
-
 	const title = "Аренда автомобилей - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
 		description: "Аренда автомобилей",
 		keywords: "аренда, авто, каталог,rent",
 	};
-
+	const [isOpen, setOpen] = useState<boolean>(false);
+	const { id } = useParams();
+	const paramsId = id ? parseInt(id) : 1;
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["rent-filter"],
 		queryFn: () => rentService.getFilter(),
@@ -298,7 +296,7 @@ const RentPage = ({ children }: { children?: ReactNode }) => {
 		<RentLayout
 			meta={meta}
 			title={title}
-			headerSelectedLink={"/rent"}
+			headerSelectedLink={`/rent/page/${paramsId}`}
 			footerSmall>
 			<RentPageHeader />
 			<Container fluid={"xxl"} className={" mt-px-30"}>
@@ -317,8 +315,8 @@ const RentPage = ({ children }: { children?: ReactNode }) => {
 							rentFilterData={!isLoading && data.top}
 							mode="rent"
 							isShowMobileFiler={setOpen}
-						/>
-						<RentGrid activePage={id} />
+						/> 
+						<RentGrid activePage={paramsId} />
 						<SmallFooter />
 					</Col>
 				</Row>

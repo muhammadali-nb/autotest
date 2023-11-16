@@ -24,6 +24,7 @@ import RentHistoryPage from "../components/pages/RentHistory/RentHistoryPage";
 import OfferPage from "../components/pages/OfferPage";
 import NotExistsPage from "../components/pages/NotExistsPage";
 import App from "../App";
+import Payment from "../components/pages/Payment";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -37,12 +38,9 @@ export const router = createBrowserRouter(
 			/>
 			<Route path="rent/page/:id">
 				<Route index element={<RentPage />} />
-				<Route
-					path={"car/:carID"}
-					element={<RentCarDetail />}
-					// loader={carRentDataLoader}
-				/>
+				<Route path={"car/:carID"} element={<RentCarDetail />} />
 			</Route>
+			<Route path="payment/confirm/:pid" element={<Payment />} />
 			<Route
 				path={"programs"}
 				element={<ProgramsPage />}

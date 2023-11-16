@@ -1133,23 +1133,16 @@ export const CarBookingForm: React.FC<{
 	};
 
 	useEffect(() => {
-		console.log(paymentStatus);
-	}, [paymentStatus]);
-
+		chekckUser();
+	}, [step]);
 	const handleClose = () => setShow(false);
-	const handleShow = () => {
-		if (props.func) props.func();
-		setShow(true);
-	};
+	// const handleShow = () => {
+	// 	if (props.func) props.func();
+	// 	setShow(true);
+	// };
 	return (
 		<>
-			<div onClick={handleShow} style={{ cursor: "pointer" }}>
-				{props.btn ?? (
-					<button className={"site-btn big" + (props.wide ? " w-100" : "")}>
-						{props.text ?? <>Забронировать</>}
-					</button>
-				)}
-			</div>
+		
 
 			<ModalFormTemplate
 				show={show}
@@ -1214,7 +1207,6 @@ export const CarBookingForm: React.FC<{
 						setStep={setStep}
 					/>
 				)}
-
 				{step === "confirm_payment" && (
 					<CarRentPaymentTypeConfirm
 						paymentStatus={paymentStatus}
