@@ -29,7 +29,7 @@ const defaultLinks = [
 		icon: dashboard,
 		id: 3,
 	},
-	{ text: "Аренда", path: "/rent", className: "", icon: ticked, id: 4 },
+	{ text: "Аренда", path: "/rent/page/1", className: "", icon: ticked, id: 4 },
 	{ text: "Вопросы", path: "/faq", className: "", icon: question, id: 5 },
 	{ text: "Контакты", path: "/contacts", className: "", icon: phone, id: 6 },
 ];

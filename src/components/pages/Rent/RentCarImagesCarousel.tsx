@@ -26,7 +26,6 @@ const RentCarImagesCarousel = ({
 	const handleShow = () => setShowModal(true);
 
 	const handleSelect = (selectedIndex) => {
-		// if (Api.isError(car)) return;
 		if (selectedIndex >= (images?.length ?? 0)) selectedIndex = 0;
 		if (selectedIndex < 0) selectedIndex = (images?.length ?? 1) - 1;
 		setIndex(selectedIndex);
@@ -54,22 +53,19 @@ const RentCarImagesCarousel = ({
 					</Carousel.Item>
 				))}
 			</Carousel>
-			<div className={"car-images-controls car-images_rent-controls mt-px-10"}>
+			{/* <div className={"car-images-controls car-images_rent-controls mt-px-10"}> */}
+			<div className={"car-images-controls mt-3 car-images_rent-controls "}>
 				<button
-					className={"car-images-controls-btn car-images_rent-controls_btn"}
+					className={"car-images-controls-btn"}
 					onClick={() => handleSelect(index - 1)}>
-					<img src={caretLeft} alt="" />
+					<img src={caretLeft} width={16} height={32} alt="" />
 				</button>
-				<div
-					className={
-						"car-images-controls-sliders car-images_rent-controls-sliders  "
-					}>
+				<div className={"car-images-controls-sliders"}>
 					{[...Array(images.length)].map((i, ind) => (
 						<div
 							key={ind}
 							className={
-								"car-images-controls-slider car-images_rent-controls-slider " +
-								(index === ind ? "active" : "")
+								"car-images-controls-slider " + (index === ind ? "active" : "")
 							}
 							onClick={() => handleSelect(ind)}>
 							<div></div>
@@ -77,12 +73,13 @@ const RentCarImagesCarousel = ({
 					))}
 				</div>
 				<button
-					className={"car-images-controls-btn car-images_rent-controls_btn"}
+					className={"car-images-controls-btn d-flex justify-content-end"}
 					onClick={() => handleSelect(index + 1)}>
-					<img src={caretRight} alt="" />
+					<img src={caretRight} width={16} height={32} alt="" />
 				</button>
 			</div>
 		</div>
+		// </div>
 	);
 };
 
