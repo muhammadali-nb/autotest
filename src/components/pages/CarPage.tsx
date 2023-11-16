@@ -3,14 +3,14 @@ import BaseLayout, { MetaTags } from "../layout/BaseLayout";
 import { Col, Container, Row } from "react-bootstrap";
 import { useLoaderData } from "react-router-dom";
 import Api from "../../Api";
-import { CarData } from "../common/CarCard";
+
 import CarBase from "./Car/CarBase";
 import CarImages from "./Car/CarImages";
 import CarInfo from "./Car/CarInfo";
 import LoadError from "../common/LoadError";
-import { useAppSelector } from "../../store/hooks";
+
 import { CarDetailLayout } from "../layout/CarDetailLayout";
-import { CarDataType } from "../../types/RentTypes";
+
 
 const CarPage = () => {
 	const car = useLoaderData() as any;
