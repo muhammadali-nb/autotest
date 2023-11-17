@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { HeaderLogoImage } from "../../layout/Header";
 import { faArrowLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "../../../store/hooks";
-import { FilterCommon } from "./FiltersBlock";
+import { FilterCommon } from "../Rent/FiltersBlock";
 
 const CatalogMobileMenu = ({
 	isActive,

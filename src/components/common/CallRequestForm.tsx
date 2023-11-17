@@ -10,8 +10,8 @@ import ModalFormTemplate, {
 } from "./ModalFormTemplate";
 import Utils from "../../utils/Utils";
 import { faPhoneVolume } from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
-import callIcon from "../../img/common/Phone-header.svg";
-import callIconDark from "../../img/common/Phone-header-dark.svg";
+import callIcon from "../../images/common/Phone-header.svg";
+import callIconDark from "../../images/common/Phone-header-dark.svg";
 
 const CallRequestFormContent: React.FC<{
 	closeFunc: () => void;

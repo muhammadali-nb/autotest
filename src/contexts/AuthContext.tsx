@@ -20,11 +20,11 @@ const initialState: AuthInitialState = {
 	isInitialized: false,
 	api_status: "pending",
 	error_message: null,
-};
+}
 
 const handlers = {
-	INITIALIZE: (state, action) => {
-		const { isAuthenticated, user, api_status, user_status, has_profile } =
+	INITIALIZE: (state: AuthInitialState, action) => {
+		const { isAuthenticated, api_status, user_status, has_profile } =
 			action.payload;
 
 		return {
@@ -36,7 +36,7 @@ const handlers = {
 			has_profile,
 		};
 	},
-	LOGIN: (state, action) => {
+	LOGIN: (state:AuthInitialState, action) => {
 		const { user } = action.payload;
 
 		return {
@@ -45,12 +45,12 @@ const handlers = {
 			user,
 		};
 	},
-	LOGOUT: (state) => ({
+	LOGOUT: (state:AuthInitialState) => ({
 		...state,
 		isAuthenticated: false,
 		user: null,
 	}),
-	REGISTER: (state, action) => {
+	REGISTER: (state:AuthInitialState, action) => {
 		const { user, user_status, has_profile, error_message, api_status } =
 			action.payload;
 
@@ -66,7 +66,7 @@ const handlers = {
 	},
 };
 
-const reducer = (state, action) =>
+const reducer = (state:AuthInitialState, action) =>
 	handlers[action.type] ? handlers[action.type](state, action) : state;
 
 export const AuthContext = createContext({

@@ -4,16 +4,16 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import Api, { CallRequestData, ConfirmPhone, ErrorResponse } from "../../Api";
 import Utils from "../../utils/Utils";
-import caretLeft from "../../img/common/caret-left-big.svg";
-import caretRight from "../../img/common/caret-right-big.svg";
+import caretLeft from "../../images/common/caret-left-big.svg";
+import caretRight from "../../images/common/caret-right-big.svg";
 import { CarImagesModal } from "../pages/Car/CarImages";
 import {
 	CarStatBlockEntry,
 	CarStatBlockItem,
 	CarStatBlockProps,
 } from "../pages/Car/CarStatBlock";
-import bankCardImg from "./../../img/common/bank-card.png";
-import sbpImg from "./../../img/common/sbp.png";
+import bankCardImg from "./../../images/common/bank-card.png";
+import sbpImg from "./../../images/common/sbp.png";
 import { CarTag } from "./CarCard";
 import LoadError from "./LoadError";
 import Loader from "./Loader";
@@ -1138,8 +1138,6 @@ export const CarBookingForm: React.FC<{
 	// };
 	return (
 		<>
-		
-
 			<ModalFormTemplate
 				show={show}
 				onHide={handleClose}

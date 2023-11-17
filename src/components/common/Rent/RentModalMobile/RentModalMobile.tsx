@@ -1,5 +1,5 @@
-import call from "../../../../img/common/phone-call.svg";
-import back from "../../../../img/common/back.svg";
+import call from "../../../../images/common/phone-call.svg";
+import back from "../../../../images/common/back.svg";
 import { HeaderLogoImage } from "../../../layout/Header";
 import { Link } from "react-router-dom";
 import { FC, ReactElement, useEffect, useState } from "react";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CarRentPaymentButton } from "../../../CarRentForm";
-import bankCardImg from "../../../../../img/common/bank-card.png";
-import sbpImg from "../../../../../img/common/sbp.png";
+import bankCardImg from "../../../../../images/common/bank-card.png";
+import sbpImg from "../../../../../images/common/sbp.png";
 import { CarDataType } from "../../../../../types/RentTypes";
 
 const RentModalMobilePayment = ({ car }: { car: CarDataType }) => {

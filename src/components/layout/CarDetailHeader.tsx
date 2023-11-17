@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import callIconDark from "./../../img/common/Phone-header-dark.svg";
+import callIconDark from "./../../images/common/Phone-header-dark.svg";
 
 import {
 	HeaderImage,
@@ -12,7 +12,7 @@ import {
 } from "./Header";
 import { Container } from "react-bootstrap";
 import CallRequestForm from "../common/CallRequestForm";
-import arrowLeft from "../../img/car-detail/arrow-left.svg";
+import arrowLeft from "../../images/car-detail/arrow-left.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { MobileModal } from "../common/MobileModal/MobileModal";
 

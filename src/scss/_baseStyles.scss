@@ -816,7 +816,7 @@ code {
   background: rgba(0, 0, 0, 0.5);
   background-position: 20px center;
   background-repeat: no-repeat;
-  background-image: url("./../img/common/cookies.png");
+  background-image: url("./../images/common/cookies.png");
   background-size: 40px 40px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(1px);
@@ -1241,7 +1241,7 @@ code {
     content: "";
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
     background-color: $textColor;
-    background-image: url("./../img/common/contract.svg");
+    background-image: url("./../images/common/contract.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     background-position: center;
@@ -1338,25 +1338,25 @@ code {
 
   &.li-bank {
     &:before {
-      background-image: url("./../img/index/bank.png");
+      background-image: url("./../images/index/bank.png");
     }
   }
 
   &.li-jewel {
     &:before {
-      background-image: url("./../img/index/jewel.png");
+      background-image: url("./../images/index/jewel.png");
     }
   }
 
   &.li-card {
     &:before {
-      background-image: url("./../img/index/cards.png");
+      background-image: url("./../images/index/cards.png");
     }
   }
 
   &.li-document {
     &:before {
-      background-image: url("./../img/index/document.png");
+      background-image: url("./../images/index/document.png");
     }
   }
 }
@@ -2305,7 +2305,7 @@ code {
     position: absolute;
     height: 195px;
     width: 108px;
-    background-image: url("./../img/common/helix.png");
+    background-image: url("./../images/common/helix.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import badge1 from "./../../../img/index/bank.png";
-import badge2 from "./../../../img/index/cards.png";
-import badge3 from "./../../../img/index/jewel.png";
-import badge4 from "./../../../img/index/document.png";
+import badge1 from "./../../../images/index/bank.png";
+import badge2 from "./../../../images/index/cards.png";
+import badge3 from "./../../../images/index/jewel.png";
+import badge4 from "./../../../images/index/document.png";
 import Animator from "../../../Animator";
 
 const IndexAboutBadge: React.FC<{

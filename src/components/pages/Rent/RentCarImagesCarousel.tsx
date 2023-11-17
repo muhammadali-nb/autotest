@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import caretLeft from "./../../../img/common/caret-left-big.svg";
-import caretRight from "./../../../img/common/caret-right-big.svg";
+import caretLeft from "./../../../images/common/caret-left-big.svg";
+import caretRight from "./../../../images/common/caret-right-big.svg";
 
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";

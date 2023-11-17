@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import DoubleSlider from "../../common/DoubleSlider";
 import { Collapse, FormCheck } from "react-bootstrap";
-import caretUp from "./../../../img/common/caret-up-gray.png";
+import caretUp from "./../../../images/common/caret-up-gray.png";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setFilter } from "../../../store/reducers/filterSlice";
 import {
@@ -14,7 +14,7 @@ import {
 	SliderFilterData,
 } from "../../../store/reducers/baseDataSlice";
 
-import caret from "./../../../img/common/caret-right.png";
+import caret from "./../../../images/common/caret-right.png";
 import Utils from "../../../utils/Utils";
 
 const Filter: React.FC<{
