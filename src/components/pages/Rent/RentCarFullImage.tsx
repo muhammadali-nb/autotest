@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import arrowLeft from "../../../img/car-detail/arrow-left.svg";
+import arrowLeft from "../../../images/car-detail/arrow-left.svg";
 import { TypeImages } from "./RentCarImagesCarousel";
 import { Carousel } from "react-bootstrap";
-import caretLeft from "./../../../img/common/caret-left-big.svg";
-import caretRight from "./../../../img/common/caret-right-big.svg";
+import caretLeft from "./../../../images/common/caret-left-big.svg";
+import caretRight from "./../../../images/common/caret-right-big.svg";
 
 interface RentCarFullImageProps {
 	active: boolean;

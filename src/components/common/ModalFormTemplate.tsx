@@ -1,5 +1,5 @@
 import React from "react";
-import img from "../../img/common/modal-image.png";
+import img from "../../images/common/modal-image.png";
 import { FormCheck, Modal, ModalProps } from "react-bootstrap";
 import InputMask from "react-input-mask";
 import { Link } from "react-router-dom";

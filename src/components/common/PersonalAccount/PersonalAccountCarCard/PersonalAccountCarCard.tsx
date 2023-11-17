@@ -1,6 +1,6 @@
 import React from "react";
-import success from "../../../../img/personal-account/rent-history/success.svg";
-import CarImage from "../../../../img/index/car.webp";
+import success from "../../../../images/personal-account/rent-history/success.svg";
+import CarImage from "../../../../images/index/car.webp";
 
 const PersonalAccountCarCard = () => {
 	return (

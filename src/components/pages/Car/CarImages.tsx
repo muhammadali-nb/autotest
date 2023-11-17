@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { CarData } from "../../common/CarCard";
 import { Carousel, Modal } from "react-bootstrap";
-import caretLeft from "./../../../img/common/caret-left-big.svg";
-import chevronLeft from "./../../../img/index/Chevron Left.png";
-import chevronRight from "./../../../img/index/Chevron Right.png";
-import caretRight from "./../../../img/common/caret-right-big.svg";
+import caretLeft from "./../../../images/common/caret-left-big.svg";
+import chevronLeft from "./../../../images/index/Chevron Left.png";
+import chevronRight from "./../../../images/index/Chevron Right.png";
+import caretRight from "./../../../images/common/caret-right-big.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faCircleXmark } from "@fortawesome/free-solid-svg-icons";

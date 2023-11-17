@@ -4,8 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { type BaseState } from "../../store/reducers/baseDataSlice";
 import CarBookingForm from "./CarBookingForm";
 import CarRentForm from "./CarRentForm";
-import CarImage from "../../img/rent/auto_card.png";
-import CarImageDesktop from "../../img/index/car.webp";
+import CarImage from "../../images/rent/auto_card.png";
+import CarImageDesktop from "../../images/index/car.webp";
 import { TypeImages } from "../pages/Rent/RentCarImagesCarousel";
 import { CarDataType } from "../../types/RentTypes";
 import { CarCatalogDataInfo } from "../../types/CatalogTypes";
@@ -177,11 +177,11 @@ const CarCard: React.FC<{
 					className={` ${
 						responsive ? "car__card-mobile-taglist" : "car__card-taglist"
 					}  `}>
-					{/* {tags.map((i, index) => (
+					{car.tags.map((i, index) => (
 						<CarTag small={responsive} key={index} car={car}>
 							{i.name}
 						</CarTag>
-					))} */}
+					))}
 
 					{/* {car.special.map((i, index) => (
 						<CarTag key={index} small={false} car={car}>
@@ -201,7 +201,7 @@ const CarCard: React.FC<{
 					className={` ${
 						responsive ? "car__card-mobile-title" : "car__card-title"
 					} `}>
-					{car.brand} <span className={"model"}>{car.model}</span>
+					{car.brand} <br /> <span className={"model"}>{car.model}</span>
 				</div>
 				<div
 					className={` ${
@@ -221,7 +221,7 @@ const CarCard: React.FC<{
 					className={`${
 						responsive ? "car__card-mobile-price" : "car__card-price "
 					} `}>
-					Цена от&nbsp;
+					Цена &nbsp;
 					<span
 						className={`${
 							responsive

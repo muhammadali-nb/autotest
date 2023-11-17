@@ -147,25 +147,25 @@ $selectedColor: #bf3535;
   color: $textColor;
   background: transparent;
   transition: all 0.2s ease-in-out;
-  background-image: url("./../../img/common/userB.svg");
+  background-image: url("./../../images/common/userB.svg");
   background-position: center;
   background-size: 18px 18px;
   background-repeat: no-repeat;
 
   &:hover {
     border-color: $textColor;
-    background-image: url("./../../img/common/userB.svg");
+    background-image: url("./../../images/common/userB.svg");
   }
 
   &.light {
     color: #e7e7e8;
-    background-image: url("./../../img/common/userW.svg");
+    background-image: url("./../../images/common/userW.svg");
 
     &:hover {
       //color: white;
       border-color: white;
       background-color: white;
-      background-image: url("./../../img/common/userB.svg");
+      background-image: url("./../../images/common/userB.svg");
       color: $textColor;
     }
   }

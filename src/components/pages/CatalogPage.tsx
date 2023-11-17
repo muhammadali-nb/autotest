@@ -1,11 +1,10 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from "react";
 import { MetaTags } from "../layout/BaseLayout";
 import { Col, Container, Row } from "react-bootstrap";
-import FiltersBlock from "./Catalog/FiltersBlock";
 import CarGrid from "./Catalog/CarGrid";
-import dangerBtn from "./../../img/common/danger.png";
+import dangerBtn from "./../../images/common/danger.png";
 import FilterButtons from "./Catalog/FilterButtons";
-import bg from "./../../img/index/about_bg.webp";
+import bg from "./../../images/index/about_bg.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import Api from "../../Api";
@@ -16,6 +15,8 @@ import { BaseState } from "../../store/reducers/baseDataSlice";
 import { useAppSelector } from "../../store/hooks";
 import { useQuery } from "@tanstack/react-query";
 import catalogService from "../../api-functions/catalog-page/catalog-service";
+import CatalogFiltersBlock from "./Catalog/CatalogFilterBlock";
+import { log } from "util";
 
 export const AlertMessage: React.FC<{
 	page: string;
@@ -101,10 +102,10 @@ export const BottomMessage: React.FC<{
 
 const CatalogPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
-	const title = "Каталог - " + process.env.REACT_APP_WEBSITE_NAME;
+	const title = "Выкуп - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
-		description: "Каталог автомобилей",
-		keywords: "каталог,лизинг,авто,список,leasing",
+		description: "Выкуп,Каталог автомобилей",
+		keywords: "выкуп,каталог,лизинг,авто,список,leasing",
 	};
 
 	const baseData: BaseState = useAppSelector((state) => state.baseData);
@@ -130,7 +131,7 @@ const CatalogPage = () => {
 						<Row>
 							<Col lg={3}>
 								<div className={"sticky-no-scrollbar"}>
-									<FiltersBlock filterData={!isLoading && data} />
+									<CatalogFiltersBlock filterData={!isLoading && data} />
 								</div>
 							</Col>
 							<Col lg={9}>
@@ -149,6 +150,7 @@ const CatalogPage = () => {
 									}
 								/>
 								<FilterButtons
+									mode="book"
 									isShowMobileFiler={setOpen}
 									catalogData={!isLoading && data.top}
 								/>

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setFilter } from "../../../store/reducers/filterSlice";
 import { ButtonFilterData } from "../../../store/reducers/baseDataSlice";
-import filterIcon from "../../../img/common/filter-icon.svg";
+import filterIcon from "../../../images/common/filter-icon.svg";
 import { FilterTopValues } from "../RentPage";
+import { setCatalogFilter } from "../../../store/reducers/catalogFilterSlice";
 
 export const ButtonSet: React.FC<{ data: ButtonFilterData }> = (props) => {
 	const filter = useAppSelector((state) => state.filter);
 	const dispatch = useAppDispatch();
-	const updateFilter = (block: string, value) => {
+	const updateRentFilter = (block: string, value) => {
 		dispatch(setFilter({ ...filter, [block]: value }));
 	};
 	return (
@@ -17,7 +18,7 @@ export const ButtonSet: React.FC<{ data: ButtonFilterData }> = (props) => {
 				"d-flex mb-3 mb-md-0 gap-2 py-1 justify-content-start flex-wrap"
 			}>
 			<button
-				onClick={() => updateFilter("new", 0)}
+				onClick={() => updateRentFilter("new", 0)}
 				className={
 					"catalog__filter-btn " + (filter.new === 0 ? " selected" : "")
 				}>
@@ -26,7 +27,7 @@ export const ButtonSet: React.FC<{ data: ButtonFilterData }> = (props) => {
 			{props.data.values?.map((i, index) => (
 				<button
 					key={i.id}
-					onClick={() => updateFilter("new", i.id)}
+					onClick={() => updateRentFilter("new", i.id)}
 					className={
 						"catalog__filter-btn " + (filter.new === i.id ? " selected" : "")
 					}>
@@ -44,38 +45,46 @@ const FilterButtons: React.FC<{
 		tarif: FilterTopValues;
 	} | null;
 	catalogData?: {
+		tags: FilterTopValues;
 		new: FilterTopValues;
-		tarif: FilterTopValues;
 	} | null;
 }> = ({ mode = "book", isShowMobileFiler, rentFilterData, catalogData }) => {
-	const filterList = useAppSelector((state) => state.baseData.top);
-	const filter = useAppSelector((state) => state.filter);
+	const rentFilter = useAppSelector((state) => state.filter);
+	const catalogFilter = useAppSelector((state) => state.catalogFilter);
 	const dispatch = useAppDispatch();
-	const updateFilter = (block: string, value) => {
-		dispatch(setFilter({ ...filter, [block]: value }));
+	const updateRentFilter = (block: string, value) => {
+		dispatch(setFilter({ ...rentFilter, [block]: value }));
 	};
+
+	const updateCatalogFilter = (block: string, value) => {
+		dispatch(setCatalogFilter({ ...catalogFilter, [block]: value }));
+	};
+
+	useEffect(() => {
+		console.log(catalogFilter);
+	}, [catalogFilter]);
 
 	return (
 		<div
 			className={"d-lg-flex gap-3 justify-content-between mb-px-25 flex-wrap"}>
-			{mode === "book" && (catalogData?.tarif?.values?.length ?? 0) > 0 && (
+			{mode === "book" && (
 				<div className="d-flex justify-content-between align-items-center  mb-3 mb-md-0">
 					<div className={"d-flex  gap-2 py-1 justify-content-start flex-wrap"}>
 						<button
-							onClick={() => updateFilter("new", 0)}
+							onClick={() => updateCatalogFilter("condition", null)}
 							className={
 								"catalog__filter-btn " +
-								(filter.new === null ? " selected" : "")
+								(catalogFilter.condition === null ? " selected" : "")
 							}>
 							Все
 						</button>
-						{catalogData?.tarif?.values?.map((i, index) => (
+						{catalogData?.new?.values?.map((i, index) => (
 							<button
 								key={i.id}
-								onClick={() => updateFilter("new", i.id)}
+								onClick={() => updateCatalogFilter("condition", i.id)}
 								className={
-									"catalog__filter-btn "
-									// (filter.new === i.id ? " selected" : "")
+									"catalog__filter-btn " +
+									(catalogFilter.condition === i.id ? " selected" : "")
 								}>
 								{i.name}
 							</button>
@@ -89,26 +98,26 @@ const FilterButtons: React.FC<{
 					</div>
 				</div>
 			)}
-			{mode === "book" && (catalogData?.new?.values?.length ?? 0) > 0 && (
+			{mode === "book" && (catalogData?.tags?.values.length ?? 0) > 0 && (
 				<div
 					className={
 						"d-none d-lg-flex gap-2 py-1 justify-content-start flex-wrap"
 					}>
 					<button
-						onClick={() => updateFilter("special", 0)}
+						onClick={() => updateCatalogFilter("tags", null)}
 						className={
 							"catalog__filter-btn " +
-							(filter.special === null ? " selected" : "")
+							(catalogFilter.tags === null ? " selected" : "")
 						}>
 						Все
 					</button>
-					{catalogData?.new.values?.map((i, index) => (
+					{catalogData?.tags.values?.map((i, index) => (
 						<button
 							key={i.id}
-							onClick={() => updateFilter("special", i.id)}
+							onClick={() => updateCatalogFilter("tags", i.id)}
 							className={
 								"catalog__filter-btn " +
-								(filter.special === i.id ? " selected" : "")
+								(catalogFilter.tags === i.id ? " selected" : "")
 							}>
 							{i.name}
 						</button>
@@ -116,7 +125,7 @@ const FilterButtons: React.FC<{
 				</div>
 			)}
 
-			{mode === "rent" && (filterList?.new.values?.length ?? 0) > 0 && (
+			{mode === "rent" && (
 				<div className="d-flex justify-content-between align-items-center  mb-3 mb-md-0">
 					<div
 						className={
@@ -124,27 +133,27 @@ const FilterButtons: React.FC<{
 							"d-flex  gap-2 py-1 justify-content-start flex-wrap"
 						}>
 						<button
-							onClick={() => updateFilter("tarif", null)}
+							onClick={() => updateRentFilter("tarif", null)}
 							className={
 								"catalog__filter-btn " +
-								(filter.tarif === null ? " selected" : "")
+								(rentFilter.tarif === null ? " selected" : "")
 							}>
 							Все
 						</button>
-						{rentFilterData?.tarif?.values?.map((i, index) => (
+						{rentFilterData?.tarif?.values?.map((i) => (
 							<button
 								key={i.id}
-								onClick={() => updateFilter("tarif", i.id)}
+								onClick={() => updateRentFilter("tarif", i.id)}
 								className={
 									"catalog__filter-btn " +
-									(filter.tarif === i.id ? " selected" : "")
+									(rentFilter.tarif === i.id ? " selected" : "")
 								}>
 								{i.name}
 							</button>
 						))}
 					</div>
 					<div
-						className="d-block d-lg-none "
+						className="d-block d-lg-none"
 						onClick={() => isShowMobileFiler(true)}>
 						<img src={filterIcon} alt="" />
 					</div>
@@ -156,21 +165,21 @@ const FilterButtons: React.FC<{
 						"catalog__filter-container d-none d-lg-flex gap-2 py-1 justify-content-start flex-wrap"
 					}>
 					<button
-						onClick={() => updateFilter("special", null)}
+						onClick={() => updateRentFilter("special", null)}
 						className={
 							"catalog__filter-btn " +
-							(filter.special === null ? " selected" : "")
+							(rentFilter.special === null ? " selected" : "")
 						}>
 						Все
 					</button>
 
-					{rentFilterData?.free?.values?.map((i, index) => (
+					{rentFilterData?.free?.values?.map((i) => (
 						<button
 							key={i.id}
-							onClick={() => updateFilter("special", i.id)}
+							onClick={() => updateRentFilter("special", i.id)}
 							className={
 								"catalog__filter-btn " +
-								(filter.special === i.id ? " selected" : "")
+								(rentFilter.special === i.id ? " selected" : "")
 							}>
 							{i.name}
 						</button>

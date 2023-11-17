@@ -3,15 +3,15 @@ import { HeaderLogoImage } from "./Header";
 import { Link } from "react-router-dom";
 
 //icons
-import house from "../../img/common/mobile_menu-icons/house.svg";
-import car from "../../img/common/mobile_menu-icons/car.svg";
-import dashboard from "../../img/common/mobile_menu-icons/dashboard.svg";
-import phone from "../../img/common/mobile_menu-icons/phone.svg";
-import question from "../../img/common/mobile_menu-icons/question.svg";
-import ticked from "../../img/common/mobile_menu-icons/ticked.svg";
-import loginIcon from "../../img/common/mobile_menu-icons/login.svg";
+import house from "../../images/common/mobile_menu-icons/house.svg";
+import car from "../../images/common/mobile_menu-icons/car.svg";
+import dashboard from "../../images/common/mobile_menu-icons/dashboard.svg";
+import phone from "../../images/common/mobile_menu-icons/phone.svg";
+import question from "../../images/common/mobile_menu-icons/question.svg";
+import ticked from "../../images/common/mobile_menu-icons/ticked.svg";
+import loginIcon from "../../images/common/mobile_menu-icons/login.svg";
 import AdvanceLogin from "../common/AdvanceLogin";
-import arrow from "../../img/common/menu-arrow.svg";
+import arrow from "../../images/common/menu-arrow.svg";
 
 interface MobileMenuProps {
 	menuIsOpen: boolean;

@@ -7,9 +7,7 @@ import IndexOffers from "./Index/IndexOffers";
 import Api from "../../Api";
 import IndexGreatDeals from "./Index/IndexGreatDeals";
 
-
 const IndexPage = () => {
-
 	const title = process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
 		description: process.env.REACT_APP_WEBSITE_NAME,
@@ -21,6 +19,7 @@ const IndexPage = () => {
 				title={title}
 				meta={meta}
 				headerType={"transparent"}
+				headerSelectedLink={"/"}
 				noTopPadding={true}>
 				<IndexLogo bgNoCar={false} />
 				<IndexSteps />

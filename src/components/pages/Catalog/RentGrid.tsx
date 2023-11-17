@@ -12,7 +12,7 @@ import LoadError from "../../common/LoadError";
 import { BottomMessage } from "../CatalogPage";
 import Paginator from "../../common/Paginator";
 import CarRequestForm from "../../common/CarRequestForm";
-import chevron from "../../../img/common/footer/chevron-for-bottom.svg";
+import chevron from "../../../images/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
 import RentPaginator from "../../common/Rent/RentPaginator";

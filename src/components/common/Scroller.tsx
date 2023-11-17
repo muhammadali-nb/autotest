@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import caret from "./../../img/common/caret-up-white.png";
-import mobileIcon from "../../img/common/footer/arrow-scroller.svg";
+import caret from "./../../images/common/caret-up-white.png";
+import mobileIcon from "../../images/common/footer/arrow-scroller.svg";
 
 const Scroller = () => {
 	const [show, setShow] = useState(false);

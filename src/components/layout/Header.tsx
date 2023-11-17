@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-// import callIcon from "../../img/common/Phone-header.svg";
-// import callIconDark from "../../img/common/Phone-header-dark.svg"; // header phone icons
-import logoDark from "./../../img/logo-dark.svg";
-import logoDarkCred from "./../../img/logo-dark-cred.svg";
-import logoLight from "./../../img/logo-light.svg";
+// import callIcon from "../../images/common/Phone-header.svg";
+// import callIconDark from "../../images/common/Phone-header-dark.svg"; // header phone icons
+import logoDark from "./../../images/logo-dark.svg";
+import logoDarkCred from "./../../images/logo-dark-cred.svg";
+import logoLight from "./../../images/logo-light.svg";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,8 +13,8 @@ import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import { faPhoneVolume } from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
 import ModalFormTemplate from "../common/ModalFormTemplate";
 import { MobileModal } from "../common/MobileModal/MobileModal";
-import callIcon from "./../../img/common/Phone-header.svg";
-import callIconDark from "./../../img/common/Phone-header-dark.svg";
+import callIcon from "./../../images/common/Phone-header.svg";
+import callIconDark from "./../../images/common/Phone-header-dark.svg";
 
 export type HeaderType = "transparent" | "white" | "logo";
 export type HeaderImage = "dark" | "darkCred" | "light";
@@ -34,7 +34,7 @@ export type HeaderProps = {
 
 export const defaultLinks = [
 	{ text: "Главная", path: "/", className: "" },
-	{ text: "Каталог", path: "/catalog", className: "" },
+	{ text: "Выкуп", path: "/catalog", className: "" },
 	{ text: "Программы", path: "/programs", className: "" },
 	{ text: "Аренда", path: "/rent/page/1", className: "" },
 	{ text: "Вопросы", path: "/faq", className: "" },

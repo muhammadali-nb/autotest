@@ -16,10 +16,10 @@ import Utils from "../../utils/Utils";
 import { CarData, CarRentButton, CarRentDataInfo } from "./CarCard";
 import Loader from "./Loader";
 import LoadError from "./LoadError";
-import img from "../../img/common/modal-image.png";
+import img from "../../images/common/modal-image.png";
 import { Carousel } from "react-bootstrap";
-import caretLeft from "../../img/common/caret-left-big.svg";
-import caretRight from "../../img/common/caret-right-big.svg";
+import caretLeft from "../../images/common/caret-left-big.svg";
+import caretRight from "../../images/common/caret-right-big.svg";
 import { BaseState } from "../../store/reducers/baseDataSlice";
 import { useAppSelector } from "../../store/hooks";
 import {

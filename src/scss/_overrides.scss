@@ -89,7 +89,7 @@ $defaultColor: #222222;
     height: 15px;
     transition: all 0.2s ease-in-out;
     //border: unset;
-    //background-image: url("./../img/index/checkbox-empty.svg");
+    //background-image: url("./../images/index/checkbox-empty.svg");
     &:hover {
       border-color: $uiRedColor;
       box-shadow: 0 0 0px 1px rgba($uiRedColor, 0.7);

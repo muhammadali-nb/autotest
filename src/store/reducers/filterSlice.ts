@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
-import { BaseState, IdValued } from './baseDataSlice'
+
 // import type { RootState } from '../store'
 
 // Define a type for the slice state
@@ -54,7 +53,7 @@ export const filterSlice = createSlice({
             state.fuel = action.payload.fuel;
             state.rent = action.payload.rent;
             state.available = action.payload.available;
-            state.tarif =  action.payload.tarif;
+            state.tarif = action.payload.tarif;
         },
     },
 

@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { Collapse } from "react-bootstrap";
-import circleDown from "./../../img/rent/circle-down.svg";
-import circleUp from "./../../img/rent/circle-up.svg";
+import circleDown from "./../../images/rent/circle-down.svg";
+import circleUp from "./../../images/rent/circle-up.svg";
 
 const FoldableQuestion: React.FC<{
 	header: string | ReactNode;
