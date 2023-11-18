@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-
 import caretLeft from "./../../../images/common/caret-left-big.svg";
 import caretRight from "./../../../images/common/caret-right-big.svg";
-
-import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 
 export type TypeImages = {
@@ -20,7 +17,6 @@ const RentCarImagesCarousel = ({
 }) => {
 	const [index, setIndex] = useState(0);
 	const [showModal, setShowModal] = useState(false);
-	const navigate = useNavigate();
 
 	const handleClose = () => setShowModal(false);
 	const handleShow = () => setShowModal(true);

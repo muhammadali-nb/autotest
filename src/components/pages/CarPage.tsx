@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BaseLayout, { MetaTags } from "../layout/BaseLayout";
 import { Col, Container, Row } from "react-bootstrap";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import Api from "../../Api";
 
 import CarBase from "./Car/CarBase";
@@ -10,23 +10,29 @@ import CarInfo from "./Car/CarInfo";
 import LoadError from "../common/LoadError";
 
 import { CarDetailLayout } from "../layout/CarDetailLayout";
-
+import { useQuery } from "@tanstack/react-query";
+import catalogService from "../../api-functions/catalog-page/catalog-service";
+import Loader from "../common/Loader";
 
 const CarPage = () => {
 	const car = useLoaderData() as any;
-	// // console.log(car);
-	// const data = useAppSelector((state) => state.baseData);
-	// const brand =
-	// 	data.left.brands.values?.find((i) => i.id === car.main.brand)?.name ?? "";
-	// const model =
-	// 	data.left.models.values?.find((i) => i.id === car.main.model)?.name ?? "";
-
+	const { id } = useParams();
+	const [modalFullImage, setModalFullImage] = useState(false);
+	const { data, isLoading, error } = useQuery({
+		queryKey: [`catalog-car-${id}`, id],
+		queryFn: () => catalogService.getOneCar(id),
+	});
 	const title =
-		car.brand + " " + car.model + " - " + process.env.REACT_APP_WEBSITE_NAME;
+		data?.item?.brand +
+		" " +
+		data?.item?.model +
+		" - " +
+		process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
 		description: car.brand + " " + car.model + " в лизинг или аренду",
 		keywords: `аренда, лизинг,${car.brand},${car.model},${car.brand} ${car.model}`,
 	};
+	if (isLoading) return <Loader />;
 	return (
 		<CarDetailLayout
 			meta={meta}
@@ -40,15 +46,15 @@ const CarPage = () => {
 				{!Api.isError(car) && (
 					<Row className={"gx-5"}>
 						<Col lg={6} className={"d-none d-lg-block"}>
-							<CarImages car={car} />
+							<CarImages car={data.item} />
 							<CarInfo type={"descktop"} car={car} />
 						</Col>
 						<Col lg={6}>
 							<div className={"sticky-no-scrollbar top100 "}>
 								<div className={"d-block d-lg-none"}>
-									<CarImages car={car} />
+									<CarImages car={data.item} />
 								</div>
-								<CarBase car={car} />
+								<CarBase car_data={data.item} car={car} />
 							</div>
 						</Col>
 					</Row>
@@ -56,9 +62,9 @@ const CarPage = () => {
 			</Container>
 			<div className={" d-block d-lg-none "}>
 				<Container fluid={"xxl"}>
-					<CarImages car={car} />
+					<CarImages car={data.item} />
 				</Container>
-				<CarBase car={car} />
+				<CarBase car_data={data.item} car={car} />
 				<CarInfo type={"mobile"} car={car} />
 			</div>
 		</CarDetailLayout>

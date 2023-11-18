@@ -292,6 +292,10 @@ const FilterModels: React.FC<{
 	const dispatch = useAppDispatch();
 	const [showAmount, setShowAmount] = useState(5);
 
+	useEffect(() => {
+		console.log(filter);
+	}, [filter]);
+
 	const clear = () => {
 		dispatch(setCatalogFilter({ ...filter, [field]: [] }));
 	};
@@ -470,7 +474,6 @@ export const CatalogFiltersBlock: React.FC<{ filterData?: BaseState }> = ({
 	filterData,
 }) => {
 	const [open, setOpen] = useState(false);
-	const baseData = useAppSelector((state) => state.baseData);
 
 	return (
 		<div className={"filters-block" + (open ? " open" : "")}>

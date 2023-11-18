@@ -71,6 +71,7 @@ const IndexGreatDeals = () => {
 									price: 120.0,
 									min_pay: 112.0,
 									image: carImage,
+									model_id: "Sonata",
 								}}
 							/>
 						</Col>
@@ -81,6 +82,7 @@ const IndexGreatDeals = () => {
 								car={{
 									id: 1,
 									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
+									model_id: "Sonata",
 
 									brand: "Porsche",
 									model: "911 GT3",
@@ -97,6 +99,7 @@ const IndexGreatDeals = () => {
 								car={{
 									id: 1,
 									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
+									model_id: "Sonata",
 
 									brand: "Porsche",
 									model: "911 GT3",
@@ -113,6 +116,7 @@ const IndexGreatDeals = () => {
 								car={{
 									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
 									id: 1,
+									model_id: "Sonata",
 									brand: "Porsche",
 									model: "911 GT3",
 									price: 120.0,

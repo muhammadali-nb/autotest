@@ -21,6 +21,12 @@ class CatalogService {
     )
       .then(res => res.data)
   }
+  getOneCar(id?: string) {
+    if (!id) {
+      return
+    }
+    return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=catalog-car&id=${id}`, { withCredentials: true }).then(res => res.data)
+  }
 }
 
 export default new CatalogService()

@@ -4,8 +4,12 @@ import { useAppSelector } from "../../../store/hooks";
 import CarStatBlock, { CarStatBlockItem } from "./CarStatBlock";
 import IndexCalculator from "../Index/IndexCalculator";
 import { Container } from "react-bootstrap";
+import { ICarData } from "../../../types/CatalogTypes";
 
-const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
+const CarBase: React.FC<{ car: CarData | any; car_data: ICarData }> = ({
+	car,
+	car_data,
+}) => {
 	const data: any = useAppSelector((state) => state.baseData);
 	const brand =
 		data.left.brands.values?.find((i) => i.id === car.main.brand)?.name ?? "";
@@ -16,19 +20,19 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 		<div className={"car-base"}>
 			<div className="car-base_body">
 				<div className={"car-base-title"}>
-					{brand}&nbsp;
-					<span className={"text-red-color"}>{model}</span>
+					{car_data?.brand}&nbsp;
+					<span className={"text-red-color"}>{car_data?.model}</span>
 				</div>
 				<div className={"car-base-price"}>
 					<div className={"mb-px-5"}>Цена</div>
 					<div className={"car-base-price-value"}>
-						{car.main.price.toLocaleString()}&nbsp;₽
+						{car_data?.price?.toLocaleString()}&nbsp;₽
 					</div>
 				</div>
 				<div className={"car-base-payment"}>
 					Минимальный платеж от{" "}
 					<span className={"car-base-payment-value"}>
-						{car.main.pay.toLocaleString()}&nbsp;₽
+						{car_data?.min_pay?.toLocaleString()}&nbsp;₽
 					</span>
 				</div>
 				<div className={"mb-px-30"}>
