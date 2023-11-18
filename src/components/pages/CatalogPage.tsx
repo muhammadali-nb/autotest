@@ -108,6 +108,7 @@ const CatalogPage = () => {
 		queryKey: ["catalog-filter"],
 		queryFn: () => catalogService.getFilter(),
 	});
+	
 
 	return (
 		<CatalogLayout
