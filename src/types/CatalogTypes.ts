@@ -1,4 +1,6 @@
 
+import { TypeImages } from "../components/pages/Rent/RentCarImagesCarousel";
+
 
 export type CarCatalogDataInfo = {
   brand: string;
@@ -6,11 +8,24 @@ export type CarCatalogDataInfo = {
   min_pay: number;
   id: number;
   price: number;
-  image: string
-  tags: CarTag[]
+  image: string;
+  model_id: string
+  tags: CarTagType[]
 };
 
-type CarTag = {
+type CarTagType = {
   id: number;
   name: string
+}
+
+export interface ICarData {
+  brand: string,
+  brand_id: string,
+  id: number;
+  images: TypeImages[],
+  min_pay: number;
+  model: string;
+  model_id: string;
+  price: number;
+  tags: CarTagType
 }

@@ -7,7 +7,7 @@ import RentCarImagesCarousel from "./RentCarImagesCarousel";
 import { Container } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
-import RentCarFullImage from "./RentCarFullImage";
+
 import LoadError from "../../common/LoadError";
 import { RentModalMobile } from "../../common/Rent/RentModalMobile/RentModalMobile";
 import { useAuth } from "../../../hooks/useAuth";
@@ -15,6 +15,8 @@ import { CarBookingStepsType } from "../../common/CarRentForm";
 import { BrowserView, MobileView } from "react-device-detect";
 import RentCarDetailModal from "../../common/RentCarDetailModal";
 import RentDetailModalLayout from "../../layout/RentDetailModalLayout";
+import Loader from "../../common/Loader";
+import CarFullImageModal from "./RentCarFullImage";
 
 const RentCarDetail = () => {
 	const { carID } = useParams();
@@ -49,7 +51,7 @@ const RentCarDetail = () => {
 		}
 		setModalBookingCar(true);
 	};
-
+	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={error} />;
 	return (
 		<>
@@ -108,7 +110,7 @@ const RentCarDetail = () => {
 											Забронировать
 										</button>
 									</div>
-									<RentCarFullImage
+									<CarFullImageModal
 										images={isSuccess && data.item?.images}
 										active={modalFullImage}
 										setActive={setModalFullImage}

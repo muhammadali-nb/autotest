@@ -11,12 +11,9 @@ import Api from "../../Api";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import CatalogLayout from "../layout/CatalogLayout";
 import { SmallFooter } from "../layout/Footer";
-import { BaseState } from "../../store/reducers/baseDataSlice";
-import { useAppSelector } from "../../store/hooks";
 import { useQuery } from "@tanstack/react-query";
 import catalogService from "../../api-functions/catalog-page/catalog-service";
 import CatalogFiltersBlock from "./Catalog/CatalogFilterBlock";
-import { log } from "util";
 
 export const AlertMessage: React.FC<{
 	page: string;

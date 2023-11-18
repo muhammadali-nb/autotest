@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
-import {
-	Link,
-	useLocation,
-	useNavigate,
-	useSearchParams,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CarRentCard } from "../../common/CarCard";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
 import { BottomMessage } from "../CatalogPage";
-import Paginator from "../../common/Paginator";
 import CarRequestForm from "../../common/CarRequestForm";
 import chevron from "../../../images/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";

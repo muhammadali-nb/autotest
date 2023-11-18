@@ -1,14 +1,11 @@
-import React, { useRef } from "react";
-import { useAppSelector } from "../../store/hooks";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { type BaseState } from "../../store/reducers/baseDataSlice";
+import React from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { Link } from "react-router-dom";
 import CarBookingForm from "./CarBookingForm";
 import CarRentForm from "./CarRentForm";
-import CarImage from "../../images/rent/auto_card.png";
-import CarImageDesktop from "../../images/index/car.webp";
-import { TypeImages } from "../pages/Rent/RentCarImagesCarousel";
 import { CarDataType } from "../../types/RentTypes";
 import { CarCatalogDataInfo } from "../../types/CatalogTypes";
+import { setCatalogFilter } from "../../store/reducers/catalogFilterSlice";
 
 export type ImageInfo = {
 	thumb: string;
@@ -58,17 +55,20 @@ export const CarSameLink: React.FC<{
 	className?: string;
 	text?: string;
 	responsive?: boolean;
+	onClick?: () => void;
 }> = ({
 	car,
 	style,
 	className,
 	text = "Посмотреть похожие модели",
 	responsive,
+	onClick,
 }) => {
 	return (
 		<Link
-			to={`/catalog?same=${car.id}`}
+			to={`/catalog`}
 			style={style}
+			onClick={onClick}
 			className={
 				!responsive
 					? "car__card-same  " + (className ?? "")
@@ -153,18 +153,12 @@ const CarCard: React.FC<{
 	id?: string;
 	responsive: boolean;
 }> = ({ car, responsive, id }) => {
-	const baseData: BaseState = useAppSelector((state) => state.baseData);
+	const dispatch = useAppDispatch();
+	const filter = useAppSelector((state) => state.catalogFilter);
 
-	// const tags =
-	// 	baseData.top?.special.values?.filter((i) => car.special.includes(i.id)) ??
-	// 	[];
-
-	// const brand =
-	// 	baseData.left?.brands.values?.find((i) => car.brand === i.id)?.name ??
-	// 	"неизвестно";
-	// const model =
-	// 	baseData.left?.models.values?.find((i) => car.model === i.id)?.name ??
-	// 	"неизвестно";
+	const updateSameCarFilter = (value: string) => {
+		dispatch(setCatalogFilter({ ...filter, models: [value] }));
+	};
 
 	return (
 		<div
@@ -182,12 +176,6 @@ const CarCard: React.FC<{
 							{i.name}
 						</CarTag>
 					))}
-
-					{/* {car.special.map((i, index) => (
-						<CarTag key={index} small={false} car={car}>
-							{i}
-						</CarTag>
-					))} */}
 				</div>
 
 				<Link
@@ -235,6 +223,7 @@ const CarCard: React.FC<{
 					responsive={responsive}
 					car={car}
 					className={"mb-px-30 font-weight-semibold"}
+					onClick={() => updateSameCarFilter(car.model_id)}
 				/>
 			</div>
 			<div
