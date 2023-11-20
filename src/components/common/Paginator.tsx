@@ -58,6 +58,7 @@ const Paginator: React.FC<{
 
 	useEffect(() => {
 		setActive(params.get("page") ?? "1");
+		window.scrollTo(0, 0);
 	}, [page]);
 
 	const link = (page: number) => {

@@ -60,10 +60,6 @@ const FilterButtons: React.FC<{
 		dispatch(setCatalogFilter({ ...catalogFilter, [block]: value }));
 	};
 
-	useEffect(() => {
-		console.log(catalogFilter);
-	}, [catalogFilter]);
-
 	return (
 		<div
 			className={"d-lg-flex gap-3 justify-content-between mb-px-25 flex-wrap"}>

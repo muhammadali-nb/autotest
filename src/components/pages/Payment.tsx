@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { redirect, useNavigate, useParams } from "react-router-dom";
+import Loader from "../common/Loader";
 
 const Payment = () => {
-	const { pid } = useParams();
+	const { pid, id } = useParams();
 	const navigate = useNavigate();
 
 	const checkPayment = async () => {
@@ -29,11 +30,20 @@ const Payment = () => {
 		}
 	};
 
+	const testCheck = () => {
+		navigate(`/rent/page/1/car/${id}`, {
+			state: {
+				status: "success",
+				payment_status: "CONFIRMED",
+			},
+		});
+	};
+
 	useEffect(() => {
-		checkPayment();
+		testCheck();
 	}, []);
 
-	return <div>Payment {pid}</div>;
+	return <Loader />;
 };
 
 export default Payment;
