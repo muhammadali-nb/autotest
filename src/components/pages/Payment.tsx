@@ -27,20 +27,23 @@ const Payment = () => {
 				});
 		} catch (error) {
 			console.log(error);
+			navigate("/rent/page/1/car/1", {
+				state: null,
+			});
 		}
 	};
 
-	const testCheck = () => {
-		navigate(`/rent/page/1/car/${id}`, {
-			state: {
-				status: "success",
-				payment_status: "CONFIRMED",
-			},
-		});
-	};
+	// const testCheck = () => {
+	// 	navigate(`/rent/page/1/car/${id}`, {
+	// 		state: {
+	// 			status: "success",
+	// 			payment_status: "CONFIRMED",
+	// 		},
+	// 	});
+	// };
 
 	useEffect(() => {
-		testCheck();
+		checkPayment();
 	}, []);
 
 	return <Loader />;
