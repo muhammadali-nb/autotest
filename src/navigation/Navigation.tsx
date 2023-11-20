@@ -40,7 +40,7 @@ export const router = createBrowserRouter(
 				<Route index element={<RentPage />} />
 				<Route path={"car/:carID"} element={<RentCarDetail />} />
 			</Route>
-			<Route path="payment/confirm/:pid" element={<Payment />} />
+			<Route path="payment/confirm/car/:id/pid/:pid" element={<Payment />} />
 			<Route
 				path={"programs"}
 				element={<ProgramsPage />}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import {
@@ -23,14 +23,18 @@ import LoadError from "./LoadError";
 import ModalFormTemplate from "./ModalFormTemplate";
 import Loader from "./Loader";
 
-const RentCarDetailModal = () => {
-	const location = useLocation();
-	const { carID } = useParams();
+const RentCarDetailModal: FC<{
+	paymentStatus: RentBookingPaymentStatus;
+	setPaymentStatus: (e: RentBookingPaymentStatus) => void;
+	step: CarBookingStepsType;
+	setStep: (e: CarBookingStepsType) => void;
+}> = ({ paymentStatus, setPaymentStatus, step, setStep }) => {
+	const { id, carID } = useParams();
 	const { initialize, user_status } = useAuth();
-	const [step, setStep] = useState<CarBookingStepsType>("rent");
+	// const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [error_message, setErrorMessage] = useState<string | null>(null);
-	const [paymentStatus, setPaymentStatus] =
-		useState<RentBookingPaymentStatus>(null);
+	// const [paymentStatus, setPaymentStatus] =
+	// 	useState<RentBookingPaymentStatus>(null);
 	const [depositPrice, setDepositPrice] = useState(0);
 	const [timer, setTimer] = useState(0);
 	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
@@ -47,13 +51,6 @@ const RentCarDetailModal = () => {
 		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
 	});
-
-	const chekckUser = async () => {
-		await initialize();
-		if (user_status === "need_auth") {
-			setStep("start");
-		}
-	};
 
 	const confirmPhone = () => {
 		if (user_status === "banned") {
@@ -97,12 +94,8 @@ const RentCarDetailModal = () => {
 		}
 	};
 
-	useEffect(() => {
-		chekckUser();
-	}, [step]);
-
 	const handleClose = () => {
-		navigate(-1);
+		navigate(`/rent/page/${id ?? 1}`);
 	};
 
 	if (isLoading) return <Loader />;

@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import {
+	useLoaderData,
+	useLocation,
+	useNavigate,
+	useParams,
+} from "react-router-dom";
 import { CarRentDataInfo, CarSameLink } from "../../common/CarCard";
 import Api, { ConfirmPhone, ErrorResponse } from "../../../Api";
 import { CarDetailLayout } from "../../layout/CarDetailLayout";
@@ -17,9 +22,13 @@ import RentCarDetailModal from "../../common/RentCarDetailModal";
 import RentDetailModalLayout from "../../layout/RentDetailModalLayout";
 import Loader from "../../common/Loader";
 import CarFullImageModal from "./RentCarFullImage";
+import { RentBookingPaymentStatus } from "../../../types/RentTypes";
 
 const RentCarDetail = () => {
 	const { carID } = useParams();
+	const location = useLocation();
+	const [paymentStatus, setPaymentStatus] =
+		useState<RentBookingPaymentStatus>(null);
 	const [modalFullImage, setModalFullImage] = useState(false);
 	const [modalBookingCar, setModalBookingCar] = useState(false);
 	const { isAuthenticated, has_profile, initialize, user_status } = useAuth();
@@ -28,6 +37,26 @@ const RentCarDetail = () => {
 		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
 	});
+
+	const checkCardPayment = () => {
+		if (!location.state) {
+			return;
+		}
+
+		if (location.state.status === "success") {
+			setPaymentStatus(location.state.payment_status);
+			setStep("booking_result");
+		}
+	};
+
+	useEffect(() => {
+		console.log(location);
+		checkCardPayment();
+	}, [location]);
+
+	useEffect(() => {
+		console.log(step);
+	}, [step]);
 
 	const chekckUser = async () => {
 		await initialize();
@@ -59,7 +88,12 @@ const RentCarDetail = () => {
 				<>
 					<BrowserView>
 						<RentDetailModalLayout>
-							<RentCarDetailModal />
+							<RentCarDetailModal
+								step={step}
+								setStep={setStep}
+								paymentStatus={paymentStatus}
+								setPaymentStatus={setPaymentStatus}
+							/>
 						</RentDetailModalLayout>
 					</BrowserView>
 					<MobileView>
