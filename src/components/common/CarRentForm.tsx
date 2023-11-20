@@ -415,7 +415,8 @@ export const CarRentPaymentType: React.FC<{
 					props.setConfirmPayment({ qr: res.data.qr, pid: res.data.pid });
 					props.setStep("confirm_payment");
 				} else if (payment === "card") {
-					window.location.replace("https://securepayments.tinkoff.ru/zkgqZ7VZ");
+					
+					window.location.replace(res.data.redirect);
 				}
 			}
 		} catch (error) {
