@@ -30,11 +30,9 @@ const RentCarDetailModal: FC<{
 	setStep: (e: CarBookingStepsType) => void;
 }> = ({ paymentStatus, setPaymentStatus, step, setStep }) => {
 	const { id, carID } = useParams();
-	const { initialize, user_status } = useAuth();
-	// const [step, setStep] = useState<CarBookingStepsType>("rent");
+	const location = useLocation();
+	const { user_status } = useAuth();
 	const [error_message, setErrorMessage] = useState<string | null>(null);
-	// const [paymentStatus, setPaymentStatus] =
-	// 	useState<RentBookingPaymentStatus>(null);
 	const [depositPrice, setDepositPrice] = useState(0);
 	const [timer, setTimer] = useState(0);
 	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
@@ -95,7 +93,8 @@ const RentCarDetailModal: FC<{
 	};
 
 	const handleClose = () => {
-		navigate(`/rent/page/${id ?? 1}`);
+		//@ts-ignore
+		navigate(location.key === "default" ? `/rent/page/${id ?? 1}` : -1);
 	};
 
 	if (isLoading) return <Loader />;

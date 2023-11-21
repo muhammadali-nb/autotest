@@ -46,17 +46,15 @@ const RentCarDetail = () => {
 		if (location.state.status === "success") {
 			setPaymentStatus(location.state.payment_status);
 			setStep("booking_result");
+		} else {
+			setPaymentStatus("CANCELLED");
+			setStep("booking_result");
 		}
 	};
 
 	useEffect(() => {
-		console.log(location);
 		checkCardPayment();
 	}, [location]);
-
-	useEffect(() => {
-		console.log(step);
-	}, [step]);
 
 	const chekckUser = async () => {
 		await initialize();

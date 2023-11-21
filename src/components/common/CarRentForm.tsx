@@ -411,7 +411,6 @@ export const CarRentPaymentType: React.FC<{
 					props.setConfirmPayment({ qr: res.data.qr, pid: res.data.pid });
 					props.setStep("confirm_payment");
 				} else if (payment === "card") {
-					
 					window.location.replace(res.data.redirect);
 				}
 			}
@@ -644,7 +643,7 @@ export const CarRentBookingStatus: React.FC<{
 							прошла успешно!
 						</div>
 						<div className={"call-content-text"}>
-							Mercedes-benz GLS 63 am 4 matic — забронирован!
+							{props.car.brand} {props.car.model} — забронирован!
 						</div>
 					</>
 				) : (
@@ -674,7 +673,7 @@ export const CarRentBookingStatus: React.FC<{
 				)}
 			</div>
 			<div>
-				<button className={"site-btn small"} onClick={() => props.closeFunc()}>
+				<button className={"site-btn small"} onClick={props.closeFunc}>
 					Закрыть
 				</button>
 			</div>
@@ -1079,13 +1078,6 @@ export const CarBookingForm: React.FC<{
 		confirm: false,
 		errors: {},
 	});
-
-	const chekckUser = async () => {
-		await initialize();
-		if (user_status) {
-			setStep("rent");
-		}
-	};
 
 	const confirmPhone = () => {
 		if (user_status === "banned") {
