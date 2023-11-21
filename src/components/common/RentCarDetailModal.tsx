@@ -30,8 +30,8 @@ const RentCarDetailModal: FC<{
 	setStep: (e: CarBookingStepsType) => void;
 }> = ({ paymentStatus, setPaymentStatus, step, setStep }) => {
 	const { id, carID } = useParams();
-	const { user_status } = useAuth();
 	const location = useLocation();
+	const { user_status } = useAuth();
 	const [error_message, setErrorMessage] = useState<string | null>(null);
 	const [depositPrice, setDepositPrice] = useState(0);
 	const [timer, setTimer] = useState(0);
@@ -49,8 +49,6 @@ const RentCarDetailModal: FC<{
 		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
 	});
-
-	const doesAnyHistoryEntryExist = location.key !== "default";
 
 	const confirmPhone = () => {
 		if (user_status === "banned") {
