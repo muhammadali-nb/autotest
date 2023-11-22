@@ -12,6 +12,7 @@ import ticked from "../../img/common/mobile_menu-icons/ticked.svg";
 import loginIcon from "../../img/common/mobile_menu-icons/login.svg";
 import AdvanceLogin from "../common/AdvanceLogin";
 import arrow from "../../img/common/menu-arrow.svg";
+import { MobileModal } from "../common/MobileModal/MobileModal";
 
 interface MobileMenuProps {
 	menuIsOpen: boolean;
@@ -37,6 +38,7 @@ const defaultLinks = [
 const MobileMenu = (props: MobileMenuProps) => {
 	const { menuIsOpen, setMenuIsOpen, menuRef } = props;
 	const [loginAdvanceIsShow, setLoginAdvanceIsShow] = useState(true);
+	const [authIsOpen, setAuthIsOpen] = useState(false);
 
 	useEffect(() => {
 		if (menuIsOpen) document.body.style.overflow = "hidden";
@@ -86,6 +88,9 @@ const MobileMenu = (props: MobileMenuProps) => {
 						<img src={loginIcon} alt={"login"} />
 						<h5>Войти в ЛК</h5>
 					</div>
+					<MobileModal active={authIsOpen} type={"auth"} setActive={setAuthIsOpen}>
+						
+					</MobileModal>
 				</div>
 			</div>
 		</div>

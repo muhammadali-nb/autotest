@@ -6,6 +6,12 @@ import back from "../../../img/common/back.svg";
 import { HeaderLogoImage } from "../../layout/Header";
 import { Link } from "react-router-dom";
 
+const MobileAuthForm = () => {
+	return (
+		<></>
+	);
+}
+
 export const MobileModal = ({
 	active,
 	setActive,
@@ -88,7 +94,7 @@ export const MobileModal = ({
 					</>
 				}
 				{type === "auth" &&
-					<></>
+					<MobileAuthForm />
 				}
 			</div>
 		</div>
