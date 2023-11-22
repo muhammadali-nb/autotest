@@ -57,7 +57,7 @@ const RentModalMobilePaymentResult: FC<{
 								fill="#BF3535"
 							/>
 						</svg>
-						<div className={"call-content-text-header mt-px-10"}>
+						<div className={"call-content-text-header "}>
 							Оплата <br /> была прервана
 						</div>
 						<div className={"call-content-text"}>
