@@ -53,11 +53,13 @@ const AuthFormContent: React.FC<{
                 <div>
                     <div
                         className={
-                            "call-content-text-header font-size-40 line-height-120 mb-px-10"
+                            "call-content-text-header font-size-40 line-height-100 mb-px-10"
                         }>
                         Вход
                         <br />
-                        в личный кабинет
+                        <span className="font-size-24">
+                            в личный кабинет
+                        </span>
                     </div>
                     <div className={"call-content-text font-size-16"}>
                         Войдите в личный кабинет, чтобы бронировать
@@ -188,11 +190,13 @@ const AuthPhoneConfirm: React.FC<{
                 <div>
                     <div
                         className={
-                            "call-content-text-header font-size-40 line-height-120 mb-px-10"
+                            "call-content-text-header font-size-40 line-height-100 mb-px-10"
                         }>
                         Вход
                         <br />
-                        в личный кабинет
+                        <span className="font-size-24">
+                            в личный кабинет
+                        </span>
                     </div>
                     <div className={"call-content-text font-size-16"}>
                         <span className={"text-default"}>Мы отправили вам код</span>
@@ -366,11 +370,13 @@ const AuthCreateAccount: React.FC<{
                 <div>
                     <div
                         className={
-                            "call-content-text-header font-size-40 line-height-120 mb-px-10"
+                            "call-content-text-header font-size-40 line-height-100 mb-px-10"
                         }>
                         Вход
                         <br />
-                        в личный кабинет
+                        <span className="font-size-24">
+                            в личный кабинет
+                        </span>
                     </div>
                     <div className={"call-content-text font-size-16"}>
                         Оставьте свой номер телефона,

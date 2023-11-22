@@ -24,6 +24,7 @@ import RentCarDetail, {
 	carRentDataLoader,
 } from "./components/pages/Rent/RentCarDetail";
 import RentHistoryPage from "./components/pages/RentHistory/RentHistoryPage";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -62,9 +63,11 @@ const router = createBrowserRouter(
 );
 
 const App = () => (
-	<YMaps>
-		<RouterProvider router={router} />
-	</YMaps>
+	<AuthProvider>
+		<YMaps>
+			<RouterProvider router={router} />
+		</YMaps>
+	</AuthProvider>
 );
 
 export default App;
