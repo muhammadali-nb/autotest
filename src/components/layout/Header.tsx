@@ -15,6 +15,7 @@ import ModalFormTemplate from "../common/ModalFormTemplate";
 import { MobileModal } from "../common/MobileModal/MobileModal";
 import callIcon from "./../../img/common/Phone-header.svg";
 import callIconDark from "./../../img/common/Phone-header-dark.svg";
+import AuthForm from "../common/AuthForm";
 
 export type HeaderType = "transparent" | "white" | "logo";
 export type HeaderImage = "dark" | "darkCred" | "light";
@@ -67,6 +68,9 @@ export const HeaderLinks: React.FC<{
 	light?: boolean;
 	selected?: string;
 }> = ({ links, light = false, selected = "/" }) => {
+
+	const [authOpened, setAuthOpened] = useState(false);
+
 	return (
 		<div className={"header-links"}>
 			<div className={"d-none d-lg-flex align-items-center"}>
@@ -85,7 +89,8 @@ export const HeaderLinks: React.FC<{
 				))}
 			</div>
 			<div className={"header-controls"}>
-				<button className={"user-btn " + (light ? "light" : "")}></button>
+
+				<AuthForm light={light} />
 
 				<CallRequestForm
 					text={

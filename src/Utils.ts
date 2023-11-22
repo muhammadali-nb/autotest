@@ -1,4 +1,4 @@
-import {CallRequestData} from "./Api";
+import {CallRequestData, ConfirmPhone} from "./Api";
 
 let Utils = {
     validatePhone(phone:string){
@@ -18,6 +18,14 @@ let Utils = {
             errors['confirm'] = true;
         if(needComment && !request.comment)
             errors['comment'] = needComment;
+        return errors;
+    },
+    validateConfirmPhone(request: ConfirmPhone) {
+        let errors = {};
+        if (!request.phone || request.phone.length < 0)
+            errors['phone'] = "Не указан номер телефона";
+        if (!request.confirm)
+            errors['confirm'] = true;
         return errors;
     },
     cleanPhone(phone:string){

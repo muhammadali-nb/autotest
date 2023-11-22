@@ -315,6 +315,12 @@ export type CallRequestData = {
 }
 export interface CallRequestResponse { success: boolean, fields?: object }
 
+export type ConfirmPhone = {
+  phone: string
+  errors: object
+  confirm: boolean
+}
+
 export interface MessageOfTheDay {
   type?: "warning" | "error" | "message",
   text: string,
