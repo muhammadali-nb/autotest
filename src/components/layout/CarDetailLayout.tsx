@@ -1,14 +1,7 @@
 import React, { useEffect } from "react";
 import DocumentMeta from "react-document-meta";
 import { BaseLayoutProps } from "./BaseLayout";
-<<<<<<< HEAD
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import Api from "../../Api";
-import { setBaseState } from "../../store/reducers/baseDataSlice";
-import Footer, { SmallFooter } from "./Footer";
-=======
 import  { SmallFooter } from "./Footer";
->>>>>>> mobile-version
 import Cookies from "../common/Cookies";
 import CarDetailHeader from "./CarDetailHeader";
 import { Container } from "react-bootstrap";

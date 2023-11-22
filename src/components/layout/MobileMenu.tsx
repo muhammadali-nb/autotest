@@ -11,7 +11,7 @@ import question from "../../images/common/mobile_menu-icons/question.svg";
 import ticked from "../../images/common/mobile_menu-icons/ticked.svg";
 import loginIcon from "../../images/common/mobile_menu-icons/login.svg";
 import AdvanceLogin from "../common/AdvanceLogin";
-import arrow from "../../img/common/menu-arrow.svg";
+import arrow from "../../images/common/menu-arrow.svg";
 import { MobileModal } from "../common/MobileModal/MobileModal";
 
 interface MobileMenuProps {

@@ -56,25 +56,12 @@ const RentCarImagesCarousel = ({
 					onClick={() => handleSelect(index - 1)}>
 					<img src={caretLeft} width={16} height={32} alt="" />
 				</button>
-<<<<<<< HEAD
-				<div
-					className={
-						"car-images-controls-sliders car-images_rent-controls-sliders  "
-					}>
-					{[...Array(3)].map((i, ind) => (
-						<div
-							key={ind}
-							className={
-								"car-images-controls-slider car-images_rent-controls-slider " +
-								(index === ind ? "active" : "")
-=======
 				<div className={"car-images-controls-sliders"}>
 					{[...Array(images.length)].map((i, ind) => (
 						<div
 							key={ind}
 							className={
 								"car-images-controls-slider " + (index === ind ? "active" : "")
->>>>>>> mobile-version
 							}
 							onClick={() => handleSelect(ind)}>
 							<div></div>

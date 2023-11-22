@@ -112,9 +112,6 @@ const FaqPage = () => {
 						Напишите нам, чтобы мы могли дополнить список.
 					</div>
 
-<<<<<<< HEAD
-					<div className={"car-info-btns justify-content-start"}>
-=======
 					<div className="nav nav-tabs car-info-btns_mobile d-flex d-md-none">
 						<button
 							onClick={() => {
@@ -134,7 +131,6 @@ const FaqPage = () => {
 
 					<div
 						className={"car-info-btns justify-content-start d-none d-md-flex"}>
->>>>>>> mobile-version
 						<button
 							className={
 								"car-info-btn big " + (page === "leasing" ? "active" : "")
