@@ -18,6 +18,9 @@ import FaqPage, { faqLoader } from "./components/pages/FaqPage";
 import ContactsPage from "./components/pages/ContactsPage";
 import PolicyPage from "./components/pages/PolicyPage";
 import NotExistsPage from "./components/pages/NotExistsPage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -56,11 +59,13 @@ const router = createBrowserRouter(
 );
 
 const App = () => (
-	<AuthProvider>
-		<YMaps>
-			<RouterProvider router={router} />
-		</YMaps>
-	</AuthProvider>
+	<QueryClientProvider client={queryClient}>
+		<AuthProvider>
+			<YMaps>
+				<RouterProvider router={router} />
+			</YMaps>
+		</AuthProvider>
+	</QueryClientProvider>
 );
 
 export default App;
