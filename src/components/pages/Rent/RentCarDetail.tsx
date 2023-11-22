@@ -1,12 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-	useLoaderData,
-	useLocation,
-	useNavigate,
-	useParams,
-} from "react-router-dom";
-import { CarRentDataInfo, CarSameLink } from "../../common/CarCard";
-import Api, { ConfirmPhone, ErrorResponse } from "../../../Api";
+import { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { CarSameLink } from "../../common/CarCard";
+import Api from "../../../Api";
 import { CarDetailLayout } from "../../layout/CarDetailLayout";
 import RentCarImagesCarousel from "./RentCarImagesCarousel";
 import { Container } from "react-bootstrap";
@@ -23,6 +18,7 @@ import RentDetailModalLayout from "../../layout/RentDetailModalLayout";
 import Loader from "../../common/Loader";
 import CarFullImageModal from "./RentCarFullImage";
 import { RentBookingPaymentStatus } from "../../../types/RentTypes";
+import axios from "axios";
 
 const RentCarDetail = () => {
 	const { carID } = useParams();
@@ -30,9 +26,10 @@ const RentCarDetail = () => {
 	const [paymentStatus, setPaymentStatus] =
 		useState<RentBookingPaymentStatus>(null);
 	const [modalFullImage, setModalFullImage] = useState(false);
-	const [modalBookingCar, setModalBookingCar] = useState(false);
-	const { isAuthenticated, has_profile, initialize, user_status } = useAuth();
-	const [step, setStep] = useState<CarBookingStepsType>("rent");
+	const [modalBookingCar, setModalBookingCar] = useState(true);
+	const { isAuthenticated, has_profile } = useAuth();
+	const [step, setStep] = useState<CarBookingStepsType>("booking_result");
+	const [depositPrice, setDepositPrice] = useState(0);
 	const { data, error, isLoading, isSuccess } = useQuery({
 		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
@@ -44,6 +41,7 @@ const RentCarDetail = () => {
 		}
 
 		if (location.state.status === "success") {
+			setModalBookingCar(true);
 			setPaymentStatus(location.state.payment_status);
 			setStep("booking_result");
 		} else {
@@ -56,22 +54,29 @@ const RentCarDetail = () => {
 		checkCardPayment();
 	}, [location]);
 
-	const chekckUser = async () => {
-		await initialize();
-		if (user_status) {
-			setStep("rent");
+	const getPriceCar = async () => {
+		try {
+			const res = await axios.get(
+				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${carID}`,
+				{
+					withCredentials: true,
+				}
+			);
+			if (res.data.result === 1) {
+				setDepositPrice(res.data.summ);
+				if (res.data.summ > 0) setStep("payment");
+				else setStep("finish");
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
-	useEffect(() => {
-		chekckUser();
-	}, [step]);
-
 	const checkSteps = async () => {
-		initialize();
 		if (!isAuthenticated && !has_profile) {
 			setStep("start");
 		} else if (isAuthenticated && has_profile) {
+			await getPriceCar();
 			setStep("payment");
 		} else if (isAuthenticated && !has_profile) {
 			setStep("create");
@@ -91,6 +96,7 @@ const RentCarDetail = () => {
 								setStep={setStep}
 								paymentStatus={paymentStatus}
 								setPaymentStatus={setPaymentStatus}
+								getPriceCar={getPriceCar}
 							/>
 						</RentDetailModalLayout>
 					</BrowserView>
@@ -132,7 +138,8 @@ const RentCarDetail = () => {
 													<span>{data.item?.kpp}</span>
 												</li>
 												<li>
-													<div>Пробег</div> <span>{data.item?.run}км</span>
+													<div>Пробег</div>
+													<span>{data.item?.run}км</span>
 												</li>
 											</ul>
 										</div>
@@ -153,6 +160,11 @@ const RentCarDetail = () => {
 										active={modalBookingCar}
 										setActive={setModalBookingCar}
 										car={isSuccess && data.item}
+										depositPrice={depositPrice}
+										getPriceCar={getPriceCar}
+										setDepositPrice={setDepositPrice}
+										paymentStatus={paymentStatus}
+										setPaymentStatus={setPaymentStatus}
 									/>
 								</>
 							) : (

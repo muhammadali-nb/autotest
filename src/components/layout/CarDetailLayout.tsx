@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
 import DocumentMeta from "react-document-meta";
 import { BaseLayoutProps } from "./BaseLayout";
-import  { SmallFooter } from "./Footer";
+import { SmallFooter } from "./Footer";
 import Cookies from "../common/Cookies";
 import CarDetailHeader from "./CarDetailHeader";
 import { Container } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 export const CarDetailLayout = (props: BaseLayoutProps) => {
+	const { id } = useParams();
 	const meta = {
 		title: props.title ?? process.env.REACT_APP_WEBSITE_NAME,
 		description:
@@ -29,18 +30,16 @@ export const CarDetailLayout = (props: BaseLayoutProps) => {
 				{!props.noTopPadding && <div className="no-top-padding" />}
 				<CarDetailHeader
 					image={props.headerImage}
+					backLink={`/rent/page/${id}`}
 					type={props.headerType ?? "white"}
 					selectedLink={props.headerSelectedLink ?? "/"}
 				/>
-				<main>{ props.children}</main>
+				<main>{props.children}</main>
 
 				<Container fluid={"xxl"}>
-					<SmallFooter />
-					{/* className="mb-px-70" */}
+					<SmallFooter className="mb-px-70" />
 				</Container>
 
-				{/* <Scroller />
-				<ToggleSentUserData /> */}
 				<Cookies />
 			</div>
 		</DocumentMeta>

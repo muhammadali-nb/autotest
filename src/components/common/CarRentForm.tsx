@@ -31,11 +31,8 @@ import {
 	RentCreateAccountForm,
 } from "../../types/RentTypes";
 import FileInput from "./FileInput";
-import {
-	ConfirmPaymentQR,
-	RegisterErrorType,
-} from "../../types/AuthContextTypes";
-import { redirect } from "react-router-dom";
+import { ConfirmPaymentQR } from "../../types/AuthContextTypes";
+import { useLocation } from "react-router-dom";
 export type CarBookingStepsType =
 	| "rent"
 	| "start"
@@ -136,7 +133,7 @@ export const CarRentContacts: React.FC<{
 				<div>
 					<button
 						className={"site-btn small " + (!passed ? "dark" : "")}
-						onClick={() => send()}>
+						onClick={send}>
 						Отправить код
 					</button>
 					<ModalTemplateConfirm
@@ -387,10 +384,6 @@ export const CarRentPaymentType: React.FC<{
 		parseFloat((props.deposit / pay_koef.sbp).toFixed(2))
 	);
 
-	useEffect(() => {
-		console.log((props.deposit / pay_koef.sbp).toFixed(2));
-	}, [props.deposit]);
-
 	const send = async () => {
 		if (payment === "") {
 			setError("Выберите способ оплаты");
@@ -410,7 +403,6 @@ export const CarRentPaymentType: React.FC<{
 			);
 
 			if (res.data.result === 1) {
-				console.log(payment);
 				if (payment === "sbp") {
 					props.setConfirmPayment({ qr: res.data.qr, pid: res.data.pid });
 					props.setStep("confirm_payment");
@@ -515,6 +507,7 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 	closeFunc: () => void;
 	data: ConfirmPhone | any;
 	setStep: (e: CarBookingStepsType) => void;
+	step: CarBookingStepsType;
 	car: CarDataType;
 	deposit: number;
 	setDeposit: (e: number) => void;
@@ -525,6 +518,9 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 	const { isAuthenticated } = useAuth();
 
 	useEffect(() => {
+		if (props.step !== "confirm_payment") {
+			return;
+		}
 		if (props.paymentStatus === null || props.paymentStatus === "NEW") {
 			const interval = setInterval(() => {
 				axios
@@ -557,7 +553,9 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 						className={
 							"default-link font-size-18 font-weight-semibold text-hover-default"
 						}
-						onClick={() => props.setStep(isAuthenticated ? "rent" : "start")}>
+						onClick={() =>
+							props.setStep(isAuthenticated ? "payment" : "start")
+						}>
 						<FontAwesomeIcon icon={faAngleLeft} />
 						&nbsp;&nbsp;ВЕРНУТЬСЯ
 					</button>
@@ -704,7 +702,7 @@ export const CarRentFormConfirmed: React.FC<{ closeFunc: () => void }> = (
 					className={"bg-red-color"}></div>
 			</div>
 			<div>
-				<button className={"site-btn small"} onClick={() => props.closeFunc()}>
+				<button className={"site-btn small"} onClick={props.closeFunc}>
 					Закрыть
 				</button>
 			</div>
@@ -718,10 +716,9 @@ export const CarRequestFormContent: React.FC<{
 	car: CarDataType;
 	getDeposit: () => void;
 }> = (props) => {
-	const { isAuthenticated, user_status, has_profile, initialize } = useAuth();
+	const { isAuthenticated, user_status, has_profile } = useAuth();
 
 	const ckeckSteps = async () => {
-		await initialize();
 		if (isAuthenticated && has_profile) {
 			await props.getDeposit();
 			props.setStep("payment");
@@ -972,7 +969,6 @@ export const CarRentCreateAccount: React.FC<{
 			const data = await res.json();
 			if (data.result === 1) {
 				props.getPayment();
-				console.log(data);
 			}
 		} catch (error) {
 			console.log(error);
@@ -1065,7 +1061,8 @@ export const CarBookingForm: React.FC<{
 	car: CarDataType | any;
 	car_id: any;
 }> = (props) => {
-	const { user_status, initialize } = useAuth();
+	const { user_status } = useAuth();
+	const location = useLocation();
 	const [error_message, setErrorMessage] = useState<string | null>(null);
 	const [paymentStatus, setPaymentStatus] =
 		useState<RentBookingPaymentStatus>(null);
@@ -1124,7 +1121,11 @@ export const CarBookingForm: React.FC<{
 			console.log(error);
 		}
 	};
-	const handleClose = () => setShow(false);
+	const handleClose = () => {
+		//@ts-ignore
+		navigate(location.key === "default" ? `/rent/page/${id ?? 1}` : -1);
+		setShow(false);
+	};
 	return (
 		<>
 			<ModalFormTemplate
@@ -1199,6 +1200,7 @@ export const CarBookingForm: React.FC<{
 						setDeposit={setDepositPrice}
 						data={state}
 						car={props.car}
+						step={step}
 						closeFunc={handleClose}
 						setStep={setStep}
 					/>

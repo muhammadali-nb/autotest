@@ -10,8 +10,6 @@ const CarBase: React.FC<{ car: CarData | any; car_data: ICarData }> = ({
 	car,
 	car_data,
 }) => {
-	console.log(car_data);
-
 	return (
 		<div className={"car-base"}>
 			<div className="car-base_body">

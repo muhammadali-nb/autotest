@@ -23,6 +23,7 @@ export const WhiteHeader: React.FC<{
 	show?: boolean;
 	setMenuIsShow?: (e: boolean) => void;
 	setMobileModal: (e: boolean) => void;
+	backLink?: string;
 }> = ({
 	image = "dark",
 	links,
@@ -30,8 +31,14 @@ export const WhiteHeader: React.FC<{
 	show = false,
 	setMenuIsShow,
 	setMobileModal,
+	backLink,
 }) => {
 	const navigate = useNavigate();
+
+	const goBack = () => {
+		//@ts-ignore
+		navigate(backLink ?? -1);
+	};
 	return (
 		<div
 			className={"py-3 bg-white opacity-" + (show ? 100 : 0)}
@@ -41,7 +48,7 @@ export const WhiteHeader: React.FC<{
 			}}>
 			<Container fluid={"xxl"}>
 				<div className={"header-mobile"}>
-					<div onClick={() => navigate(-1)}>
+					<div onClick={goBack}>
 						<img src={arrowLeft} alt="" />
 					</div>
 					<HeaderLogoImage height={"24px"} width={"100px"} image={image} />
@@ -67,78 +74,13 @@ export const TransparentHeader: React.FC<{
 	links: Array<HeaderLink>;
 	selected?: string;
 	setMenuIsShow?: (e: boolean) => void;
-}> = ({ links, selected, setMenuIsShow }) => {
+	backLink?: string;
+}> = ({ links, selected, setMenuIsShow, backLink }) => {
 	const navigate = useNavigate();
-	// const func = async () => {
-	//
-	//     // setTimeout(function (){
-	//     //     let start = Date.now();
-	//     //     console.log("start long: " + start)
-	//     //     while((start + 10000) > Date.now()){
-	//     //
-	//     //     }
-	//     //     console.log('loooong time: ' + Date.now());
-	//     // }, 100);
-	//     // setTimeout(function (){
-	//     //     console.log('short time' + Date.now());
-	//     // }, 200);
-	//
-	//     const sleep = async(time)=>{
-	//         let start = Date.now();
-	//         while((start + time) > Date.now()){
-	//         }
-	//     }
-	//     const f = async (time, name, state) => {
-	//         let start = Date.now();
-	//         console.log(`start ${name} promise (+${time}): ` + (Date.now() % 100000), ' main thread state:' + state)
-	//         while((start + time) > Date.now()){
-	//             await sleep(100)
-	//         }
-	//     }
-	//
-	//
-	//     console.log("================")
-	//     console.log("start main thread " + (Date.now() % 100000))
-	//     console.log("----")
-	//     let state = 'long';
-	//     new Promise<void>(async function(resolver){
-	//         console.log('start long task: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         let max = 2000, counter = 0;
-	//         while(counter < max){
-	//             let random = Math.floor(Math.random() * 100);
-	//             await sleep(random)
-	//             counter = Math.min(counter + random, max);
-	//             console.log('long promise progress: +' + (random / (max/100)) + "%, total: " + (counter / (max/100)));
-	//         }
-	//         console.log('end long promise: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         resolver();
-	//     }).then(()=>{
-	//         console.log('end long task: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//     })
-	//
-	//     state = 'short';
-	//     new Promise<void>(async function(resolver){
-	//         console.log('start short task: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         let max = 1000, counter = 0;
-	//         while(counter < max){
-	//             let random = Math.floor(Math.random() * 100);
-	//             await sleep(random)
-	//             counter = Math.min(counter + random, max);
-	//             console.log('short promise progress: +' + (random / (max/100)) + "%, total: " + (counter / (max/100)));
-	//         }
-	//         console.log('end short promise: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         resolver();
-	//     }).then(()=>{
-	//         const f1 = async() =>{
-	//             console.log('end short task: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         }
-	//         f1();
-	//     })
-	//
-	//     state='ended';
-	//     console.log("end main thread " + (Date.now() % 100000))
-	//     console.log("----")
-	// }
+	const goBack = () => {
+		//@ts-ignore
+		navigate(backLink ?? -1);
+	};
 
 	return (
 		<div
@@ -146,7 +88,7 @@ export const TransparentHeader: React.FC<{
 			style={{ zIndex: 1000 }}>
 			<Container fluid={"xxl"}>
 				<div className={"header-mobile"}>
-					<div onClick={() => navigate(-1)}>
+					<div onClick={goBack}>
 						<img src={arrowLeft} alt="" />
 					</div>
 					<HeaderLogoImage height={"24px"} width={"100px"} image={"light"} />
@@ -171,6 +113,7 @@ const CarDetailHeader: React.FC<HeaderProps> = ({
 	image = "dark",
 	links = defaultLinks,
 	selectedLink,
+	backLink,
 	setBurgerMenuIsShow,
 	burgerMenuIsShow,
 }: HeaderProps) => {
@@ -193,12 +136,17 @@ const CarDetailHeader: React.FC<HeaderProps> = ({
 		<>
 			<div className={"header "}>
 				{type === "transparent" && !showWhite && (
-					<TransparentHeader selected={selectedLink} links={links} />
+					<TransparentHeader
+						selected={selectedLink}
+						backLink={backLink}
+						links={links}
+					/>
 				)}
 				<WhiteHeader
 					show={type !== "transparent" || showWhite}
 					image={image}
 					links={links}
+					backLink={backLink}
 					selected={selectedLink}
 					setMobileModal={setCallMobileModal}
 				/>

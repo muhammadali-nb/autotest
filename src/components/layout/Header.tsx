@@ -30,6 +30,7 @@ export type HeaderProps = {
 	selectedLink?: string;
 	burgerMenuIsShow?: boolean;
 	setBurgerMenuIsShow?: any;
+	backLink?: string;
 };
 
 export const defaultLinks = [
@@ -144,7 +145,7 @@ export const WhiteHeader: React.FC<{
 						/>
 
 						<HeaderLogoImage height={"24px"} width={"100px"} image={image} />
-						{/*<FontAwesomeIcon className='header-mobile_phone header-mobile_phone_dark' icon={faPhoneVolume} />*/}
+
 						<CallRequestForm className="d-none d-md-block" light={false} />
 						<img
 							src={callIconDark}
@@ -168,77 +169,6 @@ export const TransparentHeader: React.FC<{
 	setMenuIsShow: any;
 	setMobileModal: (e: boolean) => void;
 }> = ({ links, selected, setMenuIsShow, setMobileModal }) => {
-	// const func = async () => {
-	//
-	//     // setTimeout(function (){
-	//     //     let start = Date.now();
-	//     //     console.log("start long: " + start)
-	//     //     while((start + 10000) > Date.now()){
-	//     //
-	//     //     }
-	//     //     console.log('loooong time: ' + Date.now());
-	//     // }, 100);
-	//     // setTimeout(function (){
-	//     //     console.log('short time' + Date.now());
-	//     // }, 200);
-	//
-	//     const sleep = async(time)=>{
-	//         let start = Date.now();
-	//         while((start + time) > Date.now()){
-	//         }
-	//     }
-	//     const f = async (time, name, state) => {
-	//         let start = Date.now();
-	//         console.log(`start ${name} promise (+${time}): ` + (Date.now() % 100000), ' main thread state:' + state)
-	//         while((start + time) > Date.now()){
-	//             await sleep(100)
-	//         }
-	//     }
-	//
-	//
-	//     console.log("================")
-	//     console.log("start main thread " + (Date.now() % 100000))
-	//     console.log("----")
-	//     let state = 'long';
-	//     new Promise<void>(async function(resolver){
-	//         console.log('start long task: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         let max = 2000, counter = 0;
-	//         while(counter < max){
-	//             let random = Math.floor(Math.random() * 100);
-	//             await sleep(random)
-	//             counter = Math.min(counter + random, max);
-	//             console.log('long promise progress: +' + (random / (max/100)) + "%, total: " + (counter / (max/100)));
-	//         }
-	//         console.log('end long promise: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         resolver();
-	//     }).then(()=>{
-	//         console.log('end long task: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//     })
-	//
-	//     state = 'short';
-	//     new Promise<void>(async function(resolver){
-	//         console.log('start short task: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         let max = 1000, counter = 0;
-	//         while(counter < max){
-	//             let random = Math.floor(Math.random() * 100);
-	//             await sleep(random)
-	//             counter = Math.min(counter + random, max);
-	//             console.log('short promise progress: +' + (random / (max/100)) + "%, total: " + (counter / (max/100)));
-	//         }
-	//         console.log('end short promise: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         resolver();
-	//     }).then(()=>{
-	//         const f1 = async() =>{
-	//             console.log('end short task: ' + (Date.now() % 100000), ' main thread state:' + state);
-	//         }
-	//         f1();
-	//     })
-	//
-	//     state='ended';
-	//     console.log("end main thread " + (Date.now() % 100000))
-	//     console.log("----")
-	// }
-
 	return (
 		<div
 			className={"py-3 position-absolute w-100 top-0 left-0"}
