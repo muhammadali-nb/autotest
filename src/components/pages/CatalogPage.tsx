@@ -1,17 +1,19 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from "react";
 import { MetaTags } from "../layout/BaseLayout";
 import { Col, Container, Row } from "react-bootstrap";
-import FiltersBlock from "./Catalog/FiltersBlock";
 import CarGrid from "./Catalog/CarGrid";
-import dangerBtn from "./../../img/common/danger.png";
+import dangerBtn from "./../../images/common/danger.png";
 import FilterButtons from "./Catalog/FilterButtons";
-import bg from "./../../img/index/about_bg.webp";
+import bg from "./../../images/index/about_bg.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import Api from "../../Api";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import CatalogLayout from "../layout/CatalogLayout";
 import { SmallFooter } from "../layout/Footer";
+import { useQuery } from "@tanstack/react-query";
+import catalogService from "../../api-functions/catalog-page/catalog-service";
+import CatalogFiltersBlock from "./Catalog/CatalogFilterBlock";
 
 export const AlertMessage: React.FC<{
 	page: string;
@@ -97,15 +99,17 @@ export const BottomMessage: React.FC<{
 
 const CatalogPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
-
-	const title = "Каталог - " + process.env.REACT_APP_WEBSITE_NAME;
+	const title = "Выкуп - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
-		description: "Каталог автомобилей",
-		keywords: "каталог,лизинг,авто,список,leasing",
+		description: "Выкуп,Каталог автомобилей",
+		keywords: "выкуп,каталог,лизинг,авто,список,leasing",
 	};
+
+	const { data, isLoading } = useQuery({
+		queryKey: ["catalog-filter"],
+		queryFn: () => catalogService.getFilter(),
+	});
+
 	return (
 		<CatalogLayout
 			meta={meta}
@@ -114,15 +118,16 @@ const CatalogPage = () => {
 			footerSmall>
 			<div className="catalog">
 				<Container fluid={"xxl"}>
-					<CatalogMobileMenu isActive={isOpen} setIsActive={setOpen} />
+					<CatalogMobileMenu
+						data={data}
+						isActive={isOpen}
+						setIsActive={setOpen}
+					/>
 					<div>
 						<Row>
 							<Col lg={3}>
-								<div
-									className={"sticky-no-scrollbar"}
-									// style={{ maxWidth: "315px" }}
-								>
-									<FiltersBlock />
+								<div className={"sticky-no-scrollbar"}>
+									<CatalogFiltersBlock filterData={!isLoading && data} />
 								</div>
 							</Col>
 							<Col lg={9}>
@@ -140,7 +145,11 @@ const CatalogPage = () => {
 										</p>
 									}
 								/>
-								<FilterButtons isShowMobileFiler={setOpen} />
+								<FilterButtons
+									mode="book"
+									isShowMobileFiler={setOpen}
+									catalogData={!isLoading && data.top}
+								/>
 								<CarGrid />
 								<SmallFooter />
 							</Col>

@@ -816,7 +816,7 @@ code {
   background: rgba(0, 0, 0, 0.5);
   background-position: 20px center;
   background-repeat: no-repeat;
-  background-image: url("./../img/common/cookies.png");
+  background-image: url("./../images/common/cookies.png");
   background-size: 40px 40px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(1px);
@@ -871,8 +871,8 @@ code {
 
 .modal-template {
   display: flex;
-  border-radius: 3px;
-  overflow: hidden;
+  // border-radius: 3px;
+  // overflow: hidden;
 
   .modal-image-block {
     width: 55%;
@@ -1241,7 +1241,7 @@ code {
     content: "";
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
     background-color: $textColor;
-    background-image: url("./../img/common/contract.svg");
+    background-image: url("./../images/common/contract.svg");
     background-size: 30px 30px;
     background-repeat: no-repeat;
     background-position: center;
@@ -1297,10 +1297,9 @@ code {
     margin: 10px 0 0 0;
     max-width: 350px;
 
-    &:nth-child(3) {
+    &.options {
       max-width: 450px;
     }
-    
 
     @include l-sm {
       margin: 8px 0 0 0;
@@ -1339,25 +1338,25 @@ code {
 
   &.li-bank {
     &:before {
-      background-image: url("./../img/index/bank.png");
+      background-image: url("./../images/index/bank.png");
     }
   }
 
   &.li-jewel {
     &:before {
-      background-image: url("./../img/index/jewel.png");
+      background-image: url("./../images/index/jewel.png");
     }
   }
 
   &.li-card {
     &:before {
-      background-image: url("./../img/index/cards.png");
+      background-image: url("./../images/index/cards.png");
     }
   }
 
   &.li-document {
     &:before {
-      background-image: url("./../img/index/document.png");
+      background-image: url("./../images/index/document.png");
     }
   }
 }
@@ -2306,7 +2305,7 @@ code {
     position: absolute;
     height: 195px;
     width: 108px;
-    background-image: url("./../img/common/helix.png");
+    background-image: url("./../images/common/helix.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
@@ -2328,8 +2327,41 @@ code {
 
   &_body {
     margin: 0 0 100px 0;
+
+    &-leftside,
+    &-rightside {
+      width: 50%;
+      // justify-content: flex-end;
+
+      & > div {
+        max-width: 620px;
+        width: 100%;
+      }
+    }
+
+    &-rightside {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    // &-leftside {
+    //   margin: 0 80px 0 0;
+    // }
+
     @include l-md {
       margin: 0 0 70px 0;
+      &-leftside,
+      &-rightside {
+        width: 100%;
+        // justify-content: flex-end;
+
+        & > div {
+          max-width: 100%;
+        }
+      }
+      &-rightside {
+        justify-content: flex-start;
+      }
     }
 
     @include l-sm {
@@ -2518,6 +2550,46 @@ code {
 
   @include l-md {
     display: none;
+  }
+}
+
+.rent-page_header {
+  &-container {
+    display: flex;
+    justify-content: space-between;
+
+    @include l-xl {
+      display: block;
+    }
+  }
+
+  &-collapse_container {
+    display: flex;
+
+    @include l-xl {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+  }
+  &-collapse {
+    width: 400px;
+
+    @include l-xl {
+      width: 100%;
+
+      & > .foldable-small {
+        max-width: 100%;
+      }
+    }
+
+    &:last-child {
+      margin: 0 0 0 60px;
+
+      @include l-xl {
+        margin: 0;
+      }
+    }
   }
 }
 

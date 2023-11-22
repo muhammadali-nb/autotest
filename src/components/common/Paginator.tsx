@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { PaginatedResponse } from "../../Api";
 import { Link, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,7 @@ import {
 	faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const PaginationItem: React.FC<{
+export const PaginationItem: React.FC<{
 	children: string | ReactNode;
 	link: string;
 	active?: boolean;
@@ -24,7 +24,7 @@ const PaginationItem: React.FC<{
 		</Link>
 	);
 };
-const PaginationArrow: React.FC<{
+export const PaginationArrow: React.FC<{
 	children: string | ReactNode;
 	link: string;
 	disabled?: boolean;
@@ -47,11 +47,20 @@ const PaginationArrow: React.FC<{
 	);
 };
 
-const Paginator: React.FC<{ data: PaginatedResponse }> = ({ data }) => {
+const Paginator: React.FC<{
+	data: PaginatedResponse;
+	setActive: (e: string) => void;
+}> = ({ data, setActive }) => {
 	let items: Array<ReactNode> = [];
 	let [params] = useSearchParams();
 	const page = Number.parseInt(params.get("page") ?? "1");
 	let path = window.location.pathname;
+
+	useEffect(() => {
+		setActive(params.get("page") ?? "1");
+		window.scrollTo(0, 0);
+	}, [page]);
+
 	const link = (page: number) => {
 		let old = params.get("page");
 		params.set("page", page.toString());

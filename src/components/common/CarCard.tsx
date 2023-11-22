@@ -1,11 +1,11 @@
 import React from "react";
-import { useAppSelector } from "../../store/hooks";
-import { Link, useNavigate } from "react-router-dom";
-import { type BaseState } from "../../store/reducers/baseDataSlice";
-import caretRight from "./../../img/common/caret-right.svg";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { Link } from "react-router-dom";
 import CarBookingForm from "./CarBookingForm";
 import CarRentForm from "./CarRentForm";
-import CarImage from "../../img/rent/auto_card.png";
+import { CarDataType } from "../../types/RentTypes";
+import { CarCatalogDataInfo } from "../../types/CatalogTypes";
+import { setCatalogFilter } from "../../store/reducers/catalogFilterSlice";
 
 export type ImageInfo = {
 	thumb: string;
@@ -21,7 +21,7 @@ export type StatBlock = {
 };
 
 export interface CarDataInfo {
-	id: number | string;
+	id: number;
 	brand: number | string; //
 	model: number | string; // check
 	year: number | string;
@@ -38,6 +38,7 @@ export type CarRentDataInfo = CarDataInfo & {
 	run: number;
 	available: boolean;
 	small?: boolean;
+	image?: string;
 };
 
 export type CarData = {
@@ -49,22 +50,25 @@ export type CarData = {
 };
 
 export const CarSameLink: React.FC<{
-	car: CarDataInfo;
+	car: CarDataInfo | CarCatalogDataInfo;
 	style?: React.CSSProperties;
 	className?: string;
 	text?: string;
 	responsive?: boolean;
+	onClick?: () => void;
 }> = ({
 	car,
 	style,
 	className,
 	text = "Посмотреть похожие модели",
 	responsive,
+	onClick,
 }) => {
 	return (
 		<Link
-			to={`/catalog?same=${car.id}`}
+			to={`/catalog`}
 			style={style}
+			onClick={onClick}
 			className={
 				!responsive
 					? "car__card-same  " + (className ?? "")
@@ -95,7 +99,7 @@ export const CarSameLink: React.FC<{
 };
 
 export const CarPreorderButton: React.FC<{
-	car: CarDataInfo;
+	car: CarCatalogDataInfo;
 	style?: React.CSSProperties;
 	className?: string;
 	w100?: boolean;
@@ -108,7 +112,7 @@ export const CarPreorderButton: React.FC<{
 };
 
 export const CarRentButton: React.FC<{
-	car: CarRentDataInfo;
+	car: CarDataType;
 	style?: React.CSSProperties;
 	className?: string;
 	w100?: boolean;
@@ -118,12 +122,12 @@ export const CarRentButton: React.FC<{
 			{/*<button className={(className ? className : 'site-btn') + (w100?' w-100':'')}*/}
 			{/*        style={style}*/}
 			{/*>Забронировать</button>*/}
-			<CarRentForm car={car} wide={w100} />
+			<CarRentForm car={car} car_id={car.id} wide={w100} />
 		</div>
 	);
 };
 export const CarTag: React.FC<{
-	car: CarRentDataInfo | CarDataInfo;
+	car: CarDataType | any;
 	type?: "default" | "free" | "not-free";
 	style?: React.CSSProperties;
 	className?: string;
@@ -145,22 +149,16 @@ export const CarTag: React.FC<{
 };
 
 const CarCard: React.FC<{
-	car: CarDataInfo;
+	car: CarCatalogDataInfo;
 	id?: string;
 	responsive: boolean;
 }> = ({ car, responsive, id }) => {
-	const baseData: BaseState = useAppSelector((state) => state.baseData);
+	const dispatch = useAppDispatch();
+	const filter = useAppSelector((state) => state.catalogFilter);
 
-	const tags =
-		baseData.top?.special.values?.filter((i) => car.special.includes(i.id)) ??
-		[];
-
-	const brand =
-		baseData.left?.brands.values?.find((i) => car.brand === i.id)?.name ??
-		"неизвестно";
-	const model =
-		baseData.left?.models.values?.find((i) => car.model === i.id)?.name ??
-		"неизвестно";
+	const updateSameCarFilter = (value: string) => {
+		dispatch(setCatalogFilter({ ...filter, models: [value] }));
+	};
 
 	return (
 		<div
@@ -173,17 +171,11 @@ const CarCard: React.FC<{
 					className={` ${
 						responsive ? "car__card-mobile-taglist" : "car__card-taglist"
 					}  `}>
-					{tags.map((i, index) => (
+					{car.tags.map((i, index) => (
 						<CarTag small={responsive} key={index} car={car}>
 							{i.name}
 						</CarTag>
 					))}
-
-					{/* {car.special.map((i, index) => (
-						<CarTag key={index} small={false} car={car}>
-							{i}
-						</CarTag>
-					))} */}
 				</div>
 
 				<Link
@@ -191,13 +183,13 @@ const CarCard: React.FC<{
 					className={`${
 						responsive ? "car__card-mobile-image" : "car__card-image"
 					}`}>
-					<img src={car.thumb} alt={brand + " " + model} />
+					<img src={car.image} alt={car.brand + " " + car.model} />
 				</Link>
 				<div
 					className={` ${
 						responsive ? "car__card-mobile-title" : "car__card-title"
 					} `}>
-					{brand} <span className={"model"}>{model}</span>
+					{car.brand} <br /> <span className={"model"}>{car.model}</span>
 				</div>
 				<div
 					className={` ${
@@ -210,14 +202,14 @@ const CarCard: React.FC<{
 								? "car__card-mobile-payment-value"
 								: "car__card-payment-value"
 						} `}>
-						{car.pay.toLocaleString()} ₽
+						{car.min_pay.toLocaleString()} ₽
 					</div>
 				</div>
 				<div
 					className={`${
 						responsive ? "car__card-mobile-price" : "car__card-price "
 					} `}>
-					Цена от&nbsp;
+					Цена &nbsp;
 					<span
 						className={`${
 							responsive
@@ -231,6 +223,7 @@ const CarCard: React.FC<{
 					responsive={responsive}
 					car={car}
 					className={"mb-px-30 font-weight-semibold"}
+					onClick={() => updateSameCarFilter(car.model_id)}
 				/>
 			</div>
 			<div
@@ -245,23 +238,11 @@ const CarCard: React.FC<{
 
 export const CarRentCard: React.FC<{
 	car: CarRentDataInfo;
+	onClick?: () => void;
 }> = ({ car }) => {
-	const baseData: BaseState = useAppSelector((state) => state.baseData);
-	const navigate = useNavigate();
-	// console.log(car);
-
-	const tags =
-		baseData.top?.rent.values?.filter((i) => car.special.includes(i.id)) ?? [];
-	const brand =
-		baseData.left?.brands.values?.find((i) => car.brand === i.id)?.name ??
-		"неизвестно";
-	const model =
-		baseData.left?.models.values?.find((i) => car.model === i.id)?.name ??
-		"неизвестно";
-
 	return (
 		<>
-			<div className={"d-none d-md-block car__card"}>
+			<div className="d-none d-md-block car__card">
 				<div>
 					<div className={"car__card-taglist"}>
 						<CarTag
@@ -270,27 +251,24 @@ export const CarRentCard: React.FC<{
 							car={car}>
 							{car.available ? "Свободна" : "Занята"}
 						</CarTag>
-						{tags.map((i, index) => (
+						{/* {tags.map((i, index) => (
 							<CarTag small={true} key={index} car={car}>
 								{i.name}
 							</CarTag>
-						))}
+						))} */}
 					</div>
 
-					<CarRentForm
-						car={car}
-						btn={
-							<div className={"car__card-image"}>
-								<img src={car.thumb} alt={brand + " " + model} />
-							</div>
-						}
-					/>
+					<div className={"car__card-image"}>
+						<img src={car.image} alt={car.brand + " " + car.model} />
+					</div>
+
+					{/* <CarRentForm car={car} car_id={car.id} btn={} /> */}
 
 					<div className={"car__card-title mb-px-10"}>
-						{brand} <span className={"model"}>{model}</span>
+						{car.brand} <br /> <span className={"model"}>{car.model}</span>
 					</div>
 					<div className={"font-size-18 font-weight-semibold mb-px-20"}>
-						{car.regnum}
+						{car.regnum} &nbsp;
 					</div>
 					<div className={"car__card-payment mb-px-15"}>
 						<div className={"mb-px-5"}>Аренда</div>
@@ -309,28 +287,27 @@ export const CarRentCard: React.FC<{
 					</div>
 				</div>
 
-				<CarRentForm car={car} wide={true} step={"start"} />
+				{/* <CarRentForm car={car} car_id={car.id} wide={true} step={"start"} /> */}
+				<button className={"site-btn big"}>Забронировать</button>
 			</div>
 
-			<div
-				onClick={() => navigate(`/rent/${car.id}`)}
-				className="d-block d-md-none car-rent-card">
+			<div className="d-block d-md-none car-rent-card">
 				<div className="car-rent-card_image">
-					<img src={CarImage} alt={brand + " " + model} />
+					<img src={car.image} alt={car.brand + " " + car.model} />
 				</div>
 				<div className=" car-rent-card_body">
 					<div className="car__card-taglist car-rent-card_taglist">
 						<CarTag type={car.available ? "free" : "not-free"} car={car}>
 							{car.available ? "Свободна" : "Занята"}
 						</CarTag>
-						{tags.map((i, index) => (
+						{/* {tags.map((i, index) => (
 							<CarTag small={true} key={index} car={car}>
 								{i.name}
 							</CarTag>
-						))}
+						))} */}
 					</div>
 					<div className="car__card-mobile-title car-rent-card_title">
-						{brand} <span className={"model"}>{model}</span>
+						{car.brand} <span className={"model"}>{car.model}</span>
 					</div>
 					<div className={"car__card-payment car-rent-card_payment "}>
 						<div>Аренда</div>

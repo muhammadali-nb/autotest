@@ -35,9 +35,9 @@ export type HeaderProps = {
 
 export const defaultLinks = [
 	{ text: "Главная", path: "/", className: "" },
-	{ text: "Каталог", path: "/catalog", className: "" },
+	{ text: "Выкуп", path: "/catalog", className: "" },
 	{ text: "Программы", path: "/programs", className: "" },
-	{ text: "Аренда", path: "/rent", className: "" },
+	{ text: "Аренда", path: "/rent/page/1", className: "" },
 	{ text: "Вопросы", path: "/faq", className: "" },
 	{ text: "Контакты", path: "/contacts", className: "" },
 ];
@@ -155,7 +155,7 @@ export const WhiteHeader: React.FC<{
 							src={callIconDark}
 							className="d-block d-md-none"
 							onClick={() => setMobileModal(true)}
-							alt=""
+							alt="order call"
 						/>
 					</div>
 					<div className={"header-desktop"}>

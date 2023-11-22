@@ -1,31 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BaseLayout, { MetaTags } from "../layout/BaseLayout";
 import { Col, Container, Row } from "react-bootstrap";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import Api from "../../Api";
-import { CarData } from "../common/CarCard";
+
 import CarBase from "./Car/CarBase";
 import CarImages from "./Car/CarImages";
 import CarInfo from "./Car/CarInfo";
 import LoadError from "../common/LoadError";
-import { useAppSelector } from "../../store/hooks";
+
 import { CarDetailLayout } from "../layout/CarDetailLayout";
+import { useQuery } from "@tanstack/react-query";
+import catalogService from "../../api-functions/catalog-page/catalog-service";
+import Loader from "../common/Loader";
 
 const CarPage = () => {
-	const car = useLoaderData() as CarData;
-	// console.log(car);
-	const data = useAppSelector((state) => state.baseData);
-	const brand =
-		data.left.brands.values?.find((i) => i.id === car.main.brand)?.name ?? "";
-	const model =
-		data.left.models.values?.find((i) => i.id === car.main.model)?.name ?? "";
-
+	const car = useLoaderData() as any;
+	const { id } = useParams();
+	const { data, isLoading, error } = useQuery({
+		queryKey: [`catalog-car-${id}`, id],
+		queryFn: () => catalogService.getOneCar(id),
+	});
 	const title =
-		brand + " " + model + " - " + process.env.REACT_APP_WEBSITE_NAME;
+		data?.item?.brand +
+		" " +
+		data?.item?.model +
+		" - " +
+		process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
-		description: brand + " " + model + " в лизинг или аренду",
-		keywords: `аренда, лизинг,${brand},${model},${brand} ${model}`,
+		description: car.brand + " " + car.model + " в лизинг или аренду",
+		keywords: `аренда, лизинг,${car.brand},${car.model},${car.brand} ${car.model}`,
 	};
+	if (isLoading) return <Loader />;
 	return (
 		<CarDetailLayout
 			meta={meta}
@@ -39,15 +45,15 @@ const CarPage = () => {
 				{!Api.isError(car) && (
 					<Row className={"gx-5"}>
 						<Col lg={6} className={"d-none d-lg-block"}>
-							<CarImages car={car} />
-							<CarInfo type={"descktop"} car={car} />
+							<CarImages car={data.item} />
+							<CarInfo car_data={data.item} type={"descktop"} car={car} />
 						</Col>
 						<Col lg={6}>
 							<div className={"sticky-no-scrollbar top100 "}>
 								<div className={"d-block d-lg-none"}>
-									<CarImages car={car} />
+									<CarImages car={data.item} />
 								</div>
-								<CarBase car={car} />
+								<CarBase car_data={data.item} car={car} />
 							</div>
 						</Col>
 					</Row>
@@ -55,10 +61,10 @@ const CarPage = () => {
 			</Container>
 			<div className={" d-block d-lg-none "}>
 				<Container fluid={"xxl"}>
-					<CarImages car={car} />
+					<CarImages car={data.item} />
 				</Container>
-				<CarBase car={car} />
-				<CarInfo type={"mobile"} car={car} />
+				<CarBase car_data={data.item} car={car} />
+				{/* <CarInfo car_data={data.item} type={"mobile"} car={car} /> */}
 			</div>
 		</CarDetailLayout>
 	);

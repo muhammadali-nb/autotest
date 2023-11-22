@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import Header, { HeaderImage, HeaderType } from "./Header";
-import Footer from "./Footer";
-import { setBaseState } from "../../store/reducers/baseDataSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import Scroller from "../common/Scroller";
-import Api from "../../Api";
 import DocumentMeta from "react-document-meta";
 import Cookies from "../common/Cookies";
 import MobileMenu from "./MobileMenu";
@@ -48,20 +45,6 @@ const CatalogLayout: React.FunctionComponent<CatalogLayoutProps> = (
 			},
 		},
 	};
-	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: "smooth" });
-		if (!bState.loaded) {
-			const loader = async () => {
-				let data = await Api.baseData();
-				if (Api.isError(data)) {
-					//TODO:Error check!
-					return;
-				}
-				dispatch(setBaseState(data));
-			};
-			loader();
-		}
-	});
 	const { ref, isShow, setIsShow } = useOutside(false);
 	return (
 		<DocumentMeta {...meta}>
@@ -79,12 +62,7 @@ const CatalogLayout: React.FunctionComponent<CatalogLayoutProps> = (
 					type={props.headerType ?? "white"}
 					selectedLink={props.headerSelectedLink ?? "/"}
 				/>
-				<main>{bState.loaded && props.children}</main>
-				{/* <Footer
-					small={props.footerSmall}
-					noContacts={props.footerNoContacts}
-					noForm={props.footerNoForm}
-				/> */}
+				<main>{props.children}</main>
 				<Scroller />
 				<ToggleSentUserData />
 				<Cookies />

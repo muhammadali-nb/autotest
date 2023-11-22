@@ -20,6 +20,8 @@ type IndexCalculatorProps = {
 	fontBold?: boolean;
 	smallValue?: boolean;
 	wideSpace?: boolean;
+	className?: string;
+	koef?: number;
 	calculateInterestRate?: (values: IndexCalculatorValues) => number;
 };
 
@@ -46,7 +48,7 @@ const IndexCalculatorPeriodIndicator: React.FC<{
 	return (
 		<div
 			className={
-				"indexCalculatorPeriodIndicator" +
+				`indexCalculatorPeriodIndicator ` +
 				(props.right ? " text-end" : "") +
 				(props.bold ? " font-weight-medium" : "")
 			}>
@@ -84,10 +86,8 @@ const IndexCalculator: React.FC<IndexCalculatorProps> = (props) => {
 
 	const monthSum = () => {
 		let base = values.price - values.prepaid;
-		let interestRate = props.calculateInterestRate
-			? props.calculateInterestRate(values)
-			: defaultCalculateInterest(values);
-		return Math.round(base / values.time + base * interestRate);
+		let interestRate = (props.koef ?? 1.5) / 100;
+		return Math.round((base / values.time + base * interestRate) * 100) / 100;
 	};
 	const daySum = () => {
 		return Math.round(monthSum() / (props.daysInMonth ?? 30));
@@ -106,8 +106,9 @@ const IndexCalculator: React.FC<IndexCalculatorProps> = (props) => {
 	return (
 		<div
 			className={
-				"d-flex align-items-center justify-content-center flex-column w-100" +
-				(props.noAnim ? "" : " anim-enter-bottom-2")
+				"d-flex align-items-center justify-content-center flex-column w-100 " +
+				(props.noAnim ? "" : " anim-enter-bottom-2 ") +
+				(props.className ?? "")
 			}
 			id={"logo_calc"}>
 			{!props.hidePrice && (

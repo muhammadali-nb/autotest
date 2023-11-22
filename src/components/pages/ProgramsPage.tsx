@@ -13,13 +13,13 @@ import {
 	CarStatBlockProps,
 } from "./Car/CarStatBlock";
 import Api, { FaqResponse } from "../../Api";
-import coverLetter from "../../img/common/cover-letter.png";
-import coverNumber from "../../img/common/cover-number.png";
-import coverLetter02 from "../../img/common/cover-letter-02.png";
+import coverLetter from "../../images/common/cover-letter.png";
+import coverNumber from "../../images/common/cover-number.png";
+import coverLetter02 from "../../images/common/cover-letter-02.png";
 
-import first from "../../img/common/number-faq/01.svg";
-import second from "../../img/common/number-faq/02.svg";
-import third from "../../img/common/number-faq/03.svg";
+import first from "../../images/common/number-faq/01.svg";
+import second from "../../images/common/number-faq/02.svg";
+import third from "../../images/common/number-faq/03.svg";
 
 const Header: React.FC<{ text: string | ReactNode }> = (props) => (
 	<div className={"arrange-leasing_header"}>{props.text}</div>
@@ -79,7 +79,7 @@ const SecondBlock = () => (
 					<div className={"leasing__imaged-block li-card "}>
 						<div className={"leasing__imaged-block_header"}>Выгодно</div>
 						<div className={"leasing__imaged-block_divider"} />
-						<div className={" leasing__imaged-block_description "}>
+						<div className={" leasing__imaged-block_description options "}>
 							Приобретая автомобиль в лизинг, вы не увеличиваете свою кредитную
 							нагрузку и можете использовать кредитные продукты банков
 						</div>
@@ -561,8 +561,10 @@ const FaqBlock = () => {
 					автомобиля
 				</p>
 				<Row className={"faq-block_body gx-lg-5 gx-sm-0"}>
-					<Col sm={12} lg={6} className="px-0 px-md-3">
-						<div className={"w-100"}>
+					<Col sm={12} lg={6} className="px-0 px-md-3 faq-block_body-leftside">
+						<div
+						// className={"w-100"}
+						>
 							{questions1.map((i, ind) => (
 								<FoldableQuestion key={ind} header={i.title}>
 									{i.text}
@@ -570,8 +572,10 @@ const FaqBlock = () => {
 							))}
 						</div>
 					</Col>
-					<Col sm={12} lg={6} className="px-0 px-md-3">
-						<div className={"w-100"}>
+					<Col sm={12} lg={6} className="px-0 px-md-3 faq-block_body-rightside">
+						<div
+						// className={"w-100"}
+						>
 							{questions2.map((i, ind) => (
 								<FoldableQuestion key={ind} header={i.title}>
 									{i.text}

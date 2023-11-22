@@ -6,6 +6,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  text-decoration: none;
+  color: #222;
 
   @include l-md {
     padding: 16px;
@@ -150,7 +152,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 120%;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.16px !important;
   display: flex;
   width: 100%;
   // gap: 10px;
@@ -298,7 +300,7 @@
     letter-spacing: 0.01em;
     background: #e7e7e8;
     border-radius: 2px;
-
+    color: #222;
     &.free {
       background: rgba(64, 129, 4, 0.2);
     }
@@ -467,6 +469,7 @@
 
   &_payment {
     font-size: 14px;
+    color: #222 !important;
     @include l-sm {
       font-size: 10px;
     }

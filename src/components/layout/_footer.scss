@@ -28,11 +28,26 @@
 
 .footer {
   background-size: cover;
-  background-image: url("../../img/common/footer/footer_bg.webp");
+  background-image: url("../../images/common/footer/footer_bg.webp");
   position: relative;
   display: flex;
   flex-direction: column-reverse;
   width: 100%;
+
+  @include l-md {
+    background: none;
+  }
+
+  &__contacts-container {
+    @include l-md {
+      background-image: url("../../images/index/logo-bg-no-car.webp");
+      background-position: left 24% top 0;
+      background-size: cover;
+      & > div {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+    }
+  }
 
   //@include media-breakpoint-down(md) {
   //  background-image: none !important;
@@ -46,12 +61,31 @@
   padding-top: 70px;
   //max-width: 700px;
   //width: 100%;
+  position: relative;
+
   @include l-xl {
     padding-top: 40px;
   }
 
   @include l-sm {
     padding: 24px 0 0 0;
+  }
+
+  &_lines {
+    position: absolute;
+    right: 32px;
+    top: 112px;
+    &_line,
+    &_dot {
+      background-color: #bf3535;
+      width: 3px;
+      height: 3px;
+      margin: 0 0 16px 0;
+    }
+
+    &_line {
+      height: 44px;
+    }
   }
 
   &_contact-form {
@@ -204,6 +238,7 @@
       padding-bottom: 8px;
       margin-bottom: 42px;
       font-size: 42px;
+      border-bottom: 3px solid #bf3535;
     }
 
     @include l-sm {
@@ -366,8 +401,8 @@
   }
 
   @include l-sm {
-    margin: 0;
-    padding-top: 0;
+    // margin: 16px 0;
+    // padding-top: ;
     div {
       display: none;
     }
@@ -411,7 +446,7 @@
   line-height: 120%;
   @include lg {
     &:not(:last-child) {
-      margin: 0 24px 0 0; 
+      margin: 0 24px 0 0;
     }
   }
 

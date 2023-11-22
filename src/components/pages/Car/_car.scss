@@ -49,7 +49,11 @@
 
   .car-base-payment {
     font-size: 16px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+
+    &-preorder-btn {
+      width: 200px;
+    }
 
     .car-base-payment-value {
       font-weight: 600;
@@ -57,14 +61,32 @@
   }
 
   .car-base-same_link > span {
+<<<<<<< HEAD
     font-size: 14px !important;
+=======
+    font-size: 16px;
+    letter-spacing: 0.16px !important;
+    @include l-md {
+      font-size: 14px !important;
+    }
+>>>>>>> mobile-version
   }
 
   .car-base-calculator {
     padding: 40px 0 0 0;
+    max-width: 500px;
+
+    &_slider > div {
+      margin: 0 0 20px 0;
+
+      @include l-md {
+        margin: 0 0 16px 0;
+      }
+    }
 
     @include l-md {
       padding: 28px 0;
+      max-width: 100%;
     }
     @include l-sm {
       padding: 24px 0;
@@ -75,6 +97,9 @@
 }
 
 .car-stat-block {
+  &:not(:last-child) {
+    margin: 0 0 30px 0;
+  }
   @include l-md {
     margin-bottom: 30px;
   }
@@ -116,6 +141,10 @@
 
   &-leftside {
     max-width: 230px;
+<<<<<<< HEAD
+=======
+    text-transform: none;
+>>>>>>> mobile-version
   }
 
   &.gray {
@@ -276,6 +305,28 @@
   display: flex;
   justify-content: start;
   gap: 25px;
+
+  &_mobile {
+    border-width: 2px;
+    margin: 0 0 40px 0;
+    gap: 24px;
+    & > .nav-link {
+      color: #222;
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 140%; /* 22.4px */
+      letter-spacing: 0.16px;
+      text-transform: uppercase;
+      border-color: transparent;
+      padding: 8px 2px;
+      border: none;
+      &.active {
+        border-bottom: 2px solid #bf3535;
+        color: #222;
+      }
+    }
+  }
 
   @include l-md {
     margin: 0 0 40px;

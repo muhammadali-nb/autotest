@@ -3,13 +3,13 @@ import { HeaderLogoImage } from "./Header";
 import { Link } from "react-router-dom";
 
 //icons
-import house from "../../img/common/mobile_menu-icons/house.svg";
-import car from "../../img/common/mobile_menu-icons/car.svg";
-import dashboard from "../../img/common/mobile_menu-icons/dashboard.svg";
-import phone from "../../img/common/mobile_menu-icons/phone.svg";
-import question from "../../img/common/mobile_menu-icons/question.svg";
-import ticked from "../../img/common/mobile_menu-icons/ticked.svg";
-import loginIcon from "../../img/common/mobile_menu-icons/login.svg";
+import house from "../../images/common/mobile_menu-icons/house.svg";
+import car from "../../images/common/mobile_menu-icons/car.svg";
+import dashboard from "../../images/common/mobile_menu-icons/dashboard.svg";
+import phone from "../../images/common/mobile_menu-icons/phone.svg";
+import question from "../../images/common/mobile_menu-icons/question.svg";
+import ticked from "../../images/common/mobile_menu-icons/ticked.svg";
+import loginIcon from "../../images/common/mobile_menu-icons/login.svg";
 import AdvanceLogin from "../common/AdvanceLogin";
 import arrow from "../../img/common/menu-arrow.svg";
 import { MobileModal } from "../common/MobileModal/MobileModal";
@@ -30,7 +30,7 @@ const defaultLinks = [
 		icon: dashboard,
 		id: 3,
 	},
-	{ text: "Аренда", path: "/rent", className: "", icon: ticked, id: 4 },
+	{ text: "Аренда", path: "/rent/page/1", className: "", icon: ticked, id: 4 },
 	{ text: "Вопросы", path: "/faq", className: "", icon: question, id: 5 },
 	{ text: "Контакты", path: "/contacts", className: "", icon: phone, id: 6 },
 ];

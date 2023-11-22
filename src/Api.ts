@@ -3,6 +3,7 @@ import { BaseState, mockBaseState } from "./store/reducers/baseDataSlice";
 import { CarData, CarDataInfo, CarRentDataInfo } from "./components/common/CarCard";
 import { Filter } from "./store/reducers/filterSlice";
 import _ from 'lodash';
+import { CarDataType } from "./types/RentTypes";
 
 
 
@@ -320,7 +321,9 @@ export type CallRequestData = {
   comment?: string,
   email?: string,
   errors: object,
+
 }
+
 export interface CallRequestResponse { success: boolean, fields?: object }
 
 export type ConfirmPhone = {
@@ -371,7 +374,7 @@ let Api = {
   getEndpoint(endpoint: string, params?: any, headers?: any) {
     let path = this.getApi() + "/" + _.trim(endpoint, '/');
     let query = new URLSearchParams(params).toString()
-    console.log(query, params);
+    // console.log(query, params);
     return fetch(path + "?" + query, {
       headers: this.getHeaders(headers),
       mode: "cors", // no-cors, *cors, same-origin
@@ -670,7 +673,7 @@ let Api = {
       return await new Promise<ErrorResponse>((resolve, reject) => resolve(defaultError))
     }
   },
-  async carRentPaymentRequest(request: CallRequestData, car: CarRentDataInfo, payment: string = ''): Promise<CallRequestResponse | ErrorResponse> {
+  async carRentPaymentRequest(request: CallRequestData, car: CarRentDataInfo | CarDataType, payment: string = ''): Promise<CallRequestResponse | ErrorResponse> {
     if (process.env.REACT_APP_TEST === "true") {
       let isValid = payment === 'sbp';
       let res = { success: isValid, fields: { link: 'https://vk.com', error: '' } };

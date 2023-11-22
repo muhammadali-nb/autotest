@@ -1,19 +1,5 @@
-import React from "react";
-import {
-	createBrowserRouter,
-	createRoutesFromElements,
-	Route,
-	RouterProvider,
-} from "react-router-dom";
-import IndexPage, { indexLoader } from "./components/pages/IndexPage";
-import CatalogPage from "./components/pages/CatalogPage";
-import NotExistsPage from "./components/pages/NotExistsPage";
-import PolicyPage from "./components/pages/PolicyPage";
-import FaqPage, { faqLoader } from "./components/pages/FaqPage";
-import ContactsPage from "./components/pages/ContactsPage";
-import ProgramsPage, {
-	faqProgramsLoader,
-} from "./components/pages/ProgramsPage";
+import React, { useEffect } from "react";
+import { Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { YMaps } from "@pbe/react-yandex-maps";
 import UserAgreementPage from "./components/pages/UserAgreementPage";
 import OfferPage from "./components/pages/OfferPage";

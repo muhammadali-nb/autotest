@@ -8,7 +8,7 @@ import ModalFormTemplate, {
 	ModalTemplateInput,
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
-import Utils from "../../Utils";
+import Utils from "../../utils/Utils";
 
 const CarRequestFormContent: React.FC<{
 	closeFunc: () => void;
@@ -20,6 +20,7 @@ const CarRequestFormContent: React.FC<{
 		phone: "",
 		confirm: false,
 		errors: {},
+		middleName: "",
 	});
 	const [passed, setPassed] = useState(false);
 	const send = () => {

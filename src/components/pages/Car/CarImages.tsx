@@ -1,24 +1,32 @@
 import React, { useState } from "react";
 import { CarData } from "../../common/CarCard";
 import { Carousel, Modal } from "react-bootstrap";
-import caretLeft from "./../../../img/common/caret-left-big.svg";
-import chevronLeft from "./../../../img/index/Chevron Left.png";
-import chevronRight from "./../../../img/index/Chevron Right.png";
-import caretRight from "./../../../img/common/caret-right-big.svg";
+import caretLeft from "./../../../images/common/caret-left-big.svg";
+import chevronLeft from "./../../../images/index/Chevron Left.png";
+import chevronRight from "./../../../images/index/Chevron Right.png";
+import caretRight from "./../../../images/common/caret-right-big.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
+import { TypeImages } from "../Rent/RentCarImagesCarousel";
+import { CarDataType } from "../../../types/RentTypes";
+
+import { BrowserView, MobileView } from "react-device-detect";
+import CarFullImageModal from "../Rent/RentCarFullImage";
+
 export const CarImagesModal: React.FC<{
 	show: boolean;
 	index?: number;
-	car: CarData;
+	car?: CarData;
+	car_images?: Array<TypeImages>;
 	handleClose: () => void;
-}> = ({ show, index = 0, car, handleClose }) => {
+}> = ({ show, index = 0, car, handleClose, car_images }) => {
 	const [imageIndex, setIndex] = useState(index);
 	const handleSelect = (selectedIndex) => {
-		if (selectedIndex >= car.images.length) selectedIndex = 0;
-		if (selectedIndex < 0) selectedIndex = car.images.length - 1;
+		if (!car_images) return;
+		if (selectedIndex >= car_images.length) selectedIndex = 0;
+		if (selectedIndex < 0) selectedIndex = car_images.length - 1;
 		setIndex(selectedIndex);
 	};
 
@@ -50,20 +58,21 @@ export const CarImagesModal: React.FC<{
 					onSelect={handleSelect}
 					controls={false}
 					indicators={false}>
-					{car.images.map((img, index) => (
-						<Carousel.Item key={index}>
-							<div
-								className={
-									"car-images-image-container rounded overflow-hidden bg-white"
-								}>
-								<img
-									className="d-block w-100 car-images-image big"
-									src={img.full}
-									alt=""
-								/>
-							</div>
-						</Carousel.Item>
-					))}
+					{car_images &&
+						car_images.map((img, index) => (
+							<Carousel.Item key={index}>
+								<div
+									className={
+										"car-images-image-container rounded overflow-hidden bg-white"
+									}>
+									<img
+										className="d-block w-100 car-images-image big"
+										src={img.image}
+										alt=""
+									/>
+								</div>
+							</Carousel.Item>
+						))}
 				</Carousel>
 				<div
 					className={
@@ -78,17 +87,18 @@ export const CarImagesModal: React.FC<{
 							<img src={chevronLeft} alt={""} />
 						</button>
 						<div className={"car-images-controls-sliders"}>
-							{car.images.map((i, ind) => (
-								<div
-									key={ind}
-									className={
-										"car-images-controls-slider white " +
-										(imageIndex === ind ? "active" : "")
-									}
-									onClick={() => handleSelect(ind)}>
-									<div></div>
-								</div>
-							))}
+							{car_images &&
+								car_images.map((i, ind) => (
+									<div
+										key={i.id}
+										className={
+											"car-images-controls-slider white " +
+											(imageIndex === ind ? "active" : "")
+										}
+										onClick={() => handleSelect(ind)}>
+										<div></div>
+									</div>
+								))}
 						</div>
 						<button
 							className={"car-images-controls-btn text-white"}
@@ -103,7 +113,7 @@ export const CarImagesModal: React.FC<{
 	);
 };
 
-const CarImages: React.FC<{ car: CarData }> = ({ car }) => {
+const CarImages: React.FC<{ car: CarDataType }> = ({ car }) => {
 	const [index, setIndex] = useState(0);
 	const [showModal, setShowModal] = useState(false);
 	const navigate = useNavigate();
@@ -118,8 +128,20 @@ const CarImages: React.FC<{ car: CarData }> = ({ car }) => {
 	};
 	return (
 		<div className={"car-images"}>
-			<CarImagesModal show={showModal} handleClose={handleClose} car={car} />
-
+			<BrowserView>
+				<CarImagesModal
+					show={showModal}
+					handleClose={handleClose}
+					car_images={car.images}
+				/>
+			</BrowserView>
+			<MobileView>
+				<CarFullImageModal
+					active={showModal}
+					setActive={setShowModal}
+					images={car.images}
+				/>
+			</MobileView>
 			<div className={"d-none d-lg-block mb-4"}>
 				<Link
 					to={"/catalog"}
@@ -136,14 +158,14 @@ const CarImages: React.FC<{ car: CarData }> = ({ car }) => {
 				onSelect={handleSelect}
 				controls={false}
 				indicators={false}>
-				{car.images.map((img, index) => (
+				{car?.images?.map((img, index) => (
 					<Carousel.Item key={index}>
 						<div
 							className={"car-images-image-container cursor-pointer"}
 							onClick={handleShow}>
 							<img
 								className="d-block w-100 car-images-image"
-								src={img.full}
+								src={img.image}
 								alt=""
 							/>
 						</div>
@@ -157,7 +179,7 @@ const CarImages: React.FC<{ car: CarData }> = ({ car }) => {
 					<img src={caretLeft} width={16} height={32} alt="" />
 				</button>
 				<div className={"car-images-controls-sliders"}>
-					{car.images.map((i, ind) => (
+					{car?.images?.map((i, ind) => (
 						<div
 							key={ind}
 							className={

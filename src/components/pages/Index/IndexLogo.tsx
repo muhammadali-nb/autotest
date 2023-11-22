@@ -1,9 +1,9 @@
 import React from "react";
-import bg from "./../../../img/index/logo-bg.webp";
-import bgNoCar from "./../../../img/index/logo-bg-no-car.webp";
+import bg from "./../../../images/index/logo-bg.webp";
+import bgNoCar from "./../../../images/index/logo-bg-no-car.webp";
 import { Col, Container, Row } from "react-bootstrap";
 import IndexCalculator from "./IndexCalculator";
-import car from "./../../../img/index/car.webp";
+import car from "./../../../images/index/car.webp";
 import Animator from "../../../Animator";
 import { useEffect } from "react";
 

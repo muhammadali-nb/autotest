@@ -2,6 +2,7 @@ import React, { RefObject, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // icons for menu
+<<<<<<< HEAD
 import closeMenu from "../../../img/personal-account/menu/chevron-left.svg";
 import arrow from "../../../img/personal-account/menu/arrow-left.svg";
 import user from "../../../img/personal-account/menu/user.svg";
@@ -10,6 +11,16 @@ import ticked from "../../../img/personal-account/menu/ticket.svg";
 import card from "../../../img/personal-account/menu/card.svg";
 import warning from "../../../img/personal-account/menu/warning.svg";
 import smile from "../../../img/personal-account/menu/smile.svg";
+=======
+import closeMenu from "../../../images/personal-account/menu/chevron-left.svg";
+import arrow from "../../../images/personal-account/menu/arrow-left.svg";
+import user from "../../../images/personal-account/menu/user.svg";
+import car from "../../../images/personal-account/menu/car.svg";
+import ticked from "../../../images/personal-account/menu/ticket.svg";
+import card from "../../../images/personal-account/menu/card.svg";
+import warning from "../../../images/personal-account/menu/warning.svg";
+import smile from "../../../images/personal-account/menu/smile.svg";
+>>>>>>> mobile-version
 
 interface MobileMenuProps {
 	menuIsOpen: boolean;
@@ -59,7 +70,10 @@ const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
 				} mobile-menu-personal-account_container`}>
 				<div>
 					<div className={"d-flex align-items-center gap-px-15"}>
+<<<<<<< HEAD
 					
+=======
+>>>>>>> mobile-version
 						<div onClick={() => setMenuIsOpen(false)}>
 							<img src={closeMenu} alt="close menu" />
 						</div>

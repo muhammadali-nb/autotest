@@ -1,9 +1,10 @@
 import React, { FC, ReactNode, useEffect } from "react";
-import arrow from "./../../../img/index/arrow.svg";
-import arrowLong from "./../../../img/index/arrow-long.svg";
+import arrow from "./../../../images/index/arrow.svg";
+import arrowLong from "./../../../images/index/arrow-long.svg";
 import { Col, Container, Row } from "react-bootstrap";
 import Animator from "../../../Animator";
-import arrowMobile from "../../../img/index/arrow-mobile.svg";
+import arrowMobile from "../../../images/index/arrow-mobile.svg";
+import { Link, useLocation } from "react-router-dom";
 
 export const IndexStep: React.FC<{
 	bgText: string;

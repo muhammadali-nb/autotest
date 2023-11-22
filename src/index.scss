@@ -8,6 +8,8 @@
 
 @import "components/common/card";
 @import "components/common/slider";
+@import "components/common/MobileModal/MobileModal.scss";
+@import "components/common/ScoreCard/ScoreCard.scss";
 @import "components/layout/footer";
 @import "components/layout/header";
 @import "components/pages/Car/car";
@@ -17,5 +19,11 @@
 // @import "components/common/personal-account/BankCard/bank-card";
 
 // personal account styles
+@import "components/common/PersonalAccount/BankCard/bank-card";
 @import "components/pages/PersonalAccount/personal-account";
+@import "components/common/PersonalAccount/PersonalAccountHeader/PersonalAccountHeader.scss";
+@import "components/pages/PersonalAccount/PersonalAccountBankCards/PersonalAccountBankCards.scss";
 @import "components/common/PersonalAccount/PersonalAccountCarCard/personal-account-car-card";
+
+// rent styles
+@import "components/common/Rent/RentModalMobile/RentModalMobile.scss";

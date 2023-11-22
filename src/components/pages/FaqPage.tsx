@@ -112,7 +112,29 @@ const FaqPage = () => {
 						Напишите нам, чтобы мы могли дополнить список.
 					</div>
 
+<<<<<<< HEAD
 					<div className={"car-info-btns justify-content-start"}>
+=======
+					<div className="nav nav-tabs car-info-btns_mobile d-flex d-md-none">
+						<button
+							onClick={() => {
+								setPage("leasing");
+							}}
+							className={"nav-link " + (page === "leasing" ? "active" : "")}>
+							Лизинг
+						</button>
+						<button
+							onClick={() => {
+								setPage("rent");
+							}}
+							className={"nav-link " + (page === "rent" ? "active" : "")}>
+							Аренда
+						</button>
+					</div>
+
+					<div
+						className={"car-info-btns justify-content-start d-none d-md-flex"}>
+>>>>>>> mobile-version
 						<button
 							className={
 								"car-info-btn big " + (page === "leasing" ? "active" : "")

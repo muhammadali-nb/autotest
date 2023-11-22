@@ -1,6 +1,12 @@
 .car-images_rent {
+  & > .carousel {
+    width: 100%;
+    height: auto;
+  }
+
   &-image > img {
-    height: 270px;
+    height: 100%;
+    width: 100%;
   }
 
   &-controls {
@@ -143,3 +149,41 @@
 .car-detail_same-link > span {
   font-size: 14px;
 }
+<<<<<<< HEAD
+=======
+
+.rent-car-fullimage {
+  background-color: white;
+  height: 100%;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  transform: scale(0);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.active {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  &_close {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    border: none;
+    background-color: transparent;
+  }
+
+  &_controls {
+    position: absolute;
+    bottom: 24px;
+    left: 16px;
+    right: 16px;
+  }
+}
+>>>>>>> mobile-version
