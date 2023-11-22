@@ -387,6 +387,10 @@ export const CarRentPaymentType: React.FC<{
 		parseFloat((props.deposit / pay_koef.sbp).toFixed(2))
 	);
 
+	useEffect(() => {
+		console.log((props.deposit / pay_koef.sbp).toFixed(2));
+	}, [props.deposit]);
+
 	const send = async () => {
 		if (payment === "") {
 			setError("Выберите способ оплаты");
@@ -1120,15 +1124,7 @@ export const CarBookingForm: React.FC<{
 			console.log(error);
 		}
 	};
-
-	// useEffect(() => {
-	// 	chekckUser();
-	// }, [step]);
 	const handleClose = () => setShow(false);
-	// const handleShow = () => {
-	// 	if (props.func) props.func();
-	// 	setShow(true);
-	// };
 	return (
 		<>
 			<ModalFormTemplate

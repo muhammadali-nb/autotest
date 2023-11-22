@@ -21,6 +21,7 @@ type IndexCalculatorProps = {
 	smallValue?: boolean;
 	wideSpace?: boolean;
 	className?: string;
+	koef?: number;
 	calculateInterestRate?: (values: IndexCalculatorValues) => number;
 };
 
@@ -85,10 +86,8 @@ const IndexCalculator: React.FC<IndexCalculatorProps> = (props) => {
 
 	const monthSum = () => {
 		let base = values.price - values.prepaid;
-		let interestRate = props.calculateInterestRate
-			? props.calculateInterestRate(values)
-			: defaultCalculateInterest(values);
-		return Math.round(base / values.time + base * interestRate);
+		let interestRate = (props.koef ?? 1.5) / 100;
+		return Math.round((base / values.time + base * interestRate) * 100) / 100;
 	};
 	const daySum = () => {
 		return Math.round(monthSum() / (props.daysInMonth ?? 30));

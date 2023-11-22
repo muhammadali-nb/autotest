@@ -104,11 +104,11 @@ const CatalogPage = () => {
 		description: "Выкуп,Каталог автомобилей",
 		keywords: "выкуп,каталог,лизинг,авто,список,leasing",
 	};
+
 	const { data, isLoading } = useQuery({
 		queryKey: ["catalog-filter"],
 		queryFn: () => catalogService.getFilter(),
 	});
-	
 
 	return (
 		<CatalogLayout
@@ -119,7 +119,7 @@ const CatalogPage = () => {
 			<div className="catalog">
 				<Container fluid={"xxl"}>
 					<CatalogMobileMenu
-						data={!isLoading && data}
+						data={data}
 						isActive={isOpen}
 						setIsActive={setOpen}
 					/>

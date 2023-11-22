@@ -311,7 +311,7 @@ const RentPage = ({ children }: { children?: ReactNode }) => {
 							rentFilterData={!isLoading && data.top}
 							mode="rent"
 							isShowMobileFiler={setOpen}
-						/>
+						/> 
 						<RentGrid activePage={paramsId} />
 						<SmallFooter />
 					</Col>

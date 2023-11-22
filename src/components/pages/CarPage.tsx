@@ -17,7 +17,6 @@ import Loader from "../common/Loader";
 const CarPage = () => {
 	const car = useLoaderData() as any;
 	const { id } = useParams();
-	const [modalFullImage, setModalFullImage] = useState(false);
 	const { data, isLoading, error } = useQuery({
 		queryKey: [`catalog-car-${id}`, id],
 		queryFn: () => catalogService.getOneCar(id),
@@ -47,7 +46,7 @@ const CarPage = () => {
 					<Row className={"gx-5"}>
 						<Col lg={6} className={"d-none d-lg-block"}>
 							<CarImages car={data.item} />
-							<CarInfo type={"descktop"} car={car} />
+							<CarInfo car_data={data.item} type={"descktop"} car={car} />
 						</Col>
 						<Col lg={6}>
 							<div className={"sticky-no-scrollbar top100 "}>
@@ -65,7 +64,7 @@ const CarPage = () => {
 					<CarImages car={data.item} />
 				</Container>
 				<CarBase car_data={data.item} car={car} />
-				<CarInfo type={"mobile"} car={car} />
+				{/* <CarInfo car_data={data.item} type={"mobile"} car={car} /> */}
 			</div>
 		</CarDetailLayout>
 	);

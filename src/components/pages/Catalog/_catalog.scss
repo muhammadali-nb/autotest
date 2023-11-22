@@ -44,13 +44,21 @@
 .filter-menu {
   position: fixed;
   top: 0;
-  left: -100%;
+  left: -150%;
   z-index: 202;
   width: 100vw;
   height: 100vh;
   box-shadow: inset 0px 0px 80px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   transition: all 0.5s ease-in-out;
+  &::-webkit-scrollbar {
+    display: none;
+    background-color: transparent;
+    width: 0;
+    height: 0;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
   overflow: scroll;
   &.active {
     left: 0;
@@ -58,6 +66,12 @@
 
   &_scroller {
     height: auto;
+    &::-webkit-scrollbar {
+      display: none;
+      background-color: transparent;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 
   &_header {

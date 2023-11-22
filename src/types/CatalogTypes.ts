@@ -18,6 +18,17 @@ type CarTagType = {
   name: string
 }
 
+export type TypeCarDataInfoValue = {
+  name: string;
+  value: string;
+  id: number
+}
+
+type TypeCarDataParametr = {
+  name: string
+  list: TypeCarDataInfoValue[]
+}
+
 export interface ICarData {
   brand: string,
   brand_id: string,
@@ -27,5 +38,17 @@ export interface ICarData {
   model: string;
   model_id: string;
   price: number;
-  tags: CarTagType
+  guarantee: number;
+  osago: number;
+  kasko: number;
+  koef: number;
+  srok_from: number;
+  srok_to: number
+  tags: CarTagType[]
+  info: {
+    name: string
+    list: TypeCarDataInfoValue[]
+  }
+  technical_parameters: TypeCarDataParametr[]
+  equipment: TypeCarDataParametr[]
 }

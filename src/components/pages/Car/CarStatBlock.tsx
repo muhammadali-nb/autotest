@@ -1,12 +1,14 @@
 import React from "react";
 import { StatBlock, StatBlockItem } from "../../common/CarCard";
-import { Container } from "react-bootstrap";
+import { ICarData } from "../../../types/CatalogTypes";
+
+type CarDataInfo = ICarData["info"];
 
 export interface CarStatBlockProps {
 	column1Width?: number | string;
 	column2Width?: number | string;
 	dotted?: boolean;
-	data: Array<StatBlock>;
+	data: Array<CarDataInfo>;
 	type?: "descktop" | "mobile";
 }
 
