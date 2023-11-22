@@ -306,6 +306,7 @@ const defaultError: ErrorResponse = { error: 'Ошибка', message: 'Ошиб�
 
 export type CallRequestData = {
   name: string,
+  middleName?: string,
   lastName: string,
   phone: string,
   confirm: boolean,
