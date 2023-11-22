@@ -1,6 +1,19 @@
-import {CallRequestData, ConfirmPhone} from "./Api";
+import {CallRequestData, ConfirmPhone, RentCreateAccountForm} from "./Api";
 
 let Utils = {
+    convertBase64(file) {
+        return new Promise((resolve, rejects) => {
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+            fileReader.onerror = (error) => {
+                rejects(error)
+            }
+        })
+    },
     validatePhone(phone:string){
         return !!phone.replace(/\D+/g, '').match(/[78]\d{10}/)
     },
@@ -36,7 +49,16 @@ let Utils = {
             ph = "+" + ph;
         return ph.startsWith('7') ? "+" + ph : ph;
     },
-
+    validateRentCreateAccont(request: RentCreateAccountForm) {
+        let errors = {};
+        if (!request.lastName || request.lastName.length < 0)
+            errors['lastName'] = "Не указано фамилия";
+        if (!request.name || request.name.length < 0)
+            errors['name'] = "Не указано имя";
+        if (!request.middleName || request.middleName.length < 0)
+            errors['middleName'] = "Не указано отчество";
+        return errors;
+    },
     textFromCount(n:number, words:Array<string>, withNum:boolean = true) {
         if (n >= 5 && n <= 20)
             return (withNum ? (n + " ") : "") + words[2];

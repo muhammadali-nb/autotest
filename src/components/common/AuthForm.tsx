@@ -3,9 +3,10 @@ import ModalFormTemplate, { ModalTemplateConfirm, ModalTemplateContent, ModalTem
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import Utils from "../../Utils";
-import Api, { ConfirmPhone, CallRequestData, ErrorResponse } from "../../Api";
+import Api, { ConfirmPhone, CallRequestData, ErrorResponse, RentCreateAccountForm } from "../../Api";
 import axios, { AxiosError } from 'axios';
 import { useAuth } from "../../hooks/useAuth";
+import FileInput from "./FileInput";
 
 const AuthFormContent: React.FC<{
     closeFunc: () => void,
@@ -142,7 +143,7 @@ const AuthPhoneConfirm: React.FC<{
         try {
             const res: any = await register(props.data.phone, code);
             if (res.success) {
-                props.setStep("create");
+                props.setStep("createAccount");
                 setPassed(true);
             }
         } catch (error) {
@@ -286,7 +287,6 @@ const AuthPhoneConfirm: React.FC<{
 const AuthCreateAccount: React.FC<{
     closeFunc: () => void;
     setStep: (arg0: string) => void;
-    setData: (arg0: CallRequestData) => void;
 }> = (props) => {
     const [base64, setBase64] = useState("");
     const [data, setData] = useState<RentCreateAccountForm>({
@@ -481,7 +481,8 @@ const AuthForm: React.FC<{
                 }
                 {step === 'createAccount' &&
                     <AuthCreateAccount
-
+                        closeFunc={handleClose}
+                        setStep={setStep}
                     />
                 }
             </ModalFormTemplate>
