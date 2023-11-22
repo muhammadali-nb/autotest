@@ -1,9 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import "./ScoreCard.scss";
-=======
-
->>>>>>> mobile-version
 import { BankCardProps } from "../PersonalAccount/BankCard/BankCard";
 
 const ScoreCard = (props: BankCardProps) => {

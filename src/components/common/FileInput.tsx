@@ -1,11 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-<<<<<<< HEAD
-import DowloadImage from "../../img/common/download.svg";
-import Utils from "../../Utils";
-=======
 import DowloadImage from "../../images/common/download.svg";
 import Utils from "../../utils/Utils";
->>>>>>> mobile-version
 
 const FileInput = ({ upload }: { upload: (e: any) => void }) => {
 	const [image, setImage] = useState<string | undefined>(undefined);
@@ -52,8 +47,4 @@ const FileInput = ({ upload }: { upload: (e: any) => void }) => {
 	);
 };
 
-<<<<<<< HEAD
 export default FileInput;
-=======
-export default FileInput;
->>>>>>> mobile-version

@@ -1,8 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
 import "./PersonalAccountHeader.scss";
-=======
->>>>>>> mobile-version
 
 const PersonalAccountHeader = () => {
 	return (

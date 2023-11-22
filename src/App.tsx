@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, Route, Routes, useLocation } from "react-router-dom";
+import { Outlet, Route, RouterProvider, Routes, createBrowserRouter, createRoutesFromElements, useLocation } from "react-router-dom";
 import { YMaps } from "@pbe/react-yandex-maps";
 import UserAgreementPage from "./components/pages/UserAgreementPage";
 import OfferPage from "./components/pages/OfferPage";
@@ -11,6 +11,13 @@ import RentCarDetail, {
 } from "./components/pages/Rent/RentCarDetail";
 import RentHistoryPage from "./components/pages/RentHistory/RentHistoryPage";
 import { AuthProvider } from "./contexts/AuthContext";
+import IndexPage, { indexLoader } from "./components/pages/IndexPage";
+import CatalogPage from "./components/pages/CatalogPage";
+import ProgramsPage, { faqProgramsLoader } from "./components/pages/ProgramsPage";
+import FaqPage, { faqLoader } from "./components/pages/FaqPage";
+import ContactsPage from "./components/pages/ContactsPage";
+import PolicyPage from "./components/pages/PolicyPage";
+import NotExistsPage from "./components/pages/NotExistsPage";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(

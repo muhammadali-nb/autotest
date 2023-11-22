@@ -1,9 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import "./_bank-card.scss";
-=======
-
->>>>>>> mobile-version
 
 export interface BankCardProps {
 	style?: object;
