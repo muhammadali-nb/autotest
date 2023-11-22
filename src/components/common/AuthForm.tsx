@@ -7,6 +7,8 @@ import Api, { ConfirmPhone, CallRequestData, ErrorResponse, RentCreateAccountFor
 import axios, { AxiosError } from 'axios';
 import { useAuth } from "../../hooks/useAuth";
 import FileInput from "./FileInput";
+import { useNavigate } from "react-router-dom";
+import logoutIcon from "../../img/common/logout.svg";
 
 const AuthFormContent: React.FC<{
     closeFunc: () => void,
@@ -336,8 +338,8 @@ const AuthCreateAccount: React.FC<{
                 }
                 const payload = await res.json();
                 if (payload.result === 1) {
-
                     console.log(payload);
+                    props.closeFunc();
                 }
             } catch (error) {
                 console.log(error);
@@ -427,7 +429,7 @@ const AuthForm: React.FC<{
     const [show, setShow] = useState(false);
     const [step, setStep] = useState('auth');
 
-    const { user_status, initialize } = useAuth();
+    const { user_status, isAuthenticated, logout } = useAuth();
     const [error_message, setErrorMessage] = useState<string | null>(null);
     const [timer, setTimer] = useState(0);
 
@@ -439,6 +441,8 @@ const AuthForm: React.FC<{
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const navigate = useNavigate();
 
     const confirmPhone = () => {
         if (user_status === "banned") {
@@ -464,9 +468,35 @@ const AuthForm: React.FC<{
             });
     };
 
+    const exit = () => {
+        logout();
+        navigate('/');
+    };
+
     return (
         <>
-            <button className={"user-btn " + (props.light ? "light" : "")} onClick={handleShow}></button>
+            {window.innerWidth > 991 &&
+                <div className={"user-btn " + (props.light ? "light" : "")}>
+                    <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
+                        {isAuthenticated ?
+                            <div className="user-tooltip-content">
+                                <span className="font-size-16 cursor-pointer" onClick={() => navigate('/personal-account')}>Фокина Анастасия</span>
+                                <span className="font-size-12">Баланс: 20 000 ₽</span>
+                                <button className="font-size-14" onClick={exit}>
+                                    <img src={logoutIcon} alt="Выйти" />
+                                    Выйти
+                                </button>
+                            </div>
+                            :
+                            <div className="user-tooltip-content">
+                                <button className="font-size-14" onClick={handleShow}>
+                                    Вход в Личный кабинет
+                                </button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
             <ModalFormTemplate show={show} onHide={handleClose} centered size={"xl"}>
                 {step === 'auth' &&
                     <AuthFormContent
