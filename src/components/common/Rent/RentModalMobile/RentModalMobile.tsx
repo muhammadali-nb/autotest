@@ -1,11 +1,14 @@
 import call from "../../../../images/common/phone-call.svg";
 import back from "../../../../images/common/back.svg";
 import { HeaderLogoImage } from "../../../layout/Header";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { FC, ReactElement, useEffect, useState } from "react";
 import { ModalTemplatePhone } from "../../ModalFormTemplate";
 import { CarBookingStepsType } from "../../CarRentForm";
-import { CarDataType } from "../../../../types/RentTypes";
+import {
+	CarDataType,
+	RentBookingPaymentStatus,
+} from "../../../../types/RentTypes";
 import RentModalMobileStart from "./steps/RentModalMobileStart";
 import RentModalMobileConfirm from "./steps/RentModalMobileConfirm";
 import RentModalMobileCreate from "./steps/RentModalMobileCreate";
@@ -13,6 +16,10 @@ import RentModalMobilePayment from "./steps/RentModalMobilePayment";
 import RentModalMobileFinish from "./steps/RentModalMobileFinish";
 import { useAuth } from "../../../../hooks/useAuth";
 import axios from "axios";
+import { ConfirmPaymentQR } from "../../../../types/AuthContextTypes";
+import { ConfirmPhone } from "../../../../Api";
+import RentModalMobileConfirmPayment from "./steps/RentModalMobileConfirmPayment";
+import RentModalMobilePaymentResult from "./steps/RentModalMobilePaymentResult";
 
 export const RentModalMobile = ({
 	active,
@@ -20,20 +27,35 @@ export const RentModalMobile = ({
 	car,
 	step,
 	setStep,
+	depositPrice,
+	setDepositPrice,
+	getPriceCar,
+	paymentStatus,
+	setPaymentStatus,
 }: {
+	depositPrice: number;
+	setDepositPrice: (e: number) => void;
 	active: boolean;
 	setActive: (e: boolean) => void;
 	step: CarBookingStepsType;
 	setStep: (e: CarBookingStepsType) => void;
 	car: CarDataType;
+	getPriceCar: () => void;
+	paymentStatus: RentBookingPaymentStatus;
+	setPaymentStatus: (e: RentBookingPaymentStatus) => void;
 }) => {
-	const { initialize, user_status } = useAuth();
-	const [timer, setTimer] = useState(59);
 	const [data, setData] = useState({
 		phone: "",
 		confirm: true,
 		errors: {},
 	});
+
+	const [timer, setTimer] = useState(0);
+	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
+		qr: "",
+		pid: "",
+	});
+
 	useEffect(() => {
 		if (active) document.body.style.overflow = "hidden";
 		else document.body.style.overflow = "unset";
@@ -61,9 +83,47 @@ export const RentModalMobile = ({
 				/>
 			);
 		} else if (step === "create") {
-			return <RentModalMobileCreate step={step} car={car} setStep={setStep} />;
+			return (
+				<RentModalMobileCreate
+					getPayment={getPriceCar}
+					step={step}
+					car={car}
+					setStep={setStep}
+				/>
+			);
 		} else if (step === "payment") {
-			return <RentModalMobilePayment car={car} />;
+			return (
+				<RentModalMobilePayment
+					setConfirmPayment={setConfirmPaymentQR}
+					deposit={depositPrice}
+					setDeposit={setDepositPrice}
+					data={data}
+					car={car}
+					setStep={setStep}
+				/>
+			);
+		} else if (step === "confirm_payment") {
+			return (
+				<RentModalMobileConfirmPayment
+					paymentStatus={paymentStatus}
+					setPaymentStatus={setPaymentStatus}
+					confirmPayment={confirmPaymentQR}
+					deposit={depositPrice}
+					setDeposit={setDepositPrice}
+					data={data}
+					car={car}
+					step={step}
+					setStep={setStep}
+				/>
+			);
+		} else if (step === "booking_result") {
+			return (
+				<RentModalMobilePaymentResult
+					closeFunc={() => setActive(false)}
+					car={car}
+					paymentStatus={paymentStatus}
+				/>
+			);
 		} else {
 			return <RentModalMobileFinish />;
 		}

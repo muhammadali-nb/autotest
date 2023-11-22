@@ -10,7 +10,7 @@ const Payment = () => {
 	const checkPayment = async () => {
 		try {
 			axios
-				.get(`https://taxivoshod.ru/api/voshod-auto/?w=check-pay&pid=${pid}` )
+				.get(`https://taxivoshod.ru/api/voshod-auto/?w=check-pay&pid=${pid}`)
 				.then((res) => {
 					if (res.data.result === 1) {
 						navigate(`/rent/page/1/car/${id}`, {
@@ -26,24 +26,24 @@ const Payment = () => {
 					}
 				});
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
 			navigate(`/rent/page/1/car/${id}`, {
 				state: null,
 			});
 		}
 	};
 
-	// const testCheck = () => {
-	// 	navigate(`/rent/page/1/car/${id}`, {
-	// 		state: {
-	// 			status: "success",
-	// 			payment_status: "CONFIRMED",
-	// 		},
-	// 	});
-	// };
+	const testCheck = () => {
+		navigate(`/rent/page/1/car/${id}`, {
+			state: {
+				status: "success",
+				payment_status: "CONFIRMED",
+			},
+		});
+	};
 
 	useEffect(() => {
-		checkPayment();
+		testCheck();
 	}, []);
 
 	return <Loader />;

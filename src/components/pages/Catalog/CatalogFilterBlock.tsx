@@ -292,10 +292,6 @@ const FilterModels: React.FC<{
 	const dispatch = useAppDispatch();
 	const [showAmount, setShowAmount] = useState(5);
 
-	useEffect(() => {
-		console.log(filter);
-	}, [filter]);
-
 	const clear = () => {
 		dispatch(setCatalogFilter({ ...filter, [field]: [] }));
 	};

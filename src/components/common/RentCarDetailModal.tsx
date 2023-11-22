@@ -28,7 +28,8 @@ const RentCarDetailModal: FC<{
 	setPaymentStatus: (e: RentBookingPaymentStatus) => void;
 	step: CarBookingStepsType;
 	setStep: (e: CarBookingStepsType) => void;
-}> = ({ paymentStatus, setPaymentStatus, step, setStep }) => {
+	getPriceCar: () => void;
+}> = ({ paymentStatus, setPaymentStatus, step, setStep, getPriceCar }) => {
 	const { id, carID } = useParams();
 	const location = useLocation();
 	const { user_status } = useAuth();
@@ -72,24 +73,6 @@ const RentCarDetailModal: FC<{
 				);
 				console.log(e);
 			});
-	};
-
-	const getPriceCar = async () => {
-		try {
-			const res = await axios.get(
-				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${carID}`,
-				{
-					withCredentials: true,
-				}
-			);
-			if (res.data.result === 1) {
-				setDepositPrice(res.data.summ);
-				if (res.data.summ > 0) setStep("payment");
-				else setStep("finish");
-			}
-		} catch (error) {
-			console.log(error);
-		}
 	};
 
 	const handleClose = () => {
@@ -162,7 +145,6 @@ const RentCarDetailModal: FC<{
 					setStep={setStep}
 				/>
 			)}
-
 			{step === "confirm_payment" && (
 				<CarRentPaymentTypeConfirm
 					paymentStatus={paymentStatus}
@@ -173,6 +155,7 @@ const RentCarDetailModal: FC<{
 					data={state}
 					car={data.item}
 					closeFunc={handleClose}
+					step={step}
 					setStep={setStep}
 				/>
 			)}

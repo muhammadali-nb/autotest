@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import DowloadImage from "../../images/common/download.svg";
 import Utils from "../../utils/Utils";
 
-const FileInput = ({ upload }: { upload: (e: any) => void }) => {
+const FileInput = ({ upload, className }: { upload: (e: any) => void, className?: string }) => {
 	const [image, setImage] = useState<string | undefined>(undefined);
 	const [fileName, setFileName] = useState("");
 
@@ -17,7 +17,7 @@ const FileInput = ({ upload }: { upload: (e: any) => void }) => {
 	};
 
 	return (
-		<label className={`file-input ${image && " selected"} `} htmlFor="image">
+		<label className={`file-input ${image && " selected"} ` + className } htmlFor="image">
 			{!image ? (
 				<>
 					<img

@@ -9,8 +9,10 @@
   display: none;
   background-color: #fff;
   vertical-align: middle;
+
   &.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
   &_header {
