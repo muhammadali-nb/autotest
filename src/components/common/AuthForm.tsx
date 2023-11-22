@@ -8,7 +8,6 @@ import axios, { AxiosError } from 'axios';
 import { useAuth } from "../../hooks/useAuth";
 import FileInput from "./FileInput";
 import { useNavigate } from "react-router-dom";
-import logoutIcon from "../../img/common/logout.svg";
 
 const AuthFormContent: React.FC<{
     closeFunc: () => void,
@@ -108,7 +107,8 @@ const AuthPhoneConfirm: React.FC<{
     setStep: (arg0: string) => void,
     timer: number,
     data: ConfirmPhone,
-    repeatRequest: () => void
+    repeatRequest: () => void,
+    closeFunc: () => void
 }> = (props) => {
     const [passed, setPassed] = useState(false);
     const [code, setCode] = useState("      ");
@@ -147,7 +147,12 @@ const AuthPhoneConfirm: React.FC<{
         try {
             const res: any = await register(props.data.phone, code);
             if (res.success) {
-                props.setStep("createAccount");
+                if (!res.has_profile) {
+                    props.setStep("createAccount");
+                } else {
+
+                }
+
                 setPassed(true);
             }
         } catch (error) {
@@ -475,28 +480,32 @@ const AuthForm: React.FC<{
 
     return (
         <>
-            {window.innerWidth > 991 &&
-                <div className={"user-btn " + (props.light ? "light" : "")}>
-                    <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
-                        {isAuthenticated ?
-                            <div className="user-tooltip-content">
-                                <span className="font-size-16 cursor-pointer" onClick={() => navigate('/personal-account')}>Фокина Анастасия</span>
-                                <span className="font-size-12">Баланс: 20 000 ₽</span>
-                                <button className="font-size-14" onClick={exit}>
-                                    <img src={logoutIcon} alt="Выйти" />
-                                    Выйти
-                                </button>
-                            </div>
-                            :
-                            <div className="user-tooltip-content">
-                                <button className="font-size-14" onClick={handleShow}>
-                                    Вход в Личный кабинет
-                                </button>
-                            </div>
-                        }
-                    </div>
+            <div className={"user-btn " + (props.light ? "light" : "")}>
+                <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
+                    {isAuthenticated ?
+                        <div className="user-tooltip-content">
+                            <span className="font-size-16 cursor-pointer" onClick={() => navigate('/personal-account')}>Фокина Анастасия</span>
+                            <span className="font-size-12">Баланс: 20 000 ₽</span>
+                            <button className="font-size-14" onClick={exit}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M6.66667 14.6667H3.33333C2.59695 14.6667 2 14.0697 2 13.3333V2.66666C2 1.93028 2.59695 1.33333 3.33333 1.33333H6.66667"
+                                        stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M11.3333 10.6667L14 7.99999M14 7.99999L11.3333 5.33333M14 7.99999H6" stroke="#222222"
+                                        strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                                Выйти
+                            </button>
+                        </div>
+                        :
+                        <div className="user-tooltip-content">
+                            <button className="font-size-14" onClick={handleShow}>
+                                Вход в Личный кабинет
+                            </button>
+                        </div>
+                    }
                 </div>
-            }
+            </div>
             <ModalFormTemplate show={show} onHide={handleClose} centered size={"xl"}>
                 {step === 'auth' &&
                     <AuthFormContent
@@ -513,6 +522,7 @@ const AuthForm: React.FC<{
                         timer={timer}
                         repeatRequest={confirmPhone}
                         data={data}
+                        closeFunc={handleClose}
                     />
                 }
                 {step === 'createAccount' &&
