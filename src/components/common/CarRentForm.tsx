@@ -769,15 +769,21 @@ export const CarRequestFormContent: React.FC<{
 					className={
 						"font-size-16 line-height-120 font-weight-medium mb-px-40"
 					}>
-					Депозит от{" "}
+					Депозит{"  "}
 					<span className={"font-weight-semibold"}>
 						{props.car.deposit.toLocaleString()} ₽
 					</span>
 				</div>
 				<div className={"mb-px-40"}>
-					<button className={"site-btn big"} onClick={ckeckSteps}>
-						Забронировать
-					</button>
+					{props.car.available ? (
+						<button className={"site-btn big"} onClick={ckeckSteps}>
+							Забронировать
+						</button>
+					) : (
+						<div style={{ height: "50px" }}></div>
+					)}
+
+					<div></div>
 				</div>
 				<div
 					className={

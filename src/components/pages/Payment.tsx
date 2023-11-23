@@ -33,17 +33,17 @@ const Payment = () => {
 		}
 	};
 
-	const testCheck = () => {
-		navigate(`/rent/page/1/car/${id}`, {
-			state: {
-				status: "success",
-				payment_status: "CONFIRMED",
-			},
-		});
-	};
+	// const testCheck = () => {
+	// 	navigate(`/rent/page/1/car/${id}`, {
+	// 		state: {
+	// 			status: "success",
+	// 			payment_status: "CONFIRMED",
+	// 		},
+	// 	});
+	// };
 
 	useEffect(() => {
-		testCheck();
+		checkPayment();
 	}, []);
 
 	return <Loader />;
