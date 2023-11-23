@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { ConfirmPhone, ErrorResponse } from "../../../Api";
-import Utils from "../../../Utils";
+import Utils from "../../../utils/Utils";
 import { useAuth } from "../../../hooks/useAuth";
 import { ModalTemplatePhone, ModalTemplateConfirm, ModalTemplateInput, ModalTemplateContent } from "../ModalFormTemplate";
 import FileInput from "../FileInput";
