@@ -64,7 +64,7 @@ const CarPage = () => {
 					<CarImages car={data.item} />
 				</Container>
 				<CarBase car_data={data.item} car={car} />
-				{/* <CarInfo car_data={data.item} type={"mobile"} car={car} /> */}
+				<CarInfo car_data={data.item} type={"mobile"} car={car} />
 			</div>
 		</CarDetailLayout>
 	);

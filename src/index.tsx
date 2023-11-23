@@ -7,6 +7,7 @@ import { RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { router } from "./navigation/Navigation";
+import App from "./App";
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );

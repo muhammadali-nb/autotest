@@ -134,6 +134,7 @@ $selectedColor: #bf3535;
 }
 
 .user-btn {
+  position: relative;
   width: 42px;
   height: 42px;
   display: flex;
@@ -155,6 +156,11 @@ $selectedColor: #bf3535;
   &:hover {
     border-color: $textColor;
     background-image: url("./../../images/common/userB.svg");
+
+    .user-tooltip {
+      opacity: 1;
+      pointer-events: all;
+    }
   }
 
   &.light {
@@ -167,6 +173,74 @@ $selectedColor: #bf3535;
       background-color: white;
       background-image: url("./../../images/common/userB.svg");
       color: $textColor;
+    }
+  }
+}
+
+.user-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 2;
+  padding-top: 10px;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+
+  &.authentificated {
+    left: 0;
+    transform: none;
+    min-width: 282px;
+  }
+
+  &-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px;
+    font-weight: 500;
+    background-color: white;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    border-radius: 2px;
+
+    span {
+      display: block;
+
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      &:last-child {
+        margin-bottom: 20px;
+      }
+    }
+
+    button {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      background-color: transparent;
+      border: 0;
+      align-items: center;
+
+      img, svg {
+        margin-right: 10px;
+        pointer-events: none;
+        max-width: 16px;
+        height: auto;
+      }
+
+      &:hover {
+        color: $selectedColor;
+
+        svg {
+          path {
+            stroke: $selectedColor;
+          }
+        }
+      }
     }
   }
 }
@@ -296,6 +370,35 @@ $selectedColor: #bf3535;
       & > img {
         width: 100%;
         height: 100%;
+      }
+    }
+  }
+
+  &_user {
+    color: white;
+
+    span {
+      &:nth-child(2) {
+        color: #606569;
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+      outline: none;
+      border: 0;
+      color: white;
+
+      svg {
+        width: 20px;
+        height: auto;
+        margin-right: 16px;
+
+        path {
+          stroke: white;
+        }
       }
     }
   }

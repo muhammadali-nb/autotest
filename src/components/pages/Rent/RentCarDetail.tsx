@@ -26,7 +26,7 @@ const RentCarDetail = () => {
 	const [paymentStatus, setPaymentStatus] =
 		useState<RentBookingPaymentStatus>(null);
 	const [modalFullImage, setModalFullImage] = useState(false);
-	const [modalBookingCar, setModalBookingCar] = useState(true);
+	const [modalBookingCar, setModalBookingCar] = useState(false);
 	const { isAuthenticated, has_profile } = useAuth();
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [depositPrice, setDepositPrice] = useState(0);

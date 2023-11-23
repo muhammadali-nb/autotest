@@ -46,8 +46,8 @@ let Utils = {
             errors['name'] = "Не указано имя";
         // if(!data.lastName)
         //     errors['lastName'] = "Не указано имя";
-        if (!request.phone || request.phone === '+7')
-            errors['phone'] = "Не указан номер телефона";
+        // if (!request.phone || request.phone === '+7')
+        //     errors['phone'] = "Не указан номер телефона";
         if (!Utils.validatePhone(request.phone))
             errors['phone'] = "Телефон в неверном формате";
         if (!request.confirm)
@@ -91,6 +91,18 @@ let Utils = {
             counter += 1;
         }
         return result;
+    },
+    formatPhone(number: string) {
+        if (number) {
+            const cleanedStr = number.replace(/\D/g, '');
+            const countryCode = '+7';
+            const areaCode = cleanedStr.slice(0, 3);
+            const firstPart = cleanedStr.slice(3, 6);
+            const secondPart = cleanedStr.slice(6, 8);
+            const thirdPart = cleanedStr.slice(8, 10);
+
+            return `${countryCode} (${areaCode}) ${firstPart} ${secondPart} ${thirdPart}`;
+        }
     }
 }
 export default Utils;
