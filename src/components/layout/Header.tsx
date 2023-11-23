@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import callIcon from "../../images/common/Phone-header.svg";
-// import callIconDark from "../../images/common/Phone-header-dark.svg"; // header phone icons
+// import callIcon from "../../img/common/Phone-header.svg";
+// import callIconDark from "../../img/common/Phone-header-dark.svg"; // header phone icons
 import logoDark from "./../../images/logo-dark.svg";
 import logoDarkCred from "./../../images/logo-dark-cred.svg";
 import logoLight from "./../../images/logo-light.svg";

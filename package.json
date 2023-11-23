@@ -39,6 +39,7 @@
 		"react-scripts": "5.0.1",
 		"react-scroll": "^1.8.9",
 		"react-slider": "^2.0.4",
+		"react-svg": "^16.1.27",
 		"redux": "^4.2.1",
 		"sass": "^1.62.1",
 		"styled-components": "^6.0.0-rc.1",
@@ -46,7 +47,7 @@
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
-		"start": "HTTPS=true SSL_CRT_FILE=./ssl/localhost.pem SSL_KEY_FILE=./ssl/localhost-key.pem react-scripts start",
+		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"

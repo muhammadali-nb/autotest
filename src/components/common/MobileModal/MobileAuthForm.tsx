@@ -38,7 +38,7 @@ const MobileAuthPhone: React.FC<{
     };
 
     return (
-        <>
+        <div className="mobile-modal_body-auth">
             <p>
                 Войдите в личный кабинет, чтобы бронировать
                 и арендовать автомобили стало быстрее и удобнее
@@ -70,7 +70,7 @@ const MobileAuthPhone: React.FC<{
                     mobile={true}
                 /> */}
             </div>
-        </>
+        </div>
     )
 }
 
@@ -155,7 +155,7 @@ const MobileAuthCode: React.FC<{
     };
 
     return (
-        <>
+        <div className="mobile-modal_body-auth">
             <div className={"call-content-text font-size-16"}>
                 <span className={"text-default"}>Мы отправили вам код</span>
                 <br />
@@ -240,7 +240,7 @@ const MobileAuthCode: React.FC<{
                     &nbsp;&nbsp;&nbsp;Изменить номер
                 </button>
             </div>
-        </>
+        </div>
     )
 }
 
@@ -313,7 +313,7 @@ const MobileAuthAccount: React.FC<{
     };
 
     return (
-        <>
+        <div className="mobile-modal_body-auth">
             <p>
                 Войдите в личный кабинет, чтобы бронировать
                 и арендовать автомобили стало быстрее и удобнее
@@ -350,7 +350,7 @@ const MobileAuthAccount: React.FC<{
                 onClick={() => createAccount()}>
                 Готово
             </button>
-        </>
+        </div>
     )
 }
 

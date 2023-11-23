@@ -111,8 +111,14 @@
       padding: 0 0 16px 0;
     }
 
-    .call-content-input {
-      padding-top: 42px;
+    &-auth {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .call-content-input {
+        padding-top: 42px;
+      }
     }
 
     .file-input_icon {

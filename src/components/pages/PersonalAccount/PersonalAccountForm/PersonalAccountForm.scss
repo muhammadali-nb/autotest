@@ -23,10 +23,57 @@
     }
 
     & > input:not(:last-child) {
+      width: 100%;
       margin: 0 0 15px 0;
     }
   }
+
+  .site-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      svg {
+        path {
+          stroke: white;
+        }
+      }
+    }
+
+    svg {
+      width: 18px;
+      height: auto;
+      margin-right: 10px;
+    }
+  }
+
+  &-item {
+    position: relative;
+
+    input {
+      margin-bottom: 15px;
+    }
+
+    .personal-account_form-edit {
+      position: absolute;
+      z-index: 2;
+      right: 15px;
+      top: 10px;
+      width: 22px;
+      background-color: transparent;
+      border: 0;
+      outline: none;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
 }
+
 @media (max-width: 767px) {
   .personal-account_form {
     width: 100%;

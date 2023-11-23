@@ -46,7 +46,7 @@ const PersonalAccountPage: React.FC = () => {
 						<div className="personal-account_page">
 							<div className="d-flex align-items-end justify-content-between">
 								<PersonalAccountData data={userData} />
-								<PersonalAccountCards />
+								{/* <PersonalAccountCards /> */}
 							</div>
 							<div className="personal-account_page_body">
 								<PersonalAccountForm data={userData} />
