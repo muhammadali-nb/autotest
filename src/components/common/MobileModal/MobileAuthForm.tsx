@@ -293,7 +293,8 @@ const MobileAuthAccount: React.FC<{
                 const payload = await res.json();
                 if (payload.result === 1) {
                     console.log(payload);
-                    props.closeFunc();
+                    window.location.reload();
+                    // props.closeFunc();
                     props.setStep('auth');
                 }
             } catch (error) {

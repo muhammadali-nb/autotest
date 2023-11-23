@@ -4,7 +4,11 @@ export interface AuthResponce {
   hash: string;
   id: string;
   success: boolean;
-  reason: string
+  reason: string;
+  first_name?: string;
+  middle_name?: string;
+  last_name?: string;
+  phone?: string | null
 }
 
 interface ResponseDataTypes {
@@ -20,7 +24,11 @@ export interface AuthInitialState {
   has_profile: boolean
   isInitialized: boolean;
   api_status: "pending" | "success" | "error"
-  error_message: string | null
+  error_message: string | null,
+  first_name?: string,
+  middle_name?: string,
+  last_name?: string,
+  phone?: string | null
 }
 
 export type RegisterErrorType = {

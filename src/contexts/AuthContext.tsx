@@ -20,11 +20,15 @@ const initialState: AuthInitialState = {
 	isInitialized: false,
 	api_status: "pending",
 	error_message: null,
+	first_name: "",
+	middle_name: "",
+	last_name: "",
+	phone: null
 }
 
 const handlers = {
 	INITIALIZE: (state: AuthInitialState, action) => {
-		const { isAuthenticated, api_status, user_status, has_profile } =
+		const { isAuthenticated, api_status, user_status, has_profile, first_name, middle_name, last_name, phone } =
 			action.payload;
 
 		return {
@@ -34,6 +38,10 @@ const handlers = {
 			api_status,
 			user_status,
 			has_profile,
+			first_name,
+			middle_name,
+			last_name,
+			phone
 		};
 	},
 	LOGIN: (state: AuthInitialState, action) => {
@@ -51,7 +59,7 @@ const handlers = {
 		user: null,
 	}),
 	REGISTER: (state: AuthInitialState, action) => {
-		const { user, user_status, has_profile, error_message, api_status } =
+		const { user, user_status, has_profile, error_message, api_status, first_name, middle_name, last_name, phone } =
 			action.payload;
 
 		return {
@@ -62,6 +70,10 @@ const handlers = {
 			has_profile,
 			api_status,
 			error_message,
+			first_name,
+			middle_name,
+			last_name,
+			phone
 		};
 	},
 };
@@ -88,7 +100,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				withCredentials: true,
 			})
 			.then((res: AxiosResponse<AuthResponce>) => {
-				const { success, reason, has_profile } = res.data;
+				const { success, reason, has_profile, first_name, middle_name, last_name, phone } = res.data;
 				if (success && has_profile) {
 					dispatch({
 						type: actions.INITIALIZE,
@@ -96,6 +108,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 							isAuthenticated: true,
 							has_profile: true,
 							user_status: null,
+							first_name: first_name,
+							middle_name: middle_name,
+							last_name: last_name,
+							phone: phone
 						},
 					});
 				} else {
@@ -106,6 +122,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 							user: null,
 							user_status: reason,
 							has_profile: false,
+							first_name: "",
+							middle_name: "",
+							last_name: "",
+							phone: null
 						},
 					});
 				}
@@ -140,6 +160,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 					has_profile: false,
 					user_status: null,
 					err_message: null,
+					first_name: res.data.first_name,
+					middle_name: res.data.middle_name,
+					last_name: res.data.last_name,
+					phone: res.data.phone
 				},
 			});
 
@@ -177,6 +201,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			});
 		}
 	};
+
+	const login = (data: AuthResponce) => {
+		dispatch({
+			type: actions.LOGIN,
+			payload: data
+		});
+	}
 
 	useEffect(() => {
 		initialize().catch(console.error);
