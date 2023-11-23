@@ -84,13 +84,11 @@ const MobileMenu = (props: MobileMenuProps) => {
 						isShow={loginAdvanceIsShow}
 						setIsShow={setLoginAdvanceIsShow}
 					/>
-					<div className="mobile-menu_login mt-4">
+					<div className="mobile-menu_login mt-4" onClick={() => setAuthIsOpen(!authIsOpen)}>
 						<img src={loginIcon} alt={"login"} />
 						<h5>Войти в ЛК</h5>
 					</div>
-					<MobileModal active={authIsOpen} type={"auth"} setActive={setAuthIsOpen}>
-						
-					</MobileModal>
+					<MobileModal active={authIsOpen} type={"auth"} setActive={setAuthIsOpen} />
 				</div>
 			</div>
 		</div>

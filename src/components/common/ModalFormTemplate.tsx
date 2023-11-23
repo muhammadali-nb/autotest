@@ -20,6 +20,7 @@ interface ModalTemplateInputProps {
 	small: any;
 	[x: string]: any;
 	type?: string;
+	mobile?: boolean
 }
 export const ModalTemplateInput: React.FC<ModalTemplateInputProps> = (
 	props
@@ -145,7 +146,7 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 			/>
 
 			<p className="form-mobile-policy">
-				Нажимая на кнопку “Забронировать”, вы соглашаетесь с{" "}
+				Нажимая на кнопку {props.mobile ? <>“Отправить код”</> : <>“Забронировать”</>}, вы соглашаетесь с{" "}
 				<Link
 					to={"/policy"}
 					target={"_blank"}

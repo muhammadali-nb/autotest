@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react"
-import ModalFormTemplate, { ModalTemplateConfirm, ModalTemplateContent, ModalTemplateInput, ModalTemplatePhone } from "./ModalFormTemplate";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import Utils from "../../Utils";
-import Api, { ConfirmPhone, CallRequestData, ErrorResponse, RentCreateAccountForm } from "../../Api";
-import axios, { AxiosError } from 'axios';
-import { useAuth } from "../../hooks/useAuth";
-import FileInput from "./FileInput";
-import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios, { AxiosError } from "axios";
+import { useEffect, useState } from "react";
+import { ConfirmPhone, ErrorResponse } from "../../../Api";
+import Utils from "../../../Utils";
+import { useAuth } from "../../../hooks/useAuth";
+import { ModalTemplatePhone, ModalTemplateConfirm, ModalTemplateInput, ModalTemplateContent } from "../ModalFormTemplate";
+import FileInput from "../FileInput";
+import { RentCreateAccountForm } from "../../../types/RentTypes";
+import { Link } from "react-router-dom";
 
-const AuthFormContent: React.FC<{
-    closeFunc: () => void,
-    setStep: (arg0: string) => void,
+const MobileAuthPhone: React.FC<{
     data: ConfirmPhone,
-    setData: (arg0: ConfirmPhone) => void,
+    setData: (atg0: ConfirmPhone) => void,
     submit: () => void
 }> = (props) => {
     const [passed, setPassed] = useState(false);
 
-    const send = () => {
+    const phoneSend = () => {
         let errors = Utils.validateConfirmPhone(props.data);
         if (Object.keys(errors).length > 0) {
             props.setData({ ...props.data, errors: errors });
@@ -39,74 +38,46 @@ const AuthFormContent: React.FC<{
     };
 
     return (
-        <ModalTemplateContent>
+        <>
+            <p>
+                Войдите в личный кабинет, чтобы бронировать
+                и арендовать автомобили стало быстрее и удобнее
+            </p>
             <div>
-                <div className={"mb-px-90"}>
-                    <button
-                        className={
-                            "default-link font-size-18 font-weight-semibold text-hover-default"
-                        }
-                        onClick={() => props.closeFunc()}>
-                        <FontAwesomeIcon icon={faAngleLeft} />
-                        &nbsp;&nbsp;ВЕРНУТЬСЯ
-                    </button>
-                </div>
-                <div>
-                    <div
-                        className={
-                            "call-content-text-header font-size-40 line-height-100 mb-px-10"
-                        }>
-                        Вход
-                        <br />
-                        <span className="font-size-24">
-                            в личный кабинет
-                        </span>
-                    </div>
-                    <div className={"call-content-text font-size-16"}>
-                        Войдите в личный кабинет, чтобы бронировать
-                        <br />
-                        и арендовать автомобили стало быстрее и удобнее
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div>
-                    <ModalTemplatePhone
-                        error={props.data.errors["phone"]}
-                        onInput={(e: any) => update("phone", e.target.value)}
-                        onChange={(e: any) => update("phone", e.target.value)}
-                        small={false}
-                    />
-                </div>
+                <ModalTemplatePhone
+                    error={props.data.errors["phone"]}
+                    onInput={(e: any) => update("phone", e.target.value)}
+                    onChange={(e: any) => update("phone", e.target.value)}
+                    small={false}
+                />
                 {props.data.errors["server"] && (
                     <div className={"my-2 text-red-color font-size-12"}>
                         {props.data.errors["server"]}
                     </div>
                 )}
             </div>
-
-            <div>
+            <div className="mobile-modal_body-action mb-3">
                 <button
                     className={"site-btn small " + (!passed ? "dark" : "")}
-                    onClick={() => send()}>
+                    onClick={() => phoneSend()}>
                     Отправить код
                 </button>
-                <ModalTemplateConfirm
+                {/* <ModalTemplateConfirm
                     small={false}
                     error={props.data.errors["confirm"]}
                     confirmed={props.data.confirm}
                     onChange={(e) => update("confirm", e.target.checked)}
-                />
+                    mobile={true}
+                /> */}
             </div>
-        </ModalTemplateContent>
+        </>
     )
 }
 
-const AuthPhoneConfirm: React.FC<{
+const MobileAuthCode: React.FC<{
+    data: ConfirmPhone,
     setStep: (arg0: string) => void,
     timer: number,
-    data: ConfirmPhone,
     repeatRequest: () => void,
     closeFunc: () => void
 }> = (props) => {
@@ -153,7 +124,7 @@ const AuthPhoneConfirm: React.FC<{
                     props.closeFunc();
                     props.setStep('auth');
                 }
-
+                // props.setStep("createAccount");
                 setPassed(true);
             }
         } catch (error) {
@@ -182,36 +153,13 @@ const AuthPhoneConfirm: React.FC<{
         setPassed(passed);
         console.log("passed: " + passed);
     };
+
     return (
-        <ModalTemplateContent>
-            <div>
-                <div className={"mb-px-90"}>
-                    <button
-                        className={
-                            "default-link font-size-18 font-weight-semibold text-hover-default"
-                        }
-                        onClick={() => props.setStep("auth")}>
-                        <FontAwesomeIcon icon={faAngleLeft} />
-                        &nbsp;&nbsp;ВЕРНУТЬСЯ
-                    </button>
-                </div>
-                <div>
-                    <div
-                        className={
-                            "call-content-text-header font-size-40 line-height-100 mb-px-10"
-                        }>
-                        Вход
-                        <br />
-                        <span className="font-size-24">
-                            в личный кабинет
-                        </span>
-                    </div>
-                    <div className={"call-content-text font-size-16"}>
-                        <span className={"text-default"}>Мы отправили вам код</span>
-                        <br />
-                        на номер {props.data.phone}
-                    </div>
-                </div>
+        <>
+            <div className={"call-content-text font-size-16"}>
+                <span className={"text-default"}>Мы отправили вам код</span>
+                <br />
+                на номер {props.data.phone}
             </div>
             <div>
                 <div className={"d-flex justify-content-between"}>
@@ -277,7 +225,7 @@ const AuthPhoneConfirm: React.FC<{
                 )}
             </div>
 
-            <div className={"d-flex justify-content-between"}>
+            <div className={"d-flex justify-content-between mobile-modal_body-action mb-3"}>
                 <button
                     className={"site-btn small " + (!passed ? "dark" : "")}
                     onClick={() => send()}>
@@ -285,18 +233,18 @@ const AuthPhoneConfirm: React.FC<{
                 </button>
                 <button
                     className={
-                        "default-link text-decoration-none default-transition text-gray-color text-hover-default"
+                        "default-link text-uppercase text-decoration-none default-transition text-gray-color text-hover-default font-size-12 "
                     }
                     onClick={() => props.setStep("auth")}>
                     <FontAwesomeIcon icon={faAngleLeft} />
                     &nbsp;&nbsp;&nbsp;Изменить номер
                 </button>
             </div>
-        </ModalTemplateContent>
-    );
+        </>
+    )
 }
 
-const AuthCreateAccount: React.FC<{
+const MobileAuthAccount: React.FC<{
     closeFunc: () => void;
     setStep: (arg0: string) => void;
 }> = (props) => {
@@ -346,7 +294,7 @@ const AuthCreateAccount: React.FC<{
                 if (payload.result === 1) {
                     console.log(payload);
                     props.closeFunc();
-                    props.setStep('auth')
+                    props.setStep('auth');
                 }
             } catch (error) {
                 console.log(error);
@@ -364,37 +312,12 @@ const AuthCreateAccount: React.FC<{
     };
 
     return (
-        <ModalTemplateContent>
-            <div>
-                <div className={"mb-px-90"}>
-                    <button
-                        className={
-                            "default-link font-size-18 font-weight-semibold text-hover-default"
-                        }
-                        onClick={() => props.closeFunc()}>
-                        <FontAwesomeIcon icon={faAngleLeft} />
-                        &nbsp;&nbsp;ВЕРНУТЬСЯ
-                    </button>
-                </div>
-                <div>
-                    <div
-                        className={
-                            "call-content-text-header font-size-40 line-height-100 mb-px-10"
-                        }>
-                        Вход
-                        <br />
-                        <span className="font-size-24">
-                            в личный кабинет
-                        </span>
-                    </div>
-                    <div className={"call-content-text font-size-16"}>
-                        Войдите в личный кабинет, чтобы бронировать
-                        <br />
-                        и арендовать автомобили стало быстрее и удобнее
-                    </div>
-                </div>
-            </div>
-            <div>
+        <>
+            <p>
+                Войдите в личный кабинет, чтобы бронировать
+                и арендовать автомобили стало быстрее и удобнее
+            </p>
+            <div className="mb-4">
                 <ModalTemplateInput
                     placeholder="Фамилия"
                     value={data.lastName}
@@ -422,36 +345,29 @@ const AuthCreateAccount: React.FC<{
                 <FileInput upload={setBase64} />
             </div>
             <button
-                className={"site-btn small " + (!passed ? "dark" : "")}
+                className={"site-btn small mobile-modal_body-action mb-3 " + (!passed ? "dark" : "")}
                 onClick={() => createAccount()}>
                 Готово
             </button>
-        </ModalTemplateContent>
+        </>
     )
 }
 
-const AuthForm: React.FC<{
-    light: boolean
+const MobileAuthForm: React.FC<{
+    closeFunc: () => void
 }> = (props) => {
-    const [show, setShow] = useState(false);
     const [step, setStep] = useState('auth');
-
-    const { user_status, isAuthenticated, logout } = useAuth();
+    const [data, setData] = useState<ConfirmPhone>({
+        phone: "",
+        confirm: true,
+        errors: {}
+    });
     const [error_message, setErrorMessage] = useState<string | null>(null);
     const [timer, setTimer] = useState(0);
 
-    const [data, setData] = useState<ConfirmPhone>({
-        phone: "",
-        confirm: false,
-        errors: {},
-    });
+    const { user_status } = useAuth();
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const navigate = useNavigate();
-
-    const confirmPhone = () => {
+    const phoneConfirm = () => {
         if (user_status === "banned") {
             return;
         }
@@ -473,69 +389,52 @@ const AuthForm: React.FC<{
                 );
                 console.log(e);
             });
-    };
-
-    const exit = () => {
-        logout();
-        navigate('/');
-    };
+    }
 
     return (
         <>
-            <div className={"user-btn " + (props.light ? "light" : "")}>
-                <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
-                    {isAuthenticated ?
-                        <div className="user-tooltip-content">
-                            <span className="font-size-16 cursor-pointer fw-medium" onClick={() => navigate('/personal-account')}>Фокина Анастасия</span>
-                            <span className="font-size-12 fw-medium">Баланс: 20 000 ₽</span>
-                            <button className="font-size-14 fw-medium" onClick={exit}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path
-                                        d="M6.66667 14.6667H3.33333C2.59695 14.6667 2 14.0697 2 13.3333V2.66666C2 1.93028 2.59695 1.33333 3.33333 1.33333H6.66667"
-                                        stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M11.3333 10.6667L14 7.99999M14 7.99999L11.3333 5.33333M14 7.99999H6" stroke="#222222"
-                                        strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                Выйти
-                            </button>
-                        </div>
-                        :
-                        <div className="user-tooltip-content">
-                            <button className="font-size-14" onClick={handleShow}>
-                                Вход в Личный кабинет
-                            </button>
-                        </div>
-                    }
-                </div>
+            <h1>
+                Вход <br />
+                <span className="font-size-16">в личный кабинет</span>
+            </h1>
+            {step === 'auth' &&
+                <MobileAuthPhone
+                    data={data}
+                    setData={setData}
+                    submit={phoneConfirm}
+                />
+            }
+            {step === 'phoneConfirm' &&
+                <MobileAuthCode
+                    data={data}
+                    setStep={setStep}
+                    timer={timer}
+                    repeatRequest={phoneConfirm}
+                    closeFunc={props.closeFunc}
+                />
+            }
+            {step === 'createAccount' &&
+                <MobileAuthAccount
+                    closeFunc={props.closeFunc}
+                    setStep={setStep}
+                />
+            }
+            <p className="form-mobile-policy ">
+                Нажимая на кнопку “Забронировать”, вы соглашаетесь с{" "}
+                <Link
+                    to={"/policy"}
+                    target={"_blank"}
+                    className={
+                        "default-link dark underlined form-mobile-policy-link "
+                    }>
+                    Условиями обработки персональных данных
+                </Link>
+            </p>
+            <div className=" personal-account_footer mobile-modal_body-company ">
+                ООО ВОСХОДⓒ 2023 год
             </div>
-            <ModalFormTemplate show={show} onHide={handleClose} centered size={"xl"}>
-                {step === 'auth' &&
-                    <AuthFormContent
-                        closeFunc={handleClose}
-                        setStep={setStep}
-                        data={data}
-                        setData={setData}
-                        submit={confirmPhone}
-                    />
-                }
-                {step === 'phoneConfirm' &&
-                    <AuthPhoneConfirm
-                        setStep={setStep}
-                        timer={timer}
-                        repeatRequest={confirmPhone}
-                        data={data}
-                        closeFunc={handleClose}
-                    />
-                }
-                {step === 'createAccount' &&
-                    <AuthCreateAccount
-                        closeFunc={handleClose}
-                        setStep={setStep}
-                    />
-                }
-            </ModalFormTemplate>
         </>
-    )
+    );
 }
 
-export default AuthForm
+export default MobileAuthForm;

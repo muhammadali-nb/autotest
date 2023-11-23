@@ -53,6 +53,9 @@
   }
 
   &_body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 264px);
     padding: 24px 16px 0 16px;
     background-color: #fff;
 
@@ -94,9 +97,27 @@
       }
     }
 
+    &-action {
+      margin-top: auto;
+
+      span {
+        font-size: 8px;
+      }
+    }
+
     &-company {
       text-align: left;
       padding: 0 0 16px 0;
+    }
+
+    .call-content-input {
+      padding-top: 42px;
+    }
+
+    .file-input_icon {
+      display: block;
+      width: 20px;
+      height: auto;
     }
   }
 }
