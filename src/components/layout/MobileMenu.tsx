@@ -14,6 +14,7 @@ import AdvanceLogin from "../common/AdvanceLogin";
 import arrow from "../../images/common/menu-arrow.svg";
 import { MobileModal } from "../common/MobileModal/MobileModal";
 import { useAuth } from "../../hooks/useAuth";
+import Utils from "../../utils/Utils";
 
 interface MobileMenuProps {
 	menuIsOpen: boolean;
@@ -41,7 +42,7 @@ const MobileMenu = (props: MobileMenuProps) => {
 	const [loginAdvanceIsShow, setLoginAdvanceIsShow] = useState(true);
 	const [authIsOpen, setAuthIsOpen] = useState(false);
 
-	const { isAuthenticated, logout } = useAuth();
+	const { isAuthenticated, logout, first_name, last_name, phone } = useAuth();
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -50,9 +51,9 @@ const MobileMenu = (props: MobileMenuProps) => {
 	}, [menuIsOpen]);
 
 	const exit = () => {
-        logout();
-        navigate('/');
-    };
+		logout();
+		navigate('/');
+	};
 
 	return (
 		<div className={`mobile-menu ${menuIsOpen ? "active" : ""} `}>
@@ -104,11 +105,13 @@ const MobileMenu = (props: MobileMenuProps) => {
 						:
 						<div className="mobile-menu_user mt-4 d-flex flex-column">
 							<span className="mb-1 fw-medium font-size-16" onClick={() => navigate('/personal-account')}>
-								Фокина Анастасия
+								{last_name + " " + first_name}
 							</span>
-							<span className="fw-medium font-size-12 mb-3">
-								+7 (900) 999 90 99
-							</span>
+							{phone &&
+								<span className="fw-medium font-size-12 mb-3">
+									{Utils.formatPhone(phone)}
+								</span>
+							}
 							<button className="font-size-16 fw-medium" onClick={exit}>
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
 									<path

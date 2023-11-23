@@ -345,7 +345,8 @@ const AuthCreateAccount: React.FC<{
                 const payload = await res.json();
                 if (payload.result === 1) {
                     console.log(payload);
-                    props.closeFunc();
+                    // props.closeFunc();
+                    window.location.reload();
                     props.setStep('auth')
                 }
             } catch (error) {
@@ -436,7 +437,7 @@ const AuthForm: React.FC<{
     const [show, setShow] = useState(false);
     const [step, setStep] = useState('auth');
 
-    const { user_status, isAuthenticated, logout } = useAuth();
+    const { user_status, isAuthenticated, last_name, first_name, phone, logout } = useAuth();
     const [error_message, setErrorMessage] = useState<string | null>(null);
     const [timer, setTimer] = useState(0);
 
@@ -486,8 +487,10 @@ const AuthForm: React.FC<{
                 <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
                     {isAuthenticated ?
                         <div className="user-tooltip-content">
-                            <span className="font-size-16 cursor-pointer fw-medium" onClick={() => navigate('/personal-account')}>Фокина Анастасия</span>
-                            <span className="font-size-12 fw-medium">Баланс: 20 000 ₽</span>
+                            <span className="font-size-16 cursor-pointer fw-medium" onClick={() => navigate('/personal-account')}>{last_name + " " + first_name}</span>
+                            {phone &&
+                                <span className="font-size-12 fw-medium">{Utils.formatPhone(phone)}</span>
+                            }
                             <button className="font-size-14 fw-medium" onClick={exit}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path

@@ -13,7 +13,25 @@ import { useOutside } from "../../../hooks/useOutside";
 import PersonalAccountMenuMobile from "./PersonalAccountMenuMobile";
 import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 
-const PersonalAccountPage = () => {
+export interface userDataProps {
+	name: string,
+	last_name: string,
+	middle_name: string,
+	phone: string,
+	email: string,
+	birth_date: string
+}
+
+const userData: userDataProps = {
+	name: 'Анастасия',
+	last_name: 'Фокина',
+	middle_name: 'Алексеевна',
+	phone: '+7 (999) 999 99 99',
+	email: '',
+	birth_date: '2014-01-01'
+}
+
+const PersonalAccountPage: React.FC = () => {
 	// for menu personal account
 	const { ref, isShow, setIsShow } = useOutside(false);
 
@@ -27,11 +45,11 @@ const PersonalAccountPage = () => {
 					<Col lg={10}>
 						<div className="personal-account_page">
 							<div className="d-flex align-items-end justify-content-between">
-								<PersonalAccountData />
+								<PersonalAccountData data={userData} />
 								<PersonalAccountCards />
 							</div>
 							<div className="personal-account_page_body">
-								<PersonalAccountForm />
+								<PersonalAccountForm data={userData} />
 								<PersonalAccountSocials />
 							</div>
 							<SmallFooter className="d-none d-lg-block" />
