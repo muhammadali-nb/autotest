@@ -23,7 +23,20 @@
     min-height: 400px;
     height: 100%;
     width: 100%;
+
+    canvas {
+      filter: grayscale(0.7) !important;
+      -webkit-filter: grayscale(100%) !important;
+    }
   }
+}
+
+.ymaps-layers-pane {
+  filter: grayscale(1);
+  -ms-filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -o-filter: grayscale(1);
 }
 
 .footer {

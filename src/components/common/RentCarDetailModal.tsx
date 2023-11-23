@@ -80,7 +80,7 @@ const RentCarDetailModal: FC<{
 					(e as AxiosError<ErrorResponse>).response?.data.message ??
 						"Возникла ошибка с сервером поробуйте позже"
 				);
-				console.log(e);
+				
 			});
 	};
 

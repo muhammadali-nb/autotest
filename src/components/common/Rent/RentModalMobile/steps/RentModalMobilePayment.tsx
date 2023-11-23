@@ -3,9 +3,9 @@ import { CarRentPaymentButton } from "../../../CarRentForm";
 import bankCardImg from "../../../../../images/common/bank-card.png";
 import sbpImg from "../../../../../images/common/sbp.png";
 import { CarDataType } from "../../../../../types/RentTypes";
-import { ConfirmPhone } from "../../../../../Api";
+import { ConfirmPhone, ErrorResponse } from "../../../../../Api";
 import { ConfirmPaymentQR } from "../../../../../types/AuthContextTypes";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const pay_koef = {
 	// процеты оплаты
@@ -24,7 +24,7 @@ const RentModalMobilePayment = (props: {
 	const [payment, setPayment] = useState("");
 	const [passed, setPassed] = useState(false);
 	const [redButton, setRedButton] = useState(false);
-	const [error, setError] = useState("");
+	const [error, setError] = useState<null | string>(null);
 	const [cardPrice] = useState(
 		parseFloat((props.deposit / pay_koef.card).toFixed(2))
 	);
@@ -59,7 +59,10 @@ const RentModalMobilePayment = (props: {
 				}
 			}
 		} catch (error) {
-			console.log(error);
+			setError(
+				(error as AxiosError<ErrorResponse>).response?.data.message ??
+					"Возникла ошибка с сервером поробуйте позже"
+			);
 		}
 	};
 	const update = (ptype) => {

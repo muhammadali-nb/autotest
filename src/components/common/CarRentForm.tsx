@@ -222,6 +222,13 @@ export const CarRentConfirmPhone: React.FC<{
 		setPassed(passed);
 		console.log("passed: " + passed);
 	};
+
+	useEffect(() => {
+		if (code.replace(/\D+/g, "").length === 5) {
+		 	send();
+		}
+	}, [code]);
+
 	return (
 		<ModalTemplateContent>
 			<div>
@@ -374,7 +381,7 @@ export const CarRentPaymentType: React.FC<{
 }> = (props) => {
 	const [payment, setPayment] = useState("");
 	const [passed, setPassed] = useState(false);
-	const [error, setError] = useState("");
+	const [error, setError] = useState<null | string>(null);
 	const [redButton, setRedButton] = useState(false);
 	const { isAuthenticated } = useAuth();
 	const [cardPrice] = useState(
@@ -411,7 +418,10 @@ export const CarRentPaymentType: React.FC<{
 				}
 			}
 		} catch (error) {
-			console.log(error);
+			setError(
+				(error as AxiosError<ErrorResponse>).response?.data.message ??
+					"Возникла ошибка с сервером поробуйте позже"
+			);
 		}
 	};
 	const update = (ptype) => {
@@ -491,7 +501,6 @@ export const CarRentPaymentType: React.FC<{
 					{error || <>&nbsp;</>}
 				</div>
 			</div>
-
 			<div>
 				<button
 					className={"site-btn small " + (!passed ? "dark" : "")}
