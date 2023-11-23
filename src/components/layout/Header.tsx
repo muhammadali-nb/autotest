@@ -38,7 +38,7 @@ export const defaultLinks = [
 	{ text: "Главная", path: "/", className: "" },
 	{ text: "Выкуп", path: "/catalog", className: "" },
 	{ text: "Программы", path: "/programs", className: "" },
-	{ text: "Аренда", path: "/rent", className: "" },
+	{ text: "Аренда", path: "/rent/page/1", className: "" },
 	{ text: "Вопросы", path: "/faq", className: "" },
 	{ text: "Контакты", path: "/contacts", className: "" },
 ];
