@@ -15,6 +15,7 @@ import ModalFormTemplate from "../common/ModalFormTemplate";
 import { MobileModal } from "../common/MobileModal/MobileModal";
 import callIcon from "./../../images/common/Phone-header.svg";
 import callIconDark from "./../../images/common/Phone-header-dark.svg";
+import AuthForm from "../common/AuthForm";
 
 export type HeaderType = "transparent" | "white" | "logo";
 export type HeaderImage = "dark" | "darkCred" | "light";
@@ -37,7 +38,7 @@ export const defaultLinks = [
 	{ text: "Главная", path: "/", className: "" },
 	{ text: "Выкуп", path: "/catalog", className: "" },
 	{ text: "Программы", path: "/programs", className: "" },
-	{ text: "Аренда", path: "/rent/page/1", className: "" },
+	{ text: "Аренда", path: "/rent", className: "" },
 	{ text: "Вопросы", path: "/faq", className: "" },
 	{ text: "Контакты", path: "/contacts", className: "" },
 ];
@@ -68,6 +69,9 @@ export const HeaderLinks: React.FC<{
 	light?: boolean;
 	selected?: string;
 }> = ({ links, light = false, selected = "/" }) => {
+
+	const [authOpened, setAuthOpened] = useState(false);
+
 	return (
 		<div className={"header-links"}>
 			<div className={"d-none d-lg-flex align-items-center"}>
@@ -86,7 +90,8 @@ export const HeaderLinks: React.FC<{
 				))}
 			</div>
 			<div className={"header-controls"}>
-				<button className={"user-btn " + (light ? "light" : "")}></button>
+
+				<AuthForm light={light} />
 
 				<CallRequestForm
 					text={

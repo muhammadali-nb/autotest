@@ -36,7 +36,7 @@ const handlers = {
 			has_profile,
 		};
 	},
-	LOGIN: (state:AuthInitialState, action) => {
+	LOGIN: (state: AuthInitialState, action) => {
 		const { user } = action.payload;
 
 		return {
@@ -45,12 +45,12 @@ const handlers = {
 			user,
 		};
 	},
-	LOGOUT: (state:AuthInitialState) => ({
+	LOGOUT: (state: AuthInitialState) => ({
 		...state,
 		isAuthenticated: false,
 		user: null,
 	}),
-	REGISTER: (state:AuthInitialState, action) => {
+	REGISTER: (state: AuthInitialState, action) => {
 		const { user, user_status, has_profile, error_message, api_status } =
 			action.payload;
 
@@ -66,7 +66,7 @@ const handlers = {
 	},
 };
 
-const reducer = (state:AuthInitialState, action) =>
+const reducer = (state: AuthInitialState, action) =>
 	handlers[action.type] ? handlers[action.type](state, action) : state;
 
 export const AuthContext = createContext({
@@ -162,6 +162,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		}
 	};
 
+	const logout = async () => {
+		try {
+			const res: AxiosResponse<AuthResponce> = await axios.get(
+				`https://taxivoshod.ru/api/login.php?logout=1`,
+				{ withCredentials: true }
+			);
+			return res.data;
+		} catch (error) {
+			console.log((error as AxiosError).response);
+		} finally {
+			dispatch({
+				type: actions.LOGOUT
+			});
+		}
+	};
+
 	useEffect(() => {
 		initialize().catch(console.error);
 	}, []);
@@ -172,6 +188,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				...state,
 				register,
 				initialize,
+				logout
 			}}>
 			{children}
 		</AuthContext.Provider>
