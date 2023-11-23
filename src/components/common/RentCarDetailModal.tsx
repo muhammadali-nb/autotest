@@ -29,12 +29,21 @@ const RentCarDetailModal: FC<{
 	step: CarBookingStepsType;
 	setStep: (e: CarBookingStepsType) => void;
 	getPriceCar: () => void;
-}> = ({ paymentStatus, setPaymentStatus, step, setStep, getPriceCar }) => {
+	depositPrice: number;
+	setDepositPrice: (e: number) => void;
+}> = ({
+	paymentStatus,
+	setPaymentStatus,
+	step,
+	setStep,
+	getPriceCar,
+	depositPrice,
+	setDepositPrice,
+}) => {
 	const { id, carID } = useParams();
 	const location = useLocation();
 	const { user_status } = useAuth();
 	const [error_message, setErrorMessage] = useState<string | null>(null);
-	const [depositPrice, setDepositPrice] = useState(0);
 	const [timer, setTimer] = useState(0);
 	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
 		qr: "",

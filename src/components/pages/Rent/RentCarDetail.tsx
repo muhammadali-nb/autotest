@@ -97,6 +97,8 @@ const RentCarDetail = () => {
 								paymentStatus={paymentStatus}
 								setPaymentStatus={setPaymentStatus}
 								getPriceCar={getPriceCar}
+								depositPrice={depositPrice}
+								setDepositPrice={setDepositPrice}
 							/>
 						</RentDetailModalLayout>
 					</BrowserView>
