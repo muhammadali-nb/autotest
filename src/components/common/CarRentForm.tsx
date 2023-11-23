@@ -1124,9 +1124,15 @@ export const CarBookingForm: React.FC<{
 			console.log(error);
 		}
 	};
+	const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
 	return (
 		<>
+			<button
+				className={"site-btn big" + (props.wide ? " w-100" : "")}
+				onClick={handleShow}>
+				{props.text ?? <>Забронировать</>}
+			</button>
 			<ModalFormTemplate
 				show={show}
 				onHide={handleClose}
