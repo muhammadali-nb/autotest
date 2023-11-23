@@ -1,6 +1,6 @@
 import React, { RefObject, useEffect, useState } from "react";
 import { HeaderLogoImage } from "./Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //icons
 import house from "../../images/common/mobile_menu-icons/house.svg";
@@ -13,6 +13,7 @@ import loginIcon from "../../images/common/mobile_menu-icons/login.svg";
 import AdvanceLogin from "../common/AdvanceLogin";
 import arrow from "../../images/common/menu-arrow.svg";
 import { MobileModal } from "../common/MobileModal/MobileModal";
+import { useAuth } from "../../hooks/useAuth";
 
 interface MobileMenuProps {
 	menuIsOpen: boolean;
@@ -40,10 +41,18 @@ const MobileMenu = (props: MobileMenuProps) => {
 	const [loginAdvanceIsShow, setLoginAdvanceIsShow] = useState(true);
 	const [authIsOpen, setAuthIsOpen] = useState(false);
 
+	const { isAuthenticated, logout } = useAuth();
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (menuIsOpen) document.body.style.overflow = "hidden";
 		else document.body.style.overflow = "unset";
 	}, [menuIsOpen]);
+
+	const exit = () => {
+        logout();
+        navigate('/');
+    };
 
 	return (
 		<div className={`mobile-menu ${menuIsOpen ? "active" : ""} `}>
@@ -80,15 +89,38 @@ const MobileMenu = (props: MobileMenuProps) => {
 					</div>
 				</div>
 				<div>
-					<AdvanceLogin
-						isShow={loginAdvanceIsShow}
-						setIsShow={setLoginAdvanceIsShow}
-					/>
-					<div className="mobile-menu_login mt-4" onClick={() => setAuthIsOpen(!authIsOpen)}>
-						<img src={loginIcon} alt={"login"} />
-						<h5>Войти в ЛК</h5>
-					</div>
-					<MobileModal active={authIsOpen} type={"auth"} setActive={setAuthIsOpen} />
+					{!isAuthenticated ?
+						<>
+							<AdvanceLogin
+								isShow={loginAdvanceIsShow}
+								setIsShow={setLoginAdvanceIsShow}
+							/>
+							<div className="mobile-menu_login mt-4" onClick={() => setAuthIsOpen(!authIsOpen)}>
+								<img src={loginIcon} alt={"login"} />
+								<h5>Войти в ЛК</h5>
+							</div>
+							<MobileModal active={authIsOpen} type={"auth"} setActive={setAuthIsOpen} />
+						</>
+						:
+						<div className="mobile-menu_user mt-4 d-flex flex-column">
+							<span className="mb-1 fw-medium font-size-16" onClick={() => navigate('/personal-account')}>
+								Фокина Анастасия
+							</span>
+							<span className="fw-medium font-size-12 mb-3">
+								+7 (900) 999 90 99
+							</span>
+							<button className="font-size-16 fw-medium" onClick={exit}>
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+									<path
+										d="M6.66667 14.6667H3.33333C2.59695 14.6667 2 14.0697 2 13.3333V2.66666C2 1.93028 2.59695 1.33333 3.33333 1.33333H6.66667"
+										stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+									<path d="M11.3333 10.6667L14 7.99999M14 7.99999L11.3333 5.33333M14 7.99999H6" stroke="#222222"
+										strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+								</svg>
+								Выйти
+							</button>
+						</div>
+					}
 				</div>
 			</div>
 		</div>
