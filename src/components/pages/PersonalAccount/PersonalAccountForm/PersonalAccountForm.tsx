@@ -1,6 +1,8 @@
 import React from "react";
 import "./PersonalAccountForm.scss";
 const PersonalAccountForm = () => {
+	
+
 	return (
 		<form className="personal-account_form">
 			<div className={"personal-account_form-topic"}>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import ModalFormTemplate, { ModalTemplateConfirm, ModalTemplateContent, ModalTemplateInput, ModalTemplatePhone } from "./ModalFormTemplate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import Utils from "../../Utils";
+import Utils from "../../utils/Utils";
 import Api, { ConfirmPhone, CallRequestData, ErrorResponse, RentCreateAccountForm } from "../../Api";
 import axios, { AxiosError } from 'axios';
 import { useAuth } from "../../hooks/useAuth";
