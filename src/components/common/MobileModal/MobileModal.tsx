@@ -6,15 +6,16 @@ import back from "../../../images/common/back.svg";
 import { HeaderLogoImage } from "../../layout/Header";
 import { Link } from "react-router-dom";
 import MobileAuthForm from "./MobileAuthForm";
+import MobileOrderCall from "./MobileOrderCall";
 
 export const MobileModal = ({
 	active,
 	setActive,
-	type
+	type,
 }: {
 	active: boolean;
 	setActive: (e: boolean) => void;
-	type?: string
+	type?: string;
 }) => {
 	useEffect(() => {
 		if (active) document.body.style.overflow = "hidden";
@@ -39,7 +40,7 @@ export const MobileModal = ({
 				</div>
 			</div>
 			<div className="mobile-modal_body">
-				{(type === "rent" || !type) &&
+				{(type === "rent" || !type) && (
 					<>
 						<h1>
 							Заявка <br /> на автомобиль
@@ -85,10 +86,13 @@ export const MobileModal = ({
 							ООО ВОСХОДⓒ 2023 год
 						</div>
 					</>
-				}
-				{type === "auth" &&
+				)}
+				{type === "auth" && (
 					<MobileAuthForm closeFunc={() => setActive(false)} />
-				}
+				)}
+				{type === "orderCall" && (
+					<MobileOrderCall closeFunc={() => setActive(false)} />
+				)}
 			</div>
 		</div>
 	);

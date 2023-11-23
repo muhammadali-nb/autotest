@@ -46,8 +46,8 @@ let Utils = {
             errors['name'] = "Не указано имя";
         // if(!data.lastName)
         //     errors['lastName'] = "Не указано имя";
-        if (!request.phone || request.phone === '+7')
-            errors['phone'] = "Не указан номер телефона";
+        // if (!request.phone || request.phone === '+7')
+        //     errors['phone'] = "Не указан номер телефона";
         if (!Utils.validatePhone(request.phone))
             errors['phone'] = "Телефон в неверном формате";
         if (!request.confirm)

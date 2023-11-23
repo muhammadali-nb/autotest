@@ -32,6 +32,7 @@ export type HeaderProps = {
 	burgerMenuIsShow?: boolean;
 	setBurgerMenuIsShow?: any;
 	backLink?: string;
+	mobileModalType?: string;
 };
 
 export const defaultLinks = [
@@ -69,7 +70,6 @@ export const HeaderLinks: React.FC<{
 	light?: boolean;
 	selected?: string;
 }> = ({ links, light = false, selected = "/" }) => {
-
 	const [authOpened, setAuthOpened] = useState(false);
 
 	return (
@@ -90,7 +90,6 @@ export const HeaderLinks: React.FC<{
 				))}
 			</div>
 			<div className={"header-controls"}>
-
 				<AuthForm light={light} />
 
 				<CallRequestForm
@@ -213,7 +212,7 @@ const Header: React.FC<HeaderProps> = ({
 	links = defaultLinks,
 	selectedLink,
 	setBurgerMenuIsShow,
-	burgerMenuIsShow,
+	mobileModalType,
 }: HeaderProps) => {
 	const [showWhite, setShowWhite] = useState(false);
 	const [callMobileModal, setCallMobileModal] = useState(false);
@@ -228,6 +227,8 @@ const Header: React.FC<HeaderProps> = ({
 		//     window.removeEventListener('scroll', handler);
 		// }
 	});
+
+	console.log(mobileModalType);
 
 	if (type === "logo") return <LogoHeader image={image} />;
 	return (
@@ -250,7 +251,11 @@ const Header: React.FC<HeaderProps> = ({
 					setMobileModal={setCallMobileModal}
 				/>
 			</div>
-			<MobileModal active={callMobileModal} setActive={setCallMobileModal} />
+			<MobileModal
+				active={callMobileModal}
+				type={mobileModalType}
+				setActive={setCallMobileModal}
+			/>
 		</>
 	);
 };

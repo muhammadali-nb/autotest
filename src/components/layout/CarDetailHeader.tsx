@@ -151,7 +151,11 @@ const CarDetailHeader: React.FC<HeaderProps> = ({
 					setMobileModal={setCallMobileModal}
 				/>
 			</div>
-			<MobileModal active={callMobileModal} setActive={setCallMobileModal} />
+			<MobileModal
+				active={callMobileModal}
+				type="orderCall"
+				setActive={setCallMobileModal}
+			/>
 		</>
 	);
 };

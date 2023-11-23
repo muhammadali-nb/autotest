@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import Api, { CallRequestData } from "../../Api";
+import Api, { CallRequestData, ErrorResponse } from "../../Api";
 import ModalFormTemplate, {
 	ModalTemplateConfirm,
 	ModalTemplateContent,
@@ -11,6 +11,9 @@ import ModalFormTemplate, {
 import Utils from "../../utils/Utils";
 import { CarDataInfo } from "./CarCard";
 import { CarCatalogDataInfo } from "../../types/CatalogTypes";
+import axios, { AxiosError } from "axios";
+import { MobileModal } from "./MobileModal/MobileModal";
+import { BrowserView, MobileView } from "react-device-detect";
 
 const CarBookingFormContent: React.FC<{
 	car: CarDataInfo | CarCatalogDataInfo;
@@ -24,33 +27,61 @@ const CarBookingFormContent: React.FC<{
 		confirm: false,
 		errors: {},
 		middleName: "",
+		email: "",
 	});
+	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 	const [passed, setPassed] = useState(false);
-	const send = () => {
+	const send = async () => {
 		let errors = Utils.validateForm(data);
 		if (Object.keys(errors).length > 0) {
 			setData({ ...data, errors: errors });
 			setPassed(false);
 			return;
 		}
-		//@ts-ignore
-		Api.carBookRequest(data, _).then((resp) => {
-			if (Api.isError(resp)) {
-				setData({
-					...data,
-					errors: { server: "Ошибка соединения с сервером!" },
-				});
-				return;
-			}
 
-			if (resp.success) {
+		try {
+			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+				withCredentials: true,
+				body: JSON.stringify({
+					w: "form",
+					type: "buyout",
+					first_name: data.name,
+					last_name: data.lastName,
+					middle_name: data.middleName,
+					phone: data.phone.slice(1),
+					email: data.email,
+				}),
+			});
+
+			if (res.data.result === 1) {
 				props.setSent(true);
 				setPassed(true);
-			} else {
-				setData({ ...data, errors: resp.fields ?? {} });
-				setPassed(false);
 			}
-		});
+		} catch (error) {
+			setErrorMessage(
+				(error as AxiosError<ErrorResponse>).response?.data.message ??
+					"Возникла ошибка с сервером поробуйте позже"
+			);
+		}
+
+		// //@ts-ignore
+		// Api.carBookRequest(data, _).then((resp) => {
+		// 	if (Api.isError(resp)) {
+		// 		setData({
+		// 			...data,
+		// 			errors: { server: "Ошибка соединения с сервером!" },
+		// 		});
+		// 		return;
+		// 	}
+
+		// 	if (resp.success) {
+		// props.setSent(true);
+		// setPassed(true);
+		// 	} else {
+		// 		setData({ ...data, errors: resp.fields ?? {} });
+		// 		setPassed(false);
+		// 	}
+		// });
 	};
 	const update = (field: string, value: any) => {
 		let errors = data.errors;
@@ -92,17 +123,25 @@ const CarBookingFormContent: React.FC<{
 			<div>
 				<div>
 					<ModalTemplateInput
-						error={data.errors["name"]}
-						onInput={(e: any) => update("name", e.target.value)}
-						placeholder={"Имя"}
-						small={false}
-					/>
-					<ModalTemplateInput
 						error={data.errors["lastName"]}
 						onInput={(e: any) => update("lastName", e.target.value)}
+						onChnage={(e: any) => update("lastName", e.target.value)}
 						placeholder={"Фамилия"}
 						small={false}
 					/>
+					<ModalTemplateInput
+						error={data.errors["name"]}
+						onInput={(e: any) => update("name", e.target.value)}
+						onChange={(e: any) => update("name", e.target.value)}
+						placeholder={"Имя"}
+						small={false}
+					/>
+					{/* <ModalTemplateInput
+						error={data.errors["middleName"]}
+						onInput={(e: any) => update("middleName", e.target.value)}
+						placeholder={"Отчество"}
+						small={false}
+					/> */}
 					<ModalTemplatePhone
 						error={data.errors["phone"]}
 						small={false}
@@ -113,20 +152,18 @@ const CarBookingFormContent: React.FC<{
 						error={data.errors["email"]}
 						small={false}
 						onInput={(e: any) => update("email", e.target.value)}
+						onChange={(e: any) => update("email", e.target.value)}
 						placeholder={"E-mail"}
 					/>
 				</div>
-				{data.errors["server"] && (
-					<div className={"my-2 text-red-color font-size-12"}>
-						{data.errors["server"]}
-					</div>
-				)}
+				<div className={"my-2 text-red-color font-size-12"}>
+					{errorMessage || <>&nbsp;</>}
+				</div>
 			</div>
-
 			<div>
 				<button
 					className={"site-btn small " + (!passed ? "dark" : "")}
-					onClick={() => send()}>
+					onClick={send}>
 					Перезвоните мне
 				</button>
 				<ModalTemplateConfirm
@@ -183,16 +220,22 @@ const CarBookingForm: React.FC<{
 				onClick={handleShow}>
 				{props.text ?? <>Забронировать</>}
 			</button>
-			<ModalFormTemplate show={show} onHide={handleClose} centered size={"xl"}>
-				{!sent && (
-					<CarBookingFormContent
-						car={props.car}
-						closeFunc={handleClose}
-						setSent={setSent}
-					/>
-				)}
-				{sent && <CarBookingFormConfirmed closeFunc={handleClose} />}
-			</ModalFormTemplate>
+			<BrowserView>
+				<ModalFormTemplate
+					show={show}
+					onHide={handleClose}
+					centered
+					size={"xl"}>
+					{!sent && (
+						<CarBookingFormContent
+							car={props.car}
+							closeFunc={handleClose}
+							setSent={setSent}
+						/>
+					)}
+					{sent && <CarBookingFormConfirmed closeFunc={handleClose} />}
+				</ModalFormTemplate>
+			</BrowserView>
 		</>
 	);
 };
