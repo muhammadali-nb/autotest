@@ -1,11 +1,20 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios, { AxiosError } from "axios";
 import React, { ReactNode, useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import Api, { CallRequestData, ConfirmPhone, ErrorResponse } from "../../Api";
-import Utils from "../../utils/Utils";
+import { useAuth } from "../../hooks/useAuth";
 import caretLeft from "../../images/common/caret-left-big.svg";
 import caretRight from "../../images/common/caret-right-big.svg";
+import { ConfirmPaymentQR } from "../../types/AuthContextTypes";
+import {
+	CarDataType,
+	RentBookingPaymentStatus,
+	RentCreateAccountForm,
+} from "../../types/RentTypes";
+import Utils from "../../utils/Utils";
 import { CarImagesModal } from "../pages/Car/CarImages";
 import {
 	CarStatBlockEntry,
@@ -15,6 +24,7 @@ import {
 import bankCardImg from "./../../images/common/bank-card.png";
 import sbpImg from "./../../images/common/sbp.png";
 import { CarTag } from "./CarCard";
+import FileInput from "./FileInput";
 import LoadError from "./LoadError";
 import Loader from "./Loader";
 import ModalFormTemplate, {
@@ -23,16 +33,6 @@ import ModalFormTemplate, {
 	ModalTemplateInput,
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
-import axios, { AxiosError } from "axios";
-import { useAuth } from "../../hooks/useAuth";
-import {
-	CarDataType,
-	RentBookingPaymentStatus,
-	RentCreateAccountForm,
-} from "../../types/RentTypes";
-import FileInput from "./FileInput";
-import { ConfirmPaymentQR } from "../../types/AuthContextTypes";
-import { useLocation } from "react-router-dom";
 export type CarBookingStepsType =
 	| "rent"
 	| "start"
@@ -778,7 +778,7 @@ export const CarRequestFormContent: React.FC<{
 					className={
 						"font-size-16 line-height-120 font-weight-medium mb-px-40"
 					}>
-					Депозит{"  "}
+					Депозит от{"  "}
 					<span className={"font-weight-semibold"}>
 						{props.car.deposit.toLocaleString()} ₽
 					</span>
