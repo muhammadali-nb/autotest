@@ -225,7 +225,7 @@ export const CarRentConfirmPhone: React.FC<{
 
 	useEffect(() => {
 		if (code.replace(/\D+/g, "").length === 5) {
-		 	send();
+			send();
 		}
 	}, [code]);
 
@@ -523,14 +523,12 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 	confirmPayment: ConfirmPaymentQR;
 	setPaymentStatus: (e: RentBookingPaymentStatus) => void;
 	paymentStatus: RentBookingPaymentStatus;
+	setCarName: (e: string) => void;
 }> = (props) => {
 	const { isAuthenticated } = useAuth();
 
 	useEffect(() => {
-		if (props.step !== "confirm_payment") {
-			return;
-		}
-		if (props.paymentStatus === null || props.paymentStatus === "NEW") {
+		if (props.paymentStatus !== "CONFIRMED" || "REFUNDED" || "CANCELLED") {
 			const interval = setInterval(() => {
 				axios
 					.get(
@@ -539,7 +537,14 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 					.then((res) => {
 						if (res.data.result === 1) {
 							props.setPaymentStatus(res.data.status);
-							if (res.data.status !== "NEW") props.setStep("booking_result");
+							props.setCarName(res.data.car);
+							if (
+								res.data.status === "CONFIRMED" ||
+								res.data.status === "REFUNDED" ||
+								res.data.status === "CANCELLED"
+							) {
+								props.setStep("booking_result");
+							}
 						}
 					})
 					.catch((error) => {
@@ -547,7 +552,7 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 						props.setPaymentStatus(null);
 						props.setStep("payment");
 					});
-			}, 2000);
+			}, 5000);
 			return () => {
 				clearInterval(interval); // stops interval
 			};
@@ -576,7 +581,7 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 						}>
 						Бронирование
 						<br />
-						{props.car.brand} {props.car.model}
+						{props.car.brand + " " + props.car.model}
 					</div>
 					<div
 						className={
@@ -623,6 +628,7 @@ export const CarRentBookingStatus: React.FC<{
 	paymentStatus: RentBookingPaymentStatus;
 	closeFunc: () => void;
 	car: CarDataType;
+	carName: string | null;
 }> = (props) => {
 	return (
 		<ModalTemplateContent>
@@ -654,7 +660,8 @@ export const CarRentBookingStatus: React.FC<{
 							прошла успешно!
 						</div>
 						<div className={"call-content-text"}>
-							{props.car.brand} {props.car.model} — забронирован!
+							{props.carName || props.car.brand + " " + props.car.model} —
+							забронирован!
 						</div>
 					</>
 				) : (
@@ -1077,7 +1084,6 @@ export const CarBookingForm: React.FC<{
 	car_id: any;
 }> = (props) => {
 	const { user_status } = useAuth();
-	const location = useLocation();
 	const [error_message, setErrorMessage] = useState<string | null>(null);
 	const [paymentStatus, setPaymentStatus] =
 		useState<RentBookingPaymentStatus>(null);
@@ -1085,6 +1091,8 @@ export const CarBookingForm: React.FC<{
 	const [show, setShow] = useState(false);
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [timer, setTimer] = useState(0);
+	const [carName, setCarName] = useState<string | null>(null);
+
 	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
 		qr: "",
 		pid: "",
@@ -1210,6 +1218,7 @@ export const CarBookingForm: React.FC<{
 				)}
 				{step === "confirm_payment" && (
 					<CarRentPaymentTypeConfirm
+						setCarName={setCarName}
 						paymentStatus={paymentStatus}
 						setPaymentStatus={setPaymentStatus}
 						confirmPayment={confirmPaymentQR}
@@ -1227,6 +1236,7 @@ export const CarBookingForm: React.FC<{
 						paymentStatus={paymentStatus}
 						closeFunc={handleClose}
 						car={props.car}
+						carName={carName}
 					/>
 				)}
 				{step === "finish" && <CarRentFormConfirmed closeFunc={handleClose} />}

@@ -4,14 +4,16 @@ import { useAppSelector } from "../../../store/hooks";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
 import Paginator from "../../common/Paginator";
-import { BottomMessage } from "../CatalogPage";
+import { BottomMessage, BottomMessageMobile } from "../CatalogPage";
 import CarRequestForm from "../../common/CarRequestForm";
 import chevron from "../../../images/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";
 import catalogService from "../../../api-functions/catalog-page/catalog-service";
+import { MobileModal } from "../../common/MobileModal/MobileModal";
 
 const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 	const [activePage, setActivePage] = useState("1");
+	const [carFormModalMobile, setCarFormModalMobile] = useState(false);
 	const filter = useAppSelector((state) => state.catalogFilter);
 	const { data, error, isLoading } = useQuery({
 		queryKey: ["rent-cars", { activePage, ...filter }],
@@ -29,36 +31,35 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 			</div>
 		);
 	return (
-		<div>
-			<div className={"catalog__grid"}>
-				{!isLoading &&
-					data.list.map((i, index) => (
-						<CarCard responsive={true} car={i} key={index} />
-					))}
-			</div>
-			<BottomMessage
-				className="bottom-message-desc"
-				button={<CarRequestForm text={"Оставить заявку"} light />}
-				text1={"Не нашли ничего подходящего?"}
-				text2={"Предложите свой вариант!"}
-			/>
-			<BottomMessage
-				className="bottom-message-mobile"
-				button={
-					<CarRequestForm
-						icon={<img src={chevron} />}
-						text={"Оставить заявку"}
-						light
-					/>
-				}
-				text1={"Не нашли ничего подходящего?"}
-				text2={"Предложите свой вариант!"}
-			/>
+		<>
+			<div>
+				<div className={"catalog__grid"}>
+					{!isLoading &&
+						data.list.map((i, index) => (
+							<CarCard responsive={true} car={i} key={index} />
+						))}
+				</div>
+				<BottomMessage
+					className="bottom-message-desc"
+					button={<CarRequestForm text={"Оставить заявку"} light />}
+					text1={"Не нашли ничего подходящего?"}
+					text2={"Предложите свой вариант!"}
+				/>
 
-			<div className={"catalog__grid-paginator"}>
-				<Paginator setActive={setActivePage} data={data} />
+				<BottomMessageMobile
+					text1={"Не нашли ничего подходящего?"}
+					text2={"Предложите свой вариант!"}
+					onClick={() => setCarFormModalMobile(true)}
+				/>
+				<div className={"catalog__grid-paginator"}>
+					<Paginator setActive={setActivePage} data={data} />
+				</div>
 			</div>
-		</div>
+			<MobileModal
+				active={carFormModalMobile}
+				setActive={setCarFormModalMobile}
+			/>
+		</>
 	);
 };
 

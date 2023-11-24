@@ -20,7 +20,7 @@ interface ModalTemplateInputProps {
 	small: any;
 	[x: string]: any;
 	type?: string;
-	mobile?: boolean
+	mobile?: boolean;
 }
 export const ModalTemplateInput: React.FC<ModalTemplateInputProps> = (
 	props
@@ -63,7 +63,7 @@ export const ModalTemplateTextarea: React.FC<ModalTemplateInputProps> = (
 	return (
 		<div
 			className={
-				"contacts__form-textarea-container " +
+				" contacts__form-textarea-container " +
 				(props.error ? " error" : "") +
 				(props.small ? " small-form-input" : "")
 			}
@@ -76,6 +76,7 @@ export const ModalTemplateTextarea: React.FC<ModalTemplateInputProps> = (
 			<textarea
 				className={"contacts__form-textarea " + (props.error ? " error" : "")}
 				onInput={props.onInput}
+				onChange={props.onChange}
 				value={props.value ?? ""}
 				name={props.name}
 				placeholder={props.placeholder}></textarea>
@@ -110,6 +111,7 @@ export const ModalTemplatePhone: React.FC<ModalTemplateInputProps> = (
 		</div>
 	);
 };
+
 export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 	props
 ) => {
@@ -146,7 +148,9 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 			/>
 
 			<p className="form-mobile-policy">
-				Нажимая на кнопку {props.mobile ? <>“Отправить код”</> : <>“Забронировать”</>}, вы соглашаетесь с{" "}
+				Нажимая на кнопку{" "}
+				{props.mobile ? <>“Отправить код”</> : <>“Забронировать”</>}, вы
+				соглашаетесь с{" "}
 				<Link
 					to={"/policy"}
 					target={"_blank"}

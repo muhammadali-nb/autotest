@@ -136,8 +136,9 @@
     &-payment {
       &_price {
         margin: 0 0 24px 0;
-        font-size: 16px;
-        font-weight: 600;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #222 !important;
         line-height: 140%; /* 22.4px */
         letter-spacing: 0.32px;
         text-transform: uppercase;
@@ -179,9 +180,5 @@
     text-align: left;
     padding: 18px 16px 16px 16px;
     margin-top: auto;
-    // position: absolute;
-    // bottom: 0;
-    // left: 0;
-    // right: 0;
   }
 }
