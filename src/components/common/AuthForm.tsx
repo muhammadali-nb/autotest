@@ -472,7 +472,11 @@ const AuthForm: React.FC<{
                     (e as AxiosError<ErrorResponse>).response?.data.message ??
                     "Возникла ошибка с сервером поробуйте позже"
                 );
+<<<<<<<<< Temporary merge branch 1
+                console.log(e);
+=========
                 
+>>>>>>>>> Temporary merge branch 2
             });
     };
 
