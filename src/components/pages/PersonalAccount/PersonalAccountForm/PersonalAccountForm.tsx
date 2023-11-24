@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import "./PersonalAccountForm.scss";
 import { userDataProps } from "../PersonalAccountPage";
 import editIcon from "../../../../images/common/edit.svg";
+import PersonalAccountModal from "../PersonalAccountModal/PersonalAccountModal";
 
 const PersonalAccountForm: React.FC<{
 	data: userDataProps
 }> = (props) => {
-
+	const [modalOpened, setModalOpened] = useState(false);
+	const [editType, setEditType] = useState('phone');
 
 	return (
 		<>
@@ -36,18 +38,14 @@ const PersonalAccountForm: React.FC<{
 							placeholder="+7 (___) ___ - __ - __"
 							className="contacts__form-input personal-account_form-input"
 						/>
-						<div className="personal-account_form-edit">
+						<div className="personal-account_form-edit" onClick={() => {
+							setEditType('phone');
+							setModalOpened(true);
+						}}>
 							<img src={editIcon} alt="Изменить номер телефона" />
 						</div>
 					</div>
-					{!props.data.email ?
-						<button className="site-btn dark w-100">
-							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-								<path d="M9.5 3V9M9.5 9H15.5M9.5 9H3.5M9.5 9V15" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-							</svg>
-							Добавить E-mail
-						</button>
-						:
+					{(props.data.email && window.innerWidth > 767) ?
 						<div className="personal-account_form-item">
 							<input
 								value={props.data.email}
@@ -55,10 +53,24 @@ const PersonalAccountForm: React.FC<{
 								placeholder="E-mail"
 								className="contacts__form-input personal-account_form-input"
 							/>
-							<div className="personal-account_form-edit">
-								<img src={editIcon} alt="Изменить электо" />
+							<div className="personal-account_form-edit" onClick={() => {
+								setEditType('email');
+								setModalOpened(true);
+							}}>
+								<img src={editIcon} alt="Изменить электронную почту" />
 							</div>
 						</div>
+						:
+						<button className="site-btn dark w-100" onClick={(e) => {
+							e.preventDefault();
+							setEditType("email");
+							setModalOpened(true);
+						}}>
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path d="M9.5 3V9M9.5 9H15.5M9.5 9H3.5M9.5 9V15" stroke="#222222" stroke-Width="2" strokeLinecap="round" strokeLinejoin="round" />
+							</svg>
+							Добавить E-mail
+						</button>
 					}
 				</div>
 				<div className={"personal-account_form-topic"}>
@@ -71,6 +83,8 @@ const PersonalAccountForm: React.FC<{
 					/>
 				</div>
 			</form>
+
+			<PersonalAccountModal onHide={() => setModalOpened(false)} show={modalOpened} type={editType} currentPhone={props.data.phone} />
 		</>
 	);
 };

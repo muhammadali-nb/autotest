@@ -60,7 +60,7 @@
     padding: 24px 16px 0 16px;
     background-color: #fff;
 
-    & > h1 {
+    h1 {
       color: var(--Text, #222);
       font-family: Inter;
       font-size: 24px;
@@ -75,7 +75,7 @@
       }
     }
 
-    & > p {
+    p {
       color: var(--Grey-1, #606569);
       font-feature-settings:
         "clig" off,

@@ -103,6 +103,17 @@ let Utils = {
 
             return `${countryCode} (${areaCode}) ${firstPart} ${secondPart} ${thirdPart}`;
         }
+    },
+    validateEmail(request: { email: string, errors: Object }) {
+        let errors = {};
+
+        if (!request.email || request.email.length <= 0) {
+            errors['email'] = "Не указан E-mail";
+        } else if (!request.email.match( /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+            errors['email'] = "E-mail в неверном формате";
+        }
+
+        return errors;
     }
 }
 export default Utils;
