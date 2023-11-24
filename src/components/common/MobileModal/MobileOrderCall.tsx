@@ -62,10 +62,6 @@ const MobileOrderCallForm: FC<{
 		setPassed(Object.keys(errors).length === 0);
 	};
 
-	useEffect(() => {
-		console.log(data);
-	}, [data]);
-
 	return (
 		<div className={"mobile-modal_body-ordercall"}>
 			<div>
@@ -163,17 +159,13 @@ const MobileOrderCallResult: FC<{ closeFn: () => void }> = (props) => {
 
 const MobileOrderCall: FC<{ closeFunc: () => void }> = (props) => {
 	const [sent, setSent] = useState(false);
-
-	// const handleClose = () => setShow(false);
-	// const handleShow = () => setShow(true);
-
 	return (
 		<>
 			{!sent ? (
 				<MobileOrderCallForm setSent={setSent} closeFn={props.closeFunc} />
 			) : (
 				<MobileOrderCallResult closeFn={props.closeFunc} />
-			)}{" "}
+			)}
 		</>
 	);
 };

@@ -228,8 +228,6 @@ const Header: React.FC<HeaderProps> = ({
 		// }
 	});
 
-	console.log(mobileModalType);
-
 	if (type === "logo") return <LogoHeader image={image} />;
 	return (
 		<>

@@ -1,16 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header, { HeaderImage, HeaderType } from "./Header";
 import Footer from "./Footer";
-import { setBaseState } from "../../store/reducers/baseDataSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import Scroller from "../common/Scroller";
-import Api from "../../Api";
 import DocumentMeta from "react-document-meta";
 import Cookies from "../common/Cookies";
 import MobileMenu from "./MobileMenu";
 import { useOutside } from "../../hooks/useOutside";
 import ToggleSentUserData from "../common/ToggleSentUserData";
-import { Container } from "react-bootstrap";
 
 export type MetaTags = {
 	description?: string;
@@ -77,8 +73,9 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 					image={props.headerImage}
 					type={props.headerType ?? "white"}
 					selectedLink={props.headerSelectedLink ?? "/"}
+					mobileModalType="orderCall"
 				/>
-				<main>{ props.children}</main>
+				<main>{props.children}</main>
 
 				<Footer
 					small={props.footerSmall}

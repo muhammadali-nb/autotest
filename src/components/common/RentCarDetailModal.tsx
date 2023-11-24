@@ -54,6 +54,7 @@ const RentCarDetailModal: FC<{
 		confirm: false,
 		errors: {},
 	});
+	const [carName, setCarName] = useState<string | null>(null);
 	const navigate = useNavigate();
 	const { data, error, isLoading } = useQuery({
 		queryKey: [`rent-car-${carID}`, carID],
@@ -80,7 +81,6 @@ const RentCarDetailModal: FC<{
 					(e as AxiosError<ErrorResponse>).response?.data.message ??
 						"Возникла ошибка с сервером поробуйте позже"
 				);
-				
 			});
 	};
 
@@ -156,6 +156,7 @@ const RentCarDetailModal: FC<{
 			)}
 			{step === "confirm_payment" && (
 				<CarRentPaymentTypeConfirm
+					setCarName={setCarName}
 					paymentStatus={paymentStatus}
 					setPaymentStatus={setPaymentStatus}
 					confirmPayment={confirmPaymentQR}
@@ -173,6 +174,7 @@ const RentCarDetailModal: FC<{
 					paymentStatus={paymentStatus}
 					closeFunc={handleClose}
 					car={data.item}
+					carName={carName}
 				/>
 			)}
 			{step === "finish" && <CarRentFormConfirmed closeFunc={handleClose} />}
