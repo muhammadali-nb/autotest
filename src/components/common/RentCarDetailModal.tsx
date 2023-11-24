@@ -86,7 +86,7 @@ const RentCarDetailModal: FC<{
 
 	const handleClose = () => {
 		//@ts-ignore
-		navigate(location.key === "default" ? `/rent/page/${id ?? 1}` : -1);
+		navigate(location.key === "default" || location ? `/rent/page/${id ?? 1}` : -1);
 	};
 
 	if (isLoading) return <Loader />;

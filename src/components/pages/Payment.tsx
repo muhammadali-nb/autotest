@@ -45,7 +45,7 @@ const Payment = () => {
 	useEffect(() => {
 		checkPayment();
 	}, []);
-
+	
 	return <Loader />;
 };
 
