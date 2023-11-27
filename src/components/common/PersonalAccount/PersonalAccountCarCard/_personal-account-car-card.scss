@@ -1,7 +1,14 @@
 .personal-account-rent-car {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   grid-gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 2px solid #f2f3f6;
+  padding: 20px 0 0 0;
+
+  @include l-xl {
+    grid-template-columns: 1fr;
+  }
+
   &_card {
     border-radius: 4px;
     background: var(--default-white, #fff);
@@ -16,6 +23,10 @@
       width: 700px;
     }
 
+    @include l-xl {
+      width: 100%;
+    }
+
     &_image {
       max-width: 334px;
       margin: 0 60px 0 0;
@@ -23,6 +34,10 @@
       @include l-xxl {
         max-width: 300px;
         margin: 0 40px 0 0;
+      }
+
+      @include l-xl {
+        max-width: 350px;
       }
 
       & > img {
@@ -94,40 +109,42 @@
 
   &_payment {
     // height: 312px;
+    @include l-xl {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+    }
     &-card {
       border-radius: 4px;
       background: var(--default-white, #fff);
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-      padding: 30px 20px;
+      padding: 20px;
+
+      @include l-xl {
+        width: 49%;
+        padding: 20px 40px;
+      }
 
       &_header {
         display: flex;
-        align-items: end;
+        flex-direction: column;
       }
 
       &_price {
         font-size: 24px;
         font-weight: 600;
-        margin: 0;
+        margin: 0 0 15px 0;
       }
 
       &_btn {
-        font-weight: 600;
-        font-size: 14px;
-        transition: 5ms ease-in-out;
-        margin: 0 0 0 8px;
-
-        &:hover {
-          color: var(--1, #bf3535);
-          text-decoration-line: underline;
-        }
+        padding: 10px 25px;
       }
 
       &_date {
         color: var(--Grey-1, #606569);
         font-size: 16px;
         font-weight: 500;
-        margin: 15px 0 0 0;
+        margin: 0 0 5px 0;
       }
     }
 
@@ -139,6 +156,12 @@
       display: flex;
       align-items: start;
       margin: 15px 0 0 0;
+
+      @include l-xl {
+        margin: 0;
+        padding: 20px 40px;
+        width: 49%;
+      }
 
       &_icon {
         margin: 0 15px 0 0;
@@ -160,6 +183,87 @@
           margin: 10px 0 0 0;
         }
       }
+    }
+  }
+
+  &_mobile {
+    border-radius: 4px;
+    background: var(--default-white, #fff);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    &-info {
+      &_image {
+        height: 200px;
+
+        & > img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+      &_body {
+        padding: 16px;
+
+        &-date {
+          color: #606569;
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.12px;
+          margin: 0 0 16px 0;
+        }
+
+        &-carname {
+          font-size: 16px;
+          font-weight: 600;
+          letter-spacing: 0.16px;
+          text-transform: uppercase;
+          margin: 0 0 4px 0;
+          & > span {
+            color: #bf3535;
+          }
+        }
+        &-seria {
+          color: #606569;
+          font-family: Inter;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.14px;
+          text-transform: uppercase;
+          margin: 0 0 16px 0;
+        }
+        &-price {
+          color: #222;
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.12px;
+          margin: 0 0 8px 0;
+
+          & > p > span {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            margin: 4px 0 0 0;
+          }
+        }
+
+        &-payment-date,
+        &-deposit {
+          color: #222;
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.12px;
+          margin: 0 0 8px 0;
+          & > span {
+            font-weight: 600;
+          }
+        }
+        &-deposit {
+          margin: 0;
+        }
+      }
+    }
+
+    &-payment {
     }
   }
 }
