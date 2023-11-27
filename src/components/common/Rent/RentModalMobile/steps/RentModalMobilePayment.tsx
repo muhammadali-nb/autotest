@@ -103,15 +103,16 @@ const RentModalMobilePayment = (props: {
 					setPayment={update}
 				/>
 			</div>
-			<p className="mobile-modal_body-payment_offert">
-				Выбирая способ оплаты, вы соглашаетесь с <span>Условиями оферты</span>
+			<p className="mobile-modal_body-payment_offert mt-px-25">
+				Выбирая способ оплаты, вы соглашаетесь <br /> с{" "}
+				<span>Условиями оферты</span>
 			</p>
 			<div className={"my-2 text-red-color font-size-12"}>
 				{error || <>&nbsp;</>}
 			</div>
 			<button
 				className={
-					"site-btn small mt-px-50 " +
+					"site-btn small mt-px-10 " +
 					(!passed ? "dark" : "") +
 					" mobile-modal_body-confirm_submit-send"
 				}

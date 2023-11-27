@@ -23,6 +23,7 @@ import axios from "axios";
 const RentCarDetail = () => {
 	const { carID } = useParams();
 	const location = useLocation();
+	const [carFullName, setCarFullName] = useState<null | string>(null);
 	const [paymentStatus, setPaymentStatus] =
 		useState<RentBookingPaymentStatus>(null);
 	const [modalFullImage, setModalFullImage] = useState(false);
@@ -43,6 +44,7 @@ const RentCarDetail = () => {
 		if (location.state.status === "success") {
 			setModalBookingCar(true);
 			setPaymentStatus(location.state.payment_status);
+			setCarFullName(location.state.car_name);
 			setStep("booking_result");
 		} else {
 			setPaymentStatus("CANCELLED");
@@ -71,7 +73,6 @@ const RentCarDetail = () => {
 			console.log(error);
 		}
 	};
-
 	const checkSteps = async () => {
 		if (!isAuthenticated && !has_profile) {
 			setStep("start");
@@ -99,6 +100,8 @@ const RentCarDetail = () => {
 								getPriceCar={getPriceCar}
 								depositPrice={depositPrice}
 								setDepositPrice={setDepositPrice}
+								setCarName={setCarFullName}
+								carName={carFullName}
 							/>
 						</RentDetailModalLayout>
 					</BrowserView>
@@ -167,6 +170,8 @@ const RentCarDetail = () => {
 										setDepositPrice={setDepositPrice}
 										paymentStatus={paymentStatus}
 										setPaymentStatus={setPaymentStatus}
+										carName={carFullName}
+										setCarName={setCarFullName}
 									/>
 								</>
 							) : (

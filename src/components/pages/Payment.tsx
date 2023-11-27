@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { redirect, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../common/Loader";
 
 const Payment = () => {
@@ -9,26 +9,31 @@ const Payment = () => {
 
 	const checkPayment = async () => {
 		try {
-			axios
-				.get(`https://taxivoshod.ru/api/voshod-auto/?w=check-pay&pid=${pid}`)
-				.then((res) => {
-					if (res.data.result === 1) {
-						navigate(`/rent/page/1/car/${id}`, {
-							state: {
-								status: "success",
-								payment_status: res.data.status,
-							},
-						});
-					} else {
-						navigate(`/rent/page/1/car/${id}`, {
-							state: null,
-						});
-					}
+			const res = await axios.get(
+				`https://taxivoshod.ru/api/voshod-auto/?w=check-pay&pid=${pid}`
+			);
+			if (res.data.result === 1) {
+				navigate(`/rent/page/1/car/${id}`, {
+					state: {
+						status: "success",
+						payment_status: res.data.status,
+						car_name: res.data.car,
+					},
 				});
+			} else {
+				navigate(`/rent/page/1/car/${id}`, {
+					state: {
+						status: "error",
+						payment_status: "CANCELED",
+					},
+				});
+			}
 		} catch (error) {
-			// console.log(error);
 			navigate(`/rent/page/1/car/${id}`, {
-				state: null,
+				state: {
+					status: "error",
+					payment_status: "CANCELED",
+				},
 			});
 		}
 	};

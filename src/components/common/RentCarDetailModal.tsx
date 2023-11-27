@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import {
@@ -31,6 +31,8 @@ const RentCarDetailModal: FC<{
 	getPriceCar: () => void;
 	depositPrice: number;
 	setDepositPrice: (e: number) => void;
+	carName: string | null;
+	setCarName: (e: string) => void;
 }> = ({
 	paymentStatus,
 	setPaymentStatus,
@@ -39,6 +41,8 @@ const RentCarDetailModal: FC<{
 	getPriceCar,
 	depositPrice,
 	setDepositPrice,
+	carName,
+	setCarName,
 }) => {
 	const { id, carID } = useParams();
 	const location = useLocation();
@@ -80,13 +84,14 @@ const RentCarDetailModal: FC<{
 					(e as AxiosError<ErrorResponse>).response?.data.message ??
 						"Возникла ошибка с сервером поробуйте позже"
 				);
-				
 			});
 	};
 
 	const handleClose = () => {
+		const path =
+			location.key === "default" || location ? `/rent/page/${id ?? 1}` : -1;
 		//@ts-ignore
-		navigate(location.key === "default" ? `/rent/page/${id ?? 1}` : -1);
+		navigate(path);
 	};
 
 	if (isLoading) return <Loader />;
@@ -142,7 +147,6 @@ const RentCarDetailModal: FC<{
 					setStep={setStep}
 				/>
 			)}
-
 			{step === "payment" && (
 				<CarRentPaymentType
 					setConfirmPayment={setConfirmPaymentQR}
@@ -156,6 +160,7 @@ const RentCarDetailModal: FC<{
 			)}
 			{step === "confirm_payment" && (
 				<CarRentPaymentTypeConfirm
+					setCarName={setCarName}
 					paymentStatus={paymentStatus}
 					setPaymentStatus={setPaymentStatus}
 					confirmPayment={confirmPaymentQR}
@@ -173,6 +178,7 @@ const RentCarDetailModal: FC<{
 					paymentStatus={paymentStatus}
 					closeFunc={handleClose}
 					car={data.item}
+					carName={carName}
 				/>
 			)}
 			{step === "finish" && <CarRentFormConfirmed closeFunc={handleClose} />}

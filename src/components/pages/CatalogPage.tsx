@@ -14,6 +14,7 @@ import { SmallFooter } from "../layout/Footer";
 import { useQuery } from "@tanstack/react-query";
 import catalogService from "../../api-functions/catalog-page/catalog-service";
 import CatalogFiltersBlock from "./Catalog/CatalogFilterBlock";
+import chevron from "../../images/common/footer/chevron-for-bottom.svg";
 
 export const AlertMessage: React.FC<{
 	page: string;
@@ -93,6 +94,32 @@ export const BottomMessage: React.FC<{
 				<div className={"bottom-message_header "}>{props.text2}</div>
 			</div>
 			<div className={"bottom-message_btn"}>{props.button}</div>
+		</div>
+	);
+};
+
+export const BottomMessageMobile: React.FC<{
+	text1: string | ReactNode;
+	text2: string | ReactNode;
+	className?: string;
+	onClick?: () => void;
+}> = (props) => {
+	return (
+		<div
+			onClick={props.onClick}
+			className={`bottom-message bottom-message-mobile ${props.className}`}
+			style={{
+				backgroundImage: `url('${bg}')`,
+				backgroundPosition: "center",
+				borderRadius: "2px",
+			}}>
+			<div>
+				<div className={"bottom-message_description"}>{props.text1}</div>
+				<div className={"bottom-message_header "}>{props.text2}</div>
+			</div>
+			<div className={"bottom-message_btn"}>
+				<img src={chevron} alt="Предложить машину" />
+			</div>
 		</div>
 	);
 };

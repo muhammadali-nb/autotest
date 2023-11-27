@@ -1,11 +1,19 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios, { AxiosError } from "axios";
 import React, { ReactNode, useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import Api, { CallRequestData, ConfirmPhone, ErrorResponse } from "../../Api";
-import Utils from "../../utils/Utils";
+import { useAuth } from "../../hooks/useAuth";
 import caretLeft from "../../images/common/caret-left-big.svg";
 import caretRight from "../../images/common/caret-right-big.svg";
+import { ConfirmPaymentQR } from "../../types/AuthContextTypes";
+import {
+	CarDataType,
+	RentBookingPaymentStatus,
+	RentCreateAccountForm,
+} from "../../types/RentTypes";
+import Utils from "../../utils/Utils";
 import { CarImagesModal } from "../pages/Car/CarImages";
 import {
 	CarStatBlockEntry,
@@ -15,6 +23,7 @@ import {
 import bankCardImg from "./../../images/common/bank-card.png";
 import sbpImg from "./../../images/common/sbp.png";
 import { CarTag } from "./CarCard";
+import FileInput from "./FileInput";
 import LoadError from "./LoadError";
 import Loader from "./Loader";
 import ModalFormTemplate, {
@@ -23,16 +32,6 @@ import ModalFormTemplate, {
 	ModalTemplateInput,
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
-import axios, { AxiosError } from "axios";
-import { useAuth } from "../../hooks/useAuth";
-import {
-	CarDataType,
-	RentBookingPaymentStatus,
-	RentCreateAccountForm,
-} from "../../types/RentTypes";
-import FileInput from "./FileInput";
-import { ConfirmPaymentQR } from "../../types/AuthContextTypes";
-import { useLocation } from "react-router-dom";
 export type CarBookingStepsType =
 	| "rent"
 	| "start"
@@ -225,7 +224,7 @@ export const CarRentConfirmPhone: React.FC<{
 
 	useEffect(() => {
 		if (code.replace(/\D+/g, "").length === 5) {
-		 	send();
+			send();
 		}
 	}, [code]);
 
@@ -523,14 +522,12 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 	confirmPayment: ConfirmPaymentQR;
 	setPaymentStatus: (e: RentBookingPaymentStatus) => void;
 	paymentStatus: RentBookingPaymentStatus;
+	setCarName: (e: string) => void;
 }> = (props) => {
 	const { isAuthenticated } = useAuth();
 
 	useEffect(() => {
-		if (props.step !== "confirm_payment") {
-			return;
-		}
-		if (props.paymentStatus === null || props.paymentStatus === "NEW") {
+		if (props.paymentStatus !== "CONFIRMED" || "REFUNDED" || "CANCELLED") {
 			const interval = setInterval(() => {
 				axios
 					.get(
@@ -539,7 +536,14 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 					.then((res) => {
 						if (res.data.result === 1) {
 							props.setPaymentStatus(res.data.status);
-							if (res.data.status !== "NEW") props.setStep("booking_result");
+							props.setCarName(res.data.car);
+							if (
+								res.data.status === "CONFIRMED" ||
+								res.data.status === "REFUNDED" ||
+								res.data.status === "CANCELLED"
+							) {
+								props.setStep("booking_result");
+							}
 						}
 					})
 					.catch((error) => {
@@ -547,7 +551,7 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 						props.setPaymentStatus(null);
 						props.setStep("payment");
 					});
-			}, 2000);
+			}, 5000);
 			return () => {
 				clearInterval(interval); // stops interval
 			};
@@ -576,7 +580,7 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 						}>
 						Бронирование
 						<br />
-						{props.car.brand} {props.car.model}
+						{props.car.brand + " " + props.car.model}
 					</div>
 					<div
 						className={
@@ -623,6 +627,7 @@ export const CarRentBookingStatus: React.FC<{
 	paymentStatus: RentBookingPaymentStatus;
 	closeFunc: () => void;
 	car: CarDataType;
+	carName: string | null;
 }> = (props) => {
 	return (
 		<ModalTemplateContent>
@@ -654,7 +659,8 @@ export const CarRentBookingStatus: React.FC<{
 							прошла успешно!
 						</div>
 						<div className={"call-content-text"}>
-							{props.car.brand} {props.car.model} — забронирован!
+							{props.carName || props.car.brand + " " + props.car.model} —
+							забронирован!
 						</div>
 					</>
 				) : (
@@ -778,7 +784,7 @@ export const CarRequestFormContent: React.FC<{
 					className={
 						"font-size-16 line-height-120 font-weight-medium mb-px-40"
 					}>
-					Депозит{"  "}
+					Депозит от{"  "}
 					<span className={"font-weight-semibold"}>
 						{props.car.deposit.toLocaleString()} ₽
 					</span>
@@ -1077,7 +1083,6 @@ export const CarBookingForm: React.FC<{
 	car_id: any;
 }> = (props) => {
 	const { user_status } = useAuth();
-	const location = useLocation();
 	const [error_message, setErrorMessage] = useState<string | null>(null);
 	const [paymentStatus, setPaymentStatus] =
 		useState<RentBookingPaymentStatus>(null);
@@ -1085,6 +1090,8 @@ export const CarBookingForm: React.FC<{
 	const [show, setShow] = useState(false);
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [timer, setTimer] = useState(0);
+	const [carName, setCarName] = useState<string | null>(null);
+
 	const [confirmPaymentQR, setConfirmPaymentQR] = useState<ConfirmPaymentQR>({
 		qr: "",
 		pid: "",
@@ -1210,6 +1217,7 @@ export const CarBookingForm: React.FC<{
 				)}
 				{step === "confirm_payment" && (
 					<CarRentPaymentTypeConfirm
+						setCarName={setCarName}
 						paymentStatus={paymentStatus}
 						setPaymentStatus={setPaymentStatus}
 						confirmPayment={confirmPaymentQR}
@@ -1227,6 +1235,7 @@ export const CarBookingForm: React.FC<{
 						paymentStatus={paymentStatus}
 						closeFunc={handleClose}
 						car={props.car}
+						carName={carName}
 					/>
 				)}
 				{step === "finish" && <CarRentFormConfirmed closeFunc={handleClose} />}

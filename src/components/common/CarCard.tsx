@@ -280,7 +280,7 @@ export const CarRentCard: React.FC<{
 						</div>
 					</div>
 					<div className={"car__card-price mb-px-30"}>
-						Депозит от от&nbsp;
+						Депозит от&nbsp;
 						<span className={"car__card-price-value"}>
 							{car.deposit.toLocaleString()} ₽
 						</span>
@@ -322,7 +322,7 @@ export const CarRentCard: React.FC<{
 						</div>
 					</div>
 					<div className={" car-rent-card_deposit"}>
-						Депозит от от&nbsp;
+						Депозит от&nbsp;
 						<span className={"car-rent-card_deposit-value"}>
 							{car.deposit.toLocaleString()} ₽
 						</span>
