@@ -22,7 +22,7 @@ const RentHistoryPage = () => {
 					<Col lg={10}>
 						<div className="personal-account_page">
 							<PersonalAccountHeader />
-							<div className="mt-px-65">
+							<div>
 								<PersonalAccountCarCard />
 							</div>
 							{/* <div className="d-flex align-items-end justify-content-between">
