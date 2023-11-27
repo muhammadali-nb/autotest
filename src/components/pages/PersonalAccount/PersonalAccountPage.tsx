@@ -13,13 +13,23 @@ import { useOutside } from "../../../hooks/useOutside";
 import PersonalAccountMenuMobile from "./PersonalAccountMenuMobile";
 import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 
+export interface userManagerProps {
+	first_name: string,
+	middle_name: string,
+	last_name: string,
+	phone: string,
+	email: string,
+	social: {type: string, url: string}[]
+}
+
 export interface userDataProps {
 	name: string,
 	last_name: string,
 	middle_name: string,
 	phone: string,
 	email: string,
-	birth_date: string
+	birth_date: string,
+	manager: userManagerProps
 }
 
 const userData: userDataProps = {
@@ -28,7 +38,28 @@ const userData: userDataProps = {
 	middle_name: 'Алексеевна',
 	phone: '+7 (999) 999 99 99',
 	email: '',
-	birth_date: '2014-01-01'
+	birth_date: '2014-01-01',
+	manager: {
+		first_name: "Мария",
+		middle_name: "Ивановна",
+		last_name: "Иванова",
+		phone: "8 (900) 999 90 90",
+		email: "maria.ii@mail.ru",
+		social: [
+			{
+				type: "vk",
+				url: "#"
+			},
+			{
+				type: "wp",
+				url: "#"
+			},
+			{
+				type: "tg",
+				url: "#"
+			}
+		]
+	}
 }
 
 const PersonalAccountPage: React.FC = () => {
@@ -50,7 +81,7 @@ const PersonalAccountPage: React.FC = () => {
 							</div>
 							<div className="personal-account_page_body">
 								<PersonalAccountForm data={userData} />
-								<PersonalAccountSocials />
+								<PersonalAccountSocials data={userData.manager} />
 							</div>
 							<SmallFooter className="d-none d-lg-block" />
 							<div className="d-block d-lg-none personal-account_footer">

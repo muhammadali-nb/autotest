@@ -76,6 +76,17 @@
       }
     }
   }
+  
+  &-mobActions {
+    display: flex;
+    flex-direction: column;
+    margin: -6px -6px 34px -6px;
+    width: 100%;
+
+    button {
+      margin: 6px;
+    }
+  }
 }
 
 @media (max-width: 767px) {

@@ -100,7 +100,7 @@ const PersonalAccountForm: React.FC<{
 					}
 				</div>
 				{size === "mob" &&
-					<div className="peronal-account_form-mobActions">
+					<div className="personal-account_form-mobActions">
 						<button className="site-btn dark w-100" onClick={(e) => {
 							e.preventDefault();
 							setEditType("phone");
