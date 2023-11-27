@@ -6,7 +6,6 @@ import {
 	RentBookingPaymentStatus,
 } from "../../../../../types/RentTypes";
 import { ConfirmPaymentQR } from "../../../../../types/AuthContextTypes";
-import { useAuth } from "../../../../../hooks/useAuth";
 import axios from "axios";
 
 const RentModalMobileConfirmPayment: FC<{
@@ -19,14 +18,10 @@ const RentModalMobileConfirmPayment: FC<{
 	confirmPayment: ConfirmPaymentQR;
 	setPaymentStatus: (e: RentBookingPaymentStatus) => void;
 	paymentStatus: RentBookingPaymentStatus;
+	setCarName: (e: string) => void;
 }> = (props) => {
-	const { isAuthenticated } = useAuth();
-
 	useEffect(() => {
-		if (props.step !== "confirm_payment") {
-			return;
-		}
-		if (props.paymentStatus === null || props.paymentStatus === "NEW") {
+		if (props.paymentStatus !== "CONFIRMED" || "REFUNDED" || "CANCELLED") {
 			const interval = setInterval(() => {
 				axios
 					.get(
@@ -35,7 +30,14 @@ const RentModalMobileConfirmPayment: FC<{
 					.then((res) => {
 						if (res.data.result === 1) {
 							props.setPaymentStatus(res.data.status);
-							if (res.data.status !== "NEW") props.setStep("booking_result");
+							props.setCarName(res.data.car);
+							if (
+								res.data.status === "CONFIRMED" ||
+								res.data.status === "REFUNDED" ||
+								res.data.status === "CANCELLED"
+							) {
+								props.setStep("booking_result");
+							}
 						}
 					})
 					.catch((error) => {
@@ -43,12 +45,13 @@ const RentModalMobileConfirmPayment: FC<{
 						props.setPaymentStatus(null);
 						props.setStep("payment");
 					});
-			}, 2000);
+			}, 5000);
 			return () => {
 				clearInterval(interval); // stops interval
 			};
 		}
 	}, [props.paymentStatus]);
+
 	return (
 		<div>
 			<div>
@@ -70,7 +73,7 @@ const RentModalMobileConfirmPayment: FC<{
 					src={`data:image/svg+xml;utf8,${encodeURIComponent(
 						props.confirmPayment.qr
 					)}`}
-					alt=""
+					alt="Confirm payment"
 					width={150}
 					height={150}
 				/>

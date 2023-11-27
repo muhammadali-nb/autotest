@@ -61,6 +61,7 @@ const CatalogLayout: React.FunctionComponent<CatalogLayoutProps> = (
 					image={props.headerImage}
 					type={props.headerType ?? "white"}
 					selectedLink={props.headerSelectedLink ?? "/"}
+					mobileModalType="orderCall"
 				/>
 				<main>{props.children}</main>
 				<Scroller />

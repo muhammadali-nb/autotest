@@ -127,6 +127,10 @@
       height: 100%;
     }
 
+    &-callrequest {
+      @extend .mobile-modal_body-ordercall;
+    }
+
     .file-input_icon {
       display: block;
       width: 20px;

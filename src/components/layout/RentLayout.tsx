@@ -57,14 +57,10 @@ const RentLayout: React.FunctionComponent<CatalogLayoutProps> = (
 					setBurgerMenuIsShow={setIsShow}
 					image={props.headerImage}
 					type={props.headerType ?? "white"}
+					mobileModalType="orderCall"
 					selectedLink={props.headerSelectedLink ?? "/"}
 				/>
 				<main>{props.children}</main>
-				{/* <Footer
-					small={props.footerSmall}
-					noContacts={props.footerNoContacts}
-					noForm={props.footerNoForm}
-				/> */}
 				<Scroller />
 				<ToggleSentUserData />
 				<Cookies />

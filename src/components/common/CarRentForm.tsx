@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios, { AxiosError } from "axios";
 import React, { ReactNode, useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
 import Api, { CallRequestData, ConfirmPhone, ErrorResponse } from "../../Api";
 import { useAuth } from "../../hooks/useAuth";
 import caretLeft from "../../images/common/caret-left-big.svg";

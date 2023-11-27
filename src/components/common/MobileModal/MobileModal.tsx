@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import "./MobileModal.scss";
-
 import call from "../../../images/common/phone-call.svg";
 import back from "../../../images/common/back.svg";
 import { HeaderLogoImage } from "../../layout/Header";
-import { Link } from "react-router-dom";
 import MobileAuthForm from "./MobileAuthForm";
 import MobileOrderCall from "./MobileOrderCall";
 import MobileCarRequestForm from "./MobileCarRequestForm";
@@ -41,7 +39,9 @@ export const MobileModal = ({
 				</div>
 			</div>
 			<div className="mobile-modal_body">
-				{(type === "rent" || !type) && <MobileCarRequestForm />}
+				{(type === "rent" || !type) && (
+					<MobileCarRequestForm closeFn={() => setActive(false)} />
+				)}
 				{type === "auth" && (
 					<MobileAuthForm closeFunc={() => setActive(false)} />
 				)}

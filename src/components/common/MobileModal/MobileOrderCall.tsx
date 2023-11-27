@@ -66,7 +66,8 @@ const MobileOrderCallForm: FC<{
 		<div className={"mobile-modal_body-ordercall"}>
 			<div>
 				<h1>
-					Заявка <br /> на автомобиль
+					запрос <br />
+					<span>на бронирование автомобиля</span>
 				</h1>
 				<p>
 					Оставьте свой номер телефона и мы перезвоним вам в ближайшее время
