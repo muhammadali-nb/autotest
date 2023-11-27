@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import {
@@ -31,6 +31,8 @@ const RentCarDetailModal: FC<{
 	getPriceCar: () => void;
 	depositPrice: number;
 	setDepositPrice: (e: number) => void;
+	carName: string | null;
+	setCarName: (e: string) => void;
 }> = ({
 	paymentStatus,
 	setPaymentStatus,
@@ -39,6 +41,8 @@ const RentCarDetailModal: FC<{
 	getPriceCar,
 	depositPrice,
 	setDepositPrice,
+	carName,
+	setCarName,
 }) => {
 	const { id, carID } = useParams();
 	const location = useLocation();
@@ -54,7 +58,6 @@ const RentCarDetailModal: FC<{
 		confirm: false,
 		errors: {},
 	});
-	const [carName, setCarName] = useState<string | null>(null);
 	const navigate = useNavigate();
 	const { data, error, isLoading } = useQuery({
 		queryKey: [`rent-car-${carID}`, carID],
@@ -85,8 +88,10 @@ const RentCarDetailModal: FC<{
 	};
 
 	const handleClose = () => {
+		const path =
+			location.key === "default" || location ? `/rent/page/${id ?? 1}` : -1;
 		//@ts-ignore
-		navigate(location.key === "default" || location ? `/rent/page/${id ?? 1}` : -1);
+		navigate(path);
 	};
 
 	if (isLoading) return <Loader />;
@@ -142,7 +147,6 @@ const RentCarDetailModal: FC<{
 					setStep={setStep}
 				/>
 			)}
-
 			{step === "payment" && (
 				<CarRentPaymentType
 					setConfirmPayment={setConfirmPaymentQR}

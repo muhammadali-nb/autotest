@@ -187,6 +187,7 @@ const ModalTemplateImage = () => {
 		</div>
 	);
 };
+
 const ModalFormTemplate: React.FC<ModalProps> = (props) => {
 	return (
 		<Modal {...props} centered size={"xl"}>

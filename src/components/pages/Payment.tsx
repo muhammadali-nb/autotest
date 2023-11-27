@@ -17,6 +17,7 @@ const Payment = () => {
 					state: {
 						status: "success",
 						payment_status: res.data.status,
+						car_name: res.data.car,
 					},
 				});
 			} else {

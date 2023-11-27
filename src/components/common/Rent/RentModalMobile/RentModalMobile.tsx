@@ -1,9 +1,7 @@
 import call from "../../../../images/common/phone-call.svg";
 import back from "../../../../images/common/back.svg";
 import { HeaderLogoImage } from "../../../layout/Header";
-import { Link, useLocation, useParams } from "react-router-dom";
-import { FC, ReactElement, useEffect, useState } from "react";
-import { ModalTemplatePhone } from "../../ModalFormTemplate";
+import { useEffect, useState } from "react";
 import { CarBookingStepsType } from "../../CarRentForm";
 import {
 	CarDataType,
@@ -14,10 +12,7 @@ import RentModalMobileConfirm from "./steps/RentModalMobileConfirm";
 import RentModalMobileCreate from "./steps/RentModalMobileCreate";
 import RentModalMobilePayment from "./steps/RentModalMobilePayment";
 import RentModalMobileFinish from "./steps/RentModalMobileFinish";
-import { useAuth } from "../../../../hooks/useAuth";
-import axios from "axios";
 import { ConfirmPaymentQR } from "../../../../types/AuthContextTypes";
-import { ConfirmPhone } from "../../../../Api";
 import RentModalMobileConfirmPayment from "./steps/RentModalMobileConfirmPayment";
 import RentModalMobilePaymentResult from "./steps/RentModalMobilePaymentResult";
 
@@ -32,6 +27,8 @@ export const RentModalMobile = ({
 	getPriceCar,
 	paymentStatus,
 	setPaymentStatus,
+	carName,
+	setCarName,
 }: {
 	depositPrice: number;
 	setDepositPrice: (e: number) => void;
@@ -43,6 +40,8 @@ export const RentModalMobile = ({
 	getPriceCar: () => void;
 	paymentStatus: RentBookingPaymentStatus;
 	setPaymentStatus: (e: RentBookingPaymentStatus) => void;
+	carName: string | null;
+	setCarName: (e: string) => void;
 }) => {
 	const [data, setData] = useState({
 		phone: "",
@@ -105,6 +104,7 @@ export const RentModalMobile = ({
 		} else if (step === "confirm_payment") {
 			return (
 				<RentModalMobileConfirmPayment
+					setCarName={setCarName}
 					paymentStatus={paymentStatus}
 					setPaymentStatus={setPaymentStatus}
 					confirmPayment={confirmPaymentQR}
@@ -148,7 +148,8 @@ export const RentModalMobile = ({
 			</div>
 			<div className="mobile-modal_body">
 				<h1>
-					Бронирование <br /> <span>{car.brand + " " + car.model}</span>
+					Бронирование <br />{" "}
+					<span>{carName || car.brand + " " + car.model}</span>
 				</h1>
 				<p>
 					Оставьте свой номер телефона <br /> и мы перезвоним вам в ближайшее
