@@ -23,7 +23,7 @@ const initialState: AuthInitialState = {
 	first_name: "",
 	middle_name: "",
 	last_name: "",
-	phone: null
+	phone: ""
 }
 
 const handlers = {
@@ -125,7 +125,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 							first_name: "",
 							middle_name: "",
 							last_name: "",
-							phone: null
+							phone: ""
 						},
 					});
 				}

@@ -103,6 +103,7 @@ let Utils = {
 
             return `${countryCode} (${areaCode}) ${firstPart} ${secondPart} ${thirdPart}`;
         }
+        return number;
     },
     validateEmail(request: { email: string, errors: Object }) {
         let errors = {};

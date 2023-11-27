@@ -7,6 +7,8 @@ import { HeaderLogoImage } from "../../layout/Header";
 import { Link } from "react-router-dom";
 import MobileAuthForm from "./MobileAuthForm";
 import MobileOrderCall from "./MobileOrderCall";
+import MobileEditPhone from "./MobileEditPhone";
+import MobileEditEmail from "./MobileEditEmail";
 
 export const MobileModal = ({
 	active,
@@ -92,6 +94,12 @@ export const MobileModal = ({
 				)}
 				{type === "orderCall" && (
 					<MobileOrderCall closeFunc={() => setActive(false)} />
+				)}
+				{type === "editPhone" && (
+					<MobileEditPhone closeFunc={() => setActive(false)} />
+				)}
+				{type === "editEmail" && (
+					<MobileEditEmail closeFunc={() => setActive(false)} />
 				)}
 			</div>
 		</div>

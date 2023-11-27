@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PersonalAccountForm.scss";
 import { userDataProps } from "../PersonalAccountPage";
 import editIcon from "../../../../images/common/edit.svg";
 import PersonalAccountModal from "../PersonalAccountModal/PersonalAccountModal";
+import { MobileModal } from "../../../common/MobileModal/MobileModal";
 
 const PersonalAccountForm: React.FC<{
 	data: userDataProps
 }> = (props) => {
 	const [modalOpened, setModalOpened] = useState(false);
+	const [mobileModalOpened, setMobileModalOpened] = useState(false);
 	const [editType, setEditType] = useState('phone');
+	const [size, setSize] = useState("desk");
+
+	useEffect(() => {
+		window.addEventListener("load", function () {
+			setSize(this.window.innerWidth > 767 ? "desk" : "mob");
+		});
+
+		window.addEventListener("resize", function () {
+			setSize(this.window.innerWidth > 767 ? "desk" : "mob");
+		});
+
+		return () => {
+			window.removeEventListener("resize", function () {
+				setSize(this.window.innerWidth > 767 ? "desk" : "mob");
+			});
+			window.addEventListener("load", function () {
+				setSize(this.window.innerWidth > 767 ? "desk" : "mob");
+			});
+		}
+	}, []);
 
 	return (
 		<>
@@ -45,34 +67,59 @@ const PersonalAccountForm: React.FC<{
 							<img src={editIcon} alt="Изменить номер телефона" />
 						</div>
 					</div>
-					{(props.data.email && window.innerWidth > 767) ?
-						<div className="personal-account_form-item">
-							<input
-								value={props.data.email}
-								type="text"
-								placeholder="E-mail"
-								className="contacts__form-input personal-account_form-input"
-							/>
-							<div className="personal-account_form-edit" onClick={() => {
-								setEditType('email');
-								setModalOpened(true);
-							}}>
-								<img src={editIcon} alt="Изменить электронную почту" />
-							</div>
-						</div>
-						:
+					{size === "desk" &&
+						<>
+							{props.data.email ?
+								<div className="personal-account_form-item">
+									<input
+										value={props.data.email}
+										type="text"
+										placeholder="E-mail"
+										className="contacts__form-input personal-account_form-input"
+									/>
+									<div className="personal-account_form-edit" onClick={() => {
+										setEditType('email');
+										setModalOpened(true);
+									}}>
+										<img src={editIcon} alt="Изменить электронную почту" />
+									</div>
+								</div>
+								:
+								<button className="site-btn dark w-100" onClick={(e) => {
+									e.preventDefault();
+									setEditType("email");
+									setModalOpened(true);
+								}}>
+									<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+										<path d="M9.5 3V9M9.5 9H15.5M9.5 9H3.5M9.5 9V15" stroke="#222222" stroke-Width="2" strokeLinecap="round" strokeLinejoin="round" />
+									</svg>
+									Добавить E-mail
+								</button>
+							}
+						</>
+					}
+				</div>
+				{size === "mob" &&
+					<div className="peronal-account_form-mobActions">
+						<button className="site-btn dark w-100" onClick={(e) => {
+							e.preventDefault();
+							setEditType("phone");
+							setMobileModalOpened(true);
+						}}>
+							Изменить телефон
+						</button>
 						<button className="site-btn dark w-100" onClick={(e) => {
 							e.preventDefault();
 							setEditType("email");
-							setModalOpened(true);
+							setMobileModalOpened(true);
 						}}>
-							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-								<path d="M9.5 3V9M9.5 9H15.5M9.5 9H3.5M9.5 9V15" stroke="#222222" stroke-Width="2" strokeLinecap="round" strokeLinejoin="round" />
-							</svg>
-							Добавить E-mail
+							{!props.data.email ? <>Добавить E-mail</> : <>Изменить E-mail</>}
 						</button>
-					}
-				</div>
+
+						<MobileModal type="editPhone" active={mobileModalOpened && editType === "phone"} setActive={setMobileModalOpened} />
+						<MobileModal type="editEmail" active={mobileModalOpened && editType === "email"} setActive={setMobileModalOpened} />
+					</div>
+				}
 				<div className={"personal-account_form-topic"}>
 					<h3>Дата рождения</h3>
 					<input
