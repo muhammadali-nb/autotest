@@ -13,6 +13,7 @@ const CallRequestForm: FC<{
 	closeFn: () => void;
 	setSent: (boolean) => void;
 }> = (props) => {
+	const [passed, setPassed] = useState(false);
 	const [data, setData] = useState<CallRequestData>({
 		name: "",
 		lastName: "",
@@ -23,7 +24,7 @@ const CallRequestForm: FC<{
 	});
 
 	const [errorMessage, setErrorMessage] = useState<null | string>(null);
-	const [passed, setPassed] = useState(false);
+
 	const send = async () => {
 		let errors = Utils.validateForm(data);
 		if (Object.keys(errors).length > 0) {
@@ -78,7 +79,7 @@ const CallRequestForm: FC<{
 					<form>
 						<ModalTemplateInput
 							place
-							holder="Фамилия"
+							placeholder="Фамилия"
 							value={data.lastName}
 							error={data.errors["lastName"]}
 							small={true}
@@ -113,7 +114,11 @@ const CallRequestForm: FC<{
 					</div>
 				</div>
 				<div>
-					<button className="site-btn dark mb-px-25">перезвоните мне</button>
+					<button
+						className={"site-btn mb-px-25 " + (!passed ? "dark" : "")}
+						onClick={send}>
+						перезвоните мне
+					</button>
 					<p className="form-mobile-policy">
 						Нажимая на кнопку “Забронировать”, вы соглашаетесь с{" "}
 						<Link
@@ -161,7 +166,6 @@ const CallRequestFormResult: FC<{ closeFn: () => void }> = (props) => {
 
 const MobileCarRequestForm: FC<{ closeFn: () => void }> = (props) => {
 	const [sent, setSent] = useState(false);
-
 	return (
 		<>
 			{!sent ? (
