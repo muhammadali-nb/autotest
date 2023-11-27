@@ -1,20 +1,20 @@
-import React, { RefObject, useEffect, useState } from "react";
-import { HeaderLogoImage } from "./Header";
+import { RefObject, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { HeaderLogoImage } from "./Header";
 
 //icons
-import house from "../../images/common/mobile_menu-icons/house.svg";
+import { useAuth } from "../../hooks/useAuth";
+import arrow from "../../images/common/menu-arrow.svg";
 import car from "../../images/common/mobile_menu-icons/car.svg";
 import dashboard from "../../images/common/mobile_menu-icons/dashboard.svg";
+import house from "../../images/common/mobile_menu-icons/house.svg";
+import loginIcon from "../../images/common/mobile_menu-icons/login.svg";
 import phone from "../../images/common/mobile_menu-icons/phone.svg";
 import question from "../../images/common/mobile_menu-icons/question.svg";
 import ticked from "../../images/common/mobile_menu-icons/ticked.svg";
-import loginIcon from "../../images/common/mobile_menu-icons/login.svg";
-import AdvanceLogin from "../common/AdvanceLogin";
-import arrow from "../../images/common/menu-arrow.svg";
-import { MobileModal } from "../common/MobileModal/MobileModal";
-import { useAuth } from "../../hooks/useAuth";
 import Utils from "../../utils/Utils";
+import AdvanceLogin from "../common/AdvanceLogin";
+import { MobileModal } from "../common/MobileModal/MobileModal";
 
 interface MobileMenuProps {
 	menuIsOpen: boolean;
@@ -24,7 +24,7 @@ interface MobileMenuProps {
 
 const defaultLinks = [
 	{ text: "Главная", path: "/", className: "", icon: house, id: 1 },
-	{ text: "Каталог", path: "/catalog", className: "", icon: car, id: 2 },
+	{ text: "Выкуп", path: "/catalog", className: "", icon: car, id: 2 },
 	{
 		text: "Программы",
 		path: "/programs",
@@ -52,7 +52,7 @@ const MobileMenu = (props: MobileMenuProps) => {
 
 	const exit = () => {
 		logout();
-		navigate('/');
+		navigate("/");
 	};
 
 	return (
@@ -90,40 +90,62 @@ const MobileMenu = (props: MobileMenuProps) => {
 					</div>
 				</div>
 				<div>
-					{!isAuthenticated ?
+					{!isAuthenticated ? (
 						<>
 							<AdvanceLogin
 								isShow={loginAdvanceIsShow}
 								setIsShow={setLoginAdvanceIsShow}
 							/>
-							<div className="mobile-menu_login mt-4" onClick={() => setAuthIsOpen(!authIsOpen)}>
+							<div
+								className="mobile-menu_login mt-4"
+								onClick={() => setAuthIsOpen(!authIsOpen)}>
 								<img src={loginIcon} alt={"login"} />
 								<h5>Войти в ЛК</h5>
 							</div>
-							<MobileModal active={authIsOpen} type={"auth"} setActive={setAuthIsOpen} />
+							<MobileModal
+								active={authIsOpen}
+								type={"auth"}
+								setActive={setAuthIsOpen}
+							/>
 						</>
-						:
+					) : (
 						<div className="mobile-menu_user mt-4 d-flex flex-column">
-							<span className="mb-1 fw-medium font-size-16" onClick={() => navigate('/personal-account')}>
+							<span
+								className="mb-1 fw-medium font-size-16"
+								onClick={() => navigate("/personal-account")}>
 								{last_name + " " + first_name}
 							</span>
-							{phone &&
+							{phone && (
 								<span className="fw-medium font-size-12 mb-3">
 									{Utils.formatPhone(phone)}
 								</span>
-							}
+							)}
 							<button className="font-size-16 fw-medium" onClick={exit}>
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									viewBox="0 0 16 16"
+									fill="none">
 									<path
 										d="M6.66667 14.6667H3.33333C2.59695 14.6667 2 14.0697 2 13.3333V2.66666C2 1.93028 2.59695 1.33333 3.33333 1.33333H6.66667"
-										stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-									<path d="M11.3333 10.6667L14 7.99999M14 7.99999L11.3333 5.33333M14 7.99999H6" stroke="#222222"
-										strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+										stroke="#222222"
+										strokeWidth="1.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+									<path
+										d="M11.3333 10.6667L14 7.99999M14 7.99999L11.3333 5.33333M14 7.99999H6"
+										stroke="#222222"
+										strokeWidth="1.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
 								</svg>
 								Выйти
 							</button>
 						</div>
-					}
+					)}
 				</div>
 			</div>
 		</div>

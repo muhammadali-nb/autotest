@@ -26,7 +26,7 @@ const CallRequestForm: FC<{
 	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
 	const send = async () => {
-		let errors = Utils.validateForm(data);
+		let errors = Utils.validateForm(data, "Укажите желаемый автомобиль");
 		if (Object.keys(errors).length > 0) {
 			setData({ ...data, errors: errors });
 			setPassed(false);
@@ -37,15 +37,13 @@ const CallRequestForm: FC<{
 				withCredentials: true,
 				body: JSON.stringify({
 					w: "form",
-					type: "buyout",
+					type: "car_request",
 					first_name: data.name,
 					last_name: data.lastName,
-					middle_name: data.middleName,
 					phone: data.phone.slice(1),
-					email: data.email,
+					comment: data.comment,
 				}),
 			});
-
 			if (res.data.result === 1) {
 				props.setSent(true);
 				setPassed(true);

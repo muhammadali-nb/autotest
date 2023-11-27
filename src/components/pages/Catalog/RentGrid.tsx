@@ -4,18 +4,20 @@ import { Link } from "react-router-dom";
 import { CarRentCard } from "../../common/CarCard";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
-import { BottomMessage } from "../CatalogPage";
+import { BottomMessage, BottomMessageMobile } from "../CatalogPage";
 import CarRequestForm from "../../common/CarRequestForm";
 import chevron from "../../../images/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
 import RentPaginator from "../../common/Rent/RentPaginator";
+import { MobileModal } from "../../common/MobileModal/MobileModal";
 
 const RentGrid: React.FC<{
 	loader?: () => void;
 	activePage: number;
 }> = ({ activePage }) => {
 	const filter: any = useAppSelector((state) => state.filter);
+	const [carFormModalMobile, setCarFormModalMobile] = useState(false);
 	const { data, error, isLoading } = useQuery({
 		queryKey: ["rent-cars", { activePage, ...filter }],
 		queryFn: () => rentService.getCars(activePage, filter),
@@ -32,41 +34,40 @@ const RentGrid: React.FC<{
 			</div>
 		);
 	return (
-		<div>
-			<div className={"catalog__grid"}>
-				{!isLoading &&
-					data.list.map((i, index) => (
-						<Link
-							key={i.id}
-							to={`/rent/page/${activePage}/car/${i.id}`}
-							style={{ textDecoration: "none" }}>
-							<CarRentCard car={i} />
-						</Link>
-					))}
-			</div>
-			<BottomMessage
-				className="bottom-message-desc"
-				button={<CarRequestForm text={"Оставить заявку"} light />}
-				text1={"Нужен автомобиль в собственность?"}
-				text2={"Подумайте о Лизинге!"}
-			/>
-			<BottomMessage
-				className="bottom-message-mobile"
-				button={
-					<CarRequestForm
-						icon={<img src={chevron} />}
-						text={"Оставить заявку"}
-						light
-					/>
-				}
-				text1={"Нужен автомобиль в собственность?"}
-				text2={"Подумайте о Лизинге!"}
-			/>
+		<>
+			<div>
+				<div className={"catalog__grid"}>
+					{!isLoading &&
+						data.list.map((i, index) => (
+							<Link
+								key={i.id}
+								to={`/rent/page/${activePage}/car/${i.id}`}
+								style={{ textDecoration: "none" }}>
+								<CarRentCard car={i} />
+							</Link>
+						))}
+				</div>
+				<BottomMessage
+					className="bottom-message-desc"
+					button={<CarRequestForm text={"Оставить заявку"} light />}
+					text1={"Не нашли ничего подходящего?"}
+					text2={"Предложите свой вариант!"}
+				/>
 
-			<div className={"catalog__grid-paginator"}>
-				<RentPaginator activePage={activePage} data={!isLoading && data} />
+				<BottomMessageMobile
+					text1={"Не нашли ничего подходящего?"}
+					text2={"Предложите свой вариант!"}
+					onClick={() => setCarFormModalMobile(true)}
+				/>
+				<div className={"catalog__grid-paginator"}>
+					<RentPaginator activePage={activePage} data={!isLoading && data} />
+				</div>
 			</div>
-		</div>
+			<MobileModal
+				active={carFormModalMobile}
+				setActive={setCarFormModalMobile}
+			/>
+		</>
 	);
 };
 
