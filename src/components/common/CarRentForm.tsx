@@ -154,6 +154,7 @@ export const CarRentConfirmPhone: React.FC<{
 	data: ConfirmPhone;
 	timer: number;
 	repeatRequest: () => void;
+	getPriceCar: () => void;
 }> = (props) => {
 	const [passed, setPassed] = useState(false);
 	const [code, setCode] = useState("      ");
@@ -192,7 +193,11 @@ export const CarRentConfirmPhone: React.FC<{
 		try {
 			const res: any = await register(props.data.phone, code);
 			if (res.success) {
-				props.setStep("create");
+				if (res.has_profile) {
+					await props.getPriceCar();
+				} else {
+					props.setStep("create");
+				}
 				setPassed(true);
 			}
 		} catch (error) {
@@ -948,6 +953,7 @@ export const CarRentCreateAccount: React.FC<{
 	getPayment: () => void;
 }> = (props) => {
 	const [base64, setBase64] = useState("");
+	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 	const [state, setState] = useState<RentCreateAccountForm>({
 		name: "",
 		lastName: "",
@@ -993,6 +999,10 @@ export const CarRentCreateAccount: React.FC<{
 			}
 		} catch (error) {
 			console.log(error);
+			setErrorMessage(
+				(error as AxiosError<ErrorResponse>).response?.data.message ??
+					"Возникла ошибка с сервером поробуйте позже"
+			);
 		}
 	};
 
@@ -1185,6 +1195,7 @@ export const CarBookingForm: React.FC<{
 				{step === "confirm" && (
 					<CarRentConfirmPhone
 						timer={timer}
+						getPriceCar={getPriceCar}
 						data={state}
 						repeatRequest={confirmPhone}
 						car={props.car}

@@ -130,6 +130,7 @@ const RentCarDetailModal: FC<{
 			{step === "confirm" && (
 				<CarRentConfirmPhone
 					timer={timer}
+					getPriceCar={getPriceCar}
 					data={state}
 					repeatRequest={confirmPhone}
 					car={data.item}
