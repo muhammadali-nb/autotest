@@ -23,13 +23,21 @@ const initialState: AuthInitialState = {
 	first_name: "",
 	middle_name: "",
 	last_name: "",
-	phone: null
-}
+	phone: null,
+};
 
 const handlers = {
 	INITIALIZE: (state: AuthInitialState, action) => {
-		const { isAuthenticated, api_status, user_status, has_profile, first_name, middle_name, last_name, phone } =
-			action.payload;
+		const {
+			isAuthenticated,
+			api_status,
+			user_status,
+			has_profile,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+		} = action.payload;
 
 		return {
 			...state,
@@ -41,7 +49,7 @@ const handlers = {
 			first_name,
 			middle_name,
 			last_name,
-			phone
+			phone,
 		};
 	},
 	LOGIN: (state: AuthInitialState, action) => {
@@ -59,8 +67,17 @@ const handlers = {
 		user: null,
 	}),
 	REGISTER: (state: AuthInitialState, action) => {
-		const { user, user_status, has_profile, error_message, api_status, first_name, middle_name, last_name, phone } =
-			action.payload;
+		const {
+			user,
+			user_status,
+			has_profile,
+			error_message,
+			api_status,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+		} = action.payload;
 
 		return {
 			...state,
@@ -73,7 +90,7 @@ const handlers = {
 			first_name,
 			middle_name,
 			last_name,
-			phone
+			phone,
 		};
 	},
 };
@@ -100,18 +117,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				withCredentials: true,
 			})
 			.then((res: AxiosResponse<AuthResponce>) => {
-				const { success, reason, has_profile, first_name, middle_name, last_name, phone } = res.data;
+				const {
+					success,
+					reason,
+					has_profile,
+					first_name,
+					middle_name,
+					last_name,
+					phone,
+				} = res.data;
 				if (success && has_profile) {
 					dispatch({
 						type: actions.INITIALIZE,
 						payload: {
 							isAuthenticated: true,
-							has_profile: true,
+							has_profile: res.data.has_profile,
 							user_status: null,
 							first_name: first_name,
 							middle_name: middle_name,
 							last_name: last_name,
-							phone: phone
+							phone: phone,
 						},
 					});
 				} else {
@@ -125,7 +150,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 							first_name: "",
 							middle_name: "",
 							last_name: "",
-							phone: null
+							phone: null,
 						},
 					});
 				}
@@ -157,13 +182,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				payload: {
 					isAuthenticated: true,
 					api_status: "success",
-					has_profile: false,
+					has_profile: res.data.has_profile,
 					user_status: null,
 					err_message: null,
 					first_name: res.data.first_name,
 					middle_name: res.data.middle_name,
 					last_name: res.data.last_name,
-					phone: res.data.phone
+					phone: res.data.phone,
 				},
 			});
 
@@ -197,7 +222,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			console.log((error as AxiosError).response);
 		} finally {
 			dispatch({
-				type: actions.LOGOUT
+				type: actions.LOGOUT,
 			});
 		}
 	};
@@ -205,9 +230,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const login = (data: AuthResponce) => {
 		dispatch({
 			type: actions.LOGIN,
-			payload: data
+			payload: data,
 		});
-	}
+	};
 
 	useEffect(() => {
 		initialize().catch(console.error);
@@ -219,7 +244,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				...state,
 				register,
 				initialize,
-				logout
+				logout,
 			}}>
 			{children}
 		</AuthContext.Provider>

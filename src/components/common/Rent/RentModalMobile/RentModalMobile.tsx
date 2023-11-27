@@ -75,6 +75,7 @@ export const RentModalMobile = ({
 			return (
 				<RentModalMobileConfirm
 					step={step}
+					getPayment={getPriceCar}
 					setStep={setStep}
 					car={car}
 					phone={data.phone}

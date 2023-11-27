@@ -1,6 +1,7 @@
 import { RefObject, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HeaderLogoImage } from "./Header";
+import { MobileModal } from "../common/MobileModal/MobileModal";
 
 //icons
 import { useAuth } from "../../hooks/useAuth";
@@ -14,7 +15,6 @@ import question from "../../images/common/mobile_menu-icons/question.svg";
 import ticked from "../../images/common/mobile_menu-icons/ticked.svg";
 import Utils from "../../utils/Utils";
 import AdvanceLogin from "../common/AdvanceLogin";
-import { MobileModal } from "../common/MobileModal/MobileModal";
 
 interface MobileMenuProps {
 	menuIsOpen: boolean;
@@ -146,7 +146,7 @@ const MobileMenu = (props: MobileMenuProps) => {
 							</button>
 						</div>
 					)}
-				</div>
+					</div>
 			</div>
 		</div>
 	);
