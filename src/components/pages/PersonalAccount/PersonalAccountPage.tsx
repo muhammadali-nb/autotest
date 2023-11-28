@@ -4,9 +4,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import { SmallFooter } from "../../layout/Footer";
 import PersonalAccountMenu from "./PersonalAccountMenu";
 import PersonalAccountData from "./PersonalAccountData";
-import BankCard from "../../common/PersonalAccount/BankCard/BankCard";
-import { PersonalAccountCards } from "./PersonalAccountBankCards/PersonalAccountBankCards";
-import ScoreCard from "../../common/ScoreCard/ScoreCard";
 import PersonalAccountForm from "./PersonalAccountForm/PersonalAccountForm";
 import PersonalAccountSocials from "./PersonalAccountSocials/PersonalAccountSocials";
 import { useOutside } from "../../../hooks/useOutside";
@@ -24,13 +21,14 @@ export interface userManagerProps {
 }
 
 export interface userDataProps {
-	name: string,
-	last_name: string,
-	middle_name: string,
-	phone: string,
-	email: string,
-	birth_date: string,
-	manager: userManagerProps
+	name: string;
+	last_name: string;
+	middle_name: string;
+	phone: string;
+	email: string;
+	birth_date: string;
+	manager: userManagerProps;
+	tg_connected: boolean;
 }
 
 const userData: userDataProps = {
@@ -57,11 +55,12 @@ const userData: userDataProps = {
 			},
 			{
 				type: "tg",
-				url: "#"
-			}
-		]
-	}
-}
+				url: "#",
+			},
+		],
+	},
+	tg_connected: false,
+};
 
 const PersonalAccountPage: React.FC = () => {
 	// for menu personal account
@@ -83,7 +82,10 @@ const PersonalAccountPage: React.FC = () => {
 							</div>
 							<div className="personal-account_page_body">
 								<PersonalAccountForm data={userData} />
-								<PersonalAccountSocials data={userData.manager} tg_connected={userData.tg_connected} />
+								<PersonalAccountSocials
+									data={userData.manager}
+									tg_connected={userData.tg_connected}
+								/>
 							</div>
 							<SmallFooter className="d-none d-lg-block" />
 							<div className="d-block d-lg-none personal-account_footer">
