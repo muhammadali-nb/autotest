@@ -55,7 +55,10 @@ const NewPhone: React.FC<{
             <div className="mobile-modal_body-action mb-3">
                 <button
                     className={"site-btn small " + (!passed ? "dark" : "")}
-                    onClick={() => phoneSend()}>
+                    onClick={(e) => {
+                        e.preventDefault();
+                        phoneSend();
+                    }}>
                     Далее
                 </button>
             </div>
