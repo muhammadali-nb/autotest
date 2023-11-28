@@ -76,13 +76,11 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 					mobileModalType="orderCall"
 				/>
 				<main>{props.children}</main>
-
 				<Footer
 					small={props.footerSmall}
 					noContacts={props.footerNoContacts}
 					noForm={props.footerNoForm}
 				/>
-
 				<Scroller />
 				<ToggleSentUserData />
 				<Cookies />

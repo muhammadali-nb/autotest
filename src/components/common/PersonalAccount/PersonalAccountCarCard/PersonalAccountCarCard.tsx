@@ -3,6 +3,7 @@ import PersonalAccountCarCardPayment from "./descktop/PersonalAccountCarCardPaym
 import PersonalAccountCarCardPaymentStatus from "./descktop/PersonalAccountCarCardPaymentStatus";
 import PersonalAccountCarCardInfo from "./descktop/PersonalAccountCarCardInfo";
 import PersonalAccountCarCardInfoMobile from "./mobile/PersonalAccountCarCardInfoMobile";
+import PersonalAccountCarCardPaymentMobile from "./mobile/PersonalAccountCarCardPaymentMobile";
 
 const PersonalAccountCarCard = () => {
 	return (
@@ -15,7 +16,10 @@ const PersonalAccountCarCard = () => {
 				</div>
 			</div>
 			<div className="personal-account-rent-car_mobile d-block d-md-none">
-				<PersonalAccountCarCardInfoMobile />
+				<div className="personal-account-rent-car_mobile-card">
+					<PersonalAccountCarCardInfoMobile />
+					<PersonalAccountCarCardPaymentMobile />
+				</div>
 			</div>
 		</>
 	);

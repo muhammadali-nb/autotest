@@ -255,11 +255,11 @@ export const defaultCars: CatalogResponse = {
 }
 
 export interface RentCreateAccountForm {
-	name: string;
-	lastName: string;
-	middleName: string;
-	image: string;
-	errors: any;
+  name: string;
+  lastName: string;
+  middleName: string;
+  image: string;
+  errors: any;
 }
 
 export interface RentResponse extends PaginatedResponse {
