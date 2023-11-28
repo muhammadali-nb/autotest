@@ -24,13 +24,14 @@ export interface userManagerProps {
 }
 
 export interface userDataProps {
-	name: string,
-	last_name: string,
-	middle_name: string,
-	phone: string,
-	email: string,
-	birth_date: string,
-	manager: userManagerProps
+	name: string;
+	last_name: string;
+	middle_name: string;
+	phone: string;
+	email: string;
+	birth_date: string;
+	manager: userManagerProps;
+	tg_connected: boolean;
 }
 
 const userData: userDataProps = {
@@ -57,11 +58,12 @@ const userData: userDataProps = {
 			},
 			{
 				type: "tg",
-				url: "#"
-			}
-		]
-	}
-}
+				url: "#",
+			},
+		],
+	},
+	tg_connected: false,
+};
 
 const PersonalAccountPage: React.FC = () => {
 	// for menu personal account
@@ -83,7 +85,10 @@ const PersonalAccountPage: React.FC = () => {
 							</div>
 							<div className="personal-account_page_body">
 								<PersonalAccountForm data={userData} />
-								<PersonalAccountSocials data={userData.manager} tg_connected={userData.tg_connected} />
+								<PersonalAccountSocials
+									data={userData.manager}
+									tg_connected={userData.tg_connected}
+								/>
 							</div>
 							<SmallFooter className="d-none d-lg-block" />
 							<div className="d-block d-lg-none personal-account_footer">
