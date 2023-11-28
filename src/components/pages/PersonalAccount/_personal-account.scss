@@ -37,13 +37,22 @@
   }
 }
 
+.personal-account_head {
+  @include l-md {
+    flex-direction: column;
+    align-items: flex-start !important;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #222222;
+  }
+}
+
 .personal-account-data {
   display: flex;
 
   @include l-md {
     width: 100%;
-    padding: 0 0 24px 0;
-    border-bottom: 1px solid #222222;
+    padding: 0;
+    margin-bottom: 8px;
   }
 
   &_image {

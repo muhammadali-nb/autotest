@@ -1,0 +1,57 @@
+.balance-mobile {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    overflow-y: scroll;
+    background-color: #fff;
+
+    &.active {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &_head {
+        padding: 16px;
+        background:#fff;
+        box-shadow: 0px 5px 32px 0px rgba(0, 0, 0, 0.05);
+    }
+
+    &_body {
+        display: flex;
+        flex-direction: column;
+        padding: 16px 16px 24px 16px;
+        height: 100%;
+    }
+
+    .personal-account_balance-list {
+        padding-bottom: 8px;
+    }
+
+    &_deposit {
+        font-size: 10px;
+        color: #737D89;
+    }
+
+    &_btn {
+        text-align: center;
+        margin-top: 24px;
+        align-items: center;
+
+        img, svg {
+            width: 16px;
+            height: auto;
+            margin-left: 8px;
+            margin-right: 0;
+            transform: rotate(180deg) translateY(1px);
+        }
+    }
+
+    .personal-account_balance-action {
+        margin-top: auto;
+        padding-bottom: 0;
+    }
+}
