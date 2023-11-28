@@ -262,7 +262,10 @@ const EditPhoneForm: React.FC<{
                     <div className="mt-auto">
                         <button
                             className={"site-btn small dark"}
-                            onClick={sendPhone}>
+                            onClick={(e) => {
+                                e.preventDefault();
+                                sendPhone();
+                            }}>
                             Далее
                         </button>
                     </div>
@@ -340,6 +343,7 @@ const EditEmailForm: React.FC<{
                     </div>
                     <div>
                         <ModalTemplateInput
+                            error={data.errors["email"]}
                             type={"email"}
                             small={false}
                             placeholder="E-mail"
@@ -354,7 +358,10 @@ const EditEmailForm: React.FC<{
                     <div className="mt-auto">
                         <button
                             className={"site-btn small dark"}
-                            onClick={sendEmail}>
+                            onClick={(e) => {
+                                e.preventDefault();
+                                sendEmail();
+                            }}>
                             Далее
                         </button>
                     </div>

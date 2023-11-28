@@ -16,11 +16,17 @@ const NewEmail: React.FC<{
     setData: (arg0: EditEmailProps) => void,
     submit: () => void
 }> = (props) => {
-    const { data, setData } = props;
+    const { data, setData, submit } = props;
     const [passed, setPassed] = useState(false);
 
     const send = () => {
-
+        let errors = Utils.validateEmail(data);
+        if (Object.keys(errors).length > 0) {
+            setData({ ...data, errors: errors });
+            // setPassed(false);
+            return;
+        }
+        submit();
     }
 
     const validateEmail = (field: string, value: string) => {
@@ -39,6 +45,7 @@ const NewEmail: React.FC<{
             </div>
             <div>
                 <ModalTemplateInput
+                    error={data.errors["email"]}
                     type={"email"}
                     small={false}
                     placeholder="E-mail"
@@ -53,7 +60,10 @@ const NewEmail: React.FC<{
             <div className="mobile-modal_body-action mb-3">
                 <button
                     className={"site-btn small " + (!passed ? "dark" : "")}
-                    onClick={() => send()}>
+                    onClick={(e) => {
+                        e.preventDefault();
+                        send();
+                    }}>
                     Далее
                 </button>
             </div>

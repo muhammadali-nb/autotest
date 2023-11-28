@@ -12,6 +12,7 @@ import PersonalAccountSocials from "./PersonalAccountSocials/PersonalAccountSoci
 import { useOutside } from "../../../hooks/useOutside";
 import PersonalAccountMenuMobile from "./PersonalAccountMenuMobile";
 import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
+import PersonalAccountBalance from "./PersonalAccountBalance/PersonalAccountBalance";
 
 export interface userManagerProps {
 	first_name: string;
@@ -23,13 +24,13 @@ export interface userManagerProps {
 }
 
 export interface userDataProps {
-	name: string;
-	last_name: string;
-	middle_name: string;
-	phone: string;
-	email: string;
-	birth_date: string;
-	manager: userManagerProps;
+	name: string,
+	last_name: string,
+	middle_name: string,
+	phone: string,
+	email: string,
+	birth_date: string,
+	manager: userManagerProps
 }
 
 const userData: userDataProps = {
@@ -56,11 +57,11 @@ const userData: userDataProps = {
 			},
 			{
 				type: "tg",
-				url: "#",
-			},
-		],
-	},
-};
+				url: "#"
+			}
+		]
+	}
+}
 
 const PersonalAccountPage: React.FC = () => {
 	// for menu personal account
@@ -75,13 +76,14 @@ const PersonalAccountPage: React.FC = () => {
 					</Col>
 					<Col lg={10}>
 						<div className="personal-account_page">
-							<div className="d-flex align-items-end justify-content-between">
+							<div className="personal-account_head d-flex align-items-end justify-content-between">
 								<PersonalAccountData data={userData} />
+								<PersonalAccountBalance />
 								{/* <PersonalAccountCards /> */}
 							</div>
 							<div className="personal-account_page_body">
 								<PersonalAccountForm data={userData} />
-								<PersonalAccountSocials data={userData.manager} />
+								<PersonalAccountSocials data={userData.manager} tg_connected={userData.tg_connected} />
 							</div>
 							<SmallFooter className="d-none d-lg-block" />
 							<div className="d-block d-lg-none personal-account_footer">
