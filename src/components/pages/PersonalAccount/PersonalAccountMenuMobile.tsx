@@ -25,7 +25,13 @@ const defaultLinks = [
 		icon: user,
 		id: 1,
 	},
-	{ text: "Аренда", path: "/rent", className: "", icon: car, id: 2 },
+	{
+		text: "Аренда",
+		path: "/personal-account/rent-history",
+		className: "",
+		icon: car,
+		id: 2,
+	},
 	{
 		text: "Лизинг",
 		path: "/programs",

@@ -212,9 +212,8 @@ export const FooterContacts = () => {
 };
 export const SmallFooter = (props: { className?: string }) => {
 	return (
-		<div className={`py-px-20 ${props.className}`}>
-			{/* <Container fluid={"xxl"}> */}
-			<div className={"d-flex justify-content-between"}>
+		<div className={`py-px-20`}>
+			<div className={"d-flex justify-content-md-between " + props.className}>
 				<div className={"footer-contacts-bottom-logo"}>
 					<span>ООО Восход</span>
 					<span>© 2023 год</span>
@@ -234,7 +233,6 @@ export const SmallFooter = (props: { className?: string }) => {
 					</Link>
 				</div>
 			</div>
-			{/* </Container> */}
 		</div>
 	);
 };
@@ -243,10 +241,11 @@ const Footer: React.FC<{
 	noContacts?: boolean;
 	noForm?: boolean;
 	small?: boolean;
+	className?: string;
 }> = (props) => {
-	if (props.small) return <SmallFooter />;
+	if (props.small) return <SmallFooter className={props.className} />;
 	return (
-		<footer className={"footer"}>
+		<footer className={"footer " + props.className}>
 			<FooterMap
 				full={props.noContacts ?? false}
 				noContacts={props.noForm ?? false}

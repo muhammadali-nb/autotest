@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Header, { HeaderImage, HeaderType } from "./Header";
+import Header, { HeaderImage, HeaderType } from "../Header";
 
-import { setBaseState } from "../../store/reducers/baseDataSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import Scroller from "../common/Scroller";
-import Api from "../../Api";
+import { setBaseState } from "../../../store/reducers/baseDataSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import Scroller from "../../common/Scroller";
+import Api from "../../../Api";
 import DocumentMeta from "react-document-meta";
-import Cookies from "../common/Cookies";
-import MobileMenu from "./MobileMenu";
-import { useOutside } from "../../hooks/useOutside";
-import ToggleSentUserData from "../common/ToggleSentUserData";
-import PersonalAccountMenuBurger from "../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
-import PersonalAccountMenu from "../pages/PersonalAccount/PersonalAccountMenu";
-import PersonalAccountMenuMobile from "../pages/PersonalAccount/PersonalAccountMenuMobile";
+import Cookies from "../../common/Cookies";
+import MobileMenu from "../MobileMenu";
+import { useOutside } from "../../../hooks/useOutside";
+import ToggleSentUserData from "../../common/ToggleSentUserData";
+import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
+import PersonalAccountMenu from "../../pages/PersonalAccount/PersonalAccountMenu";
+import PersonalAccountMenuMobile from "../../pages/PersonalAccount/PersonalAccountMenuMobile";
+import BaseLayout from "../BaseLayout";
 
 export type MetaTags = {
 	description?: string;
@@ -83,17 +84,10 @@ const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 					image={props.headerImage}
 					type={props.headerType ?? "white"}
 					selectedLink={props.headerSelectedLink ?? "/"}
+					mobileModalType="orderCall"
 				/>
-				<main>{ props.children}</main>
-				{/* <Footer
-					small={props.footerSmall}
-					noContacts={props.footerNoContacts}
-					noForm={props.footerNoForm}
-				/> */}
+				<main>{props.children}</main>
 				<Scroller />
-				{/* <ToggleSentUserData /> */}
-
-				{/* <PersonalAccountMenuBurger /> */}
 				<Cookies />
 			</div>
 		</DocumentMeta>
