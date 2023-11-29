@@ -73,10 +73,12 @@ const WithdrawDesktop: React.FC<{
     const setValue = (value: { name: string, number: string }) => {
         let errors = data.errors;
         delete errors["card"];
-        let newData = { ...data, card: {
-            name: value.name,
-            number: value.number
-        }, errors: errors };
+        let newData = {
+            ...data, card: {
+                name: value.name,
+                number: value.number
+            }, errors: errors
+        };
         setData(newData);
         errors = Utils.validateWithdraw(data, balance);
     }
@@ -107,7 +109,7 @@ const WithdrawDesktop: React.FC<{
                     <div className="mb-px-60">
                         <div
                             className={
-                                "call-content-text-header font-size-40 mb-px-10 line-height-130 fw-semibold"
+                                "call-content-text-header font-size-40 mb-px-10 line-height-130 font-weight-semibold"
                             }>
                             Вывести деньги
                         </div>

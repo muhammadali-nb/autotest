@@ -11,14 +11,21 @@
         padding: 10px 15px;
         font-size: 16px;
         font-weight: 400;
-        border-bottom: 2px solid #E7E7E8;
+        border-bottom: 2px solid #e7e7e8;
         cursor: pointer;
+
+        @media (max-width: 767px) {
+            padding: 8px 0;
+            font-size: 12px;
+            font-weight: 500;
+            border-bottom: 0;
+        }
 
         .card-select_value {
             display: flex;
             justify-content: space-between;
             width: 100%;
-            color: #BABCBF;
+            color: #babcbf;
 
             &.selected {
                 color: #222;
@@ -26,10 +33,10 @@
         }
 
         &.error {
-            border-color: #BF3535;
+            border-color: #bf3535;
 
             .card-select_value {
-                color: #BF3535;
+                color: #bf3535;
             }
         }
     }
@@ -39,6 +46,10 @@
 
         &.active {
             transform: rotate(180deg);
+        }
+
+        @media (max-width: 767px) {
+            margin-left: 8px;
         }
     }
 
@@ -50,7 +61,7 @@
         z-index: 999;
         // max-height: 250px;
         background-color: #fff;
-        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
         // overflow-y: scroll;
 
         // &::-webkit-scrollbar {
@@ -58,12 +69,31 @@
         //     width: 0;
         //     opacity: 0;
         // }
+
+        @media (max-width: 767px) {
+            box-shadow: none;
+        }
     }
 
     &_tabs {
         display: flex;
         padding: 15px 15px 10px 15px;
         align-items: flex-end;
+
+        @media (max-width: 767px) {
+            position: relative;
+            padding: 0 0 8px 0;
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                z-index: -1;
+                height: 2px;
+                background-color: #e7e7e8;
+            }
+        }
 
         .card-select_tab {
             width: fit-content;
@@ -78,6 +108,14 @@
 
             &.active {
                 border-color: #222;
+            }
+
+            @media (max-width: 767px) {
+                padding-bottom: 8px;
+
+                &.active {
+                    border-color: #bf3535;
+                }
             }
         }
     }
@@ -97,18 +135,33 @@
         font-weight: 600;
         cursor: pointer;
 
-        &:hover {
-            background-color: #f2f2f2;
+        @media (max-width: 767px) {
+            padding: 8px 0;
+            font-size: 12px;
+        }
+
+        @media (min-width: 768px) {
+            &:hover {
+                background-color: #f2f2f2;
+            }
         }
 
         .card-select_name {
             display: flex;
             align-items: center;
 
-            svg {
+            .card-select_star {
                 width: 15px;
-                height: auto;
                 margin-right: 10px;
+
+                @media (max-width: 767px) {
+                    margin-right: 8px;
+                }
+
+                svg {
+                    width: 100%;
+                    height: auto;
+                }
             }
         }
     }
