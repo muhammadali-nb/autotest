@@ -21,6 +21,15 @@
         margin: 20px 0;
       }
 
+      &.connected {
+        display: flex;
+        align-items: center;
+
+        p {
+          margin: 0 0 0 20px;
+        }
+      }
+
       &:hover {
         color: #fff;
         background: linear-gradient(45deg, #239fdb 14.65%, #28a8ea 85.35%), #fff;
@@ -200,6 +209,10 @@
             width: 24px;
             height: auto;
           }
+        }
+
+        &.connected {
+          justify-content: flex-start;
         }
       }
     }

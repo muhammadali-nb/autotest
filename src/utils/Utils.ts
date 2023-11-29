@@ -116,6 +116,25 @@ let Utils = {
 
         return errors;
     },
+    validateWithdraw(request: { card: {
+        name: string,
+        number: string
+    }, amount: number, errors: Object }, balance: number | undefined) {
+        let errors = {};
+
+        const card = request.card
+        if (!card.name || !card.number) {
+            errors["card"] = "Не указана карта или номер счёта";
+        }
+        if (!request.amount || request.amount <= 0) {
+            errors["amount"] = "Не указана сумма"
+        }
+        if (balance && request.amount > balance) {
+            errors["amount"] = "Недостаточно средств"
+        }
+
+        return errors;
+    },
     formatNumber(value: number) {
         return new Intl.NumberFormat().format(value);
     }

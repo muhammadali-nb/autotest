@@ -9,6 +9,7 @@ import Utils from "../../../../utils/Utils";
 import { Link } from "react-router-dom";
 import { MobileModal } from "../../MobileModal/MobileModal";
 import { useState } from "react";
+import WithdrawMobile from "../PersonalAccountWithdraw/mobile/PersonalAccountWithdraw";
 
 interface accountsProps {
     name: string,
@@ -43,6 +44,7 @@ const BalanceMobile: React.FC<{
 }> = (props) => {
     const { active, setActive } = props;
 
+    const [withdrawModalOpened, setWithdrawModalOpened] = useState(false);
     const [mobileModalOpened, setMobileModalOpened] = useState(false);
 
     return (
@@ -78,12 +80,13 @@ const BalanceMobile: React.FC<{
                 </Link>
                 {balanceData.total > 0 &&
                     <div className="personal-account_balance-action">
-                        <button className="site-btn big">
+                        <button className="site-btn big" onClick={() => setWithdrawModalOpened(prev => !prev)}>
                             Вывести
                         </button>
                     </div>
                 }
             </div>
+            <WithdrawMobile active={withdrawModalOpened} setActive={setWithdrawModalOpened} setCallActive={setMobileModalOpened} balance={balanceData.total} />
             <MobileModal
 				active={mobileModalOpened}
 				type={"orderCall"}

@@ -44,7 +44,7 @@ const PersonalAccountSocials: React.FC<{
 					</div>
 				</div>
 			</div>
-			<Link className="personal-account-socials_wrapper tg" target="_blank" to={"/"}>
+			<Link className={"personal-account-socials_wrapper tg " + (tg_connected ? "connected" : "")} target="_blank" to={"/"}>
 				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
 					<rect width="40" height="40" rx="20" fill="url(#paint0_linear_5970_50547)" />
 					<path fillRule="evenodd" clipRule="evenodd"
@@ -58,21 +58,29 @@ const PersonalAccountSocials: React.FC<{
 						</linearGradient>
 					</defs>
 				</svg>
-				<p className="font-size-18">
-					Подключите Telegram <br />
-					для бесплатных сообщений
-				</p>
-				<div className="personal-account-socials_tg">
-					Подключить
-					<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-						<path d="M16.25 9L12.061 4.5M16.25 9L12.061 13.5M16.25 9H2.75" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-					</svg>
-				</div>
-				<div className="personal-account-socials_mobIcon">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-						<path d="M10 18L16 12L10 6" stroke="#222222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-					</svg>
-				</div>
+				{tg_connected ?
+					<p className="font-size-18">
+						Telegram подключен!
+					</p>
+					:
+					<>
+						<p className="font-size-18">
+							Подключите Telegram <br />
+							для бесплатных сообщений
+						</p>
+						<div className="personal-account-socials_tg">
+							Подключить
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path d="M16.25 9L12.061 4.5M16.25 9L12.061 13.5M16.25 9H2.75" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+							</svg>
+						</div>
+						<div className="personal-account-socials_mobIcon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path d="M10 18L16 12L10 6" stroke="#222222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+							</svg>
+						</div>
+					</>
+				}
 			</Link>
 		</div>
 

@@ -6,14 +6,16 @@ import { useEffect, useState } from "react";
 import "./PersonalAccountModal.scss";
 import Utils from "../../../../utils/Utils";
 import { useAuth } from "../../../../hooks/useAuth";
+import WithdrawDesktop from "../../../common/PersonalAccount/PersonalAccountWithdraw/desktop/PersonalAccountWithdraw";
 
-const CodeConfirmForm: React.FC<{
+export const CodeConfirmForm: React.FC<{
     setStep: (arg0: string) => void,
     newPhone?: string,
+    type: string,
     currentPhone?: string,
     repeatRequest: () => void
 }> = (props) => {
-    const { setStep, newPhone, repeatRequest, currentPhone } = props;
+    const { setStep, newPhone, repeatRequest, currentPhone, type } = props;
     const { phone } = useAuth();
 
     const [passed, setPassed] = useState(false);
@@ -84,15 +86,21 @@ const CodeConfirmForm: React.FC<{
                     className={
                         "call-content-text-header font-size-40 mb-px-10 line-height-130 fw-semibold"
                     }>
-                    {newPhone ?
+                    {type === "phone" &&
                         <>
                             Изменить
                             <br />
                             номер телефона
                         </>
-                        :
+                    }
+                    {type === "email" &&
                         <>
                             Изменить E-mail
+                        </>
+                    }
+                    {type === "withdraw" &&
+                        <>
+                            Вывести деньги
                         </>
                     }
                 </div>
@@ -172,14 +180,16 @@ const CodeConfirmForm: React.FC<{
                     onClick={senCode}>
                     Подтвердить код
                 </button>
-                <button
-                    className={
-                        "default-link text-decoration-none default-transition text-gray-color text-hover-default"
-                    }
-                    onClick={() => setStep("new")}>
-                    <FontAwesomeIcon icon={faAngleLeft} />
-                    &nbsp;&nbsp;&nbsp;{newPhone ? <>Изменить номер</> : <>Изменить почту</>}
-                </button>
+                {type !== "withdraw" &&
+                    <button
+                        className={
+                            "default-link text-decoration-none default-transition text-gray-color text-hover-default"
+                        }
+                        onClick={() => setStep("new")}>
+                        <FontAwesomeIcon icon={faAngleLeft} />
+                        &nbsp;&nbsp;&nbsp;{type === "phone" && <>Изменить номер</>}{type === "email" && <>Изменить почту</>}
+                    </button>
+                }
             </div>
         </>
     );
@@ -276,6 +286,7 @@ const EditPhoneForm: React.FC<{
                     newPhone={data.phone}
                     setStep={setStep}
                     repeatRequest={getCode}
+                    type={"phone"}
                 />
             }
         </>
@@ -303,14 +314,12 @@ const EditEmailForm: React.FC<{
         let newData = { ...data, [field]: value, errors: errors };
         setData(newData);
         errors = Utils.validateEmail(data);
-        // setPassed(Object.keys(errors).length === 0);
     }
 
     const sendEmail = () => {
         let errors = Utils.validateEmail(data);
         if (Object.keys(errors).length > 0) {
             setData({ ...data, errors: errors });
-            // setPassed(false);
             return;
         }
         getCode();
@@ -372,6 +381,7 @@ const EditEmailForm: React.FC<{
                     setStep={setStep}
                     repeatRequest={getCode}
                     currentPhone={currentPhone}
+                    type={"email"}
                 />
             }
         </>
@@ -382,9 +392,10 @@ const PersonalAccountModal: React.FC<{
     show: boolean,
     onHide: () => void,
     type: string,
-    currentPhone: string
+    currentPhone: string,
+    balance?: number
 }> = (props) => {
-    const { type, onHide, currentPhone } = props;
+    const { type, onHide, currentPhone, balance } = props;
 
     const [step, setStep] = useState("new");
 
@@ -410,6 +421,9 @@ const PersonalAccountModal: React.FC<{
                     }
                     {type === "email" &&
                         <EditEmailForm step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
+                    }
+                    {type === "withdraw" &&
+                        <WithdrawDesktop step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} balance={balance} />
                     }
                 </ModalTemplateContent>
             </div>
