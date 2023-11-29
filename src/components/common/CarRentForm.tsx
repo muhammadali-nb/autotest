@@ -727,7 +727,7 @@ export const CarRentFormConfirmed: React.FC<{ closeFunc: () => void }> = (
 
 export const CarRequestFormContent: React.FC<{
 	closeFunc: () => void;
-	setStep: (e: any) => void;
+	setStep: (e: CarBookingStepsType) => void;
 	car: CarDataType;
 	getDeposit: () => void;
 }> = (props) => {
@@ -1080,7 +1080,7 @@ export const CarBookingForm: React.FC<{
 	btn?: ReactNode;
 	step?: string;
 	car: CarDataType | any;
-	car_id: any;
+	car_id: number;
 }> = (props) => {
 	const { user_status } = useAuth();
 	const [error_message, setErrorMessage] = useState<string | null>(null);

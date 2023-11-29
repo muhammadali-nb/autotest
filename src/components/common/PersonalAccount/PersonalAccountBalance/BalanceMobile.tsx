@@ -44,7 +44,7 @@ const BalanceMobile: React.FC<{
     const { active, setActive } = props;
 
     const [mobileModalOpened, setMobileModalOpened] = useState(false);
-
+    
     return (
         <div className={`balance-mobile  ${active && "active"}`}>
             <div className="balance-mobile_head">

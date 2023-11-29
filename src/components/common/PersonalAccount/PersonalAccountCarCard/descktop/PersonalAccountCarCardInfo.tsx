@@ -1,31 +1,37 @@
 import React from "react";
 import CarImage from "../../../../../images/index/car.webp";
-const PersonalAccountCarCardInfo = () => {
+import { RentHistoryDataCarType } from "../../../../../types/PersonalAccount/RentHistoryTypes";
+
+const PersonalAccountCarCardInfo = ({
+	car,
+}: {
+	car: RentHistoryDataCarType;
+}) => {
 	return (
 		<div className="personal-account-rent-car_card">
 			<div className="personal-account-rent-car_card_image">
-				<img src={CarImage} alt="" />
+				<img src={car.image} alt={car.brand + " " + car.model} />
 			</div>
 			<div>
 				<p className="personal-account-rent-car_card_date">
-					Дата бронирования: 16.06.2023
+					Дата бронирования: {car.booking_date}
 				</p>
 				<h1 className="personal-account-rent-car_card_brand">
-					Hyundai{" "}
+					{car.brand}{" "}
 					<span className="personal-account-rent-car_card_brand-model">
-						Sonata
+						{car.model}
 					</span>
 				</h1>
-				<h4 className="personal-account-rent-car_card_number">К638ЕТ 53</h4>
+				<h4 className="personal-account-rent-car_card_number">{car.seria}</h4>
 				<div className="personal-account-rent-car_card_price">
 					<p>Аренда</p>
-					<span>6 950 ₽</span>/ день
+					<span>{car.payment.toLocaleString()} ₽</span>/ день
 				</div>
 				<h4 className="personal-account-rent-car_card_deposit">
 					{" "}
 					Депозит от{" "}
 					<span className="personal-account-rent-car_card_deposit-value">
-						618 950 ₽
+						{car.deposit.toLocaleString()} ₽
 					</span>
 				</h4>
 			</div>

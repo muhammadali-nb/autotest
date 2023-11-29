@@ -172,7 +172,7 @@ const FilterCheckbox: React.FC<{
 					checked={filter[field]?.length === 0}
 					onChange={(e) => clear()}
 				/>
-				{data.values?.map((i: any, index) => (
+				{data.values?.map((i: any) => (
 					<FormCheck
 						key={i.id}
 						label={i.name}
@@ -183,105 +183,6 @@ const FilterCheckbox: React.FC<{
 				))}
 			</div>
 		</Filter>
-	);
-};
-
-const FilterModelSet: React.FC<{
-	field: string;
-	brand: IdValued | any;
-	data: ModelCheckboxFilterData;
-}> = ({ field, data, brand }) => {
-	const filter: any = useAppSelector((state) => state.filter);
-
-	const [models, setModels] = useState<any>(
-		data.values?.filter((i) => i.brand === brand.brand) ?? []
-	);
-
-	function sortIntoArrays(arr): any {
-		const sortedObj = arr.reduce((acc, curr) => {
-			if (!acc[curr.brand]) {
-				acc[curr.brand] = [];
-			}
-			acc[curr.brand].push(curr);
-			return acc;
-		}, {});
-		return Object.values(sortedObj);
-	}
-
-	const [showAmount, setShowAmount] = useState(5);
-	const dispatch = useAppDispatch();
-	const setFilterValue = (value: number) => {
-		let data = [...filter[field]];
-		var index = data.indexOf(value);
-		if (index !== -1) {
-			data.splice(index, 1);
-		} else {
-			data.push(value);
-		}
-		dispatch(setFilter({ ...filter, [field]: data }));
-	};
-
-	return (
-		<>
-			<p>{"hello world"}</p>
-			{/* {sortIntoArrays(data.values).map((_item) => (
-				// <p>{_item[0].name}</p>
-				<Filter
-					header={_item[0].brand}
-					small={true}
-					open={false}
-					showCaret={false}>
-					<div>
-						{_item.slice(0, showAmount).map((i, index) => (
-							<FormCheck
-								key={index}
-								label={i.name}
-								className={" font-size-14 font-weight-semibold"}
-								// onChange={(e) => setFilterValue(i.id)}
-								// checked={filter[field]?.includes(i.id)}
-							/>
-						))}
-						{showAmount < _item.length && (
-							<button
-								className={"small-black-btn"}
-								onClick={() => setShowAmount(showAmount + 10)}>
-								Ещё{" "}
-								{Utils.textFromCount(
-									_item.length - showAmount,
-									["результат", "результата", "результатов"],
-									true
-								)}
-							</button>
-						)}
-					</div>
-				</Filter>
-			))} */}
-			{/* <Filter header={brand.brand} small={true} open={true} showCaret={false}>
-				<div>
-					{models.slice(0, showAmount).map((i, index) => (
-						<FormCheck
-							key={index}
-							label={i.name}
-							className={" font-size-14 font-weight-semibold"}
-							onChange={(e) => setFilterValue(i.id)}
-							checked={filter[field]?.includes(i.id)}
-						/>
-					))}
-					{showAmount < models.length && (
-						<button
-							className={"small-black-btn"}
-							onClick={() => setShowAmount(showAmount + 10)}>
-							Ещё{" "}
-							{Utils.textFromCount(
-								models.length - showAmount,
-								["результат", "результата", "результатов"],
-								true
-							)}
-						</button>
-					)}
-				</div>
-			</Filter> */}
-		</>
 	);
 };
 
