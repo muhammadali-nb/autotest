@@ -1,0 +1,115 @@
+.card-select {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+
+    &_head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 16px;
+        font-weight: 400;
+        border-bottom: 2px solid #E7E7E8;
+        cursor: pointer;
+
+        .card-select_value {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            color: #BABCBF;
+
+            &.selected {
+                color: #222;
+            }
+        }
+
+        &.error {
+            border-color: #BF3535;
+
+            .card-select_value {
+                color: #BF3535;
+            }
+        }
+    }
+
+    &_icon {
+        margin-left: 15px;
+
+        &.active {
+            transform: rotate(180deg);
+        }
+    }
+
+    &_dropdown {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        z-index: 999;
+        // max-height: 250px;
+        background-color: #fff;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+        // overflow-y: scroll;
+
+        // &::-webkit-scrollbar {
+        //     display: none;
+        //     width: 0;
+        //     opacity: 0;
+        // }
+    }
+
+    &_tabs {
+        display: flex;
+        padding: 15px 15px 10px 15px;
+        align-items: flex-end;
+
+        .card-select_tab {
+            width: fit-content;
+            padding-bottom: 3px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #222;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+            margin-right: 10px;
+            cursor: pointer;
+
+            &.active {
+                border-color: #222;
+            }
+        }
+    }
+
+    &_list {
+        padding: 0;
+        margin: 0;
+    }
+
+    &_option {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f2f2f2;
+        }
+
+        .card-select_name {
+            display: flex;
+            align-items: center;
+
+            svg {
+                width: 15px;
+                height: auto;
+                margin-right: 10px;
+            }
+        }
+    }
+}
