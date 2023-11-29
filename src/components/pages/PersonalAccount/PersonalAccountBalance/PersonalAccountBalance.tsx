@@ -4,6 +4,8 @@ import logo from "../../../../images/personal-account/balance/logo.svg";
 import deposit from "../../../../images/personal-account/balance/deposit.svg";
 import BalanceMobile from "../../../common/PersonalAccount/PersonalAccountBalance/BalanceMobile";
 import Utils from "../../../../utils/Utils";
+import PersonalAccountModal from "../PersonalAccountModal/PersonalAccountModal";
+import { useAuth } from "../../../../hooks/useAuth";
 
 interface accountsProps {
     name: string,
@@ -57,7 +59,10 @@ export const BalanceItem: React.FC<accountsProps> = (props) => {
 
 const PersonalAccountBalance: React.FC = () => {
     const [active, setActive] = useState(false);
+    const [withdrawOpened, setWithdrawOpened] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const { phone } = useAuth();
 
     useEffect(() => {
         const handleClick = (e: MouseEvent) => {
@@ -87,32 +92,38 @@ const PersonalAccountBalance: React.FC = () => {
                 }
             </div>
             {window.innerWidth > 767 ?
-                <div className={"personal-account_balance-dropdown " + (active ? "active" : "")}>
-                    <div className={"personal-account_balance-title " + (balanceData.total < 0 ? "negative" : "")}>
-                        <div className="font-size-20">
-                            Баланс
+                <>
+                    <div className={"personal-account_balance-dropdown " + (active ? "active" : "")}>
+                        <div className={"personal-account_balance-title " + (balanceData.total < 0 ? "negative" : "")}>
+                            <div className="font-size-20">
+                                Баланс
+                            </div>
+                            <div className="font-size-16">
+                                {Utils.formatNumber(balanceData.total)} ₽
+                            </div>
                         </div>
-                        <div className="font-size-16">
-                            {Utils.formatNumber(balanceData.total)} ₽
-                        </div>
+                        <ul className="personal-account_balance-list">
+                            {balanceData.accounts && balanceData.accounts.map((item, index) =>
+                                <BalanceItem name={item.name} icon={item.icon} balance={item.balance} key={index} />
+                            )}
+                        </ul>
+                        {balanceData.total > 0 &&
+                            <div className="personal-account_balance-action">
+                                <button className="site-btn dark big" onClick={() => {
+                                    setActive(false);
+                                    setWithdrawOpened(true);
+                                }}>
+                                    Вывести
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+                                        <path d="M9.5 1.5L5 5.89024M9.5 1.5L14 5.89024M9.5 1.5L9.5 13.5" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M2 16.5H17" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        }
                     </div>
-                    <ul className="personal-account_balance-list">
-                        {balanceData.accounts && balanceData.accounts.map((item, index) =>
-                            <BalanceItem name={item.name} icon={item.icon} balance={item.balance} key={index} />
-                        )}
-                    </ul>
-                    {balanceData.total > 0 &&
-                        <div className="personal-account_balance-action">
-                            <button className="site-btn dark big">
-                                Вывести
-                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-                                    <path d="M9.5 1.5L5 5.89024M9.5 1.5L14 5.89024M9.5 1.5L9.5 13.5" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M2 16.5H17" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" />
-                                </svg>
-                            </button>
-                        </div>
-                    }
-                </div>
+                    <PersonalAccountModal type="withdraw" show={withdrawOpened} onHide={() => setWithdrawOpened(false)} currentPhone={phone} balance={balanceData.total} />
+                </>
                 :
                 <BalanceMobile active={active} setActive={setActive} />
             }

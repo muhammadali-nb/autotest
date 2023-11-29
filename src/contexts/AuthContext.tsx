@@ -13,18 +13,29 @@ const actions = {
 	LOGOUT: "LOGOUT",
 };
 
-const initialState: AuthInitialState = {
+const localData = localStorage.getItem("voshod-user");
+const initialState: AuthInitialState = localData !== null ? JSON.parse(localData) : {
 	isAuthenticated: false,
 	user_status: null,
 	has_profile: false,
 	isInitialized: false,
-	api_status: "pending",
-	error_message: null,
-	first_name: "",
 	middle_name: "",
 	last_name: "",
 	phone: ""
-}
+};
+
+// const initialState: AuthInitialState = {
+// 	isAuthenticated: false,
+// 	user_status: null,
+// 	has_profile: false,
+// 	isInitialized: false,
+// 	api_status: "pending",
+// 	error_message: null,
+// 	first_name: "",
+// 	middle_name: "",
+// 	last_name: "",
+// 	phone: ""
+// }
 
 const handlers = {
 	INITIALIZE: (state: AuthInitialState, action) => {
@@ -102,18 +113,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			.then((res: AxiosResponse<AuthResponce>) => {
 				const { success, reason, has_profile, first_name, middle_name, last_name, phone } = res.data;
 				if (success && has_profile) {
+					const payload = {
+						isAuthenticated: true,
+						has_profile: true,
+						user_status: null,
+						first_name: first_name,
+						middle_name: middle_name,
+						last_name: last_name,
+						phone: phone
+					};
+
+					localStorage.setItem("voshod-user", JSON.stringify(payload));
+
 					dispatch({
 						type: actions.INITIALIZE,
-						payload: {
-							isAuthenticated: true,
-							has_profile: true,
-							user_status: null,
-							first_name: first_name,
-							middle_name: middle_name,
-							last_name: last_name,
-							phone: phone
-						},
+						payload: payload,
 					});
+
+					// dispatch({
+					// 	type: actions.INITIALIZE,
+					// 	payload: {
+					// 		isAuthenticated: true,
+					// 		has_profile: true,
+					// 		user_status: null,
+					// 		first_name: first_name,
+					// 		middle_name: middle_name,
+					// 		last_name: last_name,
+					// 		phone: phone
+					// 	},
+					// });
 				} else {
 					dispatch({
 						type: actions.INITIALIZE,
@@ -140,6 +168,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 						user_status: (err as AxiosError<AuthResponce>).response?.data
 							.reason,
 						has_profile: false,
+						first_name: "",
+						middle_name: "",
+						last_name: "",
+						phone: ""
 					},
 				});
 			});
@@ -152,20 +184,39 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				{ withCredentials: true }
 			);
 
+			const payload = {
+				isAuthenticated: true,
+				api_status: "success",
+				has_profile: false,
+				user_status: null,
+				err_message: null,
+				first_name: res.data.first_name,
+				middle_name: res.data.middle_name,
+				last_name: res.data.last_name,
+				phone: res.data.phone
+			};
+
+			localStorage.setItem("voshod-user", JSON.stringify(payload));
+
 			dispatch({
 				type: actions.REGISTER,
-				payload: {
-					isAuthenticated: true,
-					api_status: "success",
-					has_profile: false,
-					user_status: null,
-					err_message: null,
-					first_name: res.data.first_name,
-					middle_name: res.data.middle_name,
-					last_name: res.data.last_name,
-					phone: res.data.phone
-				},
+				payload: payload,
 			});
+
+			// dispatch({
+			// 	type: actions.REGISTER,
+			// 	payload: {
+			// 		isAuthenticated: true,
+			// 		api_status: "success",
+			// 		has_profile: false,
+			// 		user_status: null,
+			// 		err_message: null,
+			// 		first_name: res.data.first_name,
+			// 		middle_name: res.data.middle_name,
+			// 		last_name: res.data.last_name,
+			// 		phone: res.data.phone
+			// 	},
+			// });
 
 			return res.data;
 		} catch (error) {
@@ -199,6 +250,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			dispatch({
 				type: actions.LOGOUT
 			});
+			localStorage.removeItem("voshod-user");
 		}
 	};
 

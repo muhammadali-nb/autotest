@@ -384,6 +384,16 @@ main {
   transition: all 0.2s ease-in-out;
   position: relative;
 
+  &[type=number] {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    -moz-appearance: textfield;
+  }
+
   @include media-breakpoint-down(md) {
     font-size: 14px !important;
   }

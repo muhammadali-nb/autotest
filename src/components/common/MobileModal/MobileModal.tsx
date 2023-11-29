@@ -8,6 +8,7 @@ import MobileOrderCall from "./MobileOrderCall";
 import MobileCarRequestForm from "./MobileCarRequestForm";
 import MobileEditPhone from "./MobileEditPhone";
 import MobileEditEmail from "./MobileEditEmail";
+import WithdrawConfirmPhone from "../PersonalAccount/PersonalAccountWithdraw/mobile/WithdrawConfirmPhone";
 
 export const MobileModal = ({
 	active,
@@ -55,6 +56,9 @@ export const MobileModal = ({
 				)}
 				{type === "editEmail" && (
 					<MobileEditEmail closeFunc={() => setActive(false)} />
+				)}
+				{type === "withdrawConfirm" && (
+					<WithdrawConfirmPhone closeFunc={() => setActive(false)} />
 				)}
 			</div>
 		</div>
