@@ -1,10 +1,10 @@
-import  {Dispatch, useEffect, useRef, useState} from 'react';
+import { Dispatch, useEffect, useRef, useState } from 'react';
 interface TypeOut {
     ref: any;
     isShow: boolean
     setIsShow: Dispatch<boolean>
 }
-export const useOutside = (initialVisible: boolean):TypeOut => {
+export const useOutside = (initialVisible: boolean): TypeOut => {
     const [isShow, setIsShow] = useState(initialVisible)
     const ref = useRef<HTMLElement>(null)
 
@@ -20,5 +20,5 @@ export const useOutside = (initialVisible: boolean):TypeOut => {
             document.removeEventListener('click', handleClickOutside, true)
         }
     });
-    return{ref, setIsShow, isShow}
+    return { ref, setIsShow, isShow }
 };
