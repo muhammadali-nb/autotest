@@ -7,7 +7,7 @@ import Utils from "../../../../utils/Utils";
 import PersonalAccountModal from "../PersonalAccountModal/PersonalAccountModal";
 import { useAuth } from "../../../../hooks/useAuth";
 
-interface accountsProps {
+export interface accountsProps {
     name: string,
     icon: string,
     balance: number
@@ -18,7 +18,7 @@ export interface balanceProps {
     accounts: accountsProps[]
 }
 
-const balanceData = {
+const balanceData: balanceProps = {
     total: 9900,
     accounts: [
         {
