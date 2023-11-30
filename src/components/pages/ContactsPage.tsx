@@ -5,9 +5,9 @@ import ContactsForm from "../common/ContactsForm";
 // import {faClock, faLocationDot, faPhoneVolume} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import vkW from "./../../img/common/footer/social-icons-dark/vk.svg";
-import wappW from "./../../img/common/footer/social-icons-dark/whatsapp.svg";
-import teleW from "./../../img/common/footer/social-icons-dark/telegram.svg";
+import vkW from "./../../images/common/footer/social-icons-dark/vk.svg";
+import wappW from "./../../images/common/footer/social-icons-dark/whatsapp.svg";
+import teleW from "./../../images/common/footer/social-icons-dark/telegram.svg";
 
 import {
 	FooterBottom,
@@ -15,10 +15,10 @@ import {
 	FooterContactsBlock,
 	FooterLink,
 } from "../layout/Footer";
-import geoImage from "../../img/common/footer/contct-page-icons/Geolocation.svg";
-import clockImage from "../../img/common/footer/contct-page-icons/Clock 2.svg";
-import phoneImage from "../../img/common/footer/contct-page-icons/Phone 2.svg";
-import Utils from "../../Utils";
+import geoImage from "../../images/common/footer/contct-page-icons/Geolocation.svg";
+import clockImage from "../../images/common/footer/contct-page-icons/Clock 2.svg";
+import phoneImage from "../../images/common/footer/contct-page-icons/Phone 2.svg";
+import Utils from "../../utils/Utils";
 
 const ContactBlock: React.FC<{
 	icon: ReactNode;

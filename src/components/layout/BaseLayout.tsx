@@ -1,16 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header, { HeaderImage, HeaderType } from "./Header";
 import Footer from "./Footer";
-import { setBaseState } from "../../store/reducers/baseDataSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import Scroller from "../common/Scroller";
-import Api from "../../Api";
 import DocumentMeta from "react-document-meta";
 import Cookies from "../common/Cookies";
 import MobileMenu from "./MobileMenu";
 import { useOutside } from "../../hooks/useOutside";
 import ToggleSentUserData from "../common/ToggleSentUserData";
-import { Container } from "react-bootstrap";
 
 export type MetaTags = {
 	description?: string;
@@ -32,8 +28,6 @@ export type BaseLayoutProps = {
 const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 	props: BaseLayoutProps
 ) => {
-	const bState: any = useAppSelector((state) => state.baseData);
-	const dispatch = useAppDispatch();
 	const meta = {
 		title: props.title ?? process.env.REACT_APP_WEBSITE_NAME,
 		description:
@@ -49,20 +43,20 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 			},
 		},
 	};
-	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: "smooth" });
-		if (!bState.loaded) {
-			const loader = async () => {
-				let data = await Api.baseData();
-				if (Api.isError(data)) {
-					//TODO:Error check!
-					return;
-				}
-				dispatch(setBaseState(data));
-			};
-			loader();
-		}
-	});
+	// useEffect(() => {
+	// 	window.scrollTo({ top: 0, behavior: "smooth" });
+	// 	if (!bState.loaded) {
+	// 		const loader = async () => {
+	// 			let data = await Api.baseData();
+	// 			if (Api.isError(data)) {
+	// 				//TODO:Error check!
+	// 				return;
+	// 			}
+	// 			dispatch(setBaseState(data));
+	// 		};
+	// 		loader();
+	// 	}
+	// });
 	const { ref, isShow, setIsShow } = useOutside(false);
 	return (
 		<DocumentMeta {...meta}>
@@ -79,8 +73,9 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 					image={props.headerImage}
 					type={props.headerType ?? "white"}
 					selectedLink={props.headerSelectedLink ?? "/"}
+					mobileModalType="orderCall"
 				/>
-				<main>{bState.loaded && props.children}</main>
+				<main>{props.children}</main>
 
 				<Footer
 					small={props.footerSmall}

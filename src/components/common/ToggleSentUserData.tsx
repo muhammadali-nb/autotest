@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import messageIcon from "../../img/common/message.svg";
-import closeIcon from "../../img/common/close.svg";
+import messageIcon from "../../images/common/message.svg";
+import closeIcon from "../../images/common/close.svg";
 import ContactsForm from "./ContactsForm";
 import { useOutside } from "../../hooks/useOutside";
 

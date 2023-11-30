@@ -23,8 +23,8 @@ import PersonalAccountPage from "../components/pages/PersonalAccount/PersonalAcc
 import RentHistoryPage from "../components/pages/RentHistory/RentHistoryPage";
 import OfferPage from "../components/pages/OfferPage";
 import NotExistsPage from "../components/pages/NotExistsPage";
-import TestPage from "../components/pages/Index/TestPage";
 import App from "../App";
+import Payment from "../components/pages/Payment";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -36,14 +36,11 @@ export const router = createBrowserRouter(
 				element={<CarPage />}
 				loader={carDataLoader}
 			/>
-			<Route path="rent">
+			<Route path="rent/page/:id">
 				<Route index element={<RentPage />} />
-				<Route
-					path={":carID"}
-					element={<RentCarDetail />}
-					loader={carRentDataLoader}
-				/>
+				<Route path={"car/:carID"} element={<RentCarDetail />} />
 			</Route>
+			<Route path="payment/confirm/car/:id/pid/:pid" element={<Payment />} />
 			<Route
 				path={"programs"}
 				element={<ProgramsPage />}
@@ -60,8 +57,6 @@ export const router = createBrowserRouter(
 			/>
 			<Route path={"offer"} element={<OfferPage />} />
 			<Route path={"*"} element={<NotExistsPage />} />
-			<Route path="test" element={<TestPage />} />
-			<Route path="test/:id" element={<TestPage />} />
 		</Route>
 	)
 );

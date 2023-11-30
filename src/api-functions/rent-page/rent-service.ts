@@ -5,7 +5,7 @@ class RentService {
   getFilter() {
     return axios.get('https://taxivoshod.ru/api/voshod-auto/?w=rent-filter', { withCredentials: true }).then(res => res.data)
   }
-  getCars(id: string, filter: Filter) {
+  getCars(id: number, filter: Filter) {
     const { year, brands, models, price, special, tarif } = filter
     if (!id) {
       return
@@ -26,9 +26,6 @@ class RentService {
     }
     return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=rent-car&id=${id}`, { withCredentials: true }).then(res => res.data)
   }
-  // bookingCar() {
-  //   return axios.get('https://taxivoshod.ru/api/login.php?no404=1').then(res => res.data)
-  // }
 }
 
 export default new RentService()

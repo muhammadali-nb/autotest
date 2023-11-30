@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { CarData } from "../../common/CarCard";
 import { Carousel, Modal } from "react-bootstrap";
-import caretLeft from "./../../../img/common/caret-left-big.svg";
-import chevronLeft from "./../../../img/index/Chevron Left.png";
-import chevronRight from "./../../../img/index/Chevron Right.png";
-import caretRight from "./../../../img/common/caret-right-big.svg";
+import caretLeft from "./../../../images/common/caret-left-big.svg";
+import chevronLeft from "./../../../images/index/Chevron Left.png";
+import chevronRight from "./../../../images/index/Chevron Right.png";
+import caretRight from "./../../../images/common/caret-right-big.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { TypeImages } from "../Rent/RentCarImagesCarousel";
 import { CarDataType } from "../../../types/RentTypes";
+
+import { BrowserView, MobileView } from "react-device-detect";
+import CarFullImageModal from "../Rent/RentCarFullImage";
 
 export const CarImagesModal: React.FC<{
 	show: boolean;
@@ -125,12 +128,20 @@ const CarImages: React.FC<{ car: CarDataType }> = ({ car }) => {
 	};
 	return (
 		<div className={"car-images"}>
-			<CarImagesModal
-				show={showModal}
-				handleClose={handleClose}
-				car_images={car.images}
-			/>
-
+			<BrowserView>
+				<CarImagesModal
+					show={showModal}
+					handleClose={handleClose}
+					car_images={car.images}
+				/>
+			</BrowserView>
+			<MobileView>
+				<CarFullImageModal
+					active={showModal}
+					setActive={setShowModal}
+					images={car.images}
+				/>
+			</MobileView>
 			<div className={"d-none d-lg-block mb-4"}>
 				<Link
 					to={"/catalog"}
@@ -147,7 +158,7 @@ const CarImages: React.FC<{ car: CarDataType }> = ({ car }) => {
 				onSelect={handleSelect}
 				controls={false}
 				indicators={false}>
-				{car.images.map((img, index) => (
+				{car?.images?.map((img, index) => (
 					<Carousel.Item key={index}>
 						<div
 							className={"car-images-image-container cursor-pointer"}
@@ -168,7 +179,7 @@ const CarImages: React.FC<{ car: CarDataType }> = ({ car }) => {
 					<img src={caretLeft} width={16} height={32} alt="" />
 				</button>
 				<div className={"car-images-controls-sliders"}>
-					{car.images.map((i, ind) => (
+					{car?.images?.map((i, ind) => (
 						<div
 							key={ind}
 							className={

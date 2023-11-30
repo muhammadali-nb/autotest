@@ -1,52 +1,59 @@
 import React, { ReactNode, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import Api, { CallRequestData } from "../../Api";
+import Api, { CallRequestData, ErrorResponse } from "../../Api";
 import ModalFormTemplate, {
 	ModalTemplateConfirm,
 	ModalTemplateContent,
 	ModalTemplateInput,
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
-import Utils from "../../Utils";
+import Utils from "../../utils/Utils";
+import axios, { AxiosError } from "axios";
 
 const CarRequestFormContent: React.FC<{
 	closeFunc: () => void;
 	setSent: (boolean) => void;
 }> = (props) => {
+	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 	const [data, setData] = useState<CallRequestData>({
 		name: "",
 		lastName: "",
 		phone: "",
 		confirm: false,
 		errors: {},
-		middleName: ''
+		middleName: "",
 	});
 	const [passed, setPassed] = useState(false);
-	const send = () => {
+	const send = async () => {
 		let errors = Utils.validateForm(data, "Укажите желаемый автомобиль");
 		if (Object.keys(errors).length > 0) {
 			setData({ ...data, errors: errors });
 			setPassed(false);
 			return;
 		}
-		Api.carRequest(data).then((resp) => {
-			if (Api.isError(resp)) {
-				setData({
-					...data,
-					errors: { server: "Ошибка соединения с сервером!" },
-				});
-				return;
-			}
-
-			if (resp.success) {
+		try {
+			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+				withCredentials: true,
+				body: JSON.stringify({
+					w: "form",
+					type: "car_request",
+					first_name: data.name,
+					last_name: data.lastName,
+					phone: data.phone.slice(1),
+					comment: data.comment,
+				}),
+			});
+			if (res.data.result === 1) {
 				props.setSent(true);
 				setPassed(true);
-			} else {
-				setData({ ...data, errors: resp.fields ?? {} });
-				setPassed(false);
 			}
-		});
+		} catch (error) {
+			setErrorMessage(
+				(error as AxiosError<ErrorResponse>).response?.data.message ??
+					"Возникла ошибка с сервером поробуйте позже"
+			);
+		}
 	};
 	const update = (field: string, value: any) => {
 		let errors = data.errors;
@@ -110,9 +117,9 @@ const CarRequestFormContent: React.FC<{
 						placeholder={"Комментарий"}
 					/>
 				</div>
-				{data.errors["server"] && (
+				{errorMessage && (
 					<div className={"my-2 text-red-color font-size-12"}>
-						{data.errors["server"]}
+						{errorMessage}
 					</div>
 				)}
 			</div>

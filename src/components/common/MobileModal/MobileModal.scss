@@ -1,5 +1,5 @@
 .mobile-modal {
-  height: 100%;
+  height: 100hw;
   width: 100vw;
   position: fixed;
   top: 0;
@@ -9,13 +9,14 @@
   display: none;
 
   &.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
   &_header {
     width: 100%;
     height: 264px;
-    background-image: url("../../../img/common/modal-image.png");
+    background-image: url("../../../images/common/modal-image.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: -20px 0 0 0;
@@ -53,10 +54,13 @@
   }
 
   &_body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 264px);
     padding: 24px 16px 0 16px;
     background-color: #fff;
 
-    & > h1 {
+    h1 {
       color: var(--Text, #222);
       font-family: Inter;
       font-size: 24px;
@@ -71,7 +75,7 @@
       }
     }
 
-    & > p {
+    p {
       color: var(--Grey-1, #606569);
       font-feature-settings:
         "clig" off,
@@ -94,9 +98,43 @@
       }
     }
 
+    &-action {
+      margin-top: auto;
+
+      span {
+        font-size: 8px;
+      }
+    }
+
     &-company {
       text-align: left;
       padding: 0 0 16px 0;
+    }
+
+    &-auth {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .call-content-input {
+        padding-top: 42px;
+      }
+    }
+
+    &-ordercall {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    &-callrequest {
+      @extend .mobile-modal_body-ordercall;
+    }
+
+    .file-input_icon {
+      display: block;
+      width: 20px;
+      height: auto;
     }
   }
 }

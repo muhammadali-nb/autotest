@@ -1,24 +1,86 @@
 import React, { useState } from "react";
 import { CarRentPaymentButton } from "../../../CarRentForm";
-import bankCardImg from "../../../../../img/common/bank-card.png";
-import sbpImg from "../../../../../img/common/sbp.png";
+import bankCardImg from "../../../../../images/common/bank-card.png";
+import sbpImg from "../../../../../images/common/sbp.png";
 import { CarDataType } from "../../../../../types/RentTypes";
+import { ConfirmPhone, ErrorResponse } from "../../../../../Api";
+import { ConfirmPaymentQR } from "../../../../../types/AuthContextTypes";
+import axios, { AxiosError } from "axios";
 
-const RentModalMobilePayment = ({ car }: { car: CarDataType }) => {
+const pay_koef = {
+	// процеты оплаты
+	card: 0.97,
+	sbp: 0.99,
+};
+
+const RentModalMobilePayment = (props: {
+	data: ConfirmPhone | any;
+	setStep: (string) => void;
+	car: CarDataType;
+	deposit: number;
+	setConfirmPayment: (e: ConfirmPaymentQR) => void;
+	setDeposit: (e: number) => void;
+}) => {
 	const [payment, setPayment] = useState("");
 	const [passed, setPassed] = useState(false);
-	const [error, setError] = useState("");
 	const [redButton, setRedButton] = useState(false);
-	const update = (ptype) => {
+	const [error, setError] = useState<null | string>(null);
+	const [cardPrice] = useState(
+		parseFloat((props.deposit / pay_koef.card).toFixed(2))
+	);
+	const [sbpPrice] = useState(
+		parseFloat((props.deposit / pay_koef.sbp).toFixed(2))
+	);
+
+	const send = async () => {
+		if (payment === "") {
+			setError("Выберите способ оплаты");
+			setPassed(false);
+			setRedButton(true);
+			return;
+		}
 		setRedButton(false);
+		try {
+			const res = await axios.get(
+				`https://taxivoshod.ru/api/voshod-auto/?w=pay&summ=${
+					payment === "sbp" ? sbpPrice : cardPrice
+				}&payment=${payment === "card" ? "classic" : "sbp"}&car=${
+					props.car.id
+				}`,
+				{ withCredentials: true }
+			);
+
+			if (res.data.result === 1) {
+				if (payment === "sbp") {
+					props.setConfirmPayment({ qr: res.data.qr, pid: res.data.pid });
+					props.setStep("confirm_payment");
+				} else if (payment === "card") {
+					window.location.replace(res.data.redirect);
+				}
+			}
+		} catch (error) {
+			setError(
+				(error as AxiosError<ErrorResponse>).response?.data.message ??
+					"Возникла ошибка с сервером поробуйте позже"
+			);
+		}
+	};
+	const update = (ptype) => {
+		if (ptype === "sbp") {
+			props.setDeposit(sbpPrice);
+		} else if (ptype === "card") {
+			props.setDeposit(cardPrice);
+		}
 		setPayment(ptype);
+		setRedButton(false);
 		setPassed(true);
 		setError("");
 	};
+
 	return (
 		<div className="mobile-modal_body-payment">
 			<p className="mobile-modal_body-payment_price">
-				К оплате: {car.rentpay}₽
+				К оплате: {props.deposit}₽
 			</p>
 			<div
 				className={
@@ -41,9 +103,22 @@ const RentModalMobilePayment = ({ car }: { car: CarDataType }) => {
 					setPayment={update}
 				/>
 			</div>
-			<p className="mobile-modal_body-payment_offert">
-				Выбирая способ оплаты, вы соглашаетесь с <span>Условиями оферты</span>
+			<p className="mobile-modal_body-payment_offert mt-px-25">
+				Выбирая способ оплаты, вы соглашаетесь <br /> с{" "}
+				<span>Условиями оферты</span>
 			</p>
+			<div className={"my-2 text-red-color font-size-12"}>
+				{error || <>&nbsp;</>}
+			</div>
+			<button
+				className={
+					"site-btn small mt-px-10 " +
+					(!passed ? "dark" : "") +
+					" mobile-modal_body-confirm_submit-send"
+				}
+				onClick={send}>
+				Перейти к оплате
+			</button>
 		</div>
 	);
 };

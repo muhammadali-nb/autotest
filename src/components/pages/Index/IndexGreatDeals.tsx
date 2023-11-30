@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import CarCard from "../../common/CarCard";
-import carImage from "../../../img/index/car.webp";
+import carImage from "../../../images/index/car.webp";
 import { Col, Container, Row } from "react-bootstrap";
-import arrowImageBlack from "../../../img/index/gray-arrow.svg";
-import arrowImageGray from "../../../img/index/arrow-gray.svg";
+import arrowImageBlack from "../../../images/index/gray-arrow.svg";
+import arrowImageGray from "../../../images/index/arrow-gray.svg";
 import Animator from "../../../Animator";
 import { Link } from "react-router-dom";
 
@@ -64,14 +64,14 @@ const IndexGreatDeals = () => {
 								responsive={false}
 								id={"great-deal_car1"}
 								car={{
+									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
 									id: 1,
 									brand: "Porsche",
 									model: "911 GT3",
-									year: 2023,
 									price: 120.0,
-									pay: 112.0,
-									thumb: carImage,
-									special: [1, 2, 3],
+									min_pay: 112.0,
+									image: carImage,
+									model_id: "Sonata",
 								}}
 							/>
 						</Col>
@@ -81,13 +81,14 @@ const IndexGreatDeals = () => {
 								id={"great-deal_car2"}
 								car={{
 									id: 1,
+									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
+									model_id: "Sonata",
+
 									brand: "Porsche",
 									model: "911 GT3",
-									year: 2023,
 									price: 120.0,
-									pay: 112.0,
-									thumb: carImage,
-									special: [1, 2, 3],
+									min_pay: 112.0,
+									image: carImage,
 								}}
 							/>
 						</Col>
@@ -97,13 +98,14 @@ const IndexGreatDeals = () => {
 								id={"great-deal_car3"}
 								car={{
 									id: 1,
+									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
+									model_id: "Sonata",
+
 									brand: "Porsche",
 									model: "911 GT3",
-									year: 2023,
 									price: 120.0,
-									pay: 112.0,
-									thumb: carImage,
-									special: [1, 2, 3],
+									min_pay: 112.0,
+									image: carImage,
 								}}
 							/>
 						</Col>
@@ -112,14 +114,14 @@ const IndexGreatDeals = () => {
 								responsive={false}
 								id={"great-deal_car4"}
 								car={{
+									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
 									id: 1,
+									model_id: "Sonata",
 									brand: "Porsche",
 									model: "911 GT3",
-									year: 2023,
 									price: 120.0,
-									pay: 112.0,
-									thumb: carImage,
-									special: [1, 2, 3],
+									min_pay: 112.0,
+									image: carImage,
 								}}
 							/>
 						</Col>

@@ -13,13 +13,13 @@ import {
 	CarStatBlockProps,
 } from "./Car/CarStatBlock";
 import Api, { FaqResponse } from "../../Api";
-import coverLetter from "../../img/common/cover-letter.png";
-import coverNumber from "../../img/common/cover-number.png";
-import coverLetter02 from "../../img/common/cover-letter-02.png";
+import coverLetter from "../../images/common/cover-letter.png";
+import coverNumber from "../../images/common/cover-number.png";
+import coverLetter02 from "../../images/common/cover-letter-02.png";
 
-import first from "../../img/common/number-faq/01.svg";
-import second from "../../img/common/number-faq/02.svg";
-import third from "../../img/common/number-faq/03.svg";
+import first from "../../images/common/number-faq/01.svg";
+import second from "../../images/common/number-faq/02.svg";
+import third from "../../images/common/number-faq/03.svg";
 
 const Header: React.FC<{ text: string | ReactNode }> = (props) => (
 	<div className={"arrange-leasing_header"}>{props.text}</div>

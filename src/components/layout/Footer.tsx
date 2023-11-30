@@ -1,23 +1,23 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import bg from "./../../img/common/footer/footer_bg.webp";
-import geoImage from "./../../img/common/footer/geolocation.svg";
-import clockImage from "./../../img/common/footer/clock.svg";
-import phoneImage from "./../../img/common/footer/phone.svg";
+import bg from "./../../images/common/footer/footer_bg.webp";
+import geoImage from "./../../images/common/footer/geolocation.svg";
+import clockImage from "./../../images/common/footer/clock.svg";
+import phoneImage from "./../../images/common/footer/phone.svg";
 
-import vkB from "./../../img/common/footer/vk-b.png";
-import vkW from "./../../img/common/footer/vk-w.png";
-import wappB from "./../../img/common/footer/wapp-b.png";
-import wappW from "./../../img/common/footer/wapp-w.png";
-import teleB from "./../../img/common/footer/tele-b.png";
-import teleW from "./../../img/common/footer/tele-w.png";
+import vkB from "./../../images/common/footer/vk-b.png";
+import vkW from "./../../images/common/footer/vk-w.png";
+import wappB from "./../../images/common/footer/wapp-b.png";
+import wappW from "./../../images/common/footer/wapp-w.png";
+import teleB from "./../../images/common/footer/tele-b.png";
+import teleW from "./../../images/common/footer/tele-w.png";
 import ContactsForm from "../common/ContactsForm";
 import { Link } from "react-router-dom";
-import Utils from "../../Utils";
+import Utils from "../../utils/Utils";
 
-import vkMb from "../../img/common/footer/social-icons-mb/vk.svg";
-import whMb from "../../img/common/footer/social-icons-mb/whatsapp.svg";
-import telegramMb from "../../img/common/footer/social-icons-mb/telegram.svg";
+import vkMb from "../../images/common/footer/social-icons-mb/vk.svg";
+import whMb from "../../images/common/footer/social-icons-mb/whatsapp.svg";
+import telegramMb from "../../images/common/footer/social-icons-mb/telegram.svg";
 
 const FooterMap: React.FC<{ full: boolean; noContacts: boolean }> = ({
 	full,

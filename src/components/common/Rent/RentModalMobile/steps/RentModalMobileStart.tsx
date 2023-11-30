@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ModalTemplatePhone } from "../../../ModalFormTemplate";
-import { ConfirmPhone } from "../../../../../Api";
+import { ConfirmPhone, ErrorResponse } from "../../../../../Api";
 import { CarDataType } from "../../../../../types/RentTypes";
 import { useAuth } from "../../../../../hooks/useAuth";
-import Utils from "../../../../../Utils";
-import axios from "axios";
+import Utils from "../../../../../utils/Utils";
+import axios, { AxiosError } from "axios";
 
 const RentModalMobileStart = (props: {
 	setStep: (string) => void;
@@ -15,7 +15,7 @@ const RentModalMobileStart = (props: {
 	setTimer: (e: number) => void;
 }) => {
 	const [passed, setPassed] = useState(false);
-
+	const [error_message, setErrorMessage] = useState<string | null>(null);
 	const { user_status } = useAuth();
 
 	const confirmPhone = () => {
@@ -33,7 +33,12 @@ const RentModalMobileStart = (props: {
 					props.setTimer(res.data.timer ?? 59);
 				}
 			})
-			.catch((e) => console.log(e.response));
+			.catch((e) => {
+				setErrorMessage(
+					(e as AxiosError<ErrorResponse>).response?.data.message ??
+						"Возникла ошибка с сервером поробуйте позже"
+				);
+			});
 	};
 
 	const send = () => {
@@ -68,6 +73,9 @@ const RentModalMobileStart = (props: {
 					onInput={(e) => update("phone", e.target.value)}
 				/>
 			</form>
+			{error_message && (
+				<p className="text-red-color my-px-10 font-fize-14">{error_message}</p>
+			)}
 			{user_status === "banned" ? (
 				<p className="text-red-color my-px-10 font-fize-14">
 					Вы забанены, и не можете дальше продвигаться
@@ -90,8 +98,8 @@ const RentModalMobileStart = (props: {
 					to={"/policy"}
 					target={"_blank"}
 					className={
-						"default-link dark underlined form-mobile-policy-link "
-						// (props.error ? "text-red-color" : "")
+						"default-link dark underlined form-mobile-policy-link " +
+						(error_message ? "text-red-color" : "")
 					}>
 					Условиями обработки персональных данных
 				</Link>

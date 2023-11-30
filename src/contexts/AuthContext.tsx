@@ -20,12 +20,24 @@ const initialState: AuthInitialState = {
 	isInitialized: false,
 	api_status: "pending",
 	error_message: null,
+	first_name: "",
+	middle_name: "",
+	last_name: "",
+	phone: null,
 };
 
 const handlers = {
-	INITIALIZE: (state, action) => {
-		const { isAuthenticated, user, api_status, user_status, has_profile } =
-			action.payload;
+	INITIALIZE: (state: AuthInitialState, action) => {
+		const {
+			isAuthenticated,
+			api_status,
+			user_status,
+			has_profile,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+		} = action.payload;
 
 		return {
 			...state,
@@ -34,9 +46,13 @@ const handlers = {
 			api_status,
 			user_status,
 			has_profile,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
 		};
 	},
-	LOGIN: (state, action) => {
+	LOGIN: (state: AuthInitialState, action) => {
 		const { user } = action.payload;
 
 		return {
@@ -45,14 +61,23 @@ const handlers = {
 			user,
 		};
 	},
-	LOGOUT: (state) => ({
+	LOGOUT: (state: AuthInitialState) => ({
 		...state,
 		isAuthenticated: false,
 		user: null,
 	}),
-	REGISTER: (state, action) => {
-		const { user, user_status, has_profile, error_message, api_status } =
-			action.payload;
+	REGISTER: (state: AuthInitialState, action) => {
+		const {
+			user,
+			user_status,
+			has_profile,
+			error_message,
+			api_status,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+		} = action.payload;
 
 		return {
 			...state,
@@ -62,11 +87,15 @@ const handlers = {
 			has_profile,
 			api_status,
 			error_message,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
 		};
 	},
 };
 
-const reducer = (state, action) =>
+const reducer = (state: AuthInitialState, action) =>
 	handlers[action.type] ? handlers[action.type](state, action) : state;
 
 export const AuthContext = createContext({
@@ -88,14 +117,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				withCredentials: true,
 			})
 			.then((res: AxiosResponse<AuthResponce>) => {
-				const { success, reason, has_profile } = res.data;
+				const {
+					success,
+					reason,
+					has_profile,
+					first_name,
+					middle_name,
+					last_name,
+					phone,
+				} = res.data;
 				if (success && has_profile) {
 					dispatch({
 						type: actions.INITIALIZE,
 						payload: {
 							isAuthenticated: true,
-							has_profile: true,
+							has_profile: res.data.has_profile,
 							user_status: null,
+							first_name: first_name,
+							middle_name: middle_name,
+							last_name: last_name,
+							phone: phone,
 						},
 					});
 				} else {
@@ -106,6 +147,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 							user: null,
 							user_status: reason,
 							has_profile: false,
+							first_name: "",
+							middle_name: "",
+							last_name: "",
+							phone: null,
 						},
 					});
 				}
@@ -137,9 +182,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				payload: {
 					isAuthenticated: true,
 					api_status: "success",
-					has_profile: false,
+					has_profile: res.data.has_profile,
 					user_status: null,
 					err_message: null,
+					first_name: res.data.first_name,
+					middle_name: res.data.middle_name,
+					last_name: res.data.last_name,
+					phone: res.data.phone,
 				},
 			});
 
@@ -162,6 +211,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		}
 	};
 
+	const logout = async () => {
+		try {
+			const res: AxiosResponse<AuthResponce> = await axios.get(
+				`https://taxivoshod.ru/api/login.php?logout=1`,
+				{ withCredentials: true }
+			);
+			return res.data;
+		} catch (error) {
+			console.log((error as AxiosError).response);
+		} finally {
+			dispatch({
+				type: actions.LOGOUT,
+			});
+		}
+	};
+
+	const login = (data: AuthResponce) => {
+		dispatch({
+			type: actions.LOGIN,
+			payload: data,
+		});
+	};
+
 	useEffect(() => {
 		initialize().catch(console.error);
 	}, []);
@@ -172,6 +244,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				...state,
 				register,
 				initialize,
+				logout,
 			}}>
 			{children}
 		</AuthContext.Provider>
