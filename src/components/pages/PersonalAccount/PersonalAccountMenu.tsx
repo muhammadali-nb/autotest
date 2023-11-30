@@ -19,16 +19,21 @@ const PersonalAccountlinks = [
 	},
 	{
 		id: 4,
+		name: "Транзакции",
+		path: "/personal-account/transactions"
+	},
+	{
+		id: 5,
 		name: "Карты оплаты",
 		path: "/personal-account/payment",
 	},
 	{
-		id: 5,
+		id: 6,
 		name: "Штрафы",
 		path: "/personal-account/fine",
 	},
 	{
-		id: 6,
+		id: 7,
 		path: "/personal-account/subscriptions",
 		name: "Подписки",
 	},

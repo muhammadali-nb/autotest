@@ -26,6 +26,7 @@ import App from "../App";
 import Payment from "../components/pages/Payment";
 import PersonalAccountRentHistoryPage from "../components/pages/PersonalAccountRentHistory/PersonalAccountRentHistoryPage";
 import PersonalAccountLeasingPage from "../components/pages/PersonalAccountLeasing/PersonalAccountLeasingPage";
+import TransactionsPage from "../components/pages/Transactions/TransactionsPage";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -59,6 +60,10 @@ export const router = createBrowserRouter(
 			<Route
 				path="personal-account/leasing"
 				element={<PersonalAccountLeasingPage />}
+			/>
+			<Route
+				path="personal-account/transactions"
+				element={<TransactionsPage />}
 			/>
 			<Route path={"offer"} element={<OfferPage />} />
 			<Route path={"*"} element={<NotExistsPage />} />

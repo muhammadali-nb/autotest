@@ -6,7 +6,18 @@ import CardSelect from "../../../CardSelect/CardSelect";
 import { CodeConfirmForm } from "../../../../pages/PersonalAccount/PersonalAccountModal/PersonalAccountModal";
 import Utils from "../../../../../utils/Utils";
 
-const cardsData = {
+interface cardProps {
+    name: string,
+    number: string,
+    favourite: boolean
+}
+
+interface cardsDataProps {
+    cards: cardProps[],
+    accounts: cardProps[]
+}
+
+const cardsData: cardsDataProps = {
     cards: [
         {
             name: "1",

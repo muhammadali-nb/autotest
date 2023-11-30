@@ -1,0 +1,186 @@
+.personal-account-leasing {
+  &-car_card {
+    &-info {
+      border-radius: 4px;
+      background: var(--default-white, #fff);
+      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+      width: 780px;
+
+      display: flex;
+      align-items: center;
+      padding: 30px 40px;
+
+      @include l-xxl {
+        width: 700px;
+      }
+
+      @include l-xl {
+        width: 100%;
+      }
+
+      &_image {
+        max-width: 334px;
+        margin: 0 60px 0 0;
+
+        @include l-xxl {
+          max-width: 300px;
+          margin: 0 40px 0 0;
+        }
+
+        @include l-xl {
+          max-width: 350px;
+        }
+
+        & > img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      &_date,
+      &_number {
+        color: var(--Grey-1, #606569);
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.14px;
+        margin: 0;
+      }
+
+      &_number {
+        margin: 10px 0 30px 0;
+      }
+
+      &_brand {
+        font-family: Inter;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        margin: 0 0 10px 0;
+
+        &-model {
+          color: #bf3535;
+        }
+      }
+
+      &_seria {
+        color: var(--Grey-1, #606569);
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.18px;
+        text-transform: uppercase;
+        margin: 0 0 30px 0;
+      }
+
+      &_price {
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.16px;
+        margin: 0 0 15px 0;
+
+        & > p {
+          margin: 0 0 5px 0;
+        }
+
+        & > span {
+          font-size: 22px;
+          font-weight: 600;
+        }
+      }
+      &_kasko,
+      &_osago {
+        color: var(--Grey-1, #606569);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.14px;
+        margin: 0;
+        & > span {
+          color: var(--Grey-2, #babcbf);
+        }
+      }
+
+      &_kasko {
+        margin: 30px 0 10px 0 !important;
+      }
+    }
+    &-payment {
+      &-result {
+        border-radius: 2px;
+        background: var(--default-white, #fff);
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        padding: 30px 20px;
+        &_header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 0 0 18px 0;
+          & > h3 {
+            color: var(--Text, #222);
+            font-family: Inter;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            margin: 0;
+          }
+          & > div {
+            color: var(--Text, #222);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration-line: underline;
+
+            &:hover {
+              color: #bf3535;
+            }
+          }
+        }
+        & > p {
+          color: var(--Grey-1, #606569);
+          font-family: Inter;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          margin: 0;
+        }
+      }
+
+      &-status {
+        border-radius: 2px;
+        background: var(--default-white, #fff);
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        padding: 30px 20px;
+        display: flex;
+        margin: 15px 0 0 0;
+
+        &_body {
+          margin: 0 0 0 15px;
+          & > h4 {
+            color: var(--Text, #222);
+            font-family: Inter;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+          }
+          & > p {
+            color: var(--Grey-1, #606569);
+            font-family: Inter;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0 0 40px 0;
+          }
+
+          & > span {
+            color: var(--Grey-2, #babcbf);
+            font-family: Inter;
+            font-size: 14px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}
