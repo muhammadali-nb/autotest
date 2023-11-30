@@ -190,3 +190,20 @@
     }
   }
 }
+
+.personal-account_transactions {
+  width: 100%;
+  padding-top: 20px;
+  border-top: 2px solid #f2f3f6;
+
+  &-items {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    margin: -20px;
+  }
+
+  &-item {
+    margin: 20px;
+  }
+}

@@ -10,6 +10,7 @@ import ticked from "../../../images/personal-account/menu/ticket.svg";
 import card from "../../../images/personal-account/menu/card.svg";
 import warning from "../../../images/personal-account/menu/warning.svg";
 import smile from "../../../images/personal-account/menu/smile.svg";
+import wallet from "../../../images/personal-account/menu/wallet.svg";
 
 interface MobileMenuProps {
 	menuIsOpen: boolean;
@@ -39,9 +40,16 @@ const defaultLinks = [
 		icon: ticked,
 		id: 3,
 	},
-	{ text: "Карты оплаты", path: "/", className: "", icon: card, id: 4 },
-	{ text: "Штрафы", path: "/", className: "", icon: warning, id: 5 },
-	{ text: "Подписки", path: "/", className: "", icon: smile, id: 6 },
+	{
+		id: 4,
+		text: "Транзакции",
+		path: "/personal-account/transactions",
+		className: "",
+		icon: wallet
+	},
+	{ text: "Карты оплаты", path: "/", className: "", icon: card, id: 5 },
+	{ text: "Штрафы", path: "/", className: "", icon: warning, id: 6 },
+	{ text: "Подписки", path: "/", className: "", icon: smile, id: 7 },
 ];
 
 const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
@@ -55,14 +63,12 @@ const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
 
 	return (
 		<div
-			className={`mobile-menu ${
-				menuIsOpen ? "active" : ""
-			} mobile-menu-personal-account`}>
+			className={`mobile-menu ${menuIsOpen ? "active" : ""
+				} mobile-menu-personal-account`}>
 			<div
 				ref={menuRef}
-				className={`mobile-menu_container ${
-					menuIsOpen ? "active" : ""
-				} mobile-menu-personal-account_container`}>
+				className={`mobile-menu_container ${menuIsOpen ? "active" : ""
+					} mobile-menu-personal-account_container`}>
 				<div>
 					<div className={"d-flex align-items-center gap-px-15"}>
 						<div onClick={() => setMenuIsOpen(false)}>

@@ -6,7 +6,6 @@ const PersonalAccountCarCardPayment = ({
 }: {
 	payment: RentHistoryDataPaymentPerDay;
 }) => {
-	const status = false;
 	return (
 		<div className="personal-account-rent-car_payment-card">
 			{payment.status === "confirmed" ? (

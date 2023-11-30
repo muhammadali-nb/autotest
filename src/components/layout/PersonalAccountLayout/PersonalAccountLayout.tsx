@@ -35,9 +35,6 @@ export type CatalogLayoutProps = {
 const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 	props: CatalogLayoutProps
 ) => {
-	const bState: any = useAppSelector((state) => state.baseData);
-	const dispatch = useAppDispatch();
-
 	const meta = {
 		title: props.title ?? process.env.REACT_APP_WEBSITE_NAME,
 		description:
