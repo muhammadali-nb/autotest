@@ -1,19 +1,20 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from "react";
 import { MetaTags } from "../layout/BaseLayout";
 import { Col, Container, Row } from "react-bootstrap";
-import FiltersBlock from "./Catalog/FiltersBlock";
 import CarGrid from "./Catalog/CarGrid";
-import dangerBtn from "./../../img/common/danger.png";
+import dangerBtn from "./../../images/common/danger.png";
 import FilterButtons from "./Catalog/FilterButtons";
-import bg from "./../../img/index/about_bg.webp";
+import bg from "./../../images/index/about_bg.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import Api from "../../Api";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import CatalogLayout from "../layout/CatalogLayout";
 import { SmallFooter } from "../layout/Footer";
-import { BaseState } from "../../store/reducers/baseDataSlice";
-import { useAppSelector } from "../../store/hooks";
+import { useQuery } from "@tanstack/react-query";
+import catalogService from "../../api-functions/catalog-page/catalog-service";
+import CatalogFiltersBlock from "./Catalog/CatalogFilterBlock";
+import chevron from "../../images/common/footer/chevron-for-bottom.svg";
 
 export const AlertMessage: React.FC<{
 	page: string;
@@ -97,19 +98,44 @@ export const BottomMessage: React.FC<{
 	);
 };
 
+export const BottomMessageMobile: React.FC<{
+	text1: string | ReactNode;
+	text2: string | ReactNode;
+	className?: string;
+	onClick?: () => void;
+}> = (props) => {
+	return (
+		<div
+			onClick={props.onClick}
+			className={`bottom-message bottom-message-mobile ${props.className}`}
+			style={{
+				backgroundImage: `url('${bg}')`,
+				backgroundPosition: "center",
+				borderRadius: "2px",
+			}}>
+			<div>
+				<div className={"bottom-message_description"}>{props.text1}</div>
+				<div className={"bottom-message_header "}>{props.text2}</div>
+			</div>
+			<div className={"bottom-message_btn"}>
+				<img src={chevron} alt="Предложить машину" />
+			</div>
+		</div>
+	);
+};
+
 const CatalogPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
-
-	const title = "Каталог - " + process.env.REACT_APP_WEBSITE_NAME;
+	const title = "Выкуп - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
-		description: "Каталог автомобилей",
-		keywords: "каталог,лизинг,авто,список,leasing",
+		description: "Выкуп,Каталог автомобилей",
+		keywords: "выкуп,каталог,лизинг,авто,список,leasing",
 	};
 
-	const baseData: BaseState = useAppSelector((state) => state.baseData);
+	const { data, isLoading } = useQuery({
+		queryKey: ["catalog-filter"],
+		queryFn: () => catalogService.getFilter(),
+	});
 
 	return (
 		<CatalogLayout
@@ -119,49 +145,43 @@ const CatalogPage = () => {
 			footerSmall>
 			<div className="catalog">
 				<Container fluid={"xxl"}>
-					{process.env.REACT_APP_NO_CATALOG !== "true" ? (
-						<>
-							<CatalogMobileMenu
-								data={baseData}
-								isActive={isOpen}
-								setIsActive={setOpen}
-							/>
-							<div>
-								<Row>
-									<Col lg={3}>
-										<div className={"sticky-no-scrollbar"}>
-											<FiltersBlock filterData={baseData} />
-										</div>
-									</Col>
-									<Col lg={9}>
-										<AlertMessage
-											page={"catalog"}
-											type={"danger"}
-											className={"catalog-alert"}
-											local_message={
-												<p className="catalog-alert_message">
-													В каталоге представлены автомобили, которые проходят
-													по программам лизинга.
-													<br></br>
-													Если Вам необходим автомобиль в аренду перейдите в
-													раздел <span>Аренда.</span>
-												</p>
-											}
-										/>
-										<FilterButtons isShowMobileFiler={setOpen} />
-										<CarGrid />
-										<SmallFooter />
-									</Col>
-								</Row>
-							</div>
-						</>
-					) : (
-						<AlertMessage
-							page={"catalog"}
-							type={"danger"}
-							className={"mb-px-60"}
-						/>
-					)}
+					<CatalogMobileMenu
+						data={data}
+						isActive={isOpen}
+						setIsActive={setOpen}
+					/>
+					<div>
+						<Row>
+							<Col lg={3}>
+								<div className={"sticky-no-scrollbar"}>
+									<CatalogFiltersBlock filterData={!isLoading && data} />
+								</div>
+							</Col>
+							<Col lg={9}>
+								<AlertMessage
+									page={"catalog"}
+									type={"danger"}
+									className={"catalog-alert"}
+									local_message={
+										<p className="catalog-alert_message">
+											В каталоге представлены автомобили, которые проходят по
+											программам лизинга.
+											<br></br>
+											Если Вам необходим автомобиль в аренду перейдите в раздел{" "}
+											<span>Аренда.</span>
+										</p>
+									}
+								/>
+								<FilterButtons
+									mode="book"
+									isShowMobileFiler={setOpen}
+									catalogData={!isLoading && data.top}
+								/>
+								<CarGrid />
+								<SmallFooter />
+							</Col>
+						</Row>
+					</div>
 				</Container>
 			</div>
 		</CatalogLayout>

@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export interface BankCardProps {
 	style?: object;
 	favorite: boolean;

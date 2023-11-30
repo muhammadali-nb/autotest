@@ -4,31 +4,29 @@ import { useAppSelector } from "../../../store/hooks";
 import CarStatBlock, { CarStatBlockItem } from "./CarStatBlock";
 import IndexCalculator from "../Index/IndexCalculator";
 import { Container } from "react-bootstrap";
+import { ICarData } from "../../../types/CatalogTypes";
 
-const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
-	const data: any = useAppSelector((state) => state.baseData);
-	const brand =
-		data.left.brands.values?.find((i) => i.id === car.main.brand)?.name ?? "";
-	const model =
-		data.left.models.values?.find((i) => i.id === car.main.model)?.name ?? "";
-
+const CarBase: React.FC<{ car: CarData | any; car_data: ICarData }> = ({
+	car,
+	car_data,
+}) => {
 	return (
 		<div className={"car-base"}>
 			<div className="car-base_body">
 				<div className={"car-base-title"}>
-					{brand}&nbsp;
-					<span className={"text-red-color"}>{model}</span>
+					{car_data?.brand}&nbsp;
+					<span className={"text-red-color"}>{car_data?.model}</span>
 				</div>
 				<div className={"car-base-price"}>
 					<div className={"mb-px-5"}>Цена</div>
 					<div className={"car-base-price-value"}>
-						{car.main.price.toLocaleString()}&nbsp;₽
+						{car_data?.price?.toLocaleString()}&nbsp;₽
 					</div>
 				</div>
 				<div className={"car-base-payment"}>
 					Минимальный платеж от{" "}
 					<span className={"car-base-payment-value"}>
-						{car.main.pay.toLocaleString()}&nbsp;₽
+						{car_data?.min_pay?.toLocaleString()}&nbsp;₽
 					</span>
 				</div>
 				<div className={"mb-px-30"}>
@@ -44,10 +42,18 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 				<CarPreorderButton car={car.main} w100={false} />
 			</div>
 			<div className={"d-none d-lg-block my-3"}>
-				<CarStatBlock type={"descktop"} column1Width={"auto"} data={car.info} />
+				<CarStatBlock
+					type={"descktop"}
+					column1Width={"auto"}
+					data={[car_data?.info]}
+				/>
 			</div>
 			<div className="d-block d-lg-none">
-				<CarStatBlock type={"descktop"} column1Width={"auto"} data={car.info} />
+				<CarStatBlock
+					type={"descktop"}
+					column1Width={"auto"}
+					data={[car_data?.info]}
+				/>
 			</div>
 
 			<div className={" car-base-calculator "}>
@@ -56,7 +62,13 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 					<IndexCalculator
 						fontBold={true}
 						hidePrice={true}
-						price={car.main.price}
+						price={car_data?.price}
+						minTime={car_data?.srok_from}
+						koef={car_data?.koef}
+						maxTime={car_data?.srok_to}
+						maxPrepaid={car_data?.price}
+						minPrepaid={car_data?.min_pay}
+						prepaid={car_data?.min_pay}
 						noAnim={true}
 						className=" car-base-calculator_slider"
 					/>
@@ -65,7 +77,7 @@ const CarBase: React.FC<{ car: CarData | any }> = ({ car }) => {
 					<IndexCalculator
 						fontBold={true}
 						hidePrice={true}
-						price={car.main.price}
+						price={car_data?.price}
 						noAnim={true}
 						className="car-base-calculator_slider"
 					/>

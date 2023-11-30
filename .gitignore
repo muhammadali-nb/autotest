@@ -1,9 +1,7 @@
 node_modules/
 build/
-.env
 .idea/
 .DS_Store
 yarn.lock
 ssl/
-package.json
-
+package-lock.json

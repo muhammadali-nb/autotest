@@ -23,12 +23,25 @@
     min-height: 400px;
     height: 100%;
     width: 100%;
+
+    canvas {
+      filter: grayscale(0.7) !important;
+      -webkit-filter: grayscale(100%) !important;
+    }
   }
+}
+
+.ymaps-layers-pane {
+  filter: grayscale(1);
+  -ms-filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -o-filter: grayscale(1);
 }
 
 .footer {
   background-size: cover;
-  background-image: url("../../img/common/footer/footer_bg.webp");
+  background-image: url("../../images/common/footer/footer_bg.webp");
   position: relative;
   display: flex;
   flex-direction: column-reverse;
@@ -40,7 +53,7 @@
 
   &__contacts-container {
     @include l-md {
-      background-image: url("../../img/index/logo-bg-no-car.webp");
+      background-image: url("../../images/index/logo-bg-no-car.webp");
       background-position: left 24% top 0;
       background-size: cover;
       & > div {

@@ -254,6 +254,13 @@ export const defaultCars: CatalogResponse = {
   ]
 }
 
+export interface RentCreateAccountForm {
+	name: string;
+	lastName: string;
+	middleName: string;
+	image: string;
+	errors: any;
+}
 
 export interface RentResponse extends PaginatedResponse {
   list: Array<CarRentDataInfo>
@@ -307,8 +314,8 @@ const defaultError: ErrorResponse = { error: 'Ошибка', message: 'Ошиб�
 
 export type CallRequestData = {
   name: string,
+  middleName?: string,
   lastName: string,
-  middleName: string,
   phone: string,
   confirm: boolean,
   comment?: string,
@@ -317,13 +324,13 @@ export type CallRequestData = {
 
 }
 
+export interface CallRequestResponse { success: boolean, fields?: object }
+
 export type ConfirmPhone = {
   phone: string
   errors: object
   confirm: boolean
 }
-
-export interface CallRequestResponse { success: boolean, fields?: object }
 
 export interface MessageOfTheDay {
   type?: "warning" | "error" | "message",

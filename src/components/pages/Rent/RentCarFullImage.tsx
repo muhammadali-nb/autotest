@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 
-import arrowLeft from "../../../img/car-detail/arrow-left.svg";
+import arrowLeft from "../../../images/car-detail/arrow-left.svg";
 import { TypeImages } from "./RentCarImagesCarousel";
 import { Carousel } from "react-bootstrap";
-import caretLeft from "./../../../img/common/caret-left-big.svg";
-import caretRight from "./../../../img/common/caret-right-big.svg";
+import caretLeft from "./../../../images/common/caret-left-big.svg";
+import caretRight from "./../../../images/common/caret-right-big.svg";
 
-interface RentCarFullImageProps {
+interface CarFullImageModalProps {
 	active: boolean;
 	setActive: (e: boolean) => void;
 	images: TypeImages[];
 }
 
-const RentCarFullImage = ({
+const CarFullImageModal = ({
 	active,
 	setActive,
 	images,
-}: RentCarFullImageProps) => {
+}: CarFullImageModalProps) => {
 	const [index, setIndex] = useState(0);
 
 	useEffect(() => {
@@ -47,10 +47,7 @@ const RentCarFullImage = ({
 				indicators={false}>
 				{images.map((_item) => (
 					<Carousel.Item key={_item.id}>
-						<div
-							className={"car-images-image-container cursor-pointer "}
-							// onClick={handleShow}
-						>
+						<div className={"car-images-image-container cursor-pointer "}>
 							<img
 								className="d-block w-100 car-images-image "
 								src={_item.image}
@@ -95,4 +92,4 @@ const RentCarFullImage = ({
 	);
 };
 
-export default RentCarFullImage;
+export default CarFullImageModal;

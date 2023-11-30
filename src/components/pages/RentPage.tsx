@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { MetaTags } from "../layout/BaseLayout";
 import { Col, Collapse, Container, Row } from "react-bootstrap";
-import FiltersBlock from "./Catalog/FiltersBlock";
+import FiltersBlock from "./Rent/FiltersBlock";
 import FilterButtons from "./Catalog/FilterButtons";
 import RentGrid from "./Catalog/RentGrid";
 import FoldableQuestion from "../common/FoldableQuestion";
@@ -13,7 +13,7 @@ import { SmallFooter } from "../layout/Footer";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -256,7 +256,7 @@ const RentPageHeader = () => {
 	);
 };
 
-export type RentFilterDateValue = {
+export type FilterTopValues = {
 	name: string;
 	type: string;
 	values: [
@@ -269,33 +269,30 @@ export type RentFilterDateValue = {
 
 export interface RentFilterDate {
 	top: {
-		free: RentFilterDateValue;
-		tarif: RentFilterDateValue;
+		free: FilterTopValues;
+		tarif: FilterTopValues;
 	};
 }
 
-const RentPage = () => {
-	const [isOpen, setOpen] = useState<boolean>(false);
-
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
-
+const RentPage = ({ children }: { children?: ReactNode }) => {
 	const title = "Аренда автомобилей - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
 		description: "Аренда автомобилей",
 		keywords: "аренда, авто, каталог,rent",
 	};
-
+	const [isOpen, setOpen] = useState<boolean>(false);
+	const { id } = useParams();
+	const paramsId = id ? parseInt(id) : 1;
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["rent-filter"],
 		queryFn: () => rentService.getFilter(),
 	});
+
 	return (
 		<RentLayout
 			meta={meta}
 			title={title}
-			headerSelectedLink={"/rent"}
+			headerSelectedLink={`/rent/page/${paramsId}`}
 			footerSmall>
 			<RentPageHeader />
 			<Container fluid={"xxl"} className={" mt-px-30"}>
@@ -314,12 +311,18 @@ const RentPage = () => {
 							rentFilterData={!isLoading && data.top}
 							mode="rent"
 							isShowMobileFiler={setOpen}
+<<<<<<< HEAD
 						/>
 						<RentGrid />
+=======
+						/> 
+						<RentGrid activePage={paramsId} />
+>>>>>>> mobile-version
 						<SmallFooter />
 					</Col>
 				</Row>
 			</Container>
+			{children}
 		</RentLayout>
 	);
 };

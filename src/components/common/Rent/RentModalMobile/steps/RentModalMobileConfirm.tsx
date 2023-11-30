@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../../../hooks/useAuth";
-import Utils from "../../../../../Utils";
+import Utils from "../../../../../utils/Utils";
 import { CarBookingStepsType } from "../../../CarRentForm";
 import { CarDataType } from "../../../../../types/RentTypes";
 import { ModalTemplateInput } from "../../../ModalFormTemplate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import { AxiosError } from "axios";
+import { log } from "console";
+import { AuthResponce } from "../../../../../types/AuthContextTypes";
 
 const RentModalMobileConfirm = ({
 	timerConfirm,
@@ -14,12 +15,14 @@ const RentModalMobileConfirm = ({
 	setStep,
 	car,
 	phone,
+	getPayment
 }: {
 	timerConfirm: number;
 	step: CarBookingStepsType;
 	setStep: (e: CarBookingStepsType) => void;
 	car: CarDataType;
 	phone: string;
+	getPayment: () => void
 }) => {
 	const [passed, setPassed] = useState(false);
 	const [code, setCode] = useState("      ");
@@ -57,7 +60,11 @@ const RentModalMobileConfirm = ({
 		try {
 			const res: any = await register(phone, code);
 			if (res.success) {
-				setStep("create");
+				if (res.has_profile) {
+					await getPayment()
+				} else {
+					setStep("create");
+				}
 				setPassed(true);
 			}
 		} catch (error) {

@@ -2,11 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 // ...
 import baseDataReducer from './reducers/baseDataSlice';
 import filterReducer from './reducers/filterSlice';
+import catalogFilterReducer from './reducers/catalogFilterSlice'
+
 
 export const store = configureStore({
   reducer: {
     baseData: baseDataReducer,
     filter: filterReducer,
+    catalogFilter: catalogFilterReducer
   },
 })
 
