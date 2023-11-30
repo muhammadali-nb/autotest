@@ -54,7 +54,7 @@ const RentHistryData: IRentHistoryData[] = [
 	},
 ];
 
-const RentHistoryPage = () => {
+const PersonalAccountRentHistoryPage = () => {
 	return (
 		<PersonalAccountRentLayout>
 			<div className="d-none d-md-block">
@@ -87,4 +87,4 @@ const RentHistoryPage = () => {
 	);
 };
 
-export default RentHistoryPage;
+export default PersonalAccountRentHistoryPage;

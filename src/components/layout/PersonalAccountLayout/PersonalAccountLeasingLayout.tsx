@@ -1,13 +1,13 @@
 import React, { FC, ReactNode } from "react";
 import PersonalAccountLayout from "./PersonalAccountLayout";
-import PersonalAccountMenuMobile from "../../pages/PersonalAccount/PersonalAccountMenuMobile";
-import { useOutside } from "../../../hooks/useOutside";
-import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
-import Footer from "../Footer";
 import { Col, Container, Row } from "react-bootstrap";
 import PersonalAccountMenu from "../../pages/PersonalAccount/PersonalAccountMenu";
+import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
+import Footer from "../Footer";
+import PersonalAccountMenuMobile from "../../pages/PersonalAccount/PersonalAccountMenuMobile";
+import { useOutside } from "../../../hooks/useOutside";
 
-const PersonalAccountRentLayout: FC<{ children: ReactNode }> = ({
+const PersonalAccountLeasingLayout: FC<{ children: ReactNode }> = ({
 	children,
 }) => {
 	// for menu personal account
@@ -18,7 +18,7 @@ const PersonalAccountRentLayout: FC<{ children: ReactNode }> = ({
 				<Container fluid={"xxl"}>
 					<Row>
 						<Col className={"d-none d-lg-block"} lg={2}>
-							<PersonalAccountMenu selected="/personal-account/rent-history" />
+							<PersonalAccountMenu selected="/personal-account/leasing" />
 						</Col>
 						<Col lg={10}>
 							<div className="personal-account_page">
@@ -42,4 +42,4 @@ const PersonalAccountRentLayout: FC<{ children: ReactNode }> = ({
 	);
 };
 
-export default PersonalAccountRentLayout;
+export default PersonalAccountLeasingLayout;

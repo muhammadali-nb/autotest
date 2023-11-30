@@ -173,6 +173,8 @@
         margin: 0;
         padding: 20px 40px;
         width: 49%;
+        display: flex;
+        align-items: center;
       }
 
       &-success {
@@ -359,12 +361,41 @@
         padding: 12px 16px;
       }
 
+      &_status {
+        &-success {
+          & > .personal-account-rent-car_mobile-check_result {
+            border: 1.5px solid #008f4b;
+          }
+        }
+        &-waiting {
+          & > .personal-account-rent-car_mobile-check_result {
+            border: 1.5px solid var(--1, #bf3535);
+          }
+        }
+        &-confirmed {
+          & > .personal-account-rent-car_mobile-check_result {
+            border: 1.5px solid #008f4b;
+            margin: 0 0 16px 0;
+          }
+
+          & > .personal-account-rent-car_mobile-check_btn {
+            border-radius: 2px;
+            border: 1.5px solid var(--Text, #222);
+            box-shadow: 0px 0px 7.88211px 0px rgba(0, 0, 0, 0.1);
+
+            &:hover {
+              border: 1.5px solid var(--Text, #bf3535);
+              background-color: #fff;
+              color: #bf3535;
+            }
+          }
+        }
+      }
+
       &_result {
         display: flex;
         align-items: center;
-        margin: 16px 0 0 0;
         border-radius: 2px;
-        border: 1.5px solid var(--1, #bf3535);
         box-shadow: 0px 0px 7.88211px 0px rgba(0, 0, 0, 0.1);
         padding: 12px;
         &-image {

@@ -20,11 +20,12 @@ import ContactsPage from "../components/pages/ContactsPage";
 import PolicyPage from "../components/pages/PolicyPage";
 import UserAgreementPage from "../components/pages/UserAgreementPage";
 import PersonalAccountPage from "../components/pages/PersonalAccount/PersonalAccountPage";
-import RentHistoryPage from "../components/pages/RentHistory/RentHistoryPage";
 import OfferPage from "../components/pages/OfferPage";
 import NotExistsPage from "../components/pages/NotExistsPage";
 import App from "../App";
 import Payment from "../components/pages/Payment";
+import PersonalAccountRentHistoryPage from "../components/pages/PersonalAccountRentHistory/PersonalAccountRentHistoryPage";
+import PersonalAccountLeasingPage from "../components/pages/PersonalAccountLeasing/PersonalAccountLeasingPage";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -53,7 +54,11 @@ export const router = createBrowserRouter(
 			<Route path="personal-account" element={<PersonalAccountPage />} />
 			<Route
 				path="personal-account/rent-history"
-				element={<RentHistoryPage />}
+				element={<PersonalAccountRentHistoryPage />}
+			/>
+			<Route
+				path="personal-account/leasing"
+				element={<PersonalAccountLeasingPage />}
 			/>
 			<Route path={"offer"} element={<OfferPage />} />
 			<Route path={"*"} element={<NotExistsPage />} />
