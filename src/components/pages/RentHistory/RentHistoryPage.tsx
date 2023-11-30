@@ -4,6 +4,7 @@ import PersonalAccountRentLayout from "../../layout/PersonalAccountLayout/Person
 import PersonalAccountHeaderMobile from "../../common/PersonalAccount/PersonalAccountHeader/PersonalAccountHeaderMobile";
 import carImage from "../../../images/index/car.webp";
 import { IRentHistoryData } from "../../../types/PersonalAccount/RentHistoryTypes";
+import PersonalAccountBalance from "../PersonalAccount/PersonalAccountBalance/PersonalAccountBalance";
 
 const RentHistryData: IRentHistoryData[] = [
 	{
@@ -58,7 +59,10 @@ const RentHistoryPage = () => {
 	return (
 		<PersonalAccountRentLayout>
 			<div className="d-none d-md-block">
-				<PersonalAccountHeader />
+				<PersonalAccountHeader>
+					<h1 className="personal-account-header_title">История аренды</h1>
+					<PersonalAccountBalance />
+				</PersonalAccountHeader>
 				<div className="personal-account_page-rent_cars">
 					{RentHistryData.map((_item) => (
 						<PersonalAccountCarCard
