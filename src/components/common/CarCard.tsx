@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CarBookingForm from "./CarBookingForm";
 import CarRentForm from "./CarRentForm";
 import { CarDataType } from "../../types/RentTypes";
@@ -155,7 +155,7 @@ const CarCard: React.FC<{
 }> = ({ car, responsive, id }) => {
 	const dispatch = useAppDispatch();
 	const filter = useAppSelector((state) => state.catalogFilter);
-
+	const navigate = useNavigate();
 	const updateSameCarFilter = (value: string) => {
 		dispatch(setCatalogFilter({ ...filter, models: [value] }));
 	};
@@ -186,6 +186,7 @@ const CarCard: React.FC<{
 					<img src={car.image} alt={car.brand + " " + car.model} />
 				</Link>
 				<div
+					onClick={() => navigate(`/catalog/${car.id}`)}
 					className={` ${
 						responsive ? "car__card-mobile-title" : "car__card-title"
 					} `}>

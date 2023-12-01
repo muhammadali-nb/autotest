@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import catalogService from "../../api-functions/catalog-page/catalog-service";
 import CatalogFiltersBlock from "./Catalog/CatalogFilterBlock";
 import chevron from "../../images/common/footer/chevron-for-bottom.svg";
+import { Link } from "react-router-dom";
 
 export const AlertMessage: React.FC<{
 	page: string;
@@ -168,7 +169,7 @@ const CatalogPage = () => {
 											программам лизинга.
 											<br></br>
 											Если Вам необходим автомобиль в аренду перейдите в раздел{" "}
-											<span>Аренда.</span>
+											<Link to={"/rent/page/1"}>Аренда.</Link>
 										</p>
 									}
 								/>
