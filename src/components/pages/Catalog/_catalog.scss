@@ -44,7 +44,7 @@
 .filter-menu {
   position: fixed;
   top: 0;
-  left: -150%;
+  right: -150%;
   z-index: 202;
   width: 100vw;
   height: 100vh;
@@ -61,7 +61,7 @@
   scrollbar-width: none; /* Firefox */
   overflow: scroll;
   &.active {
-    left: 0;
+    right: 0;
   }
 
   &_scroller {

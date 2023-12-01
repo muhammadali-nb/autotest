@@ -88,7 +88,7 @@ const FilterButtons: React.FC<{
 					</div>
 
 					<div
-						className="d-block d-lg-none "
+						className="d-block d-lg-none mb-px-5 "
 						onClick={() => isShowMobileFiler(true)}>
 						<img src={filterIcon} alt="" />
 					</div>
@@ -149,7 +149,7 @@ const FilterButtons: React.FC<{
 						))}
 					</div>
 					<div
-						className="d-block d-lg-none"
+						className="d-block d-lg-none mb-px-5"
 						onClick={() => isShowMobileFiler(true)}>
 						<img src={filterIcon} alt="" />
 					</div>

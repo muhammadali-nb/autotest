@@ -81,6 +81,8 @@
   text-transform: uppercase;
   margin-bottom: 20px;
   color: $textColor;
+  text-decoration: none;
+  cursor: pointer;
   .model {
     color: $redColor;
   }
@@ -249,6 +251,8 @@
     text-transform: uppercase;
     margin-bottom: 20px;
     color: $textColor;
+    text-decoration: none;
+    cursor: pointer;
     .model {
       color: $redColor;
     }

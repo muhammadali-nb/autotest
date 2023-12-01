@@ -87,7 +87,7 @@ const IndexCalculator: React.FC<IndexCalculatorProps> = (props) => {
 	const monthSum = () => {
 		let base = values.price - values.prepaid;
 		let interestRate = (props.koef ?? 1.5) / 100;
-		return Math.round((base / values.time + base * interestRate) * 100) / 100;
+		return Math.round(((base / values.time + base * interestRate) * 100) / 100); // proverit nado
 	};
 	const daySum = () => {
 		return Math.round(monthSum() / (props.daysInMonth ?? 30));
