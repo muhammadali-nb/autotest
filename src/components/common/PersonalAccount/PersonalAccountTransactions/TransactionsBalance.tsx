@@ -1,6 +1,9 @@
 import { balanceProps } from "../PersonalAccountBalance/BalanceMobile";
 import logo from "../../../../images/personal-account/balance/logo.svg";
 import deposit from "../../../../images/personal-account/balance/deposit.svg";
+import income from "../../../../images/personal-account/transactions/income.svg";
+import outcome from "../../../../images/personal-account/transactions/outcome.svg";
+import transaction from "../../../../images/personal-account/transactions/transaction.svg";
 import "./PersonalAccountTransactions.scss";
 import Utils from "../../../../utils/Utils";
 
@@ -20,7 +23,13 @@ const balanceData: balanceProps = {
     ]
 };
 
-const TransactionsBalance: React.FC = () => {
+const TransactionsBalance: React.FC<{
+    totalIncome: number,
+    totalOutcome: number,
+    totalTransactions: number
+}> = (props) => {
+    const { totalIncome, totalOutcome, totalTransactions } = props;
+
     return (
         <>
             <div className="personal-account_transactions-balance">
@@ -42,6 +51,40 @@ const TransactionsBalance: React.FC = () => {
                             </span>
                         </li>
                     )}
+                </ul>
+            </div>
+            <div className="personal-account_transactions-balance">
+                <div className="personal-account_transactions-title font-size-20 font-weight-semibold">
+                    Категории
+                </div>
+                <ul className="personal-account_transactions-balanceList">
+                    <li className={"personal-account_transactions-balanceItem"}>
+                        <img src={income} alt="Приход" />
+                        <span>
+                            Приход
+                        </span>
+                        <span>
+                            {Utils.formatNumber(totalIncome)} ₽
+                        </span>
+                    </li>
+                    <li className={"personal-account_transactions-balanceItem"}>
+                        <img src={outcome} alt="Расход" />
+                        <span>
+                            Расход
+                        </span>
+                        <span>
+                            {Utils.formatNumber(totalOutcome)} ₽
+                        </span>
+                    </li>
+                    <li className={"personal-account_transactions-balanceItem"}>
+                        <img src={transaction} alt="Перевод" />
+                        <span>
+                            Перевод
+                        </span>
+                        <span>
+                            {Utils.formatNumber(totalTransactions)} ₽
+                        </span>
+                    </li>
                 </ul>
             </div>
         </>
