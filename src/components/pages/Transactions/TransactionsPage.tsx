@@ -114,12 +114,11 @@ const TransactionsPage: React.FC = () => {
                 setSize("mobile");
             }
         }
-
-        window.addEventListener('load', checkSize);
         window.addEventListener('resize', checkSize);
 
+        checkSize();
+
         return () => {
-            window.removeEventListener('load', checkSize);
             window.removeEventListener('resize', checkSize);
         }
     }, []);
@@ -144,7 +143,10 @@ const TransactionsPage: React.FC = () => {
                 </div>
                 :
                 <div className="d-block d-md-none">
-                    <PersonalAccountHeaderMobile />
+                    <PersonalAccountHeaderMobile>
+                        <h2>Транзакции</h2>
+                        <h2></h2>
+                    </PersonalAccountHeaderMobile>
                     <div className="personal-account_transactions">
                         <div className="personal-account_transactions-items">
                             <div className="personal-account_transactions-item">

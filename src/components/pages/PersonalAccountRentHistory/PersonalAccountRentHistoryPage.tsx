@@ -75,7 +75,10 @@ const PersonalAccountRentHistoryPage = () => {
 				</div>
 			</div>
 			<div className="d-block d-md-none">
-				<PersonalAccountHeaderMobile />
+				<PersonalAccountHeaderMobile>
+					<h2>Ваши автомобили</h2>
+					<h2>Аренда</h2>
+				</PersonalAccountHeaderMobile>
 				<div className="personal-account_page-rent_cars">
 					{RentHistryData.map((_item) => (
 						<PersonalAccountCarCard

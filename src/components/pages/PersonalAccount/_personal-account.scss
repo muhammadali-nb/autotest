@@ -203,6 +203,7 @@
 
     @include l-md {
       flex-direction: column;
+      width: 100%;
     }
   }
 
@@ -211,10 +212,18 @@
 
     &:nth-child(1) {
       width: 400px;
+
+      @include l-md {
+        width: 100%;
+      }
     }
 
     &:nth-child(2) {
       width: calc(100% - 440px);
+
+      @include l-md {
+        width: 100%;
+      }
     }
   }
 }

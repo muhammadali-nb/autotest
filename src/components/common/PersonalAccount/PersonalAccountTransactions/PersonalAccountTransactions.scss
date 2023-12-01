@@ -9,6 +9,11 @@
         background: #fff;
         box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
 
+        @media (max-width: 767px) {
+            width: 100%;
+            padding: 12px 16px;
+        }
+
         &:not(:last-child) {
             margin-bottom: 20px;
         }
@@ -38,6 +43,10 @@
                 color: #737d89;
             }
 
+            &.additional {
+                align-items: baseline;
+            }
+
             img {
                 width: 22px;
                 height: auto;
@@ -45,12 +54,21 @@
             }
 
             span {
-                display: inline-flex;
+                display: block;
                 font-size: 16px;
                 font-weight: 500;
 
                 &:last-child {
                     margin-left: auto;
+                }
+
+                @media (max-width: 767px) {
+                    font-size: 14px;
+
+                    span {
+                        font-size: 12px;
+                        color: #606569;
+                    }
                 }
             }
         }
@@ -64,10 +82,30 @@
         padding-bottom: 10px;
         border-bottom: 2px solid #f2f3f6;
         text-transform: uppercase;
+        font-size: 20px;
+
+        &.hidden {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border: 0;
+
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+
+        svg {
+            width: 16px;
+            height: auto;
+        }
 
         span {
             font-size: 16px;
             display: inline-flex;
+        }
+
+        @media (max-width: 767px) {
+            font-size: 14px !important;
         }
     }
 
@@ -108,6 +146,12 @@
             &:not(:last-child) {
                 margin-bottom: 10px;
             }
+
+            @media (max-width: 767px) {
+                padding: 8px 0;
+                box-shadow: none;
+                font-size: 14px;
+            }
         }
     }
 
@@ -130,10 +174,23 @@
             height: auto;
         }
 
+        @media (max-width: 767px) {
+            margin-right: 16px;
+
+            img {
+                width: 33px;
+            }
+        }
+
         &.transaction {
             position: relative;
             width: 40px;
             height: 40px;
+
+            @media (max-width: 767px) {
+                width: 33px;
+                height: 33px;
+            }
 
             img {
                 position: absolute;
@@ -148,6 +205,10 @@
                     left: 0;
                     bottom: 0;
                 }
+
+                @media (max-width: 767px) {
+                    width: 16px;
+                }
             }
 
             &::before {
@@ -159,6 +220,11 @@
                 height: 20px;
                 background: url('../../../../images/personal-account/transactions/arrow-bot.svg') no-repeat;
                 background-position: center center;
+
+                @media (max-width: 767px) {
+                    width: 16px;
+                    height: 16px;
+                }
             }
 
             &::after {
@@ -170,6 +236,11 @@
                 height: 20px;
                 background: url('../../../../images/personal-account/transactions/arrow-top.svg') no-repeat;
                 background-position: center center;
+
+                @media (max-width: 767px) {
+                    width: 16px;
+                    height: 16px;
+                }
             }
         }
     }
@@ -177,7 +248,7 @@
     &-time {
         display: flex;
         flex-direction: column;
-        align-items: left;
+        align-items: flex-start;
         margin-right: 20px;
 
         div {
@@ -189,12 +260,16 @@
                 color: #B4B4B4;
             }
         }
+
+        @media (max-width: 767px) {
+            display: none;
+        }
     }
 
     &-name {
         display: flex;
         flex-direction: column;
-        align-items: left;
+        align-items: flex-start;
         margin-right: 20px;
 
         div {
@@ -217,7 +292,32 @@
     }
 
     &-amount {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
         margin-left: auto;
         font-size: 18px;
+
+        div {
+            &:nth-child(1) {
+                @media (max-width: 767px) {
+                    margin-bottom: 5px;
+                }
+            }
+
+            &:nth-child(2) {
+                display: none;
+                color: #737D89;
+                font-size: 10px;
+
+                @media (max-width: 767px) {
+                    display: block;
+                }
+            }
+        }
+
+        @media (max-width: 767px) {
+            font-size: 14px;
+        }
     }
 }
