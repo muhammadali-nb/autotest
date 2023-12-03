@@ -6,7 +6,6 @@ import LoadError from "../../common/LoadError";
 import Paginator from "../../common/Paginator";
 import { BottomMessage, BottomMessageMobile } from "../CatalogPage";
 import CarRequestForm from "../../common/CarRequestForm";
-import chevron from "../../../images/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";
 import catalogService from "../../../api-functions/catalog-page/catalog-service";
 import { MobileModal } from "../../common/MobileModal/MobileModal";

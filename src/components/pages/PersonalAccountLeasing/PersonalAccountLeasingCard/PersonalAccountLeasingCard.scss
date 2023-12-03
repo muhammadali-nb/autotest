@@ -1,5 +1,105 @@
 .personal-account-leasing {
+  &-car {
+    display: grid;
+  }
+
   &-car_card {
+    &_maintenace {
+      width: 310px;
+      border-radius: 4px;
+      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+
+      &-table {
+        &_body {
+          &_row,
+          &_row_header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f2f3f6;
+            padding: 8px 20px;
+
+            & > div {
+              font-size: 14px;
+              font-weight: 500;
+
+              &:nth-child(1) {
+                min-width: 90px;
+              }
+              &:nth-child(2) {
+                min-width: 70px;
+              }
+
+              &:nth-child(3) {
+                width: 80px;
+
+                &.success {
+                  color: #008f4b;
+                }
+                &.new {
+                  color: #222;
+                }
+
+                &.rejected {
+                  color: #bf3535;
+                }
+              }
+              & > span {
+                color: var(--Grey-1, #606569);
+              }
+            }
+          }
+
+          &_row_header {
+            background: var(--Grey-3, #e7e7e8);
+          }
+        }
+      }
+    }
+    &-table {
+      &_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        background: var(--default-white, #fff);
+        & > h3 {
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: 0.24px;
+          text-transform: uppercase;
+          margin: 0;
+        }
+
+        &_pagination {
+          display: flex;
+          align-items: center;
+
+          &_btn {
+            background-color: transparent;
+            border: none;
+            height: 25px;
+            width: 25px;
+            border-radius: 2px;
+            border: 2px solid var(--Text, #222);
+
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+
+            &-arrow {
+              background-color: transparent;
+              border: none;
+              height: 25px;
+              width: 25px;
+            }
+          }
+        }
+      }
+    }
+
     &-info {
       border-radius: 4px;
       background: var(--default-white, #fff);
