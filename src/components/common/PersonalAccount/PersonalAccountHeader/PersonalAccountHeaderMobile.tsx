@@ -1,10 +1,13 @@
 import React from "react";
 
-const PersonalAccountHeaderMobile = () => {
+const PersonalAccountHeaderMobile: React.FC<{
+	children: React.ReactNode
+}> = (props) => {
+	const { children } = props;
+
 	return (
 		<div className="personal-account-header_mobile">
-			<h2>Ваши автомобили</h2>
-			<h2>Аренда</h2>
+			{children}
 		</div>
 	);
 };

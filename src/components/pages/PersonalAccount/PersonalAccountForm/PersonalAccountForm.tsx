@@ -14,19 +14,14 @@ const PersonalAccountForm: React.FC<{
 	const [size, setSize] = useState("desk");
 
 	useEffect(() => {
-		window.addEventListener("load", function () {
-			setSize(this.window.innerWidth > 767 ? "desk" : "mob");
-		});
-
 		window.addEventListener("resize", function () {
 			setSize(this.window.innerWidth > 767 ? "desk" : "mob");
 		});
 
+		setSize(window.innerWidth > 767 ? "desk" : "mob");
+		
 		return () => {
 			window.removeEventListener("resize", function () {
-				setSize(this.window.innerWidth > 767 ? "desk" : "mob");
-			});
-			window.addEventListener("load", function () {
 				setSize(this.window.innerWidth > 767 ? "desk" : "mob");
 			});
 		}

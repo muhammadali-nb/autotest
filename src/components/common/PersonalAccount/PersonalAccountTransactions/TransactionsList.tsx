@@ -71,7 +71,12 @@ const TransactionsDayItem: React.FC<{
                             </div>
                         </div>
                         <div className="personal-account_transactions-amount">
-                            {item.type === "income" && "+"}{item.type === "outcome" && "-"} {Utils.formatNumber(item.amount)} ₽
+                            <div>
+                                {item.type === "income" && "+"}{item.type === "outcome" && "-"} {Utils.formatNumber(item.amount)} ₽
+                            </div>
+                            <div>
+                                {item.time}
+                            </div>
                         </div>
                     </li>
                 )}
