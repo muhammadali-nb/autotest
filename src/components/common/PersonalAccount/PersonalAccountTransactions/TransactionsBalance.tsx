@@ -52,9 +52,16 @@ const MobileFilter: React.FC<{
 const TransactionsBalance: React.FC<{
     totalIncome: number,
     totalOutcome: number,
-    totalTransactions: number
+    totalTransactions: number,
+    filters: {
+        balance: string[],
+        operation: string[],
+        car: string[],
+        deduction: string[]
+    }
+    updateFilters: (field: string, value: string) => void
 }> = (props) => {
-    const { totalIncome, totalOutcome, totalTransactions } = props;
+    const { totalIncome, totalOutcome, totalTransactions, filters, updateFilters } = props;
 
     const [size, setSize] = useState("desk");
     const [mobFilterOpened, setMobFilterOpened] = useState(false);
@@ -87,7 +94,11 @@ const TransactionsBalance: React.FC<{
                 </div>
                 <ul className="personal-account_transactions-balanceList">
                     {balanceData.accounts.map((item, index) =>
-                        <li key={index} className={"personal-account_transactions-balanceItem " + (item.name === "Депозит" ? "deposit" : "")}>
+                        <li
+                            key={item.name}
+                            className={"personal-account_transactions-balanceItem " + (item.name === "Депозит" ? "deposit " : " ") + (filters['balance'].find(filter => filter === item.name) ? "active" : "")}
+                            onClick={() => updateFilters('balance', item.name)}
+                        >
                             <img src={item.icon} alt={item.name} />
                             <span>
                                 {item.name}
@@ -105,7 +116,7 @@ const TransactionsBalance: React.FC<{
                         Категории
                     </div>
                     <ul className="personal-account_transactions-balanceList">
-                        <li className={"personal-account_transactions-balanceItem"}>
+                        <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Приход") ? "active" : "")} onClick={() => updateFilters('operation', 'Приход')}>
                             <img src={income} alt="Приход" />
                             <span>
                                 Приход
@@ -114,7 +125,7 @@ const TransactionsBalance: React.FC<{
                                 {Utils.formatNumber(totalIncome)} ₽
                             </span>
                         </li>
-                        <li className={"personal-account_transactions-balanceItem"}>
+                        <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Расход") ? "active" : "")} onClick={() => updateFilters('operation', 'Расход')}>
                             <img src={outcome} alt="Расход" />
                             <span>
                                 Расход
@@ -123,7 +134,7 @@ const TransactionsBalance: React.FC<{
                                 {Utils.formatNumber(totalOutcome)} ₽
                             </span>
                         </li>
-                        <li className={"personal-account_transactions-balanceItem"}>
+                        <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Перевод") ? "active" : "")} onClick={() => updateFilters('operation', 'Перевод')}>
                             <img src={transaction} alt="Перевод" />
                             <span>
                                 Перевод
@@ -136,7 +147,7 @@ const TransactionsBalance: React.FC<{
                 </div>
                 :
                 <div className="personal-account_transactions-filters">
-                    <div className="personal-account_transactions-filtersHead" onClick={() => setMobFilterOpened(prev => !prev)}>
+                    <div className={"personal-account_transactions-filtersHead " + (mobFilterOpened ? "active" : "")} onClick={() => setMobFilterOpened(prev => !prev)}>
                         Другие категории
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                             <path d="M4 6L8 10L12 6" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -145,7 +156,7 @@ const TransactionsBalance: React.FC<{
                     {mobFilterOpened &&
                         <>
                             <MobileFilter title={"Операции"}>
-                                <li className={"personal-account_transactions-balanceItem"}>
+                                <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Приход") ? "active" : "")} onClick={() => updateFilters('operation', 'Приход')}>
                                     <img src={income} alt="Приход" />
                                     <span>
                                         Приход
@@ -154,7 +165,7 @@ const TransactionsBalance: React.FC<{
                                         {Utils.formatNumber(totalIncome)} ₽
                                     </span>
                                 </li>
-                                <li className={"personal-account_transactions-balanceItem"}>
+                                <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Расход") ? "active" : "")} onClick={() => updateFilters('operation', 'Расход')}>
                                     <img src={outcome} alt="Расход" />
                                     <span>
                                         Расход
@@ -163,7 +174,7 @@ const TransactionsBalance: React.FC<{
                                         {Utils.formatNumber(totalOutcome)} ₽
                                     </span>
                                 </li>
-                                <li className={"personal-account_transactions-balanceItem"}>
+                                <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Перевод") ? "active" : "")} onClick={() => updateFilters('operation', 'Перевод')}>
                                     <img src={transaction} alt="Перевод" />
                                     <span>
                                         Перевод
@@ -174,7 +185,7 @@ const TransactionsBalance: React.FC<{
                                 </li>
                             </MobileFilter>
                             <MobileFilter title={"Автомобили"}>
-                                <li className={"personal-account_transactions-balanceItem additional"}>
+                                <li className={"personal-account_transactions-balanceItem additional " + (filters['car'].find(filter => filter === "Kia K5 М766КС 198") ? "active" : "")} onClick={() => updateFilters('car', 'Kia K5 М766КС 198')}>
                                     <span>
                                         Kia K5 <br />
                                         <span>
@@ -187,7 +198,7 @@ const TransactionsBalance: React.FC<{
                                 </li>
                             </MobileFilter>
                             <MobileFilter title={"Списания"}>
-                                <li className={"personal-account_transactions-balanceItem additional"}>
+                                <li className={"personal-account_transactions-balanceItem additional " + (filters['deduction'].find(filter => filter === "Первый взнос М766КС 198") ? "active" : "")} onClick={() => updateFilters('deduction', 'Первый взнос М766КС 198')}>
                                     <span>
                                         Первый взнос <br />
                                         <span>
