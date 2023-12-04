@@ -105,6 +105,27 @@ const transactionsData: transactionsDataProps = {
 
 const TransactionsPage: React.FC = () => {
     const [size, setSize] = useState("desk");
+    const [filters, setFilters] = useState({
+        balance: [],
+        operation: [],
+        car: [],
+        deduction: []
+    });
+
+    const updateFilters = (field: string, value: string) => {
+        let newArray: string[] = [];
+        const item = filters[field].find(item => item === value);
+
+        if (item) {
+            // const index = filters[field].indexOf(value);
+            newArray = filters[field].filter(item => item !== value);
+        } else {
+            newArray = [...filters[field], value];
+        }
+        
+        const newFilters = {...filters, [field]: newArray };
+        setFilters(newFilters);
+    }
 
     useEffect(() => {
         const checkSize = () => {
@@ -133,7 +154,7 @@ const TransactionsPage: React.FC = () => {
                     <div className="personal-account_transactions">
                         <div className="personal-account_transactions-items">
                             <div className="personal-account_transactions-item">
-                                <TransactionsBalance totalIncome={transactionsData.totalIncome} totalOutcome={transactionsData.totalOutcome} totalTransactions={transactionsData.totalTransactions} />
+                                <TransactionsBalance totalIncome={transactionsData.totalIncome} totalOutcome={transactionsData.totalOutcome} totalTransactions={transactionsData.totalTransactions} filters={filters} updateFilters={updateFilters} />
                             </div>
                             <div className="personal-account_transactions-item">
                                 <TransactionsList data={transactionsData.transactions} />
@@ -150,7 +171,7 @@ const TransactionsPage: React.FC = () => {
                     <div className="personal-account_transactions">
                         <div className="personal-account_transactions-items">
                             <div className="personal-account_transactions-item">
-                                <TransactionsBalance totalIncome={transactionsData.totalIncome} totalOutcome={transactionsData.totalOutcome} totalTransactions={transactionsData.totalTransactions} />
+                                <TransactionsBalance totalIncome={transactionsData.totalIncome} totalOutcome={transactionsData.totalOutcome} totalTransactions={transactionsData.totalTransactions} filters={filters} updateFilters={updateFilters} />
                             </div>
                             <div className="personal-account_transactions-item">
                                 <TransactionsList data={transactionsData.transactions} />
