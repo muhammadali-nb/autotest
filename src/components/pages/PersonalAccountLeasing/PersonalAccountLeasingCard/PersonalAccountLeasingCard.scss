@@ -47,8 +47,7 @@
 
               &:nth-child(4) {
                 width: 80px;
-                text-decoration: underline;
-                text-underline-offset: 4px;
+
                 &.success {
                   color: #008f4b;
                 }
@@ -63,6 +62,13 @@
               & > span {
                 color: var(--Grey-1, #606569);
               }
+            }
+          }
+
+          &_row {
+            & > div:nth-child(4) {
+              text-decoration: underline;
+              text-underline-offset: 4px;
             }
           }
 
