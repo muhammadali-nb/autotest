@@ -283,7 +283,7 @@ const RentPage = ({ children }: { children?: ReactNode }) => {
 	const [isOpen, setOpen] = useState<boolean>(false);
 	const { id } = useParams();
 	const paramsId = id ? parseInt(id) : 1;
-	const { data, isLoading, error } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: ["rent-filter"],
 		queryFn: () => rentService.getFilter(),
 	});
@@ -306,14 +306,14 @@ const RentPage = ({ children }: { children?: ReactNode }) => {
 					<Col lg={3}>
 						<FiltersBlock filterData={!isLoading && data} />
 					</Col>
-					<Col lg={9}>
+					<Col lg={9}  className="d-flex flex-column">
 						<FilterButtons
 							rentFilterData={!isLoading && data.top}
 							mode="rent"
 							isShowMobileFiler={setOpen}
 						/> 
 						<RentGrid activePage={paramsId} />
-						<SmallFooter />
+						<SmallFooter className={'mt-auto'} />
 					</Col>
 				</Row>
 			</Container>

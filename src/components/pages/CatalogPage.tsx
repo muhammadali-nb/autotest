@@ -158,7 +158,7 @@ const CatalogPage = () => {
 									<CatalogFiltersBlock filterData={!isLoading && data} />
 								</div>
 							</Col>
-							<Col lg={9}>
+							<Col lg={9} className="d-flex flex-column">
 								<AlertMessage
 									page={"catalog"}
 									type={"danger"}
@@ -179,7 +179,7 @@ const CatalogPage = () => {
 									catalogData={!isLoading && data.top}
 								/>
 								<CarGrid />
-								<SmallFooter />
+								<SmallFooter className="mt-auto" />
 							</Col>
 						</Row>
 					</div>

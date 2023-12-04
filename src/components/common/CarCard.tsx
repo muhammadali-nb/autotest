@@ -34,9 +34,11 @@ export interface CarDataInfo {
 export type CarRentDataInfo = CarDataInfo & {
 	deposit: number;
 	rentpay: number;
+	tarif_name: string
 	regnum: string;
 	run: number;
 	available: boolean;
+	available_at: string | boolean
 	small?: boolean;
 	image?: string;
 };
@@ -175,7 +177,7 @@ const CarCard: React.FC<{
 						<CarTag small={responsive} key={index} car={car}>
 							{i.name}
 						</CarTag>
-					))}
+						))}
 				</div>
 
 				<Link
@@ -252,11 +254,18 @@ export const CarRentCard: React.FC<{
 							car={car}>
 							{car.available ? "Свободна" : "Занята"}
 						</CarTag>
-						{/* {tags.map((i, index) => (
-							<CarTag small={true} key={index} car={car}>
-								{i.name}
-							</CarTag>
-						))} */}
+						<CarTag
+							small={true}
+							type={"default"}
+							car={car}>
+							{car.tarif_name}
+						</CarTag>
+						{car.available_at && <CarTag
+							small={true}
+							type={"free"}
+							car={car}>
+							{car.available_at}
+					</CarTag> }
 					</div>
 
 					<div className={"car__card-image"}>
@@ -268,7 +277,7 @@ export const CarRentCard: React.FC<{
 					<div className={"car__card-title mb-px-10"}>
 						{car.brand} <br /> <span className={"model"}>{car.model}</span>
 					</div>
-					<div className={"font-size-18 font-weight-semibold mb-px-20"}>
+					<div className={"car__card-regnum font-size-18 font-weight-semibold mb-px-20"}>
 						{car.regnum} &nbsp;
 					</div>
 					<div className={"car__card-payment mb-px-15"}>
@@ -298,14 +307,23 @@ export const CarRentCard: React.FC<{
 				</div>
 				<div className=" car-rent-card_body">
 					<div className="car__card-taglist car-rent-card_taglist">
-						<CarTag type={car.available ? "free" : "not-free"} car={car}>
+						{car.available_at && <CarTag
+							small={true}
+							type={"free"}
+							car={car}>Свободна с {car.available_at}
+					</CarTag> }
+						<CarTag
+							small={true}
+							type={car.available ? "free" : "not-free"}
+							car={car}>
 							{car.available ? "Свободна" : "Занята"}
 						</CarTag>
-						{/* {tags.map((i, index) => (
-							<CarTag small={true} key={index} car={car}>
-								{i.name}
-							</CarTag>
-						))} */}
+						<CarTag
+							small={true}
+							type={"default"}
+							car={car}>
+							{car.tarif_name}
+						</CarTag>
 					</div>
 					<div className="car__card-mobile-title car-rent-card_title">
 						{car.brand} <span className={"model"}>{car.model}</span>

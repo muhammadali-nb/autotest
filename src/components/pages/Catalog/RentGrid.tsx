@@ -29,7 +29,7 @@ const RentGrid: React.FC<{
 		return (
 			<div
 				className={"d-flex w-100 text-center text-muted align-items-center"}
-				style={{ minHeight: "40vh" }}>
+				style={{ minHeight: "60vh" }}>
 				<em>Поиск по выбранным Вами параметрам не вернул результатов</em>
 			</div>
 		);
@@ -38,7 +38,7 @@ const RentGrid: React.FC<{
 			<div>
 				<div className={"catalog__grid"}>
 					{!isLoading &&
-						data.list.map((i, index) => (
+						data.list.map((i) => (
 							<Link
 								key={i.id}
 								to={`/rent/page/${activePage}/car/${i.id}`}
@@ -47,18 +47,18 @@ const RentGrid: React.FC<{
 							</Link>
 						))}
 				</div>
-				<BottomMessage
-					className="bottom-message-desc"
-					button={<CarRequestForm text={"Оставить заявку"} light />}
-					text1={"Не нашли ничего подходящего?"}
-					text2={"Предложите свой вариант!"}
-				/>
+				{/*<BottomMessage*/}
+				{/*	className="bottom-message-desc"*/}
+				{/*	button={<CarRequestForm text={"Оставить заявку"} light />}*/}
+				{/*	text1={"Не нашли ничего подходящего?"}*/}
+				{/*	text2={"Предложите свой вариант!"}*/}
+				{/*/>*/}
 
-				<BottomMessageMobile
-					text1={"Не нашли ничего подходящего?"}
-					text2={"Предложите свой вариант!"}
-					onClick={() => setCarFormModalMobile(true)}
-				/>
+				{/*<BottomMessageMobile*/}
+				{/*	text1={"Не нашли ничего подходящего?"}*/}
+				{/*	text2={"Предложите свой вариант!"}*/}
+				{/*	onClick={() => setCarFormModalMobile(true)}*/}
+				{/*/>*/}
 				<div className={"catalog__grid-paginator"}>
 					<RentPaginator activePage={activePage} data={!isLoading && data} />
 				</div>
