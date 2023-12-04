@@ -112,7 +112,8 @@ const MobileMenu = (props: MobileMenuProps) => {
 						<div className="mobile-menu_user mt-4 d-flex flex-column">
 							<span
 								className="mb-1 fw-medium font-size-16"
-								onClick={() => navigate("/personal-account")}>
+//								onClick={() => navigate("/personal-account")}
+								>
 								{last_name + " " + first_name}
 							</span>
 							{phone && (

@@ -487,7 +487,7 @@ const AuthForm: React.FC<{
                 <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
                     {isAuthenticated ?
                         <div className="user-tooltip-content">
-                            <span className="font-size-16 cursor-pointer fw-medium" onClick={() => navigate('/personal-account')}>{last_name + " " + first_name}</span>
+                            <span className="font-size-16 cursor-pointer fw-medium">{last_name + " " + first_name}</span>
                             {phone &&
                                 <span className="font-size-12 fw-medium">{Utils.formatPhone(phone)}</span>
                             }
