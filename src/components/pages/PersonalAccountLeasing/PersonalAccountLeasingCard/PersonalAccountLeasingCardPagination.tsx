@@ -13,9 +13,9 @@ const PersonalAccountLeasingCardPagination = () => {
 					<path
 						d="M11.0834 14.25L6.33337 9.5L11.0834 4.75"
 						stroke="#222222"
-						stroke-width="1.5"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 					/>
 				</svg>
 			</button>
@@ -32,9 +32,9 @@ const PersonalAccountLeasingCardPagination = () => {
 					<path
 						d="M7.91663 14.25L12.6666 9.5L7.91663 4.75"
 						stroke="#222222"
-						stroke-width="1.5"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 					/>
 				</svg>
 			</button>
