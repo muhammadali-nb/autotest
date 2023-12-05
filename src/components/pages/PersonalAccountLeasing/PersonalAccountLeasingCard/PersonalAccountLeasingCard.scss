@@ -66,6 +66,13 @@
             }
           }
 
+          &_row {
+            & > div:nth-child(4) {
+              text-decoration: underline;
+              text-underline-offset: 4px;
+            }
+          }
+
           &_row_header {
             background: var(--Grey-3, #e7e7e8);
           }
