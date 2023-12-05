@@ -64,7 +64,11 @@ const IndexGreatDeals = () => {
 								responsive={false}
 								id={"great-deal_car1"}
 								car={{
-									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
+									tags: [
+										{ id: 17, name: "Лизинг до 7 лет" },
+										{ id: 18, name: "Аванс 0%" },
+										{ id: 19, name: "Гарантия 150 тыс. км" },
+									],
 									id: 1,
 									brand: "Porsche",
 									model: "911 GT3",
