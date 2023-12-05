@@ -64,8 +64,9 @@ export const ModalTemplateTextarea: React.FC<ModalTemplateInputProps> = (
 		<div
 			className={
 				" contacts__form-textarea-container " +
-				(props.error ? " error" : "") +
-				(props.small ? " small-form-input" : "")
+				(props.error ? " error " : "") +
+				(props.small ? " small-form-input " : "") +
+				(props.className ?? "")
 			}
 			data-error={
 				props.error &&

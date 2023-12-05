@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode, useEffect, useState } from "react";
 import { MetaTags } from "../layout/BaseLayout";
 import { Col, Container, Row } from "react-bootstrap";
 import CarGrid from "./Catalog/CarGrid";
-import dangerBtn from "./../../images/common/danger.png";
+import dangerBtn from "./../../images/common/danger.svg";
 import FilterButtons from "./Catalog/FilterButtons";
 import bg from "./../../images/index/about_bg.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -165,7 +165,7 @@ const CatalogPage = () => {
 									className={"catalog-alert"}
 									local_message={
 										<p className="catalog-alert_message">
-											В каталоге представлены автомобили, которые проходят по
+											Здесь представлены автомобили, которые проходят по
 											программам лизинга.
 											<br></br>
 											Если Вам необходим автомобиль в аренду перейдите в раздел{" "}

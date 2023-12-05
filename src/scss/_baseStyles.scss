@@ -359,6 +359,7 @@ main {
   }
 
   &-footer > button {
+    width: 152px;
     @include l-md {
       width: 100%;
     }
@@ -446,6 +447,7 @@ main {
   .contacts__form-textarea {
     @extend .contacts__form-input;
     min-height: 100px;
+    height: 100%;
     resize: none;
 
     &::-webkit-scrollbar {
