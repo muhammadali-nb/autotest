@@ -5,7 +5,7 @@ import PersonalAccountLeasingCardCarPaymentStatus from "./PersonalAccountLeasing
 
 const PersonalAccountLeasingCardCar: FC<{}> = (props) => {
 	return (
-		<div className="personal-account-rent-car d-none d-md-grid">
+		<div className="personal-account-rent-car">
 			<PersonalAccountLeasingCarCardInfo />
 			<div className="personal-account-rent-car_payment">
 				<PersonalAccountLeasingCarCardPayment />
