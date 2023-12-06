@@ -134,7 +134,7 @@
   @include l-sm() {
     margin: 54px 0 0 0;
     font-size: 12px;
-    max-width: 100%;
+    max-width: 328px;
     width: 100%;
   }
 }
@@ -386,7 +386,7 @@
 
 .index__about-text {
   font-family: "Inter";
-  font-weight: 300;
+  font-weight: 400;
   font-size: 20px;
   line-height: 140%;
   letter-spacing: 0.01em;
@@ -396,7 +396,9 @@
   }
   @include l-md() {
     font-size: 16px;
-    // margin-bottom: 24px;
+    & > br {
+      display: none;
+    }
     font-weight: 500;
     &:not(:last-child) {
       margin-bottom: 24px;
@@ -630,7 +632,11 @@
     }
   }
   .index__about-badge-text {
+    font-size: 16px;
+    font-style: normal;
     font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: 0.16px;
     @include l-lg {
       color: #dadada;
     }

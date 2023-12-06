@@ -212,7 +212,7 @@ const CarCard: React.FC<{
 					className={`${
 						responsive ? "car__card-mobile-price" : "car__card-price "
 					} `}>
-					Цена &nbsp;
+					Цена от&nbsp;
 					<span
 						className={`${
 							responsive

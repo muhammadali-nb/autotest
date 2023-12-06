@@ -131,12 +131,13 @@ const ContactsForm: React.FC<{
 								placeholder={"E-mail"}
 							/>
 						</div>
-						<div style={{ gridColumn: "span 2" }}>
+						<div style={{ gridColumn: "span 2", height: "130px" }}>
 							<ModalTemplateTextarea
 								error={data.errors["comment"]}
 								small={!props.big}
 								onInput={(e: any) => update("comment", e.target.value)}
 								placeholder={"Комментарий"}
+								className="h-100"
 								value={data.comment}></ModalTemplateTextarea>
 						</div>
 						<div style={{ gridColumn: "span 2" }}>
@@ -160,9 +161,7 @@ const ContactsForm: React.FC<{
 						<button
 							type={"button"}
 							onClick={() => send()}
-							className={
-								"site-btn big " + (props.big && !passed ? "dark" : "")
-							}>
+							className={"site-btn" + (props.big && !passed ? "dark" : "")}>
 							Отправить
 						</button>
 						<ModalTemplateConfirm

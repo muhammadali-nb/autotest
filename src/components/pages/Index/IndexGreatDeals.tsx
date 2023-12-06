@@ -5,9 +5,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import arrowImageBlack from "../../../images/index/gray-arrow.svg";
 import arrowImageGray from "../../../images/index/arrow-gray.svg";
 import Animator from "../../../Animator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const IndexGreatDeals = () => {
+	const navigate = useNavigate();
 	useEffect(() => {
 		Animator.animateOnShow(
 			"great-deal_cars",
@@ -26,20 +27,19 @@ const IndexGreatDeals = () => {
 			<Container fluid={"xxl"}>
 				<div className={"great-deal_header"}>
 					<h1>выгодные предложения</h1>
-					<div className="great-deal_more">
+					<div className="great-deal_more" onClick={() => navigate("/catalog")}>
 						<p>Другие автомобили</p>
-						<Link to="/catalog">
-							<img
-								src={arrowImageBlack}
-								className="great-deal_more-black"
-								alt="push"
-							/>
-							<img
-								src={arrowImageGray}
-								className="great-deal_more-gray"
-								alt="push"
-							/>
-						</Link>
+
+						<img
+							src={arrowImageBlack}
+							className="great-deal_more-black"
+							alt="push"
+						/>
+						<img
+							src={arrowImageGray}
+							className="great-deal_more-gray"
+							alt="push"
+						/>
 
 						{/* <div style={{ width: "200px" }}>
 							<svg

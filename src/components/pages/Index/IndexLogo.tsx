@@ -1,5 +1,5 @@
 import React from "react";
-import bg from "./../../../images/index/logo-bg.webp";
+import bg from "./../../../images/index/logo-bg.png";
 import bgNoCar from "./../../../images/index/logo-bg-no-car.webp";
 import { Col, Container, Row } from "react-bootstrap";
 import IndexCalculator from "./IndexCalculator";
@@ -46,9 +46,9 @@ const IndexLogo: React.FC<{ bgNoCar?: boolean }> = (
 									className={"anim-enter-bottom-3 index__logo-comment "}
 									id={"index__logo-comment"}>
 									Стоимость предмета лизинга и приведенные расчеты через
-									калькулятор являются предварительными. Для точного определения
-									процентной ставки по договору, пожалуйста, обратитесь к
-									менеджеру.
+									калькулятор являются предварительными. <br /> Для точного
+									определения процентной ставки по договору, пожалуйста,
+									обратитесь к менеджеру.
 								</div>
 							</Col>
 							<Col lg={1} className={"d-none d-lg-block align-items-center"}>

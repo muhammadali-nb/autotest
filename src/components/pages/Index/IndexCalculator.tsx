@@ -166,13 +166,13 @@ const IndexCalculator: React.FC<IndexCalculatorProps> = (props) => {
 				<IndexCalculatorPeriodIndicator
 					amount={daySum()}
 					suffix={" ₽"}
-					comment={" в сутки"}
+					comment={"/ в сутки"}
 					bold={props.fontBold}
 				/>
 				<IndexCalculatorPeriodIndicator
 					amount={monthSum()}
 					suffix={" ₽"}
-					comment={" в месяц"}
+					comment={"/ в месяц"}
 					bold={props.fontBold}
 				/>
 			</div>

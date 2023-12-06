@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import badge1 from "./../../../images/index/bank.png";
-import badge2 from "./../../../images/index/cards.png";
-import badge3 from "./../../../images/index/jewel.png";
-import badge4 from "./../../../images/index/document.png";
+import badge1 from "./../../../images/index/bank.svg";
+import badge2 from "./../../../images/index/cards.svg";
+import badge3 from "./../../../images/index/jewel.svg";
+import badge4 from "./../../../images/index/document.svg";
 import Animator from "../../../Animator";
 
 const IndexAboutBadge: React.FC<{
@@ -97,12 +97,13 @@ const IndexAboutContent = () => {
 					</div>
 					<div className={"index__about-text"} style={{ maxWidth: "620px" }}>
 						Основным видом деятельности является предоставление услуг по аренде
-						и лизингу автомобилей для компаний и физический лиц.
+						и лизингу автомобилей для компаний <br /> и физический лиц.
 					</div>
 					<div className={"index__about-text"} style={{ maxWidth: "560px" }}>
-						Мы ценим комфорт и время наших клиентов, поэтому стремимся оформить
-						автомобиль для вас в максимально короткие сроки. Индивидуальный
-						подход позволяет выбрать условия необходимые именно вам.
+						Мы ценим комфорт и время наших клиентов, <br /> поэтому стремимся
+						оформить автомобиль для ва <br /> в максимально короткие сроки.
+						Индивидуальный <br />
+						подход позволяет выбрать условия необходимые <br /> именно вам.
 					</div>
 				</Col>
 				<Col lg={6}></Col>
