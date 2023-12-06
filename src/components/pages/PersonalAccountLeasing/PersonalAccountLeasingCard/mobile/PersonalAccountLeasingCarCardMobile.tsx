@@ -9,9 +9,8 @@ interface IProps {
 const PersonalAccountLeasingCarCardMobile = (props: IProps) => {
 	const { className } = props;
 	return (
-		<div>
+		<div className={className}>
 			<PersonalAccountLeasingCarCardMobileInfo />
-			
 		</div>
 	);
 };
