@@ -117,7 +117,6 @@ const TransactionsPage: React.FC = () => {
         const item = filters[field].find(item => item === value);
 
         if (item) {
-            // const index = filters[field].indexOf(value);
             newArray = filters[field].filter(item => item !== value);
         } else {
             newArray = [...filters[field], value];

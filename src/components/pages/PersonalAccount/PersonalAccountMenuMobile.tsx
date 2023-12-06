@@ -48,7 +48,13 @@ const defaultLinks = [
 		icon: wallet
 	},
 	{ text: "Карты оплаты", path: "/", className: "", icon: card, id: 5 },
-	{ text: "Штрафы", path: "/", className: "", icon: warning, id: 6 },
+	{
+		text: "Штрафы",
+		path: "/personal-account/fines",
+		icon: warning,
+		id: 6,
+		className: "",
+	},
 	{ text: "Подписки", path: "/", className: "", icon: smile, id: 7 },
 ];
 
