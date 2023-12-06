@@ -30,7 +30,7 @@ const PersonalAccountlinks = [
 	{
 		id: 6,
 		name: "Штрафы",
-		path: "/personal-account/fine",
+		path: "/personal-account/fines",
 	},
 	{
 		id: 7,
