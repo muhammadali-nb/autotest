@@ -2,7 +2,7 @@ import React, { Dispatch, useEffect } from "react";
 import { HeaderLogoImage } from "../../../../layout/Header";
 import call from "../../../../../images/common/phone-call.svg";
 import back from "../../../../../images/common/back.svg";
-// import MobileModalHeader from "../../../../common/MobileModal/headers/MobileModalHeader";
+import MobileModalHeader from "../../../../common/MobileModal/headers/MobileModalHeader";
 import PersonalAccountLeasingCarCardMobileMaintanceRow from "./PersonalAccountLeasingCarCardMobileMaintanceRow";
 interface IProps {
 	setActive: Dispatch<boolean>;
@@ -23,7 +23,7 @@ const PersonalAccountLeasingCarModalMaintenance = (props: IProps) => {
 				"mobile-modal personal-account-leasing-modal " +
 				(active ? "active" : "")
 			}>
-			{/* <MobileModalHeader scheme="dark" setClose={setActive} /> */}
+			<MobileModalHeader scheme="dark" setClose={setActive} />
 			<div className="personal-account-leasing-modal_body">
 				<div className="personal-account-leasing-modal_body-header">
 					<h1 className="personal-account-leasing-modal_body_carname">
