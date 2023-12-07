@@ -2,7 +2,7 @@ import React from "react";
 import PersonalAccountLeasingCardCar from "./desktop/PersonalAccountCarCard/PersonalAccountLeasingCardCar";
 import PersonalAccountLeasingMaintenance from "./desktop/PersonalAccountLeasingMaintenance/PersonalAccountLeasingMaintenance";
 import PersonalAccountLeasingPayments from "./desktop/PersonalAccountLeasingPayments/PersonalAccountLeasingPayments";
-import PersonalAccountLeasingCarCardMobile from "./mobile/PersonalAccountLeasingCarCardMobile";
+import PersonalAccountLeasingCarCardMobileInfo from "./mobile/PersonalAccountLeasingCarCardMobile";
 const PersonalAccountLeasingCard = () => {
 	return (
 		<>
@@ -13,7 +13,7 @@ const PersonalAccountLeasingCard = () => {
 					<PersonalAccountLeasingPayments className="ms-px-15" />
 				</div>
 			</div>
-			<PersonalAccountLeasingCarCardMobile className="d-block d-md-none" />
+			<PersonalAccountLeasingCarCardMobileInfo className="d-block d-md-none" />
 		</>
 	);
 };
