@@ -1,61 +1,14 @@
-import "./PersonalAccountFines.scss";
-import doc from "../../../../images/personal-account/fines/fine-doc.png";
-import Utils from "../../../../utils/Utils";
+import "../PersonalAccountFines.scss";
+import Utils from "../../../../../utils/Utils";
 import { useState } from "react";
 import FinesModal from "./FinesModal";
+import { finesProps } from "../../../../pages/Fines/FinesPage";
 
-const finesData = [
-    {
-        id: '1',
-        time: '00:00',
-        date: '00.00.0000',
-        image: '',
-        article: '12.9.2',
-        type: 'Превышение скорости движения ТС от 20 до 40',
-        sum: 2500,
-        penalties: 500,
-        car: {
-            model: 'Kia K5',
-            number: 'М766КС',
-            region: '198'
-        },
-        payed: 0
-    },
-    {
-        id: '4',
-        time: '00:00',
-        date: '00.00.0000',
-        image: '',
-        article: '12.9.2',
-        type: 'Превышение скорости движения ТС от 20 до 40',
-        sum: 2500,
-        penalties: 500,
-        car: {
-            model: 'Kia K5',
-            number: 'М766КС',
-            region: '198'
-        },
-        payed: 500
-    },
-    {
-        id: '3',
-        time: '00:00',
-        date: '00.00.0000',
-        image: '',
-        article: '12.9.2',
-        type: 'Превышение скорости движения ТС от 20 до 40',
-        sum: 2500,
-        penalties: 500,
-        car: {
-            model: 'Kia K5',
-            number: 'М766КС',
-            region: '198'
-        },
-        payed: 3000
-    }
-];
+const FinesTable: React.FC<{
+    data: finesProps[]
+}> = (props) => {
+    const { data } = props;
 
-const FinesTable: React.FC = () => {
     const [modalOpened, setModalOpened] = useState(false);
 
     return (
@@ -81,14 +34,14 @@ const FinesTable: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {finesData.map(item =>
+                    {data.map(item =>
                         <tr key={item.id} onClick={() => setModalOpened(true)}>
                             <td>
                                 {item.date} <br />
                                 {item.time}
                             </td>
                             <td align="left">
-                                <img src={doc} alt="" />
+                                <img src={item.image} alt="" />
                                 <div className="personal-account_fines-fineCell">
                                     {item.article} <br />
                                     {item.type}
