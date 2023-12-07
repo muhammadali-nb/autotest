@@ -2,8 +2,7 @@ import React from "react";
 import PersonalAccountLeasingCardCar from "./desktop/PersonalAccountCarCard/PersonalAccountLeasingCardCar";
 import PersonalAccountLeasingMaintenance from "./desktop/PersonalAccountLeasingMaintenance/PersonalAccountLeasingMaintenance";
 import PersonalAccountLeasingPayments from "./desktop/PersonalAccountLeasingPayments/PersonalAccountLeasingPayments";
-import PersonalAccountLeasingCarCardMobile from "./mobile/PersonalAccountLeasingCarCardMobile";
-import PersonalAccountLeasingCarCardMobileInfo from "./mobile/PersonalAccountLeasingCarCardMobileInfo";
+import PersonalAccountLeasingCarCardMobileInfo from "./mobile/PersonalAccountLeasingCarCardMobile";
 const PersonalAccountLeasingCard = () => {
 	return (
 		<>

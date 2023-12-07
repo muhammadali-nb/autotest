@@ -25,6 +25,9 @@
             justify-content: space-between;
             background: #fff;
             padding: 8px 20px;
+            @include l-md {
+              padding: 8px 16px;
+            }
 
             &.odd_row {
               background: #f2f3f6;
@@ -34,19 +37,34 @@
               font-size: 14px;
               font-weight: 500;
 
+              @include l-md {
+                font-size: 12px;
+              }
+
               &:nth-child(1) {
-                width: 60px;
+                min-width: 60px;
+
+                // @include l-md {
+                //   min-width: 34px;
+                // }
               }
               &:nth-child(2) {
-                width: 90px;
+                min-width: 90px;
+
+                @include l-md {
+                  min-width: 80px;
+                }
               }
 
               &:nth-child(3) {
-                width: 112px;
+                min-width: 112px;
+                @include l-md {
+                  min-width: 103px;
+                }
               }
 
               &:nth-child(4) {
-                width: 80px;
+                min-width: 80px;
 
                 &.success {
                   color: #008f4b;
@@ -94,6 +112,10 @@
             background: #fff;
             padding: 8px 20px;
 
+            @include l-md {
+              padding: 8px 16px;
+            }
+
             &.odd_row {
               background: #f2f3f6;
             }
@@ -102,16 +124,29 @@
               font-size: 14px;
               font-weight: 500;
 
+              @include l-md {
+                font-size: 12px;
+              }
+
               &:nth-child(1) {
                 min-width: 90px;
+                @include l-md {
+                  min-width: 102px;
+                }
               }
               &:nth-child(2) {
                 min-width: 70px;
+                @include l-md {
+                  min-width: 102px;
+                }
               }
 
               &:nth-child(3) {
                 width: 80px;
 
+                @include l-md {
+                  min-width: 102px;
+                }
                 &.success {
                   color: #008f4b;
                 }
@@ -433,10 +468,137 @@
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.12px;
+      margin: 0 0 16px 0;
 
       & > span {
         font-weight: 600;
       }
+    }
+
+    &-status {
+      margin: 16px 0;
+      padding: 12px;
+      border-radius: 2px;
+      border: 1.5px solid var(--Color, #bf3535);
+      box-shadow: 0px 0px 7.882px 0px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+
+      &_img {
+        margin: 0 12px 0 0;
+      }
+      &_title {
+        color: var(--Text, #222);
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.28px;
+        text-transform: uppercase;
+      }
+
+      &_desc {
+        color: var(--Text, #222);
+        font-family: Inter;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        width: 200px;
+
+        & > span {
+          font-weight: 600;
+        }
+      }
+
+      &_advice {
+        color: var(--Grey-2, #babcbf);
+        font-family: Inter;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin: 0;
+        width: 220px;
+      }
+    }
+
+    &-next {
+      padding: 12px;
+      border-radius: 2px;
+      border: 1.5px solid var(--Grey-3, #e7e7e8);
+      box-shadow: 0px 0px 7.882px 0px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      &_title {
+        font-size: 10px;
+        font-weight: 500;
+        margin: 0 0 6px 0;
+      }
+
+      &_img {
+        margin: 0 12px 0 0;
+      }
+      &_km {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.28px;
+        text-transform: uppercase;
+        margin: 0;
+      }
+    }
+  }
+
+  &_maintenance {
+    & > button {
+      color: #222 !important;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 140%; /* 16.8px */
+      letter-spacing: 0.24px;
+      text-transform: uppercase;
+      border-radius: 2px;
+
+      border: 1.5px solid var(--Grey-3, #e7e7e8) !important;
+      box-shadow: 0px 0px 7.882px 0px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.personal-account-leasing-modal {
+  & > .mobile-modal_header-top {
+    padding: 16px;
+    box-shadow: 0px 5px 32px 0px rgba(0, 0, 0, 0.05);
+
+    & > button {
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+  &_body {
+    background: #fff;
+
+    &-header {
+      padding: 0 16px;
+    }
+
+    &_carname {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      margin: 16px 0 0 0;
+      & > span {
+        color: #bf3535;
+      }
+    }
+
+    &_regnum {
+      color: #606569;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.14px;
+      text-transform: uppercase;
+      margin: 0 0 16px 0;
     }
   }
 }
