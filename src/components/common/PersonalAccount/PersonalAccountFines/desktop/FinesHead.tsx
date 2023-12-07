@@ -1,7 +1,7 @@
-import date from "../../../../images/personal-account/fines/date.svg";
-import "./PersonalAccountFines.scss";
-import arrow from "../../../../images/personal-account/fines/arrow.svg";
-import doubleArrow from "../../../../images/personal-account/fines/double-arrow.svg";
+import date from "../../../../../images/personal-account/fines/date.svg";
+import "../PersonalAccountFines.scss";
+import arrow from "../../../../../images/personal-account/fines/arrow.svg";
+import doubleArrow from "../../../../../images/personal-account/fines/double-arrow.svg";
 import { useState } from "react";
 
 const FinesHead: React.FC = () => {

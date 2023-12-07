@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
-import { ModalTemplateContent } from "../../ModalFormTemplate";
-import img from "../../../../images/personal-account/fines/fine-modal.png";
+import { ModalTemplateContent } from "../../../ModalFormTemplate";
+import img from "../../../../../images/personal-account/fines/fine-modal.png";
 
 const FinesModal: React.FC<{
     onHide: () => void,
