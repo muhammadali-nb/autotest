@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import carImage from "../../../../../images/index/car.webp";
-import rejectStatus from "../../../../../images/personal-account/card_statuses/rejected.svg";
-import watingStatusBlack from "../../../../../images/personal-account/card_statuses/black/waiting-black.svg";
+// import rejectStatus from "../../../../../images/personal-account/card_statuses/rejected.svg";
+// import watingStatusBlack from "../../../../../images/personal-account/card_statuses/black/waiting-black.svg";
 import PersonalAccountLeasingCarModalMaintenance from "./PersonalAccountLeasingCarModalMaintenance";
 import PersonalAccountLeasingCarModalPayments from "./PersonalAccountLeasingCarModalPayments";
 interface IProps {
@@ -12,7 +12,7 @@ const PersonalAccountLeasingCarCardMobileStatus = () => {
 	return (
 		<div className="personal-account-leasing-car-mobile_payment-status">
 			<div className="personal-account-leasing-car-mobile_payment-status_img">
-				<img src={rejectStatus} alt="Rejected" />
+				{/* <img src={rejectStatus} alt="Rejected" /> */}
 			</div>
 			<div>
 				<h1 className="personal-account-leasing-car-mobile_payment-status_title">
@@ -74,7 +74,7 @@ const PersonalAccountLeasingCarCardMobileInfo = (props: IProps) => {
 					<PersonalAccountLeasingCarCardMobileStatus />
 					<div className="personal-account-leasing-car-mobile_payment-next">
 						<div className="personal-account-leasing-car-mobile_payment-next_img">
-							<img src={watingStatusBlack} alt="waiting" />
+							{/* <img src={watingStatusBlack} alt="waiting" /> */}
 						</div>
 						<div>
 							<h1 className="personal-account-leasing-car-mobile_payment-next_title">
