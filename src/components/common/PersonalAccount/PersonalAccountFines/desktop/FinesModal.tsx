@@ -1,6 +1,8 @@
-import { Modal } from "react-bootstrap";
+import { Carousel, Modal } from "react-bootstrap";
 import { ModalTemplateContent } from "../../../ModalFormTemplate";
 import img from "../../../../../images/personal-account/fines/fine-modal.png";
+import car from "../../../../../images/rent/auto_card.png";
+import "../PersonalAccountFines.scss";
 
 const FinesModal: React.FC<{
     onHide: () => void,
@@ -133,9 +135,27 @@ const FinesModal: React.FC<{
                             </div>
                         </div>
                     </div>
-                    <div className="personal-account_fines-modalImage">
-                        <img src={img} alt="" />
-                    </div>
+                    <Carousel
+                        interval={null}
+                        className="personal-account_fines-modalSlider"
+                    >
+                        <Carousel.Item>
+                            <div className="personal-account_fines-modalImage">
+                                <img src={img} alt="" />
+                            </div>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <div className="personal-account_fines-modalImage">
+                                <img src={car} alt="" />
+                            </div>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <div className="personal-account_fines-modalImage">
+                                <img src={img} alt="" />
+                            </div>
+                        </Carousel.Item>
+                    </Carousel>
+
                 </ModalTemplateContent>
             </div>
         </Modal>
