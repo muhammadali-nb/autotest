@@ -1,11 +1,17 @@
 import { HeaderLogoImage } from "../../../../layout/Header";
 import back from "../../../../../images/common/back-dark.svg";
 import img from "../../../../../images/personal-account/fines/fine-modal.png";
+import { Carousel } from "react-bootstrap";
+import car from "../../../../../images/rent/auto_card.png";
+import { useState } from "react";
+import FinesPhotosMobile from "./FinesPhotosMobile";
 
 const FinesModalMobile: React.FC<{
     setActive: (arg0: boolean) => void
 }> = (props) => {
     const { setActive } = props;
+
+    const [photosOpened, setPhotosOpened] = useState(false);
 
     return (
         <div className="balance-mobile active">
@@ -130,10 +136,33 @@ const FinesModalMobile: React.FC<{
                 <div className="personal-account_fines-modalTitle text-uppercase font-weight-semibold">
                     Фото
                 </div>
-                <div className="personal-account_fines-modalImage">
+                <div className="personal-account_fines-modalImage" onClick={() => setPhotosOpened(true)}>   
                     <img src={img} alt="" />
                 </div>
+                {/* <Carousel
+                    interval={null}
+                    className="personal-account_fines-modalSlider"
+                >
+                    <Carousel.Item>
+                        <div className="personal-account_fines-modalImage">
+                            <img src={img} alt="" />
+                        </div>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <div className="personal-account_fines-modalImage">
+                            <img src={car} alt="" />
+                        </div>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <div className="personal-account_fines-modalImage">
+                            <img src={img} alt="" />
+                        </div>
+                    </Carousel.Item>
+                </Carousel> */}
             </div>
+            {photosOpened &&
+                <FinesPhotosMobile setActive={setPhotosOpened} /> 
+            }
         </div>
     )
 }
