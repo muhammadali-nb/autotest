@@ -4,13 +4,14 @@ import { HeaderLogoImage } from "../../../layout/Header";
 interface IProps {
 	scheme?: "light" | "dark";
 	setClose: Dispatch<boolean>;
+	className?: string;
 }
 
 const MobileModalHeader = (props: IProps) => {
-	const { scheme, setClose } = props;
+	const { scheme, setClose, className } = props;
 
 	return (
-		<div className="mobile-modal_header-top">
+		<div className={"mobile-modal_header-top " + (className ?? "")}>
 			<button onClick={() => setClose(false)}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

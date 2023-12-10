@@ -1,0 +1,76 @@
+.personal-account-payments {
+  &_add-btn {
+    width: 40px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 2px solid var(--Color, #bf3535);
+    background: var(--default-white, #fff);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  &_card {
+    border-radius: 4px;
+    border: 2px solid var(--Grey-2, #babcbf);
+    background: var(--default-white, #fff);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    &_header {
+      display: flex;
+      align-items: center;
+      // height: 20px;
+
+      & > h1 {
+        color: var(--Text, #222);
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin: 0;
+      }
+    }
+
+    &_number {
+      color: #606569;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: initial;
+      margin: 0;
+    }
+
+    &_button {
+      background-color: transparent;
+      border: none;
+
+      &-like.active {
+        & > svg path {
+          fill: #bf3535;
+        }
+      }
+
+      // &-edit > svg {
+      //   path {
+      //     // fill: #222;
+      //   }
+      // }
+    }
+  }
+
+  &_card-list {
+    display: flex;
+    align-items: start;
+    padding: 30px 0 0 0;
+    border-top: 2px solid #f2f3f6;
+    margin: 20px 0 0 0;
+
+    &_cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+  }
+}

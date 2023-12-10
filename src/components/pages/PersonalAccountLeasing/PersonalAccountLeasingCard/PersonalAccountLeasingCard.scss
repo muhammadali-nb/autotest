@@ -564,14 +564,10 @@
 }
 
 .personal-account-leasing-modal {
-  & > .mobile-modal_header-top {
+  &_header {
     padding: 16px;
+    background: var(--default-white, #fff);
     box-shadow: 0px 5px 32px 0px rgba(0, 0, 0, 0.05);
-
-    & > button {
-      border: none;
-      background-color: transparent;
-    }
   }
 
   &_body {

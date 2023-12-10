@@ -31,7 +31,7 @@ export interface userDataProps {
 	tg_connected: boolean;
 }
 
-const userData: userDataProps = {
+export const userData: userDataProps = {
 	name: "Анастасия",
 	last_name: "Фокина",
 	middle_name: "Алексеевна",

@@ -23,7 +23,11 @@ const PersonalAccountLeasingCarModalMaintenance = (props: IProps) => {
 				"mobile-modal personal-account-leasing-modal " +
 				(active ? "active" : "")
 			}>
-			<MobileModalHeader scheme="dark" setClose={setActive} />
+			<MobileModalHeader
+				scheme="dark"
+				setClose={setActive}
+				className="personal-account-leasing-modal_header"
+			/>
 			<div className="personal-account-leasing-modal_body">
 				<div className="personal-account-leasing-modal_body-header">
 					<h1 className="personal-account-leasing-modal_body_carname">
