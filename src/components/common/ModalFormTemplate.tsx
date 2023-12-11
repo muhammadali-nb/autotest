@@ -131,7 +131,7 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 					<span
 						style={{ fontSize: "14px", marginLeft: "12px" }}
 						className={
-							"font-weight-medium " + (props.error ? "text-red-color" : "")
+							"font-weight-medium " + (props.error ? "text-red-color " : "") + (props.className ?? " ")
 						}>
 						Я соглашаюсь с&nbsp;
 						<Link

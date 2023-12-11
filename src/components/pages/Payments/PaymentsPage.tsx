@@ -3,7 +3,8 @@ import PersonalAccountPaymentLayout from "../../layout/PersonalAccountLayout/Per
 import PersonalAccountBalance from "../PersonalAccount/PersonalAccountBalance/PersonalAccountBalance";
 import { userData } from "../PersonalAccount/PersonalAccountPage";
 import PersonalAccountData from "../PersonalAccount/PersonalAccountData";
-import { PaymentCardsList } from "./PaymentCards/PaymentCardsList";
+import { PaymentCardsList } from "./PaymentCards/PaymentBankCardsList";
+import PaymentScoreList from "./PaymentCards/PaymentScoreList";
 
 export const PaymentsPage = () => {
 	return (
@@ -13,6 +14,7 @@ export const PaymentsPage = () => {
 				<PersonalAccountBalance />
 			</div>
 			<PaymentCardsList />
+			<PaymentScoreList />
 		</PersonalAccountPaymentLayout>
 	);
 };
