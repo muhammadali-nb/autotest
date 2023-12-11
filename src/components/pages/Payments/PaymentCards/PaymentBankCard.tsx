@@ -10,7 +10,7 @@ export const PaymentCardMainButton = ({
 		<button
 			onClick={() => setActive(!active)}
 			className={
-				"personal-account-payments_card_button  personal-account-payments_card_button-like " +
+				"personal-account-payments_bank-card_button  personal-account-payments_bank-card_button-like " +
 				(active ? "active " : "") +
 				(className ?? "")
 			}>
@@ -33,7 +33,7 @@ export const PaymentCardEdit = ({ className }: { className?: string }) => {
 	return (
 		<button
 			className={
-				"personal-account-payments_card_button personal-account-payments_card_button-edit  " +
+				"personal-account-payments_bank-card_button personal-account-payments_bank-card_button-edit  " +
 				(className ?? "")
 			}>
 			<svg
@@ -69,15 +69,15 @@ export const PaymentCardEdit = ({ className }: { className?: string }) => {
 
 const PaymentCard = () => {
 	return (
-		<div className="personal-account-payments_card">
-			<div className="personal-account-payments_card_header mb-px-10">
+		<div className="personal-account-payments_bank-card">
+			<div className="personal-account-payments_bank-card_header mb-px-10">
 				<h1>Название карты</h1>
-				<div className="d-flex align-items-center ms-px-15">
+				<div className="d-flex align-items-center">
 					<PaymentCardEdit />
 					<PaymentCardMainButton className="ms-px-10" />
 				</div>
 			</div>
-			<p className="personal-account-payments_card_number">
+			<p className="personal-account-payments_bank-card_number">
 				0000 0000 0000 0000
 			</p>
 		</div>
