@@ -7,7 +7,7 @@ import Api, { ConfirmPhone, CallRequestData, ErrorResponse, RentCreateAccountFor
 import axios, { AxiosError } from 'axios';
 import { useAuth } from "../../hooks/useAuth";
 import FileInput from "./FileInput";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AuthFormContent: React.FC<{
     closeFunc: () => void,
@@ -487,7 +487,7 @@ const AuthForm: React.FC<{
                 <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
                     {isAuthenticated ?
                         <div className="user-tooltip-content">
-                            <span className="font-size-16 cursor-pointer fw-medium">{last_name + " " + first_name}</span>
+                            <Link to={"/personal-account"}><span className="font-size-16 cursor-pointer fw-medium">{last_name + " " + first_name}</span></Link>
                             {phone &&
                                 <span className="font-size-12 fw-medium">{Utils.formatPhone(phone)}</span>
                             }
