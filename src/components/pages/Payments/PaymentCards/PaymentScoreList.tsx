@@ -13,10 +13,10 @@ const PaymentScoreList = () => {
 	return (
 		<>
 			<div className="personal-account-payments_score-card-list">
-				<div>
+				<div className="d-none d-md-block">
 					<PaymentCardAddButton onClick={() => setModalAddScoreCard(true)} />
 				</div>
-				<div className="personal-account-payments_score-card-list_cards ms-px-10">
+				<div className="personal-account-payments_score-card-list_cards">
 					{[...new Array(6)].map((_item, index) => (
 						<PaymentScoreCard />
 					))}

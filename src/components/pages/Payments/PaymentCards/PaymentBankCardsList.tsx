@@ -13,16 +13,20 @@ export const PaymentCardsList = () => {
 	return (
 		<>
 			<div className="personal-account-payments_bank-card-list">
-				<div>
+				<div className="d-none d-md-block">
 					<PaymentCardAddButton onClick={() => setModalAddBankCard(true)} />
 				</div>
-				<div className="personal-account-payments_bank-card-list_cards ms-px-10">
+				<div className="personal-account-payments_bank-card-list_cards ">
 					{[...new Array(6)].map((_item, index) => (
 						<PaymentCard key={index} />
 					))}
 				</div>
 			</div>
-			<PaymentCardAddModal type="bank" show={modalAddBankCard} onHide={closeModal} />
+			<PaymentCardAddModal
+				type="bank"
+				show={modalAddBankCard}
+				onHide={closeModal}
+			/>
 		</>
 	);
 };
