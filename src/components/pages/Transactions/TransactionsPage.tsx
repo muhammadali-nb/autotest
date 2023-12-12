@@ -22,10 +22,28 @@ export interface transactionsProps {
     transactions: detailTransactionProps[]
 }
 
+export interface carsProps {
+    id: string,
+    model: string,
+    number: string,
+    region: string,
+    amount: number
+}
+
+export interface dedauctionsProps {
+    id: string,
+    name: string,
+    total: number,
+    payed: number,
+    perDay: number
+}
+
 export interface transactionsDataProps {
     totalIncome: number,
     totalOutcome: number,
     totalTransactions: number,
+    cars: carsProps[],
+    deductions: dedauctionsProps[],
     transactions: transactionsProps[]
 }
 
@@ -33,6 +51,52 @@ const transactionsData: transactionsDataProps = {
     totalIncome: 8500,
     totalOutcome: 5000,
     totalTransactions: 15499,
+    cars: [
+        {
+            id: "1",
+            model: "Kia K5",
+            number: "М766КС",
+            region: "198",
+            amount: 9999
+        },
+        {
+            id: "2",
+            model: "Kia K5",
+            number: "М766КС",
+            region: "198",
+            amount: 9998
+        },
+        {
+            id: "3",
+            model: "Kia K5",
+            number: "М766КС",
+            region: "198",
+            amount: 9997
+        }
+    ],
+    deductions: [
+        {
+            id: "1",
+            name: "Депозит",
+            total: 50000,
+            payed: 5000,
+            perDay: 5000,
+        },
+        {
+            id: "2",
+            name: "Первый взнос",
+            total: 50000,
+            payed: 5000,
+            perDay: 5000,
+        },
+        {
+            id: "3",
+            name: "Штраф",
+            total: 50000,
+            payed: 5000,
+            perDay: 5000,
+        }
+    ],
     transactions: [
         {
             id: "1",
