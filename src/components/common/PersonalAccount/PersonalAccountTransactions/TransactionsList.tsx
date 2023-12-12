@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Utils from "../../../../utils/Utils";
 import { detailTransactionProps, transactionsProps } from "../../../pages/Transactions/TransactionsPage";
 
@@ -51,7 +52,7 @@ const TransactionsDayItem: React.FC<{
                     <li key={item.id}>
                         <div className={"personal-account_transactions-icons " + (item.type === "transaction" ? "transaction" : "")}>
                             {item.icons.map(icon =>
-                                <img src={icon.url} alt={item.name} />
+                                <img src={icon.url} alt={icon.url} />
                             )}
                         </div>
                         <div className="personal-account_transactions-time">
@@ -64,7 +65,16 @@ const TransactionsDayItem: React.FC<{
                         </div>
                         <div className="personal-account_transactions-name">
                             <div>
-                                {item.name}
+                                {item.name.map(el =>
+                                    <>
+                                        {el.link ?
+                                            <Link to={el.link}>{el.name}</Link>
+                                            :
+                                            el.name
+                                        }
+                                        &nbsp;
+                                    </>
+                                )}
                             </div>
                             <div className={(item.type === "transaction" ? "transaction" : (item.type === "income" ? "income" : "outcome"))}>
                                 {getType(item.type)}

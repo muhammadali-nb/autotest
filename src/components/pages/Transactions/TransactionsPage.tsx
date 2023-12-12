@@ -12,7 +12,10 @@ export interface detailTransactionProps {
     type: string,
     time: string,
     icons: { url: string }[],
-    name: string,
+    name: {
+        name: string,
+        link: string
+    }[],
     amount: number
 }
 
@@ -114,7 +117,9 @@ const transactionsData: transactionsDataProps = {
                             url: logo
                         }
                     ],
-                    name: "Перевод: Внутренний - Яндекс",
+                    name: [
+                        { name: "Перевод: Внутренний - Яндекс", link: ""}
+                    ],
                     amount: 9999,
                 },
                 {
@@ -126,7 +131,16 @@ const transactionsData: transactionsDataProps = {
                             url: logo
                         }
                     ],
-                    name: "Депозит от Kia K5 М766КС 198",
+                    name: [
+                        {
+                            name: "Депозит от",
+                            link: ""
+                        },
+                        {
+                            name: "Kia K5 М766КС 198",
+                            link: "#"
+                        }
+                    ],
                     amount: 10000,
                 }
             ]
@@ -147,7 +161,9 @@ const transactionsData: transactionsDataProps = {
                             url: logo
                         }
                     ],
-                    name: "Перевод: Внутренний - Яндекс",
+                    name: [
+                        { name: "Перевод: Внутренний - Яндекс", link: ""}
+                    ],
                     amount: 9999,
                 },
                 {
@@ -159,7 +175,16 @@ const transactionsData: transactionsDataProps = {
                             url: logo
                         }
                     ],
-                    name: "Депозит от Kia K5 М766КС 198",
+                    name: [
+                        {
+                            name: "Депозит от",
+                            link: ""
+                        },
+                        {
+                            name: "Kia K5 М766КС 198",
+                            link: "#"
+                        }
+                    ],
                     amount: 10000,
                 }
             ]
