@@ -205,8 +205,15 @@ $selectedColor: #bf3535;
     white-space: nowrap;
     border-radius: 2px;
 
+    a {
+      text-decoration: none;
+      color: #222;
+    }
+
     span {
       display: block;
+      text-decoration: none;
+      color: #222;
 
       &:not(:last-child) {
         margin-bottom: 10px;
@@ -376,6 +383,11 @@ $selectedColor: #bf3535;
 
   &_user {
     color: white;
+    
+    a {
+      color: white;
+      text-decoration: none;
+    }
 
     span {
       &:nth-child(2) {

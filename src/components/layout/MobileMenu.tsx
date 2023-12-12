@@ -110,11 +110,14 @@ const MobileMenu = (props: MobileMenuProps) => {
 						</>
 					) : (
 						<div className="mobile-menu_user mt-4 d-flex flex-column">
-							<span
-								className="mb-1 fw-medium font-size-16"
-								onClick={() => navigate("/personal-account")}>
-								{last_name + " " + first_name}
-							</span>
+							<Link to={"/personal-account"}>
+								<span
+									className="mb-1 fw-medium font-size-16"
+									// onClick={() => navigate("/personal-account")}
+								>
+									{last_name + " " + first_name}
+								</span>
+							</Link>
 							{phone && (
 								<span className="fw-medium font-size-12 mb-3">
 									{Utils.formatPhone(phone)}
