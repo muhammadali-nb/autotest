@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import caret from "./../../images/common/caret-up-white.png";
 import mobileIcon from "../../images/common/footer/arrow-scroller.svg";
 
-const Scroller = () => {
+const Scroller = ({ className }: { className?: string }) => {
 	const [show, setShow] = useState(false);
 	useEffect(() => {
 		let handler = () => {
@@ -17,7 +17,7 @@ const Scroller = () => {
 	});
 	return (
 		<button
-			className={"scroller " + (show ? "show" : "")}
+			className={"scroller " + (show ? "show " : "") + (className ?? "")}
 			onClick={() => {
 				window.scrollTo({ top: 0, behavior: "smooth" });
 			}}>

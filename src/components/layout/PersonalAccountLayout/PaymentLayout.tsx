@@ -24,7 +24,7 @@ export type CatalogLayoutProps = {
 	noTopPadding?: boolean;
 	[x: string]: any;
 };
-const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
+const PaymentLayout: React.FunctionComponent<CatalogLayoutProps> = (
 	props: CatalogLayoutProps
 ) => {
 	const meta = {
@@ -76,11 +76,11 @@ const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 					mobileModalType="orderCall"
 				/>
 				<main>{props.children}</main>
-				<Scroller />
+				<Scroller className="personal-account-payments_scroller" />
 				<Cookies />
 			</div>
 		</DocumentMeta>
 	);
 };
 
-export default PersonalAccountLayout;
+export default PaymentLayout;
