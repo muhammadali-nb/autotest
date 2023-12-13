@@ -74,6 +74,12 @@
           margin: 0;
         }
       }
+
+      & .indexCalculatorPeriodIndicator  {
+        span {
+          font-size: 10px !important;
+        }
+      }
     }
 
     @include l-md() {
