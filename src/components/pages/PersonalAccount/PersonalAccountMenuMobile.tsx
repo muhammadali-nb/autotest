@@ -35,7 +35,7 @@ const defaultLinks = [
 	},
 	{
 		text: "Лизинг",
-		path: "/programs",
+		path: "/personal-account/leasing",
 		className: "",
 		icon: ticked,
 		id: 3,
@@ -45,9 +45,9 @@ const defaultLinks = [
 		text: "Транзакции",
 		path: "/personal-account/transactions",
 		className: "",
-		icon: wallet
+		icon: wallet,
 	},
-	{ text: "Карты оплаты", path: "/", className: "", icon: card, id: 5 },
+	{ text: "Карты оплаты", path: "/personal-account/payment", className: "", icon: card, id: 5 },
 	{
 		text: "Штрафы",
 		path: "/personal-account/fines",
@@ -69,12 +69,14 @@ const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
 
 	return (
 		<div
-			className={`mobile-menu ${menuIsOpen ? "active" : ""
-				} mobile-menu-personal-account`}>
+			className={`mobile-menu ${
+				menuIsOpen ? "active" : ""
+			} mobile-menu-personal-account`}>
 			<div
 				ref={menuRef}
-				className={`mobile-menu_container ${menuIsOpen ? "active" : ""
-					} mobile-menu-personal-account_container`}>
+				className={`mobile-menu_container ${
+					menuIsOpen ? "active" : ""
+				} mobile-menu-personal-account_container`}>
 				<div>
 					<div className={"d-flex align-items-center gap-px-15"}>
 						<div onClick={() => setMenuIsOpen(false)}>

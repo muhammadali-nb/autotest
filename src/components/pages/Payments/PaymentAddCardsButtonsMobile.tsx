@@ -1,16 +1,22 @@
-import React from "react";
+import React, { Dispatch } from "react";
 interface IProps {
 	className?: string;
+	setAddBankCard: (e: boolean) => void;
+	setAddScoreCard: (e: boolean) => void;
 }
 const PaymentAddCardsButtonsMobile = (props: IProps) => {
-	const { className } = props;
+	const { className, setAddBankCard, setAddScoreCard } = props;
 	return (
 		<div
 			className={
 				"personal-account-payments_mobile-add-card " + (className ?? "")
 			}>
-			<button className="site-btn">Добавить Карту</button>
-			<button className="site-btn">Добавить Счёт</button>
+			<button className="site-btn" onClick={() => setAddBankCard(true)}>
+				Добавить Карту
+			</button>
+			<button className="site-btn" onClick={() => setAddScoreCard(true)}>
+				Добавить Счёт
+			</button>
 		</div>
 	);
 };

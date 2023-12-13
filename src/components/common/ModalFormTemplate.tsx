@@ -31,7 +31,8 @@ export const ModalTemplateInput: React.FC<ModalTemplateInputProps> = (
 				"call-content-input " +
 				(props.error ? "error " : "") +
 				(props.small ? "small-form-input " : "") +
-				(props.container_class_name ?? "")
+				(props.container_class_name ?? "") +
+				(props.className ?? "")
 			}
 			style={props.container_style}
 			data-error={
@@ -132,7 +133,9 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 					<span
 						style={{ fontSize: "14px", marginLeft: "12px" }}
 						className={
-							"font-weight-medium " + (props.error ? "text-red-color " : "") + (props.className ?? " ")
+							"font-weight-medium " +
+							(props.error ? "text-red-color " : "") +
+							(props.className ?? " ")
 						}>
 						Я соглашаюсь с&nbsp;
 						<Link

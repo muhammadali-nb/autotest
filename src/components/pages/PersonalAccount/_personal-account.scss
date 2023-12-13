@@ -30,6 +30,13 @@
   &.payment {
     padding: 0;
 
+    & > .personal-account_mobile-burger {
+      bottom: 20px;
+
+      @include l-md {
+        bottom: 100px;
+      }
+    }
     @include l-md {
       padding: 0 0 80px 0;
     }
