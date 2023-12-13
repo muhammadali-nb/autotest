@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	ModalTemplateConfirm,
 	ModalTemplateContent,
@@ -9,6 +9,9 @@ import { FormCheck, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { spawn } from "child_process";
+import Utils from "../../../../utils/Utils";
+import axios, { AxiosError } from "axios";
+import { ErrorResponse } from "../../../../Api";
 interface IProps {
 	show: boolean;
 	onHide: () => void;
@@ -17,6 +20,52 @@ interface IProps {
 
 const PaymentBankCardAddModal = (props: { onHide: () => void }) => {
 	const { onHide } = props;
+	const [data, setData] = useState({
+		number: "",
+		name: "",
+		main: false,
+		errors: {},
+		confirm: false,
+	});
+
+	const [errorMessage, setErrorMessage] = useState<null | string>();
+
+	const [passed, setPassed] = useState(false);
+
+	const send = async () => {
+		let errors = Utils.validateAddBankCard(data);
+		if (Object.keys(errors).length > 0) {
+			setData({ ...data, errors: errors });
+			setPassed(false);
+			return;
+		}
+
+		try {
+			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+				withCredentials: true,
+				body: JSON.stringify({}),
+			});
+
+			if (res.data.result === 1) {
+				// props.setSent(true);
+				setPassed(true);
+			}
+		} catch (error) {
+			setErrorMessage(
+				(error as AxiosError<ErrorResponse>).response?.data.message ??
+					"Возникла ошибка с сервером поробуйте позже"
+			);
+		}
+	};
+
+	const update = (field: string, value: any) => {
+		let errors = data.errors;
+		delete errors[field];
+		let newData = { ...data, [field]: value, errors: errors };
+		setData(newData);
+		errors = Utils.validateAddBankCard(newData);
+		setPassed(Object.keys(errors).length === 0);
+	};
 	return (
 		<>
 			<div className={"mb-px-60"}>
@@ -44,41 +93,44 @@ const PaymentBankCardAddModal = (props: { onHide: () => void }) => {
 			<div className="mb-px-100">
 				<ModalTemplateInput
 					placeholder="Номер карты"
-					// // error={data.errors["phone"]}
-					// onInput={(e: any) => validatePhone("phone", e.target.value)}
-					// onChange={(e: any) => validatePhone("phone", e.target.value)}
+					error={data.errors["number"]}
+					onInput={(e: any) => update("phone", e.target.value)}
+					onChange={(e: any) => update("phone", e.target.value)}
 					small={false}
 				/>
 				<ModalTemplateInput
 					placeholder="Назовите карту (необязательно)"
-					// // error={data.errors["phone"]}
-					// onInput={(e: any) => validatePhone("phone", e.target.value)}
-					// onChange={(e: any) => validatePhone("phone", e.target.value)}
+					error={data.errors["name"]}
+					onInput={(e: any) => update("name", e.target.value)}
+					onChange={(e: any) => update("name", e.target.value)}
 					small={false}
 				/>
 				<FormCheck
+					checked={data.main}
+					onChange={(e) => update("main", e.target.value)}
 					label={
 						<span style={{ fontWeight: "500", fontSize: "16px" }}>
 							Сделать основной
 						</span>
 					}
 				/>
-				{/* {data.errors["server"] && (
-							<div className={"my-2 text-red-color font-size-12"}>
-								{data.errors["server"]}
-							</div>
-						)} */}
+				{errorMessage && (
+					<div className={"my-2 text-red-color font-size-12"}>
+						{errorMessage}
+					</div>
+				)}
 			</div>
 			<div className="mt-auto">
-				<button
-					className={"site-btn small dark"}
-					onClick={(e) => {
-						e.preventDefault();
-						// sendPhone();
-					}}>
+				<button className={"site-btn small dark"} onClick={send}>
 					Далее
 				</button>
-				<ModalTemplateConfirm className="font-size-12" small={true} />
+				<ModalTemplateConfirm
+					confirmed={data.confirm}
+					error={data.errors["confirm"]}
+					onChange={(e: any) => update("confirm", e.target.value)}
+					className="font-size-12"
+					small={true}
+				/>
 			</div>
 		</>
 	);

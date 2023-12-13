@@ -9,6 +9,8 @@ import MobileCarRequestForm from "./MobileCarRequestForm";
 import MobileEditPhone from "./MobileEditPhone";
 import MobileEditEmail from "./MobileEditEmail";
 import WithdrawConfirmPhone from "../PersonalAccount/PersonalAccountWithdraw/mobile/WithdrawConfirmPhone";
+import MobileAddBankCard from "./payment/MobileAddBankCard";
+import MobileAddScoreCard from "./payment/MobileAddScoreCard";
 
 export const MobileModal = ({
 	active,
@@ -59,6 +61,12 @@ export const MobileModal = ({
 				)}
 				{type === "withdrawConfirm" && (
 					<WithdrawConfirmPhone closeFunc={() => setActive(false)} />
+				)}
+				{type === "paymentAddBankCard" && (
+					<MobileAddBankCard closeFn={() => setActive(false)} />
+				)}
+				{type === "paymentAddScoreCard" && (
+					<MobileAddScoreCard closeFn={() => setActive(false)} />
 				)}
 			</div>
 		</div>

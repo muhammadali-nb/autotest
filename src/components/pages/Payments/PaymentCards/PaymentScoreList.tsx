@@ -18,7 +18,7 @@ const PaymentScoreList = () => {
 				</div>
 				<div className="personal-account-payments_score-card-list_cards">
 					{[...new Array(6)].map((_item, index) => (
-						<PaymentScoreCard />
+						<PaymentScoreCard key={index} />
 					))}
 				</div>
 			</div>

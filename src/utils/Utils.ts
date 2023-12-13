@@ -1,6 +1,6 @@
+
+import { CallRequestData, ConfirmPhone } from "../Api";
 import { RentCreateAccountForm } from '../types/RentTypes';
-import { CallRequestData } from "../Api";
-import { ConfirmPhone } from '../Api';
 
 
 let Utils = {
@@ -110,16 +110,35 @@ let Utils = {
 
         if (!request.email || request.email.length <= 0) {
             errors['email'] = "Не указан E-mail";
-        } else if (!request.email.match( /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+        } else if (!request.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
             errors['email'] = "E-mail в неверном формате";
         }
 
         return errors;
     },
-    validateWithdraw(request: { card: {
-        name: string,
-        number: string
-    }, amount: number, errors: Object }, balance: number | undefined) {
+    validateAddBankCard(request: {
+        number: string;
+        name?: string;
+        main?: boolean;
+        errors: Object;
+        confirm: boolean
+    }) {
+        let errors = {}
+        if (!request.number) {
+            errors["number"] = "Не указана карта";
+        } else if (request.number.length < 16) {
+            errors["number"] = "Номер карты не корректен"
+        }
+        if (!request.confirm)
+            errors['confirm'] = true;
+        return errors;
+    },
+    validateWithdraw(request: {
+        card: {
+            name: string,
+            number: string
+        }, amount: number, errors: Object
+    }, balance: number | undefined) {
         let errors = {};
 
         const card = request.card
