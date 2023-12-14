@@ -38,6 +38,13 @@
     width: 100%;
     justify-content: center;
 
+    & .indexCalculatorSliderLabel,
+    .indexCalculatorPeriodIndicatorComment {
+      @include l-md {
+        font-size: 10px;
+      }
+    }
+
     @include l-md() {
       padding: 100px 0 70px 0;
     }
@@ -55,6 +62,7 @@
       //text-transform: uppercase;
       @include l-xxl {
         font-size: 42px;
+        letter-spacing: 1px;
       }
       // @include l-md {
       //   font-size: 48px;
@@ -75,7 +83,7 @@
         }
       }
 
-      & .indexCalculatorPeriodIndicator  {
+      & .indexCalculatorPeriodIndicator {
         span {
           font-size: 10px !important;
         }
@@ -365,7 +373,8 @@
   }
 
   @include l-sm {
-    height: 47%;
+    height: 48.5%;
+    clip-path: polygon(0 0, 100% 0, 100% 95%, 0% 100%);
 
     background: rgba(0, 0, 0, 0.8) url("./../../../images/index/about_bg.webp");
   }
@@ -402,9 +411,11 @@
   }
   @include l-md() {
     font-size: 16px;
-    & > br {
-      display: none;
+
+    &:last-child {
+      max-width: 315px !important;
     }
+
     font-weight: 500;
     &:not(:last-child) {
       margin-bottom: 24px;
@@ -449,10 +460,10 @@
   @include l-md() {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 8px;
     &:not(:first-child) {
-      margin: 0 0 20px 0;
+      margin: 0 0 24px 0;
     }
   }
   &-big {
@@ -480,6 +491,7 @@
 
     @include l-sm() {
       font-size: 12px;
+      margin: 0 0 4px 0;
     }
   }
 }
@@ -595,6 +607,9 @@
       min-height: 60px;
       width: 60px;
       height: 60px;
+      border: 0.983px solid var(--BG, #f2f3f6);
+      background: var(--default-white, #fff);
+      box-shadow: 0px 0px 9.834px 0px rgba(0, 0, 0, 0.15);
       img {
         width: 30px;
         height: 30px;
@@ -878,6 +893,10 @@
       text-transform: uppercase;
       // transform: translateY(2px);
       color: #606569;
+
+      @include l-md {
+        color: #222222;
+      }
     }
 
     & > svg {
@@ -896,13 +915,24 @@
 
     &-gray {
       display: block;
+
+      @include l-md {
+        display: none;
+      }
     }
 
     &-black {
       display: none;
+
+      @include l-md {
+        display: block;
+      }
     }
 
     &:hover {
+      @include l-md {
+        pointer-events: none;
+      }
       .great-deal_more-gray {
         display: none !important;
       }

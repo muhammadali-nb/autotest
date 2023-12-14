@@ -6,6 +6,7 @@ import IndexCalculator from "./IndexCalculator";
 import car from "./../../../images/index/car.webp";
 import Animator from "../../../Animator";
 import { useEffect } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
 
 //bgNoCar:true заставляет бг отображаться без авто, а само авто становится отдельным анимированным элементом.
 const IndexLogo: React.FC<{ bgNoCar?: boolean }> = (
@@ -41,13 +42,20 @@ const IndexLogo: React.FC<{ bgNoCar?: boolean }> = (
 									<div>Как кредит</div>
 									<div className={"muted"}>только проще</div>
 								</div>
-								<IndexCalculator wideSpace={true} />
+
+								<BrowserView>
+									<IndexCalculator wideSpace={true} />
+								</BrowserView>
+								<MobileView>
+									<IndexCalculator wideSpace={false} />
+								</MobileView>
+
 								<div
 									className={"anim-enter-bottom-3 index__logo-comment "}
 									id={"index__logo-comment"}>
 									Стоимость предмета лизинга и приведенные расчеты через
 									калькулятор являются предварительными. <br /> Для точного
-									определения процентной ставки по договору, пожалуйста,
+									определения процентной ставки <br /> по договору, пожалуйста,
 									обратитесь к менеджеру.
 								</div>
 							</Col>
