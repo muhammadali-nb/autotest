@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import PaymentCardAddButton from "./PaymentCardAddButton";
 import PaymentCard from "./PaymentBankCard";
 import PaymentCardAddModal from "./PaymentCardAddModal";
+import { PaymentBankCardType } from "../../../../types/PersonalAccount/PaymentsTypes";
 
-export const PaymentCardsList = () => {
+interface IProps {
+	data: PaymentBankCardType[];
+}
+
+export const PaymentCardsList = (props: IProps) => {
+	const { data } = props;
 	const [modalAddBankCard, setModalAddBankCard] = useState(false);
 
 	const closeModal = () => {
@@ -17,8 +23,8 @@ export const PaymentCardsList = () => {
 					<PaymentCardAddButton onClick={() => setModalAddBankCard(true)} />
 				</div>
 				<div className="personal-account-payments_bank-card-list_cards ">
-					{[...new Array(6)].map((_item, index) => (
-						<PaymentCard key={index} />
+					{data.map((_item) => (
+						<PaymentCard card={_item} key={_item.id} />
 					))}
 				</div>
 			</div>

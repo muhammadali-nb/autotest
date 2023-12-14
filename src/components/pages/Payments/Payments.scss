@@ -74,8 +74,12 @@
     max-width: 215px;
     width: 100%;
 
-    &:hover {
+    &.main {
       border: 2px solid var(--Grey-2, #babcbf);
+
+      @include l-md {
+        border: 1px solid var(--Color, #bf3535);
+      }
     }
 
     @include l-xxl {
@@ -170,10 +174,13 @@
     max-width: 272px;
     width: 100%;
 
-    &:hover {
+    &.main {
       border: 2px solid var(--Grey-2, #babcbf);
-    }
 
+      @include l-md {
+        border: 1px solid var(--Color, #bf3535);
+      }
+    }
     @include l-xxl {
       max-width: 100%;
     }
