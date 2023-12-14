@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { PaymentBankCardType } from "../../../../types/PersonalAccount/PaymentsTypes";
 
 export const PaymentCardMainButton = ({
 	className,
+	active,
+	setActive,
 }: {
 	className?: string;
+	active: boolean;
+	setActive: (e: boolean) => void;
 }) => {
-	const [active, setActive] = useState(false);
 	return (
 		<button
 			onClick={() => setActive(!active)}
@@ -67,18 +71,31 @@ export const PaymentCardEdit = ({ className }: { className?: string }) => {
 	);
 };
 
-const PaymentCard = () => {
+interface PaymentCardProps {
+	card: PaymentBankCardType;
+}
+
+const PaymentCard = (props: PaymentCardProps) => {
+	const { card } = props;
+	const [favarite, setFavorite] = useState(card.main);
 	return (
-		<div className="personal-account-payments_bank-card">
+		<div
+			className={
+				"personal-account-payments_bank-card " + (card.main ? "main " : "")
+			}>
 			<div className="personal-account-payments_bank-card_header mb-px-10">
-				<h1>Название карты</h1>
+				<h1>{card.name.length > 0 ? card.name : "Название карты"}</h1>
 				<div className="d-flex align-items-center">
 					<PaymentCardEdit />
-					<PaymentCardMainButton className="ms-px-10" />
+					<PaymentCardMainButton
+						active={favarite}
+						setActive={setFavorite}
+						className="ms-px-10"
+					/>
 				</div>
 			</div>
 			<p className="personal-account-payments_bank-card_number">
-				0000 0000 0000 0000
+				{card.number}
 			</p>
 		</div>
 	);
