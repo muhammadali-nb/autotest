@@ -29,6 +29,7 @@ import PersonalAccountLeasingPage from "../components/pages/PersonalAccountLeasi
 import TransactionsPage from "../components/pages/Transactions/TransactionsPage";
 import FinesPage from "../components/pages/Fines/FinesPage";
 import { PaymentsPage } from "../components/pages/Payments/PaymentsPage";
+import SubscriptionsPage from "../components/pages/Subscriptions/SubscriptionsPage";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -66,6 +67,7 @@ export const router = createBrowserRouter(
 			<Route path="personal-account/payment" element={<PaymentsPage />} />
 			<Route path="personal-account/transactions" element={<TransactionsPage />} />
 			<Route path="personal-account/fines" element={<FinesPage />} />
+			<Route path="personal-account/subscriptions" element={<SubscriptionsPage />} />
 			<Route path={"offer"} element={<OfferPage />} />
 			<Route path={"*"} element={<NotExistsPage />} />
 		</Route>

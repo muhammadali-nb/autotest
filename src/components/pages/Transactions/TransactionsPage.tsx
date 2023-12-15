@@ -6,6 +6,7 @@ import PersonalAccountTransactionsLayout from "../../layout/PersonalAccountLayou
 
 import logo from "../../../images/logo.png";
 import { useEffect, useState } from "react";
+import { accountsProps } from "../PersonalAccount/PersonalAccountBalance/PersonalAccountBalance";
 
 export interface detailTransactionProps {
     id: string,
@@ -33,7 +34,7 @@ export interface carsProps {
     amount: number
 }
 
-export interface dedauctionsProps {
+export interface deductionsProps {
     id: string,
     name: string,
     total: number,
@@ -46,8 +47,9 @@ export interface transactionsDataProps {
     totalOutcome: number,
     totalTransactions: number,
     cars: carsProps[],
-    deductions: dedauctionsProps[],
-    transactions: transactionsProps[]
+    deductions: deductionsProps[],
+    transactions: transactionsProps[],
+    balance?: accountsProps[]
 }
 
 const transactionsData: transactionsDataProps = {
