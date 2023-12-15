@@ -136,24 +136,20 @@ export const FooterContacts = () => {
 						<div className="footer-contacts-blocks">
 							<FooterContactsBlock theme="dark" image={geoImage} text={"Адрес"}>
 								{lines.map((i, index) => (
-									<div key={index} className={"mb-px-10 line-height-120"}>
+									<div key={index} className={" line-height-120"}>
 										{i}
 									</div>
 								))}
-								{/* Санкт-Петербург <br />
-							Торфяная дорога 7Ф <br />
-							БЦ «Гулливер» 2 оф. 104 <br /> */}
 							</FooterContactsBlock>
 							<FooterContactsBlock
 								theme="dark"
 								image={clockImage}
 								text={"Время работы"}>
 								{lines2.map((i, index) => (
-									<div key={index} className={"mb-px-10 line-height-120"}>
+									<div key={index} className={" line-height-120"}>
 										{i}
 									</div>
 								))}
-								{/* пн-вс: с 10.00 - 19.00 */}
 							</FooterContactsBlock>
 							<FooterContactsBlock
 								theme="dark"
@@ -165,45 +161,49 @@ export const FooterContacts = () => {
 									}>
 									{process.env.REACT_APP_PHONE}
 								</a>
-								{/* +7 (812) 317-68-15 */}
 							</FooterContactsBlock>
 						</div>
-						<div className={"footer-contacts-links d-none d-lg-flex"}>
-							<FooterLink
-								img={vkW}
-								hover={vkB}
-								link={process.env.REACT_APP_VK_LINK ?? "/"}
-							/>
-							<FooterLink
-								img={wappW}
-								hover={wappB}
-								link={process.env.REACT_APP_WAPP_LINK ?? "/"}
-							/>
-							<FooterLink
-								img={teleW}
-								hover={teleB}
-								link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
-							/>
-						</div>
-						<div className={"footer-contacts-links d-flex d-lg-none"}>
-							<FooterLink
-								img={vkMb}
-								// hover={vkB}
-								link={process.env.REACT_APP_VK_LINK ?? "/"}
-							/>
-							<FooterLink
-								img={whMb}
-								// hover={wappB}
-								link={process.env.REACT_APP_WAPP_LINK ?? "/"}
-							/>
-							<FooterLink
-								img={telegramMb}
-								// hover={teleB}
-								link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
-							/>
-						</div>
 
-						<FooterBottom />
+						<div className="d-none d-md-block">
+							<div className={"footer-contacts-links"}>
+								<FooterLink
+									img={vkW}
+									hover={vkB}
+									link={process.env.REACT_APP_VK_LINK ?? "/"}
+								/>
+								<FooterLink
+									img={wappW}
+									hover={wappB}
+									link={process.env.REACT_APP_WAPP_LINK ?? "/"}
+								/>
+								<FooterLink
+									img={teleW}
+									hover={teleB}
+									link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
+								/>
+							</div>
+							<FooterBottom />
+						</div>
+						<div className="d-flex d-md-none align-items-end flex-row-reverse">
+							<div className={"footer-contacts-links"}>
+								<FooterLink
+									img={vkMb}
+									// hover={vkB}
+									link={process.env.REACT_APP_VK_LINK ?? "/"}
+								/>
+								<FooterLink
+									img={whMb}
+									// hover={wappB}
+									link={process.env.REACT_APP_WAPP_LINK ?? "/"}
+								/>
+								<FooterLink
+									img={telegramMb}
+									// hover={teleB}
+									link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
+								/>
+							</div>
+							<FooterBottom />
+						</div>
 					</Col>
 				</Row>
 			</Container>
