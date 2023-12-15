@@ -55,7 +55,7 @@ const defaultLinks = [
 		id: 6,
 		className: "",
 	},
-	{ text: "Подписки", path: "/", className: "", icon: smile, id: 7 },
+	{ text: "Подписки", path: "/personal-account/subscriptions", className: "", icon: smile, id: 7 },
 ];
 
 const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
