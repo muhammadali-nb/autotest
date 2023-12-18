@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 interface IProps {
 	type: "header" | "row";
 	className?: string;
 }
 export const PersonalAccountLeasingMaintenanceRow = (props: IProps) => {
 	const { type, className } = props;
+	
 	if (type === "header") {
 		return (
 			<div

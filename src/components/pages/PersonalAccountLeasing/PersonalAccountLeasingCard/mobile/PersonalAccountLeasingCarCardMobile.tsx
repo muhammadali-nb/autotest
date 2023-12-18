@@ -30,7 +30,7 @@ const PersonalAccountLeasingCarCardMobileStatus = () => {
 	);
 };
 
-const PersonalAccountLeasingCarCardMobileInfo = (props: IProps) => {
+const PersonalAccountLeasingCarCardMobile = (props: IProps) => {
 	const { className } = props;
 	const [maintenanceModal, setMaintenanceModal] = useState(false);
 	const [paymentsModal, setPaymentsModal] = useState(false);
@@ -111,4 +111,4 @@ const PersonalAccountLeasingCarCardMobileInfo = (props: IProps) => {
 	);
 };
 
-export default PersonalAccountLeasingCarCardMobileInfo;
+export default PersonalAccountLeasingCarCardMobile;

@@ -4,7 +4,7 @@ const PersonalAccountLeasingCarCardInfo = (props) => {
 	return (
 		<div className="personal-account-leasing-car_card-info">
 			<div className="personal-account-leasing-car_card-info_image">
-				<img src={carImage} alt={""} />
+				<img src={carImage} alt={"car name"} />
 			</div>
 			<div>
 				<p className="personal-account-leasing-car_card-info_date">
