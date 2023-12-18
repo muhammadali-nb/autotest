@@ -89,7 +89,7 @@
 
             &.deposit {
                 color: #737d89;
-                pointer-events: none;
+                // pointer-events: none;
 
                 span {
                     opacity: 0.5;
@@ -98,6 +98,14 @@
 
             &.additional {
                 align-items: baseline;
+
+                span {
+                    &:nth-child(1) {
+                        span {
+                            color: #606569;
+                        }
+                    }
+                }
             }
 
             img {
@@ -332,6 +340,7 @@
         flex-direction: column;
         align-items: flex-start;
         margin-right: 20px;
+        max-width: 60%;
 
         div {
             &:nth-child(1) {

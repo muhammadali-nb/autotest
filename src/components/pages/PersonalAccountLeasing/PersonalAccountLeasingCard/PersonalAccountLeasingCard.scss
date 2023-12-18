@@ -14,6 +14,10 @@
           display: grid;
           grid-template-columns: repeat(2, 1fr);
 
+          @media (max-width: 1350px) {
+            grid-template-columns: 1fr; // for pad
+          }
+
           & > div:first-child {
             border-right: 2px solid #e7e7e8;
           }
@@ -101,6 +105,10 @@
       min-width: 310px;
       border-radius: 4px;
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+
+      @include l-xl {
+        max-width: 248px;
+      }
 
       &-table {
         &_body {
@@ -224,6 +232,14 @@
       align-items: center;
       padding: 30px 40px;
 
+      &_deal {
+        padding: 20px;
+        border-radius: 2px;
+        background: var(--Default-White, #fff);
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        width: 100%;
+      }
+
       @include l-xxl {
         width: 700px;
       }
@@ -264,6 +280,10 @@
 
       &_number {
         margin: 10px 0 30px 0;
+
+        @include l-xl {
+          margin: 10px 0;
+        }
       }
 
       &_brand {
@@ -287,6 +307,10 @@
         letter-spacing: 0.18px;
         text-transform: uppercase;
         margin: 0 0 30px 0;
+
+        @include l-xl {
+          margin: 0 0 25px 0;
+        }
       }
 
       &_price {
@@ -318,6 +342,10 @@
 
       &_kasko {
         margin: 30px 0 10px 0 !important;
+
+        @include l-xl {
+          margin: 0 0 10px 0 !important;
+        }
       }
     }
     &-payment {
@@ -370,14 +398,30 @@
         display: flex;
         margin: 15px 0 0 0;
 
+        @include l-xl {
+          margin: 0;
+          padding: 20px;
+          box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          min-width: 400px;
+        }
+
         &_body {
           margin: 0 0 0 15px;
+
+          @include l-xl {
+            margin: 0;
+          }
           & > h4 {
             color: var(--Text, #222);
             font-family: Inter;
             font-size: 24px;
             font-weight: 600;
             margin: 0 0 15px 0;
+
+            @include l-xl {
+              font-size: 20px;
+            }
           }
           & > p {
             color: var(--Grey-1, #606569);
@@ -385,6 +429,13 @@
             font-size: 16px;
             font-weight: 500;
             margin: 0 0 40px 0;
+
+            @include l-xl {
+              margin: 0 0 25px 0;
+              color: var(--Text, #222);
+              font-size: 14px;
+              font-weight: 500;
+            }
           }
 
           & > span {
