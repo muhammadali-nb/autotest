@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import Utils from "../../../../utils/Utils";
 import { detailTransactionProps, transactionsProps } from "../../../pages/Transactions/TransactionsPage";
+import depositIcon from "../../../../images/personal-account/balance/deposit.svg";
+import logo from "../../../../images/personal-account/balance/logo.svg";
+import yandexIcon from "../../../../images/personal-account/balance/yandex.png";
+import cityIcon from "../../../../images/personal-account/balance/city.png";
+import { useEffect, useRef, useState } from "react";
 
 const TransactionsDayItem: React.FC<{
     date: string,
@@ -42,6 +47,22 @@ const TransactionsDayItem: React.FC<{
         }
     }
 
+    const getIcon = (type: string) => {
+        switch (type) {
+            case "deposit": return depositIcon;
+            case "inside": return logo;
+            case "yandex": return yandexIcon;
+            case "citymobil": return cityIcon;
+            default: return;
+        }
+    }
+
+    const getDate = (date: string) => {
+        const newDate = new Date(date);
+
+        return `${newDate.getDate()}.${newDate.getMonth() + 1}.${newDate.getFullYear()}`
+    }
+
     return (
         <li className="personal-account_transactions-day">
             <div className="personal-account_transactions-date">
@@ -52,12 +73,12 @@ const TransactionsDayItem: React.FC<{
                     <li key={item.id}>
                         <div className={"personal-account_transactions-icons " + (item.type === "transaction" ? "transaction" : "")}>
                             {item.icons.map(icon =>
-                                <img src={icon.url} alt={icon.url} />
+                                <img src={getIcon(icon)} alt={icon} />
                             )}
                         </div>
                         <div className="personal-account_transactions-time">
                             <div>
-                                {date}
+                                {getDate(date)}
                             </div>
                             <div>
                                 {item.time}
@@ -82,7 +103,7 @@ const TransactionsDayItem: React.FC<{
                         </div>
                         <div className="personal-account_transactions-amount">
                             <div>
-                                {item.type === "income" && "+"}{item.type === "outcome" && "-"} {Utils.formatNumber(item.amount)} ₽
+                                {item.type === "income" && "+"}{item.type === "outcome" && "-"}&nbsp;{Utils.formatNumber(item.amount)}&nbsp;₽
                             </div>
                             <div>
                                 {item.time}
@@ -96,16 +117,49 @@ const TransactionsDayItem: React.FC<{
 }
 
 const TransactionsList: React.FC<{
-    data: transactionsProps[]
+    data: transactionsProps[],
+    page: number,
+    setPage: () => void,
+    totalPages: number
 }> = (props) => {
-    const { data } = props;
+    const { data, page, setPage, totalPages } = props;
+    const [transactions, setTransactions] = useState<transactionsProps[]>([]);
+
+    const bottomOfList = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        setTransactions(prev => prev.concat(...data));
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && page < 2) {
+                setPage();
+            }
+        }, {
+            rootMargin: '10px'
+        });
+
+        if (bottomOfList.current) {
+            observer.observe(bottomOfList.current);
+        }
+
+        return () => {
+            if (bottomOfList.current) {
+                observer.unobserve(bottomOfList.current);
+            }
+        }
+    }, [data, bottomOfList]);
 
     return (
-        <ul className="personal-account_transactions-list">
-            {data && data.map(item =>
-                <TransactionsDayItem date={item.date} key={item.id} items={item.transactions} />
-            )}
-        </ul>
+        <>
+            <ul className="personal-account_transactions-list">
+                {transactions && transactions.map(item =>
+                    <TransactionsDayItem date={item.date} key={item.id} items={item.transactions} />
+                )}
+            </ul>
+            {(page < totalPages) &&
+                <div ref={bottomOfList}></div>
+            }
+        </>
     )
 }
 
