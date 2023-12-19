@@ -11,6 +11,10 @@
     padding: 25px 20px;
     height: fit-content;
 
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+
     &.tg {
       border-radius: 4px;
       text-decoration: none;

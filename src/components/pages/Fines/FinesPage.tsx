@@ -83,7 +83,7 @@ const FinesPage: React.FC = () => {
 
     useEffect(() => {
         const checkSize = () => {
-            if (window.innerWidth > 767) {
+            if (window.innerWidth > 1024) {
                 setSize("desk");
             } else {
                 setSize("mobile");
@@ -101,7 +101,7 @@ const FinesPage: React.FC = () => {
     return (
         <PersonalAccountFinesLayout>
             {size === "desk" ?
-                <div className="d-none d-md-block">
+                <div>
                     <PersonalAccountHeader>
                         <h1 className="personal-account-header_title">Штрафы</h1>
                         <PersonalAccountBalance />
@@ -112,7 +112,7 @@ const FinesPage: React.FC = () => {
                     </div>
                 </div>
                 :
-                <div className="d-block d-md-none">
+                <div>
                     <PersonalAccountHeaderMobile>
                         <h2>Штрафы</h2>
                         <h2></h2>

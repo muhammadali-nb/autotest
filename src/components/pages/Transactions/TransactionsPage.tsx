@@ -87,7 +87,7 @@ const TransactionsPage: React.FC = () => {
 
     useEffect(() => {
         const checkSize = () => {
-            if (window.innerWidth > 767) {
+            if (window.innerWidth > 1024) {
                 setSize("desk");
             } else {
                 setSize("mobile");
@@ -105,7 +105,7 @@ const TransactionsPage: React.FC = () => {
     return (
         <PersonalAccountTransactionsLayout>
             {size === "desk" ?
-                <div className="d-none d-md-block">
+                <div>
                     <PersonalAccountHeader>
                         <h1 className="personal-account-header_title">транзакции</h1>
                     </PersonalAccountHeader>
@@ -123,7 +123,7 @@ const TransactionsPage: React.FC = () => {
                     }
                 </div>
                 :
-                <div className="d-block d-md-none">
+                <div>
                     <PersonalAccountHeaderMobile>
                         <h2>Транзакции</h2>
                         <h2></h2>

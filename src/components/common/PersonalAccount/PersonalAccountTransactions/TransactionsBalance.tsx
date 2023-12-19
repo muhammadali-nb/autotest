@@ -74,7 +74,7 @@ const TransactionsBalance: React.FC<{
 
     useEffect(() => {
         const checkSize = () => {
-            if (window.innerWidth > 767) {
+            if (window.innerWidth > 1024) {
                 setSize("desk");
             } else {
                 setSize("mobile");
