@@ -33,7 +33,7 @@ const IndexLogo: React.FC<{ bgNoCar?: boolean }> = (
 				<Container className={"h-100"}>
 					<div className={"d-flex flex-column justify-content-between h-100"}>
 						<Row className={"g-3 flex-grow-1"}>
-							<Col sm={12} md={8} lg={5} id={"logo-text"}>
+							<Col sm={12} md={8} lg={5} className="m-md-0" id={"logo-text"}>
 								<div
 									className={
 										" index__logo-header anim-enter-top-3 line-height-120"

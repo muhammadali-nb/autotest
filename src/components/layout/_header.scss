@@ -232,7 +232,8 @@ $selectedColor: #bf3535;
       border: 0;
       align-items: center;
 
-      img, svg {
+      img,
+      svg {
         margin-right: 10px;
         pointer-events: none;
         max-width: 16px;
