@@ -1,4 +1,4 @@
-import { balanceProps } from "../PersonalAccountBalance/BalanceMobile";
+// import { balanceProps } from "../PersonalAccountBalance/BalanceMobile";
 import logo from "../../../../images/personal-account/balance/logo.svg";
 import depositIcon from "../../../../images/personal-account/balance/deposit.svg";
 import yandexIcon from "../../../../images/personal-account/balance/yandex.png";
@@ -9,23 +9,7 @@ import transaction from "../../../../images/personal-account/transactions/transa
 import "./PersonalAccountTransactions.scss";
 import Utils from "../../../../utils/Utils";
 import { useEffect, useState } from "react";
-import { carsProps, deductionsProps } from "../../../pages/Transactions/TransactionsPage";
-
-// const balanceData: balanceProps = {
-//     total: 9900,
-//     accounts: [
-//         {
-//             name: 'Внутренний',
-//             icon: logo,
-//             balance: 4000
-//         },
-//         {
-//             name: "Депозит",
-//             icon: deposit,
-//             balance: 7000
-//         }
-//     ]
-// };
+import { transactionsDataProps } from "../../../pages/Transactions/TransactionsPage";
 
 const MobileFilter: React.FC<{
     title: string,
@@ -53,9 +37,7 @@ const MobileFilter: React.FC<{
 }
 
 const TransactionsBalance: React.FC<{
-    totalIncome: number,
-    totalOutcome: number,
-    totalTransactions: number,
+    data: transactionsDataProps,
     filters: {
         balance: string[],
         operation: string[],
@@ -63,11 +45,8 @@ const TransactionsBalance: React.FC<{
         deduction: string[]
     }
     updateFilters: (field: string, value: string) => void,
-    balance: balanceProps,
-    cars: carsProps[],
-    deductions: deductionsProps[]
 }> = (props) => {
-    const { totalIncome, totalOutcome, totalTransactions, filters, updateFilters, balance, cars, deductions } = props;
+    const { data, filters, updateFilters } = props;
 
     const [size, setSize] = useState("desk");
     const [mobFilterOpened, setMobFilterOpened] = useState(false);
@@ -105,15 +84,15 @@ const TransactionsBalance: React.FC<{
                 <div className="personal-account_transactions-title font-size-20 font-weight-semibold">
                     Баланс
                     <span>
-                        {Utils.formatNumber(balance.total)} ₽
+                        {Utils.formatNumber(data.balance.total)} ₽
                     </span>
                 </div>
                 <ul className="personal-account_transactions-balanceList">
-                    {balance.accounts.map((item, index) =>
+                    {data.balance.accounts.map((item, index) =>
                         <li
                             key={item.name}
-                            className={"personal-account_transactions-balanceItem " + (item.name === "Депозит" ? "deposit " : " ") + (filters['balance'].find(filter => filter === item.name) ? "active" : "")}
-                            onClick={() => updateFilters('balance', item.name)}
+                            className={"personal-account_transactions-balanceItem " + (item.name === "Депозит" ? "deposit " : " ") + (filters['balance'].find(filter => filter === item.icon) ? "active" : "")}
+                            onClick={() => updateFilters('balance', item.icon)}
                         >
                             <img src={getIcon(item.icon)} alt={item.icon} />
                             <span>
@@ -133,42 +112,42 @@ const TransactionsBalance: React.FC<{
                             Категории
                         </div>
                         <ul className="personal-account_transactions-balanceList">
-                            <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Приход") ? "active" : "")} onClick={() => updateFilters('operation', 'Приход')}>
+                            <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "income") ? "active" : "")} onClick={() => updateFilters('operation', 'income')}>
                                 <img src={income} alt="Приход" />
                                 <span>
                                     Приход
                                 </span>
                                 <span>
-                                    {Utils.formatNumber(totalIncome)} ₽
+                                    {Utils.formatNumber(data.totalIncome)} ₽
                                 </span>
                             </li>
-                            <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Расход") ? "active" : "")} onClick={() => updateFilters('operation', 'Расход')}>
+                            <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "outcome") ? "active" : "")} onClick={() => updateFilters('operation', 'outcome')}>
                                 <img src={outcome} alt="Расход" />
                                 <span>
                                     Расход
                                 </span>
                                 <span>
-                                    {Utils.formatNumber(totalOutcome)} ₽
+                                    {Utils.formatNumber(data.totalOutcome)} ₽
                                 </span>
                             </li>
-                            <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Перевод") ? "active" : "")} onClick={() => updateFilters('operation', 'Перевод')}>
+                            <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "transaction") ? "active" : "")} onClick={() => updateFilters('operation', 'transaction')}>
                                 <img src={transaction} alt="Перевод" />
                                 <span>
                                     Перевод
                                 </span>
                                 <span>
-                                    {Utils.formatNumber(totalTransactions)} ₽
+                                    {Utils.formatNumber(data.totalTransactions)} ₽
                                 </span>
                             </li>
                         </ul>
                     </div>
-                    {cars.length &&
+                    {data.cars.length &&
                         <div className="personal-account_transactions-balance">
                             <div className="personal-account_transactions-title font-size-20 font-weight-semibold">
                                 Автомобили
                             </div>
                             <ul className="personal-account_transactions-balanceList">
-                                {cars.map(car =>
+                                {data.cars.map(car =>
                                     <li key={car.id} className={"personal-account_transactions-balanceItem additional " + (filters['car'].find(filter => filter === car.id) ? "active" : "")} onClick={() => updateFilters('car', car.id)}>
                                         <span>
                                             {car.model} <br />
@@ -184,13 +163,13 @@ const TransactionsBalance: React.FC<{
                             </ul>
                         </div>
                     }
-                    {deductions.length &&
+                    {data.deductions.length &&
                         <div className="personal-account_transactions-balance">
                             <div className="personal-account_transactions-title font-size-20 font-weight-semibold">
                                 Списания
                             </div>
                             <ul className="personal-account_transactions-balanceList">
-                                {deductions.map(item =>
+                                {data.deductions.map(item =>
                                     <li key={item.id} className={"personal-account_transactions-balanceItem additional " + (filters['deduction'].find(filter => filter === item.id) ? "active" : "")} onClick={() => updateFilters('deduction', item.id)}>
                                         <span>
                                             {item.name} <br />
@@ -218,37 +197,37 @@ const TransactionsBalance: React.FC<{
                     {mobFilterOpened &&
                         <>
                             <MobileFilter title={"Операции"}>
-                                <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Приход") ? "active" : "")} onClick={() => updateFilters('operation', 'Приход')}>
+                                <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "income") ? "active" : "")} onClick={() => updateFilters('operation', 'income')}>
                                     <img src={income} alt="Приход" />
                                     <span>
                                         Приход
                                     </span>
                                     <span>
-                                        {Utils.formatNumber(totalIncome)} ₽
+                                        {Utils.formatNumber(data.totalIncome)} ₽
                                     </span>
                                 </li>
-                                <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Расход") ? "active" : "")} onClick={() => updateFilters('operation', 'Расход')}>
+                                <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "outcome") ? "active" : "")} onClick={() => updateFilters('operation', 'outcome')}>
                                     <img src={outcome} alt="Расход" />
                                     <span>
                                         Расход
                                     </span>
                                     <span>
-                                        {Utils.formatNumber(totalOutcome)} ₽
+                                        {Utils.formatNumber(data.totalOutcome)} ₽
                                     </span>
                                 </li>
-                                <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "Перевод") ? "active" : "")} onClick={() => updateFilters('operation', 'Перевод')}>
+                                <li className={"personal-account_transactions-balanceItem " + (filters['operation'].find(filter => filter === "transaction") ? "active" : "")} onClick={() => updateFilters('operation', 'transaction')}>
                                     <img src={transaction} alt="Перевод" />
                                     <span>
                                         Перевод
                                     </span>
                                     <span>
-                                        {Utils.formatNumber(totalTransactions)} ₽
+                                        {Utils.formatNumber(data.totalTransactions)} ₽
                                     </span>
                                 </li>
                             </MobileFilter>
-                            {cars.length &&
+                            {data.cars.length &&
                                 <MobileFilter title={"Автомобили"}>
-                                    {cars.map(car =>
+                                    {data.cars.map(car =>
                                         <li key={car.id} className={"personal-account_transactions-balanceItem additional " + (filters['car'].find(filter => filter === car.id) ? "active" : "")} onClick={() => updateFilters('car', car.id)}>
                                             <span>
                                                 {car.model} <br />
@@ -263,9 +242,9 @@ const TransactionsBalance: React.FC<{
                                     )}
                                 </MobileFilter>
                             }
-                            {deductions.length &&
+                            {data.deductions.length &&
                                 <MobileFilter title={"Списания"}>
-                                    {deductions.map(item =>
+                                    {data.deductions.map(item =>
                                         <li key={item.id} className={"personal-account_transactions-balanceItem additional " + (filters['deduction'].find(filter => filter === item.id) ? "active" : "")} onClick={() => updateFilters('deduction', item.id)}>
                                             <span>
                                                 {item.name} <br />
@@ -284,7 +263,6 @@ const TransactionsBalance: React.FC<{
                     }
                 </div>
             }
-
         </>
     )
 }

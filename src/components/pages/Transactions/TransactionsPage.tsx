@@ -6,9 +6,10 @@ import PersonalAccountTransactionsLayout from "../../layout/PersonalAccountLayou
 
 import logo from "../../../images/logo.png";
 import { useEffect, useState } from "react";
-import { accountsProps } from "../PersonalAccount/PersonalAccountBalance/PersonalAccountBalance";
+import { accountsProps, balanceProps } from "../PersonalAccount/PersonalAccountBalance/PersonalAccountBalance";
 import { useQuery } from "@tanstack/react-query";
 import transactionsService from "../../../api-functions/transactions-page/transactions-service";
+import Loader from "../../common/Loader";
 
 export interface detailTransactionProps {
     id: string,
@@ -50,8 +51,8 @@ export interface transactionsDataProps {
     totalTransactions: number,
     cars: carsProps[],
     deductions: deductionsProps[],
-    transactions: transactionsProps[],
-    balance?: accountsProps[]
+    transactions?: transactionsProps[],
+    balance: balanceProps
 }
 
 const TransactionsPage: React.FC = () => {
@@ -63,9 +64,22 @@ const TransactionsPage: React.FC = () => {
         deduction: []
     });
     const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [transactions, setTransactions] = useState<transactionsProps[]>([]);
+    const [balanceData, setBalanceData] = useState<transactionsDataProps>({
+        totalIncome: 0,
+        totalOutcome: 0,
+        totalTransactions: 0,
+        cars: [],
+        deductions: [],
+        balance: {
+            total: 0,
+            accounts: []
+        }
+    });
 
     const { data, isLoading } = useQuery({
-        queryKey: ["transactions"],
+        queryKey: ["transactions", page, filters],
         queryFn: () => transactionsService.getTransactions(page, filters)
     });
 
@@ -82,8 +96,30 @@ const TransactionsPage: React.FC = () => {
         }
 
         const newFilters = { ...filters, [field]: newArray };
+        setPage(1);
+        setTransactions([]);
         setFilters(newFilters);
     }
+
+    useEffect(() => {
+        if (!data) return;
+        if (transactions !== data.transactions && !isLoading) {
+            setTransactions(prev => prev.concat(...data.transactions));
+        }
+
+        setBalanceData({
+            totalIncome: data.totalIncome,
+            totalOutcome: data.totalOutcome,
+            totalTransactions: data.totalTransactions,
+            cars: data.cars,
+            deductions: data.deductions,
+            balance: data.balance
+        });
+
+        if (totalPages !== data.pages) {
+            setTotalPages(data.pages);
+        }
+    }, [data]);
 
     useEffect(() => {
         const checkSize = () => {
@@ -109,18 +145,16 @@ const TransactionsPage: React.FC = () => {
                     <PersonalAccountHeader>
                         <h1 className="personal-account-header_title">транзакции</h1>
                     </PersonalAccountHeader>
-                    {!isLoading &&
-                        <div className="personal-account_transactions">
-                            <div className="personal-account_transactions-items">
-                                <div className="personal-account_transactions-item">
-                                    <TransactionsBalance totalIncome={data.totalIncome} totalOutcome={data.totalOutcome} totalTransactions={data.totalTransactions} filters={filters} updateFilters={updateFilters} balance={data.balance} cars={data.cars} deductions={data.deductions} />
-                                </div>
-                                <div className="personal-account_transactions-item">
-                                    <TransactionsList data={data.transactions} page={page} setPage={() => setPage(prev => prev + 1)} totalPages={data.pages} />
-                                </div>
+                    <div className="personal-account_transactions">
+                        <div className="personal-account_transactions-items">
+                            <div className="personal-account_transactions-item">
+                                <TransactionsBalance data={balanceData} filters={filters} updateFilters={updateFilters} />
+                            </div>
+                            <div className="personal-account_transactions-item">
+                                <TransactionsList data={transactions} page={page} setPage={() => setPage(prev => prev + 1)} totalPages={totalPages} isLoading={isLoading} />
                             </div>
                         </div>
-                    }
+                    </div>
                 </div>
                 :
                 <div>
@@ -129,16 +163,14 @@ const TransactionsPage: React.FC = () => {
                         <h2></h2>
                     </PersonalAccountHeaderMobile>
                     <div className="personal-account_transactions">
-                        {!isLoading &&
-                            <div className="personal-account_transactions-items">
-                                <div className="personal-account_transactions-item">
-                                    <TransactionsBalance totalIncome={data.totalIncome} totalOutcome={data.totalOutcome} totalTransactions={data.totalTransactions} filters={filters} updateFilters={updateFilters} balance={data.balance} cars={data.cars} deductions={data.deductions} />
-                                </div>
-                                <div className="personal-account_transactions-item">
-                                    <TransactionsList data={data.transactions} page={page} setPage={() => setPage(prev => prev + 1)} totalPages={data.pages} />
-                                </div>
+                        <div className="personal-account_transactions-items">
+                            <div className="personal-account_transactions-item">
+                                <TransactionsBalance data={balanceData} filters={filters} updateFilters={updateFilters} />
                             </div>
-                        }
+                            <div className="personal-account_transactions-item">
+                                <TransactionsList data={transactions} page={page} setPage={() => setPage(prev => prev + 1)} totalPages={totalPages} isLoading={isLoading} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             }

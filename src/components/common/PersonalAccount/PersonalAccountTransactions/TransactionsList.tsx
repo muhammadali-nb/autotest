@@ -6,6 +6,7 @@ import logo from "../../../../images/personal-account/balance/logo.svg";
 import yandexIcon from "../../../../images/personal-account/balance/yandex.png";
 import cityIcon from "../../../../images/personal-account/balance/city.png";
 import { useEffect, useRef, useState } from "react";
+import Loader from "../../Loader";
 
 const TransactionsDayItem: React.FC<{
     date: string,
@@ -120,22 +121,20 @@ const TransactionsList: React.FC<{
     data: transactionsProps[],
     page: number,
     setPage: () => void,
-    totalPages: number
+    totalPages: number,
+    isLoading: boolean
 }> = (props) => {
-    const { data, page, setPage, totalPages } = props;
-    const [transactions, setTransactions] = useState<transactionsProps[]>([]);
+    const { data, page, setPage, totalPages, isLoading } = props;
 
     const bottomOfList = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        setTransactions(prev => prev.concat(...data));
-
         const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && page < 2) {
+            if (entries[0].isIntersecting && page >= 1 && !isLoading) {
                 setPage();
             }
         }, {
-            rootMargin: '10px'
+            rootMargin: '0px'
         });
 
         if (bottomOfList.current) {
@@ -147,17 +146,31 @@ const TransactionsList: React.FC<{
                 observer.unobserve(bottomOfList.current);
             }
         }
-    }, [data, bottomOfList]);
+    }, [page, bottomOfList, isLoading]);
 
     return (
         <>
-            <ul className="personal-account_transactions-list">
-                {transactions && transactions.map(item =>
-                    <TransactionsDayItem date={item.date} key={item.id} items={item.transactions} />
-                )}
-            </ul>
+            {data.length > 0 ?
+                <ul className="personal-account_transactions-list">
+                    {data && data.map((item, index) =>
+                        <TransactionsDayItem date={item.date} key={index} items={item.transactions} />
+                    )}
+                </ul>
+                :
+                <>
+                    {!isLoading &&
+                        <h2>
+                            Ничего не найдено
+                        </h2>
+                    }
+                </>
+            }
+
             {(page < totalPages) &&
                 <div ref={bottomOfList}></div>
+            }
+            {isLoading &&
+                <Loader />
             }
         </>
     )
