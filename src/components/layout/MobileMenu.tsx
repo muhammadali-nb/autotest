@@ -56,7 +56,7 @@ const MobileMenu = (props: MobileMenuProps) => {
 	};
 
 	return (
-		<div className={`mobile-menu ${menuIsOpen ? "active" : ""} `}>
+		<div className={`mobile-menu  ${menuIsOpen ? "active" : ""} `}>
 			<div
 				ref={menuRef}
 				className={`mobile-menu_container ${menuIsOpen ? "active" : ""} `}>
@@ -72,7 +72,6 @@ const MobileMenu = (props: MobileMenuProps) => {
 
 						<div onClick={() => setMenuIsOpen(false)}>
 							<img src={arrow} alt="" />
-							{/* <ReactSVG src={arrow} color="#222" fill="#222" /> */}
 						</div>
 						<HeaderLogoImage image={"light"} width={"100px"} height={"24px"} />
 					</div>
@@ -112,8 +111,8 @@ const MobileMenu = (props: MobileMenuProps) => {
 						<div className="mobile-menu_user mt-4 d-flex flex-column">
 							<span
 								className="mb-1 fw-medium font-size-16"
-//								onClick={() => navigate("/personal-account")}
-								>
+								//								onClick={() => navigate("/personal-account")}
+							>
 								{last_name + " " + first_name}
 							</span>
 							{phone && (
@@ -147,7 +146,7 @@ const MobileMenu = (props: MobileMenuProps) => {
 							</button>
 						</div>
 					)}
-					</div>
+				</div>
 			</div>
 		</div>
 	);

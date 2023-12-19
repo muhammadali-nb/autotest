@@ -11,6 +11,10 @@
     padding-top: unset;
   }
 
+  @include l-md {
+    background-position: 30%;
+  }
+
   .index__logo-overlay {
     position: absolute;
     width: 100%;
@@ -20,7 +24,7 @@
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.24) 92.52%);
 
     @include l-md {
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.75);
     }
 
     z-index: 20;
@@ -100,7 +104,7 @@
   }
 
   @include l-md {
-    padding-top: 120px;
+    padding-top: 105px;
     padding-bottom: 40px;
   }
 
@@ -375,8 +379,11 @@
   @include l-sm {
     height: 48.5%;
     clip-path: polygon(0 0, 100% 0, 100% 95%, 0% 100%);
-
-    background: rgba(0, 0, 0, 0.8) url("./../../../images/index/about_bg.webp");
+    background-position: 25% 0% !important;
+    background:
+      // rgba(0, 0, 0, 0.8)
+       linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+      url("./../../../images/index/logo-bg.jpg");
   }
 }
 

@@ -52,7 +52,8 @@ const IndexBadges = () => {
 				image={badge1}
 				header={"просто"}
 				id={"index__badge1"}>
-				Не требуется одобрение на автокредит <br /> или потребительский кредит в банке
+				Не требуется одобрение на автокредит <br /> или потребительский кредит в
+				банке
 			</IndexAboutBadge>
 			<IndexAboutBadge
 				index={2}
@@ -90,6 +91,7 @@ const IndexLabel: React.FC<{ big: string; small: string }> = (props) => {
 const IndexAboutContent = () => {
 	return (
 		<Container fluid={"xxl"} style={{ position: "relative", zIndex: 40 }}>
+			<div className={"index__logo-overlay"}></div>
 			<Row>
 				<Col sm={12} lg={6}>
 					<div className={"index__about-header"}>О&nbsp;компании</div>
