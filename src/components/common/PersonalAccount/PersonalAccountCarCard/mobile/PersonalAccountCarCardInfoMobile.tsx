@@ -1,5 +1,4 @@
 import React from "react";
-import CarImage from "../../../../../images/index/car.webp";
 import { RentHistoryDataCarType } from "../../../../../types/PersonalAccount/RentHistoryTypes";
 const PersonalAccountCarCardInfoMobile = ({
 	car,

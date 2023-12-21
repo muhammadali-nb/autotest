@@ -2,8 +2,13 @@ import React from "react";
 
 import successImage from "../../../../../images/personal-account/rent-history/card_statuses/success.svg";
 import waitingImage from "../../../../../images/personal-account/rent-history/card_statuses/waiting.svg";
+import { RentHistoryDataPaymentResult } from "../../../../../types/PersonalAccount/RentHistoryTypes";
 
-const PersonalAccountCardPaymentStatusSuccessMobile = () => {
+const PersonalAccountCardPaymentStatusSuccessMobile = ({
+	status,
+}: {
+	status: RentHistoryDataPaymentResult;
+}) => {
 	return (
 		<div className="personal-account-rent-car_mobile-check_status-success">
 			<div className="personal-account-rent-car_mobile-check_result">
@@ -12,16 +17,23 @@ const PersonalAccountCardPaymentStatusSuccessMobile = () => {
 				</div>
 				<div className="personal-account-rent-car_mobile-check_result-data">
 					<h2>Оплачено</h2>
-					<h4>Следующий платеж: 00.00.0000 до 00:00</h4>
+					<h4>
+						Следующий платеж: <br /> <span>{status.next}</span>
+					</h4>
+					<p>Рекомендуем вносить платежи заранее, во избежание просрочек</p>
 				</div>
 			</div>
 		</div>
 	);
 };
-const PersonalAccountCardPaymentStatusWaitingMobile = () => {
+const PersonalAccountCardPaymentStatusWaitingMobile = ({
+	status,
+}: {
+	status: RentHistoryDataPaymentResult;
+}) => {
 	return (
 		<div className="personal-account-rent-car_mobile-check_status-waiting">
-			<button className=" site-btn personal-account-rent-car_mobile-check_btn">
+			<button className=" site-btn personal-account-rent-car_mobile-check_btn mb-px-15">
 				Оплатить сейчас
 			</button>
 			<div className="personal-account-rent-car_mobile-check_result">
@@ -33,13 +45,17 @@ const PersonalAccountCardPaymentStatusWaitingMobile = () => {
 					<h4>
 						Во избежание блокирвки автомобиля <br /> внесите платёж до:
 					</h4>
-					<p>00.00.0000 до 00:00</p>
+					<p>{status.next}</p>
 				</div>
 			</div>
 		</div>
 	);
 };
-const PersonalAccountCardPaymentStatusConfirmedMobile = () => {
+const PersonalAccountCardPaymentStatusConfirmedMobile = ({
+	status,
+}: {
+	status: RentHistoryDataPaymentResult;
+}) => {
 	return (
 		<div className="personal-account-rent-car_mobile-check_status-confirmed">
 			<div className="personal-account-rent-car_mobile-check_result">
@@ -48,7 +64,7 @@ const PersonalAccountCardPaymentStatusConfirmedMobile = () => {
 				</div>
 				<div className="personal-account-rent-car_mobile-check_result-data">
 					<h2>Оплачено</h2>
-					<h4>Следующий платеж: 00.00.0000 до 00:00</h4>
+					<h4>Следующий платеж: {status.next}</h4>
 				</div>
 			</div>
 			<button className="site-btn personal-account-rent-car_mobile-check_btn">
@@ -57,7 +73,11 @@ const PersonalAccountCardPaymentStatusConfirmedMobile = () => {
 		</div>
 	);
 };
-const PersonalAccountCardPaymentStatusPayedMobile = () => {
+const PersonalAccountCardPaymentStatusPayedMobile = ({
+	status,
+}: {
+	status: RentHistoryDataPaymentResult;
+}) => {
 	return (
 		<div className="personal-account-rent-car_mobile-check_status-payed">
 			<div className="personal-account-rent-car_mobile-check_result">
@@ -66,7 +86,7 @@ const PersonalAccountCardPaymentStatusPayedMobile = () => {
 				</div>
 				<div className="personal-account-rent-car_mobile-check_result-data">
 					<h2>Оплачено</h2>
-					<h4>Следующий платеж: 00.00.0000 до 00:00</h4>
+					<h4>Следующий платеж: {status.next}</h4>
 				</div>
 			</div>
 			<button className="site-btn personal-account-rent-car_mobile-check_btn">
@@ -76,11 +96,39 @@ const PersonalAccountCardPaymentStatusPayedMobile = () => {
 	);
 };
 const PersonalAccountCarCardPaymentMobile = () => {
+	const payment_status = {
+		status: "waiting",
+		next: "10.18.2000",
+	};
+	const renderStatus = () => {
+		if (payment_status.status === "success") {
+			return (
+				<PersonalAccountCardPaymentStatusSuccessMobile
+					status={payment_status}
+				/>
+			);
+		} else if (payment_status.status === "waiting") {
+			return (
+				<PersonalAccountCardPaymentStatusWaitingMobile
+					status={payment_status}
+				/>
+			);
+		} else if (payment_status.status === "confirmed") {
+			return (
+				<PersonalAccountCardPaymentStatusConfirmedMobile
+					status={payment_status}
+				/>
+			);
+		} else {
+			return (
+				<PersonalAccountCardPaymentStatusPayedMobile status={payment_status} />
+			);
+		}
+	};
+
 	return (
 		<div className="personal-account-rent-car_mobile-check">
-			{/* <PersonalAccountCardPaymentStatusWaitingMobile /> */}
-			{/* <PersonalAccountCardPaymentStatusSuccessMobile /> */}
-			<PersonalAccountCardPaymentStatusConfirmedMobile />
+			{renderStatus()}
 		</div>
 	);
 };

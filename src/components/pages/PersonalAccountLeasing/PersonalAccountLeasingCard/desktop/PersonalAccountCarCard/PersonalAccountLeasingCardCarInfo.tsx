@@ -1,37 +1,48 @@
 import carImage from "../../../../../../images/index/car.webp";
+import {
+	IPersonalAccountLeasingCarDataBankAccounts,
+	IPersonalAccountLeasingCarDataInfo,
+} from "../../../../../../types/PersonalAccount/LeasingTypes";
 
-const PersonalAccountLeasingCarCardInfo = (props) => {
+interface IProps {
+	car: IPersonalAccountLeasingCarDataInfo &
+		IPersonalAccountLeasingCarDataBankAccounts;
+}
+
+const PersonalAccountLeasingCarCardInfo = (props: IProps) => {
+	const { car } = props;
+
 	return (
 		<div className="personal-account-leasing-car_card-info">
 			<div className="personal-account-leasing-car_card-info_image">
-				<img src={carImage} alt={"car name"} />
+				<img src={car.image} alt={car.brand + " " + car.model} />
 			</div>
 			<div>
 				<p className="personal-account-leasing-car_card-info_date">
-					Дата бронирования: 16.06.2023
+					Дата бронирования: {car.deal_date}
 				</p>
 				<p className="personal-account-leasing-car_card-info_number">
-					Номер договора: 00000000000000
+					Номер договора: {car.deal_number}
 				</p>
 				<h1 className="personal-account-leasing-car_card-info_brand">
-					Kia{" "}
+					{car.brand}
 					<span className="personal-account-leasing-car_card-info_brand-model">
-						k5
+						{car.model}
 					</span>
 				</h1>
 				<h4 className="personal-account-leasing-car_card-info_seria">
-					К638ЕТ 53
+					{car.regnum}
 				</h4>
 
 				<div className="personal-account-leasing-car_card-info_price">
 					<p>Ежемесячный платёж</p>
-					<span>6 950 ₽</span>
+					<span>{car.payment} ₽</span>
 				</div>
 				<p className="personal-account-leasing-car_card-info_kasko">
-					КАСКО: 0000000 до <span>00.00.0000</span>
+					КАСКО: {car.kasko.number} до <span>{car.kasko.to}</span>
 				</p>
 				<p className="personal-account-leasing-car_card-info_osago">
-					ОСАГО: 0000000 до <span>00.00.0000</span>
+					ОСАГО: {car.osago.number} до <span>{car.osago.to}</span>
 				</p>
 			</div>
 		</div>

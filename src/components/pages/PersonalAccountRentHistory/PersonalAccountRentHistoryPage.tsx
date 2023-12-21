@@ -5,7 +5,9 @@ import PersonalAccountHeaderMobile from "../../common/PersonalAccount/PersonalAc
 import carImage from "../../../images/index/car.webp";
 import { IRentHistoryData } from "../../../types/PersonalAccount/RentHistoryTypes";
 import PersonalAccountBalance from "../PersonalAccount/PersonalAccountBalance/PersonalAccountBalance";
-
+import { useQuery } from "@tanstack/react-query";
+import RentHistoryService from "../../../api-functions/rent-history-page/rent-history-page";
+import Loader from "../../common/Loader";
 const RentHistryData: IRentHistoryData[] = [
 	{
 		id: 1,
@@ -56,6 +58,16 @@ const RentHistryData: IRentHistoryData[] = [
 ];
 
 const PersonalAccountRentHistoryPage = () => {
+	const { data, error, isLoading } = useQuery({
+		queryKey: ["rent-history"],
+		queryFn: () => RentHistoryService.getCars(),
+	});
+
+	console.log(data);
+
+	if (isLoading) {
+		return <Loader />;
+	}
 	return (
 		<PersonalAccountRentLayout>
 			<div className="d-none d-md-block">
@@ -64,14 +76,15 @@ const PersonalAccountRentHistoryPage = () => {
 					<PersonalAccountBalance />
 				</PersonalAccountHeader>
 				<div className="personal-account_page-rent_cars">
-					{RentHistryData.map((_item) => (
-						<PersonalAccountCarCard
-							key={_item.id}
-							car={_item.car}
-							payment_per_day={_item.payment_per_day}
-							payment_result={_item.payment_result}
-						/>
-					))}
+					{!isLoading &&
+						data.list.map((_item) => (
+							<PersonalAccountCarCard
+								key={_item.id}
+								car={_item.car}
+								payment_per_day={_item.payment_per_day}
+								payment_result={_item.payment_result}
+							/>
+						))}
 				</div>
 			</div>
 			<div className="d-block d-md-none">
@@ -80,14 +93,15 @@ const PersonalAccountRentHistoryPage = () => {
 					<h2>Аренда</h2>
 				</PersonalAccountHeaderMobile>
 				<div className="personal-account_page-rent_cars">
-					{RentHistryData.map((_item) => (
-						<PersonalAccountCarCard
-							key={_item.id}
-							car={_item.car}
-							payment_per_day={_item.payment_per_day}
-							payment_result={_item.payment_result}
-						/>
-					))}
+					{!isLoading &&
+						data.list.map((_item) => (
+							<PersonalAccountCarCard
+								key={_item.id}
+								car={_item.car}
+								payment_per_day={_item.payment_per_day}
+								payment_result={_item.payment_result}
+							/>
+						))}
 				</div>
 			</div>
 		</PersonalAccountRentLayout>

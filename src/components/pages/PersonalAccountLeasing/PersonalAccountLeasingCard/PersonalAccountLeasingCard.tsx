@@ -1,19 +1,19 @@
 import React from "react";
-import PersonalAccountLeasingCardCar from "./desktop/PersonalAccountCarCard/PersonalAccountLeasingCardCar";
-import PersonalAccountLeasingMaintenance from "./desktop/PersonalAccountLeasingMaintenance/PersonalAccountLeasingMaintenance";
-import PersonalAccountLeasingPayments from "./desktop/PersonalAccountLeasingPayments/PersonalAccountLeasingPayments";
 import PersonalAccountLeasingCarCardMobile from "./mobile/PersonalAccountLeasingCarCardMobile";
 import PersonalAccountLeasingCarCardPad from "./pad/PersonalAccountLeasingCarCardPad";
-const PersonalAccountLeasingCard = () => {
+import PersonalAccountLeasingCarCardDesk from "../PersonalAccountLeasingCarCardDesk";
+import { IPersonalAccountLeasingCarData } from "../../../../types/PersonalAccount/LeasingTypes";
+
+interface IProps {
+	car: IPersonalAccountLeasingCarData;
+}
+
+const PersonalAccountLeasingCard = (props: IProps) => {
+	const {car} = props
+
 	return (
 		<>
-			<div className="personal-account-leasing-car d-none d-xl-block">
-				<PersonalAccountLeasingCardCar />
-				<div className="d-flex mt-px-15">
-					<PersonalAccountLeasingMaintenance />
-					<PersonalAccountLeasingPayments className="ms-px-15" />
-				</div>
-			</div>
+			<PersonalAccountLeasingCarCardDesk car={car} className="d-none d-xl-block" />
 			<PersonalAccountLeasingCarCardPad className="d-none d-md-block d-xl-none " />
 			<PersonalAccountLeasingCarCardMobile className="d-block d-md-none" />
 		</>

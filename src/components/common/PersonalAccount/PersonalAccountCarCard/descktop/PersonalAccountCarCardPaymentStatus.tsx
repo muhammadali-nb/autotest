@@ -81,7 +81,7 @@ const PersonalAccountCarCardPaymentStatusPayed = ({
 				Вывод с: {status.next}
 			</p>
 			<button className=" site-btn personal-account-rent-car_payment-status-payed_btn">
-				Вывести
+				Выведено
 			</button>
 		</div>
 	);
