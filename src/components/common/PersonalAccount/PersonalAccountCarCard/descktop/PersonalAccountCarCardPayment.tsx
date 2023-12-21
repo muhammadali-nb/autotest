@@ -8,7 +8,7 @@ const PersonalAccountCarCardPayment = ({
 }) => {
 	return (
 		<div className="personal-account-rent-car_payment-card">
-			{payment.status === "confirmed" ? (
+			{payment.status === "not_active" ? (
 				<>
 					<div className="personal-account-rent-car_payment-card_header-confirmed">
 						<h4>Аренда завершена</h4>

@@ -1,6 +1,12 @@
 import React from "react";
+import { IPersonalAccountLeasingCarCardPaymentStatus } from "../../../../../../types/PersonalAccount/LeasingTypes";
 
-const PersonalAccountLeasingCardCarPaymentStatus = () => {
+interface IProps {
+	car_payment_status: IPersonalAccountLeasingCarCardPaymentStatus
+}
+
+const PersonalAccountLeasingCardCarPaymentStatus = (props: IProps) => {
+	const {car_payment_status} = props
 	return (
 		<div className="personal-account-leasing-car_card-payment-status">
 			<div>
@@ -28,7 +34,7 @@ const PersonalAccountLeasingCardCarPaymentStatus = () => {
 			<div className="personal-account-leasing-car_card-payment-status_body">
 				<h4>Оплачено</h4>
 				<p>
-					Следующий платеж: <br /> 12.07.2023 до 00:00
+					Следующий платеж: <br /> {car_payment_status.date}
 				</p>
 				<span>Рекомендуем вносить платежи заранее, во избежание просрочек</span>
 			</div>
