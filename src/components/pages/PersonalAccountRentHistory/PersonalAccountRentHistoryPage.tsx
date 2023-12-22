@@ -8,6 +8,7 @@ import PersonalAccountBalance from "../PersonalAccount/PersonalAccountBalance/Pe
 import { useQuery } from "@tanstack/react-query";
 import RentHistoryService from "../../../api-functions/rent-history-page/rent-history-page";
 import Loader from "../../common/Loader";
+import LoadError from "../../common/LoadError";
 const RentHistryData: IRentHistoryData[] = [
 	{
 		id: 1,
@@ -67,6 +68,9 @@ const PersonalAccountRentHistoryPage = () => {
 
 	if (isLoading) {
 		return <Loader />;
+	}
+	if (error) {
+		if (error) return <LoadError response={error} />;
 	}
 	return (
 		<PersonalAccountRentLayout>
