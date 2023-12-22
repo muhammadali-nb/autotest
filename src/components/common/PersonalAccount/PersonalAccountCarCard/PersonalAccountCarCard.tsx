@@ -36,7 +36,7 @@ const PersonalAccountCarCard = ({
 						car={car}
 						payment_date={payment_per_day.time}
 					/>
-					<PersonalAccountCarCardPaymentMobile />
+					<PersonalAccountCarCardPaymentMobile payment_status={payment_result} />
 				</div>
 			</div>
 		</>
