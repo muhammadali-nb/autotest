@@ -3,12 +3,14 @@ import { ModalTemplateContent } from "../../../ModalFormTemplate";
 import img from "../../../../../images/personal-account/fines/fine-modal.png";
 import car from "../../../../../images/rent/auto_card.png";
 import "../PersonalAccountFines.scss";
+import { finesProps } from "../../../../pages/Fines/FinesPage";
 
 const FinesModal: React.FC<{
     onHide: () => void,
-    show: boolean
+    show: boolean,
+    data: finesProps
 }> = (props) => {
-    const { onHide, show } = props;
+    const { onHide, show, data } = props;
 
     return (
         <Modal centered
@@ -25,7 +27,7 @@ const FinesModal: React.FC<{
                             Автомобиль:
                         </div>
                         <div>
-                            Chery Tiggo 7 Pro H257PB198
+                            {data.car.model} {data.car.number + data.car.region}
                         </div>
                     </div>
                     <div className="personal-account_fines-modalItem">
@@ -49,7 +51,7 @@ const FinesModal: React.FC<{
                             Дата нарушения:
                         </div>
                         <div>
-                            00.00.00 00:00:00
+                            {data.date}
                         </div>
                     </div>
                     <div className="personal-account_fines-modalItem">
@@ -73,7 +75,7 @@ const FinesModal: React.FC<{
                             Статья нарушения:
                         </div>
                         <div>
-                            12.9ч.2
+                            {data.article}
                         </div>
                     </div>
                     <div className="personal-account_fines-modalItem">
@@ -81,7 +83,7 @@ const FinesModal: React.FC<{
                             Расшифровка статьи нарушения:
                         </div>
                         <div>
-                            Превышение установленной скорости движения транспортного средства на величину более 20, но не более 40 километров
+                            {data.type}
                         </div>
                     </div>
                     <div className="personal-account_fines-modalItem">
@@ -97,7 +99,7 @@ const FinesModal: React.FC<{
                             Изначальная сумма штрафа:
                         </div>
                         <div>
-                            500₽
+                            {data.sum}₽
                         </div>
                     </div>
                     <div className="personal-account_fines-modalItem">
@@ -139,23 +141,14 @@ const FinesModal: React.FC<{
                         interval={null}
                         className="personal-account_fines-modalSlider"
                     >
-                        <Carousel.Item>
-                            <div className="personal-account_fines-modalImage">
-                                <img src={img} alt="" />
-                            </div>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <div className="personal-account_fines-modalImage">
-                                <img src={car} alt="" />
-                            </div>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <div className="personal-account_fines-modalImage">
-                                <img src={img} alt="" />
-                            </div>
-                        </Carousel.Item>
+                        {data.images.map((item, index) =>
+                            <Carousel.Item key={index}>
+                                <div className="personal-account_fines-modalImage">
+                                    <img src={item} alt="" />
+                                </div>
+                            </Carousel.Item>
+                        )}
                     </Carousel>
-
                 </ModalTemplateContent>
             </div>
         </Modal>

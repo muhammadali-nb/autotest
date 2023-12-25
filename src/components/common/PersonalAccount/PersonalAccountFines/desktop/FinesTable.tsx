@@ -10,6 +10,24 @@ const FinesTable: React.FC<{
     const { data } = props;
 
     const [modalOpened, setModalOpened] = useState(false);
+    const [modalData, setModalData] = useState<finesProps>({
+        id: 0,
+        time: '',
+        date: '',
+        article: '',
+        type: '',
+        sum: '',
+        penalties: '',
+        car: {
+            model: '',
+            number: '',
+            region: ''
+        },
+        images: [
+            ''
+        ],
+        payed: 0
+    });
 
     return (
         <>
@@ -35,7 +53,10 @@ const FinesTable: React.FC<{
                 </thead>
                 <tbody>
                     {data.map(item =>
-                        <tr key={item.id} onClick={() => setModalOpened(true)}>
+                        <tr key={item.id} onClick={() => {
+                            setModalData(item);
+                            setModalOpened(true);
+                        }}>
                             <td>
                                 {item.date} <br />
                                 {item.time}
@@ -48,22 +69,22 @@ const FinesTable: React.FC<{
                                 </div>
                             </td>
                             <td>
-                                {Utils.formatNumber(item.sum)}₽ {item.penalties > 0 ? <span>+ {item.penalties}₽ (пени)</span> : ""} <br />
-                                {Utils.formatNumber(item.sum + item.penalties)}₽ (итог включая пени)
+                                {Utils.formatNumber(parseFloat(item.sum))}₽ {parseFloat(item.penalties) > 0 ? <span>+ {parseFloat(item.penalties)}₽ (пени)</span> : ""} <br />
+                                {Utils.formatNumber(parseFloat(item.sum) + parseFloat(item.penalties))}₽ (итог включая пени)
                             </td>
                             <td className="font-weight-semibold">
                                 {item.car.model} <br />
                                 {item.car.number}&nbsp;&nbsp;{item.car.region}
                             </td>
                             <td>
-                                {(item.payed === item.sum + item.penalties) &&
+                                {(item.payed === parseFloat(item.sum) + parseFloat(item.penalties)) &&
                                     <span className="payed">
                                         Оплачен
                                     </span>
                                 }
-                                {(item.payed > 0 && item.payed < (item.sum + item.penalties)) &&
+                                {(item.payed > 0 && item.payed < (parseInt(item.sum) + parseFloat(item.penalties))) &&
                                     <span className="progress">
-                                        {item.payed} / {item.sum + item.penalties} ₽
+                                        {item.payed} / {parseFloat(item.sum) + parseFloat(item.penalties)} ₽
                                     </span>
                                 }
                                 {item.payed === 0 &&
@@ -76,7 +97,9 @@ const FinesTable: React.FC<{
                     )}
                 </tbody>
             </table>
-            <FinesModal show={modalOpened} onHide={() => setModalOpened(false)} />
+            {data &&
+                <FinesModal show={modalOpened} data={modalData} onHide={() => setModalOpened(false)} />
+            } 
         </>
     )
 }
