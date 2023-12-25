@@ -9,13 +9,19 @@ interface IProps {
 }
 
 const PersonalAccountLeasingCard = (props: IProps) => {
-	const {car} = props
+	const { car } = props;
 
 	return (
 		<>
-			<PersonalAccountLeasingCarCardDesk car={car} className="d-none d-xl-block" />
-			<PersonalAccountLeasingCarCardPad className="d-none d-md-block d-xl-none " />
-			<PersonalAccountLeasingCarCardMobile className="d-block d-md-none" />
+			<PersonalAccountLeasingCarCardDesk
+				car={car}
+				className="d-none d-xl-block"
+			/>
+			<PersonalAccountLeasingCarCardPad car={car} className="d-none d-md-block d-xl-none " />
+			<PersonalAccountLeasingCarCardMobile
+				car={car}
+				className="d-block d-md-none"
+			/>
 		</>
 	);
 };

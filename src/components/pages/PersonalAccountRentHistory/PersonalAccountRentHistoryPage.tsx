@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import RentHistoryService from "../../../api-functions/rent-history-page/rent-history-page";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
+
 const RentHistryData: IRentHistoryData[] = [
 	{
 		id: 1,
@@ -63,8 +64,6 @@ const PersonalAccountRentHistoryPage = () => {
 		queryKey: ["rent-history"],
 		queryFn: () => RentHistoryService.getCars(),
 	});
-
-	console.log(data);
 
 	if (isLoading) {
 		return <Loader />;

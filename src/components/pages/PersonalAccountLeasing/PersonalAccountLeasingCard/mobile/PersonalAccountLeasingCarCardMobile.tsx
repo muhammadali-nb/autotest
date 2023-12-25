@@ -4,8 +4,10 @@ import rejectStatus from "../../../../../images/personal-account/card_statuses/r
 import watingStatusBlack from "../../../../../images/personal-account/card_statuses/black/waiting-black.svg";
 import PersonalAccountLeasingCarModalMaintenance from "./PersonalAccountLeasingCarModalMaintenance";
 import PersonalAccountLeasingCarModalPayments from "./PersonalAccountLeasingCarModalPayments";
+import { IPersonalAccountLeasingCarData } from "../../../../../types/PersonalAccount/LeasingTypes";
 interface IProps {
 	className?: string;
+	car: IPersonalAccountLeasingCarData;
 }
 
 const PersonalAccountLeasingCarCardMobileStatus = () => {
@@ -31,7 +33,7 @@ const PersonalAccountLeasingCarCardMobileStatus = () => {
 };
 
 const PersonalAccountLeasingCarCardMobile = (props: IProps) => {
-	const { className } = props;
+	const { className, car } = props;
 	const [maintenanceModal, setMaintenanceModal] = useState(false);
 	const [paymentsModal, setPaymentsModal] = useState(false);
 	return (
@@ -39,35 +41,35 @@ const PersonalAccountLeasingCarCardMobile = (props: IProps) => {
 			<div
 				className={"personal-account-leasing-car-mobile " + (className ?? "")}>
 				<div className="personal-account-leasing-car-mobile_image">
-					<img src={carImage} alt="" />
+					<img src={car.car.image} alt="" />
 				</div>
 				<h1 className="personal-account-leasing-car-mobile_name">
-					Hyundai <span>Sonata</span>
+					{car.car.brand} <span>{car.car.model}</span>
 				</h1>
 				<h3 className="personal-account-leasing-car-mobile_regnum">
-					К638ЕТ 53
+					{car.car.regnum}
 				</h3>
 				<div className="personal-account-leasing-car-mobile_deal">
 					<p className="personal-account-leasing-car-mobile_deal-date">
-						Дата первого платежа: 16.06.2023
+						Дата первого платежа: {car.bank_accounts.deal_date}
 					</p>
 					<p className="personal-account-leasing-car-mobile_deal-number">
-						Номер договора: 00000000000000
+						Номер договора: {car.bank_accounts.deal_number}
 					</p>
 					<p className="personal-account-leasing-car-mobile_deal-kasgo">
-						КАСКО: 0000000
+						КАСКО: {car.bank_accounts.kasko.number}
 					</p>
 					<p className="personal-account-leasing-car-mobile_deal-osago">
-						ОСАГО: 0000000000
+						ОСАГО: {car.bank_accounts.osago.number}
 					</p>
 				</div>
 				<div className="personal-account-leasing-car-mobile_payment">
 					Ежемесячный платёж <br />
-					<span>60 950 ₽</span>
+					<span>{car.car.payment} ₽</span>
 				</div>
 				<h5 className="personal-account-leasing-car-mobile_payment-date">
 					Оплата:
-					<span> 12.06.2023 до 00:00</span>
+					<span>{car.payment.date}</span>
 				</h5>
 				<div className="mb-px-15">
 					<button className="site-btn big">Оплатить сейчас</button>
@@ -102,6 +104,7 @@ const PersonalAccountLeasingCarCardMobile = (props: IProps) => {
 			<PersonalAccountLeasingCarModalMaintenance
 				active={maintenanceModal}
 				setActive={setMaintenanceModal}
+				maintance={car.maintance_hitory}
 			/>
 			<PersonalAccountLeasingCarModalPayments
 				active={paymentsModal}

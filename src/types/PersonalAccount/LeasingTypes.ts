@@ -20,6 +20,22 @@ export interface IPersonalAccountLeasingCarDataBankAccounts {
   deal_date: string
 }
 
+export type TypeMaintenceTableRow = {
+  mileage: number
+  price: number
+  id: number
+  status: 'passed' | 'failed'
+}
+export type TypePaymentTableRow = {
+  type: string
+  date: string
+  price: 60000
+  singing?: boolean
+  status: "payed" | "overdue" | 'term' | "waiting"
+  id: number
+}
+
+
 export interface IPersonalAccountLeasingCarCardPaymentStatus {
   status: "success" | "rejected" | "waiting" | "banned",
   status_message: string
@@ -35,4 +51,6 @@ export interface IPersonalAccountLeasingCarData {
     date: string
   }
   payment_status: IPersonalAccountLeasingCarCardPaymentStatus
+  maintance_hitory: TypeMaintenceTableRow[],
+  payment_history: TypePaymentTableRow[]
 }

@@ -3,19 +3,21 @@ import PersonalAccountLeasingCarCardPadInfo from "./PersonalAccountLeasingCarCar
 import PersonalAccountLeasingMaintenance from "../desktop/PersonalAccountLeasingMaintenance/PersonalAccountLeasingMaintenance";
 
 import PersonalAccountLeasingPayments from "../desktop/PersonalAccountLeasingPayments/PersonalAccountLeasingPayments";
+import { IPersonalAccountLeasingCarData } from "../../../../../types/PersonalAccount/LeasingTypes";
 
 interface IProps {
 	className?: string;
+	car: IPersonalAccountLeasingCarData;
 }
 
 const PersonalAccountLeasingCarCardPad = (props: IProps) => {
-	const { className } = props;
+	const { className, car } = props;
 	return (
 		<div className={className}>
 			<PersonalAccountLeasingCarCardPadInfo />
 			<div className="mt-px-15 d-flex">
-				<PersonalAccountLeasingMaintenance/>
-				<PersonalAccountLeasingPayments className="ms-px-15" />
+				<PersonalAccountLeasingMaintenance maintenanceList={car.maintance_hitory} />
+				<PersonalAccountLeasingPayments paymentsList={car.payment_history} className="ms-px-15" />
 			</div>
 		</div>
 	);

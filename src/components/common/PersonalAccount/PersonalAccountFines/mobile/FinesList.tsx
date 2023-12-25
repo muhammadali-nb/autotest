@@ -9,32 +9,53 @@ const FinesList: React.FC<{
     const { data } = props;
 
     const [modalOpened, setModalOpened] = useState(false);
+    const [modalData, setModalData] = useState<finesProps>({
+        id: 0,
+        time: '',
+        date: '',
+        article: '',
+        type: '',
+        sum: '',
+        penalties: '',
+        car: {
+            model: '',
+            number: '',
+            region: ''
+        },
+        images: [
+            ''
+        ],
+        payed: 0
+    });
 
     const totalSum = () => {
-        return data.reduce((acc, item) => acc + item.sum + item.penalties, 0);
+        return data.reduce((acc, item) => acc + parseFloat(item.sum) + parseFloat(item.penalties), 0);
     }
 
     return (
         <>
             <ul className="personal-account_fines-mobileList">
                 {data.map(item =>
-                    <li className="personal-account_fines-mobileItem" key={item.id} onClick={() => setModalOpened(true)}>
+                    <li className="personal-account_fines-mobileItem" key={item.id} onClick={() => {
+                        setModalData(item);
+                        setModalOpened(true);
+                    }}>
                         <div className="personal-account_fines-mobileHead">
                             <div>
                                 <span>
                                     {item.date}
                                 </span>
                                 <br />
-                                {Utils.formatNumber(item.sum + item.penalties)} ₽&nbsp;&nbsp;<span>{Utils.formatNumber(item.sum)} ₽ + {Utils.formatNumber(item.penalties)} ₽ (пени)</span>
+                                {Utils.formatNumber(parseFloat(item.sum) + parseFloat(item.penalties))} ₽&nbsp;&nbsp;<span>{Utils.formatNumber(parseFloat(item.sum))} ₽ + {Utils.formatNumber(parseFloat(item.penalties))} ₽ (пени)</span>
                             </div>
                             <div>
                                 <span>{item.time}</span><br />
-                                {(item.payed === item.sum + item.penalties) &&
+                                {(item.payed === parseFloat(item.sum) + parseFloat(item.penalties)) &&
                                     <span className="payed">
                                         Оплачен
                                     </span>
                                 }
-                                {(item.payed > 0 && item.payed < (item.sum + item.penalties)) &&
+                                {(item.payed > 0 && item.payed < (parseFloat(item.sum) + parseFloat(item.penalties))) &&
                                     <span className="progress">
                                         {item.payed} / {item.sum + item.penalties} ₽
                                     </span>
@@ -66,7 +87,7 @@ const FinesList: React.FC<{
                 Оплатить всё ({Utils.formatNumber(totalSum())} ₽)
             </button>
             {modalOpened &&
-                <FinesModalMobile setActive={setModalOpened} />
+                <FinesModalMobile data={modalData} setActive={setModalOpened} />
             }
         </>
     )

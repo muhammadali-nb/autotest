@@ -1,12 +1,14 @@
 import React from "react";
+import { TypeMaintenceTableRow } from "../../../../../types/PersonalAccount/LeasingTypes";
 
 interface IProps {
 	type: "header" | "row";
 	className?: string;
+	data?: TypeMaintenceTableRow;
 }
 
 const PersonalAccountLeasingCarCardMobileMaintanceRow = (props: IProps) => {
-	const { type, className } = props;
+	const { type, className, data } = props;
 	if (type === "header") {
 		return (
 			<div
@@ -24,9 +26,11 @@ const PersonalAccountLeasingCarCardMobileMaintanceRow = (props: IProps) => {
 				className={`personal-account-leasing-car_card_maintenace-table_body_row ${
 					className ?? " "
 				}`}>
-				<div>300 000</div>
-				<div>60 000</div>
-				<div className="success">Пройден</div>
+				<div>{data?.mileage}</div>
+				<div>{data?.price}</div>
+				<div className="success">
+					{data?.status === "passed" ? "Пройден" : "Не пройден"}
+				</div>
 			</div>
 		);
 	}

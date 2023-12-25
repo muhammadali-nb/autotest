@@ -5,11 +5,13 @@ import { Carousel } from "react-bootstrap";
 import car from "../../../../../images/rent/auto_card.png";
 import { useState } from "react";
 import FinesPhotosMobile from "./FinesPhotosMobile";
+import { finesProps } from "../../../../pages/Fines/FinesPage";
 
 const FinesModalMobile: React.FC<{
-    setActive: (arg0: boolean) => void
+    setActive: (arg0: boolean) => void,
+    data: finesProps
 }> = (props) => {
-    const { setActive } = props;
+    const { setActive, data } = props;
 
     const [photosOpened, setPhotosOpened] = useState(false);
 
@@ -31,7 +33,7 @@ const FinesModalMobile: React.FC<{
                         Автомобиль:
                     </div>
                     <div>
-                        Chery Tiggo 7 Pro H257PB198
+                        {data.car.model} {data.car.number + data.car.region}
                     </div>
                 </div>
                 <div className="personal-account_fines-modalItem">
@@ -79,7 +81,7 @@ const FinesModalMobile: React.FC<{
                         Статья нарушения:
                     </div>
                     <div>
-                        12.9ч.2
+                        {data.article}
                     </div>
                 </div>
                 <div className="personal-account_fines-modalItem">
@@ -87,7 +89,7 @@ const FinesModalMobile: React.FC<{
                         Расшифровка статьи нарушения:
                     </div>
                     <div>
-                        Превышение установленной скорости движения транспортного средства на величину более 20, но не более 40 километров
+                        {data.type}
                     </div>
                 </div>
                 <div className="personal-account_fines-modalItem">
@@ -95,7 +97,7 @@ const FinesModalMobile: React.FC<{
                         Дата выписывания постановления:
                     </div>
                     <div>
-                        00.00.0000
+                        {data.date}
                     </div>
                 </div>
                 <div className="personal-account_fines-modalItem">
@@ -103,7 +105,7 @@ const FinesModalMobile: React.FC<{
                         Изначальная сумма штрафа:
                     </div>
                     <div>
-                        500₽
+                        {data.sum}₽
                     </div>
                 </div>
                 <div className="personal-account_fines-modalItem">
@@ -137,31 +139,11 @@ const FinesModalMobile: React.FC<{
                     Фото
                 </div>
                 <div className="personal-account_fines-modalImage" onClick={() => setPhotosOpened(true)}>   
-                    <img src={img} alt="" />
+                    <img src={data.images[0]} alt="" />
                 </div>
-                {/* <Carousel
-                    interval={null}
-                    className="personal-account_fines-modalSlider"
-                >
-                    <Carousel.Item>
-                        <div className="personal-account_fines-modalImage">
-                            <img src={img} alt="" />
-                        </div>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <div className="personal-account_fines-modalImage">
-                            <img src={car} alt="" />
-                        </div>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <div className="personal-account_fines-modalImage">
-                            <img src={img} alt="" />
-                        </div>
-                    </Carousel.Item>
-                </Carousel> */}
             </div>
             {photosOpened &&
-                <FinesPhotosMobile setActive={setPhotosOpened} /> 
+                <FinesPhotosMobile sum={data.sum} images={data.images} setActive={setPhotosOpened} /> 
             }
         </div>
     )

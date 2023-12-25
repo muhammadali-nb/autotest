@@ -1,11 +1,13 @@
 import React from "react";
+import { TypePaymentTableRow } from "../../../../../../types/PersonalAccount/LeasingTypes";
 
 interface IProps {
 	type: "header" | "row";
 	className?: string;
+	data?: TypePaymentTableRow;
 }
 const PesosonalAccountLeasingPaymentsRow = (props: IProps) => {
-	const { type, className } = props;
+	const { type, className, data } = props;
 	if (type === "header") {
 		return (
 			<div className="personal-account-leasing-car_card_payments-table_body_row_header">
@@ -21,10 +23,10 @@ const PesosonalAccountLeasingPaymentsRow = (props: IProps) => {
 				className={`personal-account-leasing-car_card_payments-table_body_row ${
 					className ?? " "
 				}`}>
-				<div>00.00.00</div>
-				<div>Налог</div>
-				<div>60 000</div>
-				<div className="success">Оплатить</div>
+				<div>{data?.date}</div>
+				<div>{data?.type}</div>
+				<div>{data?.price}</div>
+				<div className="success">Оплачен</div>
 			</div>
 		);
 	}

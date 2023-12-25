@@ -10,9 +10,11 @@ import caretLeft from "../../../../../images/common/caret-left-big.svg";
 import caretRight from "../../../../../images/common/caret-right-big.svg";
 
 const FinesPhotosMobile: React.FC<{
-    setActive: (arg0: boolean) => void
+    setActive: (arg0: boolean) => void,
+    images: string[],
+    sum: string
 }> = (props) => {
-    const { setActive } = props;
+    const { setActive, images, sum } = props;
 
     const [index, setIndex] = useState(0);
 
@@ -37,21 +39,13 @@ const FinesPhotosMobile: React.FC<{
                     controls={false}
                     indicators={false}
                 >
-                    <Carousel.Item>
-                        <div className="personal-account_fines-modalImage slide">
-                            <img src={img} alt="" />
-                        </div>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <div className="personal-account_fines-modalImage slide">
-                            <img src={car} alt="" />
-                        </div>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <div className="personal-account_fines-modalImage slide">
-                            <img src={img} alt="" />
-                        </div>
-                    </Carousel.Item>
+                    {images.map((item, index) =>
+                        <Carousel.Item key={index}>
+                            <div className="personal-account_fines-modalImage slide">
+                                <img src={item} alt="" />
+                            </div>
+                        </Carousel.Item>
+                    )}
                 </Carousel>
                 <div
                     className={
@@ -98,7 +92,7 @@ const FinesPhotosMobile: React.FC<{
                 </div>
                 <div className="personal-account_fines-modalAction">
                     <div className="site-btn big">
-                        Оплатить ({Utils.formatNumber(5000)} ₽)
+                        Оплатить ({Utils.formatNumber(parseFloat(sum))} ₽)
                     </div>
                 </div>
             </div>
