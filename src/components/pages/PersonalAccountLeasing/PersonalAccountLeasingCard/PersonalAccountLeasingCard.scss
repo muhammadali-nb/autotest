@@ -196,7 +196,7 @@
         &_pagination {
           display: flex;
           align-items: center;
-
+          gap: 10px;
           &_btn {
             background-color: transparent;
             border: none;
@@ -210,6 +210,11 @@
             font-style: normal;
             font-weight: 600;
             line-height: normal;
+
+            &.active {
+              background-color: #222;
+              color: #fff;
+            }
 
             &-arrow {
               background-color: transparent;

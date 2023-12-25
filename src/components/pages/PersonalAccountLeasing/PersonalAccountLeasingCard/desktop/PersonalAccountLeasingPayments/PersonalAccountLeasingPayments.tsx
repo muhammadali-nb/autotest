@@ -2,14 +2,29 @@ import React, { useEffect, useState } from "react";
 import PersonalAccountLeasingCardHeader from "../../PersonalAccountLeasingTableHeader";
 import PersonalAccountLeasingCardPagination from "../../PersonalAccountLeasingCardPagination";
 import PersonalAccountLeasingPaymentsRow from "./PesosonalAccountLeasingPaymentsRow";
+import { TypePaymentTableRow } from "../../../../../../types/PersonalAccount/LeasingTypes";
 
 interface IProps {
 	className?: string;
+	paymentsList: TypePaymentTableRow[];
 }
 
 const PersonalAccountLeasingPayments = (props: IProps) => {
-	const { className } = props;
+	const { className, paymentsList } = props;
 	const [size, setSize] = useState("desk");
+	const [activePage, setActivePage] = useState(0);
+
+	const sortedArray = () => {
+		const result: TypePaymentTableRow[][] = [];
+
+		for (let i = 0; i < paymentsList.length; i += 15) {
+			const fifteenWords = paymentsList.slice(i, i + 15);
+
+			result.push(fifteenWords);
+		}
+
+		return result;
+	};
 
 	useEffect(() => {
 		const checkSize = () => {
@@ -27,6 +42,7 @@ const PersonalAccountLeasingPayments = (props: IProps) => {
 			window.removeEventListener("resize", checkSize);
 		};
 	}, []);
+
 	return (
 		<div
 			className={
@@ -34,15 +50,21 @@ const PersonalAccountLeasingPayments = (props: IProps) => {
 			}>
 			<PersonalAccountLeasingCardHeader>
 				<h3>платежи</h3>
-				<PersonalAccountLeasingCardPagination />
+
+				<PersonalAccountLeasingCardPagination
+					setActive={setActivePage}
+					list={sortedArray()}
+					active={activePage}
+				/>
 			</PersonalAccountLeasingCardHeader>
 			<div className="personal-account-leasing-car_card_payments-table_body">
 				<div>
 					<PersonalAccountLeasingPaymentsRow type="header" />
-					{[...new Array(15)].map((_item, index) => (
+					{sortedArray()[activePage].map((_item, index) => (
 						<PersonalAccountLeasingPaymentsRow
 							type="row"
 							key={index}
+							data={_item}
 							className={index % 2 !== 0 ? "odd_row" : ""}
 						/>
 					))}
@@ -50,10 +72,11 @@ const PersonalAccountLeasingPayments = (props: IProps) => {
 				{size !== "pad" && (
 					<div>
 						<PersonalAccountLeasingPaymentsRow type="header" />
-						{[...new Array(15)].map((_item, index) => (
+						{sortedArray()[activePage].map((_item, index) => (
 							<PersonalAccountLeasingPaymentsRow
 								type="row"
 								key={index}
+								data={_item}
 								className={index % 2 !== 0 ? "odd_row" : ""}
 							/>
 						))}

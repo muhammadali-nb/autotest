@@ -115,7 +115,6 @@ const PersonalAccountCarCardPaymentStatus = ({
 	return (
 		<div className="personal-account-rent-car_payment-status">
 			{renderStatus()}
-			
 		</div>
 	);
 };

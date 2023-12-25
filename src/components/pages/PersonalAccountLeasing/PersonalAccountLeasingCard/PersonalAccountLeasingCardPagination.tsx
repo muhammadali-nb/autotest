@@ -1,9 +1,32 @@
 import React from "react";
+import { TypeMaintenceTableRow, TypePaymentTableRow } from "../../../../types/PersonalAccount/LeasingTypes";
 
-const PersonalAccountLeasingCardPagination = () => {
+const PersonalAccountLeasingCardPagination = ({
+	list,
+	setActive,
+	active,
+}: {
+	list: TypeMaintenceTableRow[][] | TypePaymentTableRow[][];
+	setActive: (e: number) => void;
+	active: number;
+}) => {
+	const decrease = () => {
+		if (active > 0) {
+			setActive(active - 1);
+		}
+	};
+
+	const increase = () => {
+		if (active !== list.length - 1) {
+			setActive(active + 1);
+		}
+	};
+
 	return (
 		<div className="personal-account-leasing-car_card-table_header_pagination">
-			<button className="personal-account-leasing-car_card-table_header_pagination_btn-arrow">
+			<button
+				className="personal-account-leasing-car_card-table_header_pagination_btn-arrow"
+				onClick={decrease}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="19"
@@ -19,10 +42,21 @@ const PersonalAccountLeasingCardPagination = () => {
 					/>
 				</svg>
 			</button>
-			<button className="personal-account-leasing-car_card-table_header_pagination_btn">
-				1
-			</button>
-			<button className="personal-account-leasing-car_card-table_header_pagination_btn-arrow">
+
+			{list.map((_item, index) => (
+				<button
+					onClick={() => setActive(index)}
+					className={
+						"personal-account-leasing-car_card-table_header_pagination_btn " +
+						(active === index ? " active" : "")
+					}>
+					{index + 1}
+				</button>
+			))}
+
+			<button
+				className="personal-account-leasing-car_card-table_header_pagination_btn-arrow"
+				onClick={increase}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="19"
