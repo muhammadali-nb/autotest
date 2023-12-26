@@ -21,6 +21,7 @@ const PersonalAccountLeasingMaintenance = (props: IProps) => {
 			result.push(fifteenWords);
 		}
 
+		
 		return result;
 	};
 
