@@ -268,7 +268,7 @@ export interface RentResponse extends PaginatedResponse {
 export const mockRentCarData: () => CarRentDataInfo = () => {
   return {
     id: Math.floor(Math.random() * 50000),
-    tarif_name: "Comfort",
+    tarif:[{Name:"Comfort", id: 2321}],
     available_at: false,
     brand: Math.ceil(Math.random() * 4),
     model: Math.ceil(Math.random() * 3),
