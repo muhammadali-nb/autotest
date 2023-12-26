@@ -141,7 +141,7 @@ const TransactionsBalance: React.FC<{
                             </li>
                         </ul>
                     </div>
-                    {data.cars.length &&
+                    {data.cars.length > 0 &&
                         <div className="personal-account_transactions-balance">
                             <div className="personal-account_transactions-title font-size-20 font-weight-semibold">
                                 Автомобили
@@ -163,7 +163,7 @@ const TransactionsBalance: React.FC<{
                             </ul>
                         </div>
                     }
-                    {data.deductions.length &&
+                    {data.deductions.length > 0 &&
                         <div className="personal-account_transactions-balance">
                             <div className="personal-account_transactions-title font-size-20 font-weight-semibold">
                                 Списания
@@ -225,7 +225,7 @@ const TransactionsBalance: React.FC<{
                                     </span>
                                 </li>
                             </MobileFilter>
-                            {data.cars.length &&
+                            {data.cars.length > 0 &&
                                 <MobileFilter title={"Автомобили"}>
                                     {data.cars.map(car =>
                                         <li key={car.id} className={"personal-account_transactions-balanceItem additional " + (filters['car'].find(filter => filter === car.id) ? "active" : "")} onClick={() => updateFilters('car', car.id)}>
@@ -242,7 +242,7 @@ const TransactionsBalance: React.FC<{
                                     )}
                                 </MobileFilter>
                             }
-                            {data.deductions.length &&
+                            {data.deductions.length > 0 &&
                                 <MobileFilter title={"Списания"}>
                                     {data.deductions.map(item =>
                                         <li key={item.id} className={"personal-account_transactions-balanceItem additional " + (filters['deduction'].find(filter => filter === item.id) ? "active" : "")} onClick={() => updateFilters('deduction', item.id)}>

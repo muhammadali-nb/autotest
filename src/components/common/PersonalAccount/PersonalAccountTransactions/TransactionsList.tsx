@@ -70,8 +70,8 @@ const TransactionsDayItem: React.FC<{
                 {formatDate(date)}
             </div>
             <ul className="personal-account_transactions-story">
-                {items.map(item =>
-                    <li key={item.id}>
+                {items.map((item, index) =>
+                    <li key={index}>
                         <div className={"personal-account_transactions-icons " + (item.type === "transaction" ? "transaction" : "")}>
                             {item.icons.map(icon =>
                                 <img src={getIcon(icon)} alt={icon} />
@@ -130,11 +130,11 @@ const TransactionsList: React.FC<{
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && page >= 1 && !isLoading) {
+            if (entries[0].isIntersecting && !isLoading) {
                 setPage();
             }
         }, {
-            rootMargin: '0px'
+            rootMargin: '10px'
         });
 
         if (bottomOfList.current) {
@@ -146,7 +146,7 @@ const TransactionsList: React.FC<{
                 observer.unobserve(bottomOfList.current);
             }
         }
-    }, [page, bottomOfList, isLoading]);
+    }, [bottomOfList, isLoading, page, setPage]);
 
     return (
         <>
@@ -166,10 +166,10 @@ const TransactionsList: React.FC<{
                 </>
             }
 
-            {(page < totalPages) &&
+            {page < totalPages &&
                 <div ref={bottomOfList}></div>
             }
-            {isLoading &&
+            {(isLoading && page > 1) &&
                 <Loader />
             }
         </>
