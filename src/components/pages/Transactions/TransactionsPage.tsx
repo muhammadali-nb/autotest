@@ -9,7 +9,9 @@ import { useEffect, useState } from "react";
 import { accountsProps, balanceProps } from "../PersonalAccount/PersonalAccountBalance/PersonalAccountBalance";
 import { useQuery } from "@tanstack/react-query";
 import transactionsService from "../../../api-functions/transactions-page/transactions-service";
-import Loader from "../../common/Loader";
+import BalanceLoader from "../../common/PersonalAccount/PersonalAccountTransactions/BalanceLoader";
+import TransactionsLoader from "../../common/PersonalAccount/PersonalAccountTransactions/TransactionsLoader";
+// import Loader from "../../common/Loader";
 
 export interface detailTransactionProps {
     id: string,
@@ -83,7 +85,7 @@ const TransactionsPage: React.FC = () => {
         queryFn: () => transactionsService.getTransactions(page, filters)
     });
 
-    console.log(data)
+    // console.log(data)
 
     const updateFilters = (field: string, value: string) => {
         let newArray: string[] = [];
@@ -148,10 +150,18 @@ const TransactionsPage: React.FC = () => {
                     <div className="personal-account_transactions">
                         <div className="personal-account_transactions-items">
                             <div className="personal-account_transactions-item">
-                                <TransactionsBalance data={balanceData} filters={filters} updateFilters={updateFilters} />
+                                {(isLoading && page === 1) ?
+                                    <BalanceLoader />
+                                    :
+                                    <TransactionsBalance data={balanceData} filters={filters} updateFilters={updateFilters} />
+                                }
                             </div>
                             <div className="personal-account_transactions-item">
-                                <TransactionsList data={transactions} page={page} setPage={() => setPage(prev => prev + 1)} totalPages={totalPages} isLoading={isLoading} />
+                                {(isLoading && page === 1) ?
+                                    <TransactionsLoader />
+                                    :
+                                    <TransactionsList data={transactions} page={page} setPage={() => setPage(prev => prev + 1)} totalPages={totalPages} isLoading={isLoading} />
+                                }
                             </div>
                         </div>
                     </div>
