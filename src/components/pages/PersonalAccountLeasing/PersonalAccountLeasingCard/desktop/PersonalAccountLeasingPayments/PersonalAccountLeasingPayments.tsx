@@ -17,11 +17,13 @@ const PersonalAccountLeasingPayments = (props: IProps) => {
 	const sortedArray = () => {
 		const result: TypePaymentTableRow[][] = [];
 
-		for (let i = 0; i < paymentsList.length; i += 15) {
-			const fifteenWords = paymentsList.slice(i, i + 15);
+		for (let i = 0; i < paymentsList.length; i += 30) {
+			const fifteenWords = paymentsList.slice(i, i + 30);
 
 			result.push(fifteenWords);
 		}
+
+		
 
 		return result;
 	};
@@ -60,7 +62,7 @@ const PersonalAccountLeasingPayments = (props: IProps) => {
 			<div className="personal-account-leasing-car_card_payments-table_body">
 				<div>
 					<PersonalAccountLeasingPaymentsRow type="header" />
-					{sortedArray()[activePage].map((_item, index) => (
+					{sortedArray()[activePage].slice(0, 15).map((_item, index) => (
 						<PersonalAccountLeasingPaymentsRow
 							type="row"
 							key={index}
@@ -72,7 +74,7 @@ const PersonalAccountLeasingPayments = (props: IProps) => {
 				{size !== "pad" && (
 					<div>
 						<PersonalAccountLeasingPaymentsRow type="header" />
-						{sortedArray()[activePage].map((_item, index) => (
+						{sortedArray()[activePage].slice(15, 30).map((_item, index) => (
 							<PersonalAccountLeasingPaymentsRow
 								type="row"
 								key={index}
