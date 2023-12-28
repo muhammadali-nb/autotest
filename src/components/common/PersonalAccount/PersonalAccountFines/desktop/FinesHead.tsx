@@ -14,8 +14,14 @@ const FinesHead: React.FC = () => {
                 <span className="personal-account_fines-prevDate">
                     <img src={arrow} alt="Предыдущая дата" />
                 </span>
-                <div className="psonal-account_fines-dateValue">
-                    00.00.0000
+                <div className="personal-account_fines-dateValue">
+                    <span>
+                        00.00.0000
+                    </span>
+                    -
+                    <span>
+                        00.00.0000
+                    </span>
                 </div>
                 <span className="personal-account_fines-nextDate">
                     <img src={arrow} alt="Следующая дата" />
