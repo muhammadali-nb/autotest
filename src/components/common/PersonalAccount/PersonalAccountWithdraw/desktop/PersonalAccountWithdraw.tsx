@@ -168,6 +168,7 @@ const WithdrawDesktop: React.FC<{
                     repeatRequest={getCode}
                     currentPhone={Utils.formatPhone(currentPhone)}
                     type={"withdraw"}
+                    onHide={onHide}
                 />
             }
         </>

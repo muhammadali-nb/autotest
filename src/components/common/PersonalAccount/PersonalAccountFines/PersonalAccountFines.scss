@@ -16,7 +16,7 @@
         }
 
         span {
-            display: flex;
+            display: inline-flex;
             height: fit-content;
             margin: 0 10px;
 
@@ -33,6 +33,11 @@
                 width: 16px;
             }
         }
+    }
+
+    &-dateValue {
+        display: flex;
+        align-items: center;
     }
 
     &-prevDate,

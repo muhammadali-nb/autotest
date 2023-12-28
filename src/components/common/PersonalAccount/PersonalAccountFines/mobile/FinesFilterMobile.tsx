@@ -7,18 +7,24 @@ import confirm from "../../../../../images/personal-account/fines/confirm.svg";
 const data = {
     cars: [
         {
-            name: 'Hyundai Sonata',
-            number: 'К638ЕТ 53',
+            id: '1',
+            model: 'Hyundai Sonata',
+            number: 'К638ЕТ',
+            region: '53',
             amount: 3
         },
         {
-            name: 'Toyota Camry',
-            number: 'К638ЕТ 53',
+            id: '2',
+            model: 'Toyota Camry',
+            number: 'К638ЕТ',
+            region: '53',
             amount: 1
         },
         {
-            name: 'Kia Rio',
-            number: 'К638ЕТ 53',
+            id: '3',
+            model: 'Kia Rio',
+            number: 'К638ЕТ',
+            region: '53',
             amount: 2
         }
     ]
@@ -43,8 +49,8 @@ const FilterItem: React.FC<{
             {active && items.map((item, index) =>
                 <div key={index}>
                     <label className="personal-account_fines-check" htmlFor={item.name}>
-                        {item.name}&nbsp;<p>{item.number}</p>&nbsp;{(item.amount > 1 ? <p>({item.amount})</p> : "")}
-                        <input type="checkbox" name={item.name} id={item.name} />
+                        {item.model}&nbsp;<p>{item.number} {item.region}</p>&nbsp;{(item.amount > 1 ? <p>({item.amount})</p> : "")}
+                        <input type="checkbox" name={item.id} id={item.id} />
                         <span></span>
                     </label>
                 </div>

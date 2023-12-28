@@ -7,15 +7,18 @@ import "./PersonalAccountModal.scss";
 import Utils from "../../../../utils/Utils";
 import { useAuth } from "../../../../hooks/useAuth";
 import WithdrawDesktop from "../../../common/PersonalAccount/PersonalAccountWithdraw/desktop/PersonalAccountWithdraw";
+import axios from "axios";
 
 export const CodeConfirmForm: React.FC<{
+    step?: string, 
     setStep: (arg0: string) => void,
     newPhone?: string,
     type: string,
     currentPhone?: string,
-    repeatRequest: () => void
+    repeatRequest: () => void,
+    onHide: () => void
 }> = (props) => {
-    const { setStep, newPhone, repeatRequest, currentPhone, type } = props;
+    const { step, setStep, newPhone, repeatRequest, currentPhone, type, onHide } = props;
     const { phone } = useAuth();
 
     const [passed, setPassed] = useState(false);
@@ -76,7 +79,17 @@ export const CodeConfirmForm: React.FC<{
                     className={
                         "default-link font-size-18 font-weight-semibold text-hover-default"
                     }
-                    onClick={() => setStep("new")}>
+                    onClick={() => {
+                        if (type === "phone") {
+                            if (step === "confirmOld") {
+                                onHide();
+                            } else {
+                                setStep("new");
+                            }
+                        } else {
+                            setStep("new");
+                        }
+                    }}>
                     <FontAwesomeIcon icon={faAngleLeft} />
                     &nbsp;&nbsp;ВЕРНУТЬСЯ
                 </button>
@@ -180,14 +193,14 @@ export const CodeConfirmForm: React.FC<{
                     onClick={senCode}>
                     Подтвердить код
                 </button>
-                {type !== "withdraw" &&
+                {(type !== "withdraw" && step !== "confirmOld") &&
                     <button
                         className={
                             "default-link text-decoration-none default-transition text-gray-color text-hover-default"
                         }
                         onClick={() => setStep("new")}>
                         <FontAwesomeIcon icon={faAngleLeft} />
-                        &nbsp;&nbsp;&nbsp;{type === "phone" && <>Изменить номер</>}{type === "email" && <>Изменить почту</>}
+                        &nbsp;&nbsp;&nbsp;{type === "phone" && step && <>Изменить номер</>}{type === "email" && <>Изменить почту</>}
                     </button>
                 }
             </div>
@@ -199,9 +212,10 @@ const EditPhoneForm: React.FC<{
     onHide: () => void,
     getCode: () => void,
     step: string,
-    setStep: (arg0: string) => void
+    setStep: (arg0: string) => void,
+    currentPhone?: string
 }> = (props) => {
-    const { onHide, getCode, step, setStep } = props;
+    const { onHide, getCode, step, setStep, currentPhone } = props;
     // const [passed, setPassed] = useState(false);
     const [data, setData] = useState({
         phone: "",
@@ -229,8 +243,26 @@ const EditPhoneForm: React.FC<{
         getCode();
     }
 
+    useEffect(() => {
+        if (step !== "confirmOld") return;
+        axios.get('https://taxivoshod.ru/api/?w=change-phone&change-old-phone=1', { withCredentials: true })
+            .then(res => {
+                console.log(res.data);
+            })
+    }, []);
+
     return (
         <>
+            {step === "confirmOld" &&
+                <CodeConfirmForm
+                    step={step}
+                    setStep={setStep}
+                    repeatRequest={getCode}
+                    type={"phone"}
+                    currentPhone={currentPhone}
+                    onHide={onHide}
+                />
+            }
             {step === "new" &&
                 <>
                     <div className={"mb-px-60"}>
@@ -287,6 +319,7 @@ const EditPhoneForm: React.FC<{
                     setStep={setStep}
                     repeatRequest={getCode}
                     type={"phone"}
+                    onHide={onHide}
                 />
             }
         </>
@@ -382,6 +415,7 @@ const EditEmailForm: React.FC<{
                     repeatRequest={getCode}
                     currentPhone={currentPhone}
                     type={"email"}
+                    onHide={onHide}
                 />
             }
         </>
@@ -397,7 +431,7 @@ const PersonalAccountModal: React.FC<{
 }> = (props) => {
     const { type, onHide, currentPhone, balance } = props;
 
-    const [step, setStep] = useState("new");
+    const [step, setStep] = useState(type === "phone" ? "confirmOld" : "new");
 
     const getCode = () => {
         setStep("confirm");
@@ -405,11 +439,11 @@ const PersonalAccountModal: React.FC<{
 
     const handleClose = () => {
         onHide();
-        setStep("new");
+        setStep(type === "phone" ? "confirmOld" : "new");
     }
 
     useEffect(() => {
-        setStep("new");
+        setStep(type === "phone" ? "confirmOld" : "new");
     }, [type]);
 
     return (
@@ -417,7 +451,7 @@ const PersonalAccountModal: React.FC<{
             <div className={"modal-template personal-account_modal"}>
                 <ModalTemplateContent>
                     {type === "phone" &&
-                        <EditPhoneForm step={step} setStep={setStep} onHide={handleClose} getCode={getCode} />
+                        <EditPhoneForm step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
                     }
                     {type === "email" &&
                         <EditEmailForm step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
