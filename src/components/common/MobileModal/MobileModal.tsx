@@ -54,7 +54,7 @@ export const MobileModal = ({
 					<MobileOrderCall closeFunc={() => setActive(false)} />
 				)}
 				{type === "editPhone" && (
-					<MobileEditPhone closeFunc={() => setActive(false)} />
+					<MobileEditPhone closeFunc={() => setActive(false)} isActive={active} />
 				)}
 				{type === "editEmail" && (
 					<MobileEditEmail closeFunc={() => setActive(false)} />

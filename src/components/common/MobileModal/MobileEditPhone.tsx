@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ConfirmPhone } from "../../../Api";
 import { ModalTemplatePhone } from "../ModalFormTemplate";
 import Utils from "../../../utils/Utils";
 import { MobileAuthCode } from "./MobileAuthForm";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const NewPhone: React.FC<{
     data: ConfirmPhone,
@@ -67,11 +68,12 @@ const NewPhone: React.FC<{
 }
 
 const MobileEditPhone: React.FC<{
+    isActive: boolean,
     closeFunc: () => void
 }> = (props) => {
-    const { closeFunc } = props;
+    const { closeFunc, isActive } = props;
 
-    const [step, setStep] = useState('phone');
+    const [step, setStep] = useState('old');
     const [data, setData] = useState<ConfirmPhone>({
         phone: "",
         confirm: true,
@@ -87,11 +89,31 @@ const MobileEditPhone: React.FC<{
 
     }
 
+    useEffect(() => {
+        if (step === "old" && isActive) {
+            axios.get('https://taxivoshod.ru/api/?w=change-phone&change-old-phone=1', { withCredentials: true })
+                .then(res => {
+                    console.log(res.data);
+                })
+        }
+    }, [isActive]);
+
     return (
         <>
             <h1>
                 Изменить телефон
             </h1>
+            {step === "old" &&
+                <MobileAuthCode
+                    data={data}
+                    setStep={setStep}
+                    timer={timer}
+                    repeatRequest={sendPhone}
+                    send={sendCode}
+                    closeFunc={closeFunc}
+                    type={'old'}
+                />
+            }
             {step === "phone" &&
                 <NewPhone data={data} setData={setData} submit={sendPhone} />
             }
@@ -105,7 +127,7 @@ const MobileEditPhone: React.FC<{
                     closeFunc={closeFunc}
                 />
             }
-             <p className="form-mobile-policy ">
+            <p className="form-mobile-policy ">
                 Нажимая на кнопку, вы соглашаетесь с{" "}
                 <Link
                     to={"/policy"}
