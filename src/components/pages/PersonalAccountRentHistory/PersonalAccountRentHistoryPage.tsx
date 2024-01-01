@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import RentHistoryService from "../../../api-functions/rent-history-page/rent-history-page";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
+import RentHistoryPageLoader from "./RentHistoryPageLoader";
 
 const RentHistryData: IRentHistoryData[] = [
 	{
@@ -65,9 +66,6 @@ const PersonalAccountRentHistoryPage = () => {
 		queryFn: () => RentHistoryService.getCars(),
 	});
 
-	if (isLoading) {
-		return <Loader />;
-	}
 	if (error) {
 		if (error) return <LoadError response={error} />;
 	}
@@ -79,7 +77,7 @@ const PersonalAccountRentHistoryPage = () => {
 					<PersonalAccountBalance />
 				</PersonalAccountHeader>
 				<div className="personal-account_page-rent_cars">
-					{!isLoading &&
+					{!isLoading ? (
 						data.list.map((_item) => (
 							<PersonalAccountCarCard
 								key={_item.id}
@@ -87,7 +85,10 @@ const PersonalAccountRentHistoryPage = () => {
 								payment_per_day={_item.payment_per_day}
 								payment_result={_item.payment_result}
 							/>
-						))}
+						))
+					) : (
+						<RentHistoryPageLoader />
+					)}
 				</div>
 			</div>
 			<div className="d-block d-md-none">
@@ -96,7 +97,7 @@ const PersonalAccountRentHistoryPage = () => {
 					<h2>Аренда</h2>
 				</PersonalAccountHeaderMobile>
 				<div className="personal-account_page-rent_cars">
-					{!isLoading &&
+					{/* {!isLoading ? (
 						data.list.map((_item) => (
 							<PersonalAccountCarCard
 								key={_item.id}
@@ -104,7 +105,12 @@ const PersonalAccountRentHistoryPage = () => {
 								payment_per_day={_item.payment_per_day}
 								payment_result={_item.payment_result}
 							/>
-						))}
+						))
+					) : (
+						<RentHistoryPageLoader />
+					)} */}
+						<RentHistoryPageLoader />
+
 				</div>
 			</div>
 		</PersonalAccountRentLayout>
