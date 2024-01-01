@@ -17,14 +17,19 @@ const PersonalAccountLeasingPayments = (props: IProps) => {
 	const sortedArray = () => {
 		const result: TypePaymentTableRow[][] = [];
 
-		for (let i = 0; i < paymentsList.length; i += 30) {
-			const fifteenWords = paymentsList.slice(i, i + 30);
+		if (size === "desk") {
+			for (let i = 0; i < paymentsList.length; i += 30) {
+				const fifteenWords = paymentsList.slice(i, i + 30);
 
-			result.push(fifteenWords);
+				result.push(fifteenWords);
+			}
+		} else {
+			for (let i = 0; i < paymentsList.length; i += 15) {
+				const fifteenWords = paymentsList.slice(i, i + 15);
+
+				result.push(fifteenWords);
+			}
 		}
-
-		
-
 		return result;
 	};
 
@@ -60,21 +65,40 @@ const PersonalAccountLeasingPayments = (props: IProps) => {
 				/>
 			</PersonalAccountLeasingCardHeader>
 			<div className="personal-account-leasing-car_card_payments-table_body">
-				<div>
-					<PersonalAccountLeasingPaymentsRow type="header" />
-					{sortedArray()[activePage].slice(0, 15).map((_item, index) => (
-						<PersonalAccountLeasingPaymentsRow
-							type="row"
-							key={index}
-							data={_item}
-							className={index % 2 !== 0 ? "odd_row" : ""}
-						/>
-					))}
-				</div>
-				{size !== "pad" && (
+				{size === "desk" ? (
+					<>
+						<div>
+							<PersonalAccountLeasingPaymentsRow type="header" />
+							{sortedArray()
+								[activePage].slice(0, 15)
+								.map((_item, index) => (
+									<PersonalAccountLeasingPaymentsRow
+										type="row"
+										key={index}
+										data={_item}
+										className={index % 2 !== 0 ? "odd_row" : ""}
+									/>
+								))}
+						</div>
+
+						<div>
+							<PersonalAccountLeasingPaymentsRow type="header" />
+							{sortedArray()
+								[activePage].slice(15, 30)
+								.map((_item, index) => (
+									<PersonalAccountLeasingPaymentsRow
+										type="row"
+										key={index}
+										data={_item}
+										className={index % 2 !== 0 ? "odd_row" : ""}
+									/>
+								))}
+						</div>
+					</>
+				) : (
 					<div>
 						<PersonalAccountLeasingPaymentsRow type="header" />
-						{sortedArray()[activePage].slice(15, 30).map((_item, index) => (
+						{sortedArray()[activePage].map((_item, index) => (
 							<PersonalAccountLeasingPaymentsRow
 								type="row"
 								key={index}

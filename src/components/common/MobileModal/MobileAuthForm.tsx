@@ -73,7 +73,8 @@ export const MobileAuthCode: React.FC<{
     timer: number,
     repeatRequest: () => void,
     closeFunc: () => void,
-    send: (code: string, setPassed: (arg0: boolean) => void, setError: (arg0: string) => void) => Promise<void>
+    send: (code: string, setPassed: (arg0: boolean) => void, setError: (arg0: string) => void) => Promise<void>,
+    type?: string
 }> = (props) => {
     const [passed, setPassed] = useState(false);
     const [code, setCode] = useState("      ");
@@ -101,7 +102,7 @@ export const MobileAuthCode: React.FC<{
         return minutes + ":" + seconds;
     };
 
-    
+
 
     const update = (index: number, value: string) => {
         if (!value.replace(/\D/, "")) {
@@ -201,14 +202,17 @@ export const MobileAuthCode: React.FC<{
                     onClick={() => props.send(code, setPassed, setError)}>
                     Подтвердить код
                 </button>
-                <button
-                    className={
-                        "default-link text-uppercase text-decoration-none default-transition text-gray-color text-hover-default font-size-12 "
-                    }
-                    onClick={() => props.setStep("auth")}>
-                    <FontAwesomeIcon icon={faAngleLeft} />
-                    &nbsp;&nbsp;&nbsp;Изменить номер
-                </button>
+                {(!props.type || props.type !== "old") &&
+                    <button
+                        className={
+                            "default-link text-uppercase text-decoration-none default-transition text-gray-color text-hover-default font-size-12 "
+                        }
+                        onClick={() => props.setStep("auth")}>
+                        <FontAwesomeIcon icon={faAngleLeft} />
+                        &nbsp;&nbsp;&nbsp;Изменить номер
+                    </button>
+                }
+
             </div>
         </div>
     )
