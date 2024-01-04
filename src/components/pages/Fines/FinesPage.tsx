@@ -30,59 +30,21 @@ export interface finesProps {
     images: string[]
 }
 
-// const finesData: finesProps[] = [
-//     {
-//         id: '1',
-//         time: '00:00',
-//         date: '00.00.0000',
-//         image: doc,
-//         article: '12.9.2',
-//         type: 'Превышение скорости движения ТС от 20 до 40',
-//         sum: 2500,
-//         penalties: 500,
-//         car: {
-//             model: 'Kia K5',
-//             number: 'М766КС',
-//             region: '198'
-//         },
-//         payed: 0
-//     },
-//     {
-//         id: '4',
-//         time: '00:00',
-//         date: '00.00.0000',
-//         image: doc,
-//         article: '12.9.2',
-//         type: 'Превышение скорости движения ТС от 20 до 40',
-//         sum: 2500,
-//         penalties: 500,
-//         car: {
-//             model: 'Kia K5',
-//             number: 'М766КС',
-//             region: '198'
-//         },
-//         payed: 500
-//     },
-//     {
-//         id: '3',
-//         time: '00:00',
-//         date: '00.00.0000',
-//         image: doc,
-//         article: '12.9.2',
-//         type: 'Превышение скорости движения ТС от 20 до 40',
-//         sum: 2500,
-//         penalties: 500,
-//         car: {
-//             model: 'Kia K5',
-//             number: 'М766КС',
-//             region: '198'
-//         },
-//         payed: 3000
-//     }
-// ];
+export interface rangeProps {
+    startDate: Date,
+    endDate: Date,
+    key: string
+}
 
 const FinesPage: React.FC = () => {
     const [size, setSize] = useState("desk");
+    const [page, setPage] = useState(1);
+    const [payed, setPayed] = useState(false);
+    const [dateRange, setDateRange] = useState<rangeProps>({
+        startDate: new Date(),
+        endDate: new Date(),
+        key: 'selection',
+    });
 
     const { data, isLoading } = useQuery({
         queryKey: ['fines'],
@@ -117,7 +79,7 @@ const FinesPage: React.FC = () => {
                         <PersonalAccountBalance />
                     </PersonalAccountHeader>
                     <div className="personal-account_fines">
-                        <FinesHead />
+                        <FinesHead payed={payed} setPayed={() => setPayed(prev => !prev)} range={dateRange} setDates={setDateRange} />
                         {(!isLoading && data.list) &&
                             <FinesTable data={data.list} />
                         }
@@ -131,7 +93,7 @@ const FinesPage: React.FC = () => {
                         <FinesFilterMobile />
                     </PersonalAccountHeaderMobile>
                     <div className="personal-account_fines">
-                        <FinesHeadMobile />
+                        <FinesHeadMobile payed={payed} setPayed={() => setPayed(prev => !prev)} range={dateRange} setDates={setDateRange} />
                         {(!isLoading && data.list) &&
                             <FinesList data={data.list} />
                         }
