@@ -61,7 +61,17 @@ const TransactionsDayItem: React.FC<{
     const getDate = (date: string) => {
         const newDate = new Date(date);
 
-        return `${newDate.getDate()}.${newDate.getMonth() + 1}.${newDate.getFullYear()}`
+        let day: string | number = newDate.getDate();
+        let month: string | number = newDate.getMonth() + 1;
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+        if (month < 10) {
+            month = '0' + month
+        }
+
+        return `${day}.${month}.${newDate.getFullYear()}`
     }
 
     return (
