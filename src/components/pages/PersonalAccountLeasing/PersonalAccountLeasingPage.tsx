@@ -5,6 +5,7 @@ import PersonalAccountBalance from "../PersonalAccount/PersonalAccountBalance/Pe
 import PersonalAccountLeasingCard from "./PersonalAccountLeasingCard/PersonalAccountLeasingCard";
 import { IPersonalAccountLeasingCarData } from "../../../types/PersonalAccount/LeasingTypes";
 import carImage from "../../../images/index/car.webp";
+import LeasingLoader from "./LeasingLoader";
 
 const data: IPersonalAccountLeasingCarData[] = [
 	{
@@ -516,16 +517,22 @@ const data: IPersonalAccountLeasingCarData[] = [
 ];
 
 const PersonalAccountLeasingPage = () => {
+	const isLoading = false;
 	return (
 		<PersonalAccountLeasingLayout>
 			<PersonalAccountHeader>
 				<h1 className="personal-account-header_title">Лизинг</h1>
 				<PersonalAccountBalance />
 			</PersonalAccountHeader>
+
 			<div>
-				{data.map((_item) => (
-					<PersonalAccountLeasingCard key={_item.id} car={_item} />
-				))}
+				{!isLoading ? (
+					data.map((_item) => (
+						<PersonalAccountLeasingCard key={_item.id} car={_item} />
+					))
+				) : (
+					<LeasingLoader /> // skeleton for api
+				)}
 			</div>
 		</PersonalAccountLeasingLayout>
 	);

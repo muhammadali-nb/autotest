@@ -6,6 +6,7 @@ import PersonalAccountData from "../PersonalAccount/PersonalAccountData";
 import { PaymentCardsList } from "./PaymentCards/PaymentBankCardsList";
 import PaymentScoreList from "./PaymentCards/PaymentScoreList";
 import PaymentCardsTabs from "./PaymentCardsTabs";
+import PaymentsLoader from "./PaymentsLoader";
 
 const data = {
 	paymentCards: [
@@ -105,22 +106,29 @@ const data = {
 };
 
 export const PaymentsPage = () => {
+	const isLoading = false;
 	return (
 		<PersonalAccountPaymentLayout>
 			<div className="personal-account_head d-flex align-items-end justify-content-between mt-px-md-15 border-0">
 				<PersonalAccountData data={userData} />
 				<PersonalAccountBalance />
 			</div>
-			<div className="d-none d-md-block">
-				<PaymentCardsList data={data.paymentCards} />
-				<PaymentScoreList data={data.scoreCards} />
-			</div>
-			<div className=" d-block d-md-none">
-				<PaymentCardsTabs
-					bankList={<PaymentCardsList data={data.paymentCards} />}
-					scoreList={<PaymentScoreList data={data.scoreCards} />}
-				/>
-			</div>
+			{isLoading ? (
+				<PaymentsLoader />
+			) : (
+				<>
+					<div className="d-none d-md-block">
+						<PaymentCardsList data={data.paymentCards} />
+						<PaymentScoreList data={data.scoreCards} />
+					</div>
+					<div className=" d-block d-md-none">
+						<PaymentCardsTabs
+							bankList={<PaymentCardsList data={data.paymentCards} />}
+							scoreList={<PaymentScoreList data={data.scoreCards} />}
+						/>
+					</div>
+				</>
+			)}
 		</PersonalAccountPaymentLayout>
 	);
 };
