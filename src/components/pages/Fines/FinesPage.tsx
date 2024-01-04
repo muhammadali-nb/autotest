@@ -39,6 +39,7 @@ export interface rangeProps {
 const FinesPage: React.FC = () => {
     const [size, setSize] = useState("desk");
     const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const [payed, setPayed] = useState(false);
     const [dateRange, setDateRange] = useState<rangeProps>({
         startDate: new Date(),
@@ -68,7 +69,14 @@ const FinesPage: React.FC = () => {
         }
     }, []);
 
-    console.log(data)
+    useEffect(() => {
+        if (!data) return;
+        if (totalPages !== data.pages) {
+            setTotalPages(data.pages);
+        }
+    }, [data]);
+
+    // console.log(data)
 
     return (
         <PersonalAccountFinesLayout>
@@ -79,7 +87,7 @@ const FinesPage: React.FC = () => {
                         <PersonalAccountBalance />
                     </PersonalAccountHeader>
                     <div className="personal-account_fines">
-                        <FinesHead payed={payed} setPayed={() => setPayed(prev => !prev)} range={dateRange} setDates={setDateRange} />
+                        <FinesHead payed={payed} setPayed={() => setPayed(prev => !prev)} range={dateRange} setDates={setDateRange} page={page} setPage={setPage} totalPages={totalPages}  />
                         {(!isLoading && data.list) &&
                             <FinesTable data={data.list} />
                         }
