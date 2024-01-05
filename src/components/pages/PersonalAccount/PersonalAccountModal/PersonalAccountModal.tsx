@@ -9,6 +9,47 @@ import { useAuth } from "../../../../hooks/useAuth";
 import WithdrawDesktop from "../../../common/PersonalAccount/PersonalAccountWithdraw/desktop/PersonalAccountWithdraw";
 import axios from "axios";
 
+const SuccessStep: React.FC<{
+    type: string,
+    onHide: () => void
+}> = (props) => {
+    const { type, onHide } = props;
+
+    return (
+        <>
+            <div className="mb-px-90 mt-px-30">
+                <div
+                    className={
+                        "call-content-text-header font-size-40 mb-px-10 line-height-130 fw-semibold"
+                    }>
+                    {type === "phone" &&
+                        <>
+                            Ваш телефон <br />
+                            успешно изменён!
+                        </>
+                    }
+                    {type === "email" &&
+                        <>
+                            Ваша почта <br />
+                            успешно изменена!
+                        </>
+                    }
+                </div>
+            </div>
+            <div className="mt-auto">
+                <button
+                    className={"site-btn small dark"}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onHide();
+                    }}>
+                    Закрыть
+                </button>
+            </div>
+        </>
+    )
+}
+
 export const CodeConfirmForm: React.FC<{
     step: string,
     setStep: (arg0: string) => void,
@@ -66,7 +107,7 @@ export const CodeConfirmForm: React.FC<{
                         if (step === "confirmOld") {
                             setStep("new");
                         } else {
-                            window.location.reload();
+                            setStep("success");
                             // console.log(res.data)
                         }
                     } else {
@@ -91,7 +132,7 @@ export const CodeConfirmForm: React.FC<{
                         if (step === "confirmOld") {
                             setStep("new");
                         } else {
-                            window.location.reload();
+                            setStep("success");
                             // console.log(res.data)
                         }
                     } else {
@@ -399,6 +440,9 @@ const EditPhoneForm: React.FC<{
                     onHide={onHide}
                 />
             }
+            {step === "success" &&
+                <SuccessStep type={"phone"} onHide={onHide} />
+            }
         </>
     )
 }
@@ -450,15 +494,15 @@ const EditEmailForm: React.FC<{
         if (oldConfirmation) return;
 
         axios.get('https://taxivoshod.ru/api/voshod-auto/?w=change-email&change-old-email=1', { withCredentials: true })
-        .then(res => {
-            if (res.data.reason) {
-                setOldConfirmation(false);
-                setStep("new");
-            }
-        })
-        .catch(e => {
-            console.log(e);
-        })
+            .then(res => {
+                if (res.data.reason) {
+                    setOldConfirmation(false);
+                    setStep("new");
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
     }
 
     useEffect(() => {
@@ -541,6 +585,9 @@ const EditEmailForm: React.FC<{
                     newEmail={data.email}
                 />
             }
+            {step === "success" &&
+                <SuccessStep type={"email"} onHide={onHide} />
+            }
         </>
     )
 }
@@ -586,11 +633,11 @@ const PersonalAccountModal: React.FC<{
 
     const handleClose = () => {
         onHide();
-        setStep(type === "phone" ? "confirmOld" : "new");
+        setStep(type === "phone" || type === "email" ? "confirmOld" : "new");
     }
 
     useEffect(() => {
-        setStep("confirmOld");
+        setStep(type === "phone" || type === "email" ? "confirmOld" : "new");
     }, [type]);
 
     return (
@@ -604,7 +651,7 @@ const PersonalAccountModal: React.FC<{
                         <EditEmailForm step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
                     }
                     {type === "withdraw" &&
-                        <WithdrawDesktop step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} balance={balance} />
+                        <WithdrawDesktop step={"new"} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} balance={balance} />
                     }
                 </ModalTemplateContent>
             </div>

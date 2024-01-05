@@ -114,7 +114,7 @@ const MobileEditPhone: React.FC<{
                     if (step === "old") {
                         setStep("new");
                     } else {
-                        window.location.reload();
+                        setStep("success");
                         // console.log(res.data)
                     }
                 } else {
@@ -150,7 +150,14 @@ const MobileEditPhone: React.FC<{
     return (
         <>
             <h1>
-                Изменить телефон
+                {step === "success" ?
+                    <>
+                        Ваш телефон <br />
+                        успешно изменён!
+                    </>
+                    :
+                    <>Изменить телефон</>
+                }
             </h1>
             {step === "old" &&
                 <MobileAuthCode
@@ -176,6 +183,18 @@ const MobileEditPhone: React.FC<{
                     closeFunc={closeFunc}
                     type={"phone"}
                 />
+            }
+            {step === "success" &&
+                <div className="mobile-modal_body-action mb-3">
+                    <button
+                        className={"site-btn small"}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            closeFunc();
+                        }}>
+                        Закрыть
+                    </button>
+                </div>
             }
             <p className="form-mobile-policy ">
                 Нажимая на кнопку, вы соглашаетесь с{" "}

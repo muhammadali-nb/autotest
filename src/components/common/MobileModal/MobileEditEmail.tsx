@@ -121,7 +121,7 @@ const MobileEditEmail: React.FC<{
                     if (step === "old") {
                         setStep("new");
                     } else {
-                        window.location.reload();
+                        setStep("success");
                         // console.log(res.data)
                     }
                 } else {
@@ -159,7 +159,14 @@ const MobileEditEmail: React.FC<{
     return (
         <>
             <h1>
-                Изменить e-mail
+                {step === "success" ?
+                    <>
+                        Ваша почта <br />
+                        успешно изменена!
+                    </>
+                    :
+                    <>Изменить e-mail</>
+                }
             </h1>
             {step === "old" &&
                 <MobileAuthCode
@@ -193,6 +200,18 @@ const MobileEditEmail: React.FC<{
                     closeFunc={closeFunc}
                     type={"email"}
                 />
+            }
+            {step === "success" &&
+                <div className="mobile-modal_body-action mb-3">
+                    <button
+                        className={"site-btn small"}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            closeFunc();
+                        }}>
+                        Закрыть
+                    </button>
+                </div>
             }
             <p className="form-mobile-policy ">
                 Нажимая на кнопку, вы соглашаетесь с{" "}
