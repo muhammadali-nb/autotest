@@ -10,11 +10,11 @@ import WithdrawDesktop from "../../../common/PersonalAccount/PersonalAccountWith
 import axios from "axios";
 
 export const CodeConfirmForm: React.FC<{
-    step?: string,
+    step: string,
     setStep: (arg0: string) => void,
-    newPhone?: string,
+    newPhone: string,
     type: string,
-    currentPhone?: string,
+    currentPhone: string,
     repeatRequest: () => void,
     onHide: () => void
 }> = (props) => {
@@ -56,7 +56,9 @@ export const CodeConfirmForm: React.FC<{
         setError("");
 
         if (type === "phone") {
-            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-old-phone=1&code=${code}`, { withCredentials: true })
+            const phone = step === "confirm" ? newPhone : '';
+
+            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-old-phone=1&code=${code}&phone=${phone}`, { withCredentials: true })
                 .then(res => {
                     if (res.data.result === 1) {
                         setPassed(true);
@@ -64,6 +66,7 @@ export const CodeConfirmForm: React.FC<{
                             setStep("new");
                         } else {
                             window.location.reload();
+                            // console.log(res.data)
                         }
                     } else {
                         setPassed(false);
@@ -226,7 +229,7 @@ export const CodeConfirmForm: React.FC<{
                         }
                         onClick={() => setStep("new")}>
                         <FontAwesomeIcon icon={faAngleLeft} />
-                        &nbsp;&nbsp;&nbsp;{type === "phone" && step && <>Изменить номер</>}{type === "email" && <>Изменить почту</>}
+                        &nbsp;&nbsp;&nbsp;{(type === "phone" && step === "confirm") && <>Изменить номер</>}{type === "email" && <>Изменить почту</>}
                     </button>
                 }
             </div>
@@ -285,7 +288,7 @@ const EditPhoneForm: React.FC<{
     useEffect(() => {
         if (step !== "confirmOld" || oldConfirmation) return;
         oldConfirmationCode();
-    }, [step, oldConfirmation]);
+    }, []);
 
     return (
         <>
@@ -295,7 +298,8 @@ const EditPhoneForm: React.FC<{
                     setStep={setStep}
                     repeatRequest={oldConfirmationCode}
                     type={"phone"}
-                    currentPhone={currentPhone}
+                    newPhone={''}
+                    currentPhone={currentPhone || ''}
                     onHide={onHide}
                 />
             }
@@ -351,7 +355,9 @@ const EditPhoneForm: React.FC<{
             }
             {step === "confirm" &&
                 <CodeConfirmForm
+                    step={step}
                     newPhone={data.phone}
+                    currentPhone={''}
                     setStep={setStep}
                     repeatRequest={getCode}
                     type={"phone"}
@@ -447,8 +453,10 @@ const EditEmailForm: React.FC<{
             }
             {step === "confirm" &&
                 <CodeConfirmForm
+                    step={step}
                     setStep={setStep}
                     repeatRequest={getCode}
+                    newPhone={''}
                     currentPhone={currentPhone}
                     type={"email"}
                     onHide={onHide}
@@ -473,13 +481,13 @@ const PersonalAccountModal: React.FC<{
         if (type === "phone" && phone) {
             axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-new-phone=1&phone=${phone}`, { withCredentials: true })
                 .then(res => {
-                    console.log(res.data)
+                    // console.log(res.data)
+                    setStep("confirm");
                 })
                 .catch((e) => {
                     console.log(e);
                 });
         }
-        setStep("confirm");
     }
 
     const handleClose = () => {
