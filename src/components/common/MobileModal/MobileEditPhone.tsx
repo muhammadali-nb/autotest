@@ -95,7 +95,7 @@ const MobileEditPhone: React.FC<{
     const sendCode = async (code: string, setPassed: (arg0: boolean) => void, setError: (arg0: string) => void) => {
         const phone = step === "confirm" ? data.phone : '';
 
-        axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-old-phone=1&code=${code}&phone=${phone}`, { withCredentials: true })
+        axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-${step === "old" ? 'old' : 'new'}-phone=1&code=${code}&phone=${phone}`, { withCredentials: true })
             .then(res => {
                 if (res.data.result === 1) {
                     setPassed(true);
@@ -113,6 +113,9 @@ const MobileEditPhone: React.FC<{
             .catch((e) => {
                 setPassed(false);
                 console.log(e);
+                if (e.response.data.message) {
+                    setError(e.response.data.message)
+                }
             });
     }
 
