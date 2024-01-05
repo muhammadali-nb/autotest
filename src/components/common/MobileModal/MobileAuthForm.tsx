@@ -199,7 +199,10 @@ export const MobileAuthCode: React.FC<{
             <div className={"d-flex justify-content-between mobile-modal_body-action mb-3"}>
                 <button
                     className={"site-btn small " + (!passed ? "dark" : "")}
-                    onClick={() => props.send(code, setPassed, setError)}>
+                    onClick={(e) => {
+                        e.preventDefault();
+                        props.send(code, setPassed, setError);
+                    }}>
                     Подтвердить код
                 </button>
                 {(!props.type || props.type !== "old") &&
