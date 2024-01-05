@@ -24,9 +24,42 @@ const FinesHead: React.FC<{
     const [pickerOpened, setPickerOpened] = useState(false);
     const [subPage, setSubPage] = useState(1);
 
-    const maxSubPage = Math.floor(totalPages / 3) + (totalPages % 3 > 0 ? 1 : 0);
+    const totalGroups = Math.ceil(totalPages / 3);
 
     const pickerRef = useRef<HTMLDivElement>(null);
+
+    const firstPageIndex = (subPage - 1) * 3 + 1;
+    const lastPageIndex = Math.min(
+        subPage * 3,
+        totalPages
+    );
+
+    const goToPreviousGroup = () => {
+        setSubPage((prevGroup) => prevGroup - 1);
+    };
+
+    const goToNextGroup = () => {
+        setSubPage((prevGroup) => prevGroup + 1);
+    };
+
+    const goToPreviousPage = () => {
+        if (page === firstPageIndex) {
+            setSubPage((prevGroup) => prevGroup - 1);
+        }
+        setPage(page - 1);
+    };
+
+    const goToNextPage = () => {
+        if (page === lastPageIndex) {
+            setSubPage((prevGroup) => prevGroup + 1);
+        }
+        setPage(page + 1);
+    };
+
+    const goToLastPage = () => {
+        setSubPage(totalGroups);
+        setPage(totalPages);
+      };
 
     useEffect(() => {
         const handleClick = (e: MouseEvent) => {
@@ -92,31 +125,6 @@ const FinesHead: React.FC<{
         });
     }
 
-    const renderPageButtons = () => {
-        const buttons: React.ReactNode[] = [];
-
-        for (let i = subPage; i <= subPage + 2; i++) {
-            if (i <= totalPages) {
-                buttons.push(
-                    <div className={'personal-account_fines-page ' + (page === i * subPage ? 'active' : '')} onClick={() => setPage(i * subPage)}>
-                        {i + (subPage > 1 ? 2 : 0)}
-                    </div>
-                );
-            }
-            
-        }
-
-        return buttons;
-    }
-
-    // useEffect(() => {
-    //     if (page > 3) {
-    //         setSubPage(page % 3);
-    //     } else {
-    //         setSubPage(1);
-    //     }
-    // }, [page]);
-
     return (
         <div className="personal-account_fines-head">
             <div className="personal-account_fines-datefilter" ref={pickerRef}>
@@ -152,35 +160,45 @@ const FinesHead: React.FC<{
                 </div>
                 <span>Не оплачены</span>
             </div>
-            <div className="personal-account_fines-pages">
-                {(totalPages > 3 && subPage > 1) &&
-                    <div className="personal-account_fines-prevPages" onClick={() => setSubPage(prev => prev - 1)}>
-                        <img src={doubleArrow} alt="Пред. 3 страницы" />
-                    </div>
-                }
-                {page > 1 &&
-                    <div className="personal-account_fines-prevPage" onClick={() => setPage(page - 1)}>
-                        <img src={arrow} alt="Предыдущая страница" />
-                    </div>
-                }
-                {renderPageButtons()}
-                {page < totalPages &&
-                    <div className="personal-account_fines-nextPage" onClick={() => setPage(page + 1)}>
-                        <img src={arrow} alt="Следующая страница" />
-                    </div>
-                }
-                {(subPage < maxSubPage && totalPages > 3) &&
-                    <div className="personal-account_fines-nextPages" onClick={() => setSubPage(prev => prev + 1)}>
-                        <img src={doubleArrow} alt="След. 3 страницы" />
-                    </div>
-                }
-                {totalPages > 3 &&
-                    <div className="personal-account_fines-page" onClick={() => setPage(totalPages)}>
-                        {totalPages}
-                    </div>
-                }
-            </div>
-        </div>
+            {totalPages > 1 &&
+                <div className="personal-account_fines-pages">
+                    {(totalPages > 3 && subPage > 1) &&
+                        <div className="personal-account_fines-prevPages" onClick={goToPreviousGroup}>
+                            <img src={doubleArrow} alt="Пред. 3 страницы" />
+                        </div>
+                    }
+                    {page > 1 &&
+                        <div className="personal-account_fines-prevPage" onClick={goToPreviousPage}>
+                            <img src={arrow} alt="Предыдущая страница" />
+                        </div>
+                    }
+                    {Array.from({ length: lastPageIndex - firstPageIndex + 1 }, (_, i) => (
+                        <div
+                            key={firstPageIndex + i}
+                            className={'personal-account_fines-page ' + (firstPageIndex + i === page ? 'active' : '')}
+                            onClick={() => setPage(firstPageIndex + i)}
+                        >
+                            {firstPageIndex + i}
+                        </div>
+                    ))}
+                    {page < totalPages &&
+                        <div className="personal-account_fines-nextPage" onClick={goToNextPage}>
+                            <img src={arrow} alt="Следующая страница" />
+                        </div>
+                    }
+                    {(subPage < totalGroups && totalPages > 3) &&
+                        <div className="personal-account_fines-nextPages" onClick={goToNextGroup}>
+                            <img src={doubleArrow} alt="След. 3 страницы" />
+                        </div>
+                    }
+                    {(totalPages > 3 && page !== totalPages && subPage !== totalGroups) &&
+                        <div className="personal-account_fines-page" onClick={goToLastPage}>
+                            {totalPages}
+                        </div>
+                    }
+                </div>
+            }
+        </div >
     )
 }
 

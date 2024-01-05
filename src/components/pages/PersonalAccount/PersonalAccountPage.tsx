@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PersonalAccountLayout from "../../layout/PersonalAccountLayout/PersonalAccountLayout";
 import { Col, Container, Row } from "react-bootstrap";
 import { SmallFooter } from "../../layout/Footer";
@@ -10,6 +10,9 @@ import { useOutside } from "../../../hooks/useOutside";
 import PersonalAccountMenuMobile from "./PersonalAccountMenuMobile";
 import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 import PersonalAccountBalance from "./PersonalAccountBalance/PersonalAccountBalance";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
+import { is } from "date-fns/locale";
 
 export interface userManagerProps {
 	first_name: string;
@@ -65,6 +68,14 @@ export const userData: userDataProps = {
 const PersonalAccountPage: React.FC = () => {
 	// for menu personal account
 	const { ref, isShow, setIsShow } = useOutside(false);
+	const navigate = useNavigate();
+	const { isAuthenticated } = useAuth();
+
+	useEffect(() => {
+		if (!isAuthenticated) {
+			navigate('/');
+		}
+	}, []);
 
 	return (
 		<PersonalAccountLayout>
