@@ -81,6 +81,15 @@ const MobileEditPhone: React.FC<{
     });
     const [timer, setTimer] = useState(60);
 
+    const setServerError = (err: string) => {
+        let errors = data.errors;
+
+        errors['server'] = err;
+
+        let newData = { ...data, errors: errors };
+        setData(newData);
+    }
+
     const sendPhone = () => {
         axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-new-phone=1&phone=${data.phone}`, { withCredentials: true })
             .then(res => {
@@ -89,6 +98,9 @@ const MobileEditPhone: React.FC<{
             })
             .catch((e) => {
                 console.log(e);
+                if (e.response.data.message) {
+                    setServerError(e.response.data.message);
+                }
             });
     }
 
@@ -100,9 +112,9 @@ const MobileEditPhone: React.FC<{
                 if (res.data.result === 1) {
                     setPassed(true);
                     if (step === "old") {
-                        setStep("phone");
+                        setStep("new");
                     } else {
-                        window.location.reload();
+                        setStep("success");
                         // console.log(res.data)
                     }
                 } else {
@@ -119,35 +131,46 @@ const MobileEditPhone: React.FC<{
             });
     }
 
+    const oldConfirmationCode = () => {
+        axios.get('https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-old-phone=1', { withCredentials: true })
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+
     useEffect(() => {
         if (step === "old" && isActive) {
-            axios.get('https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-old-phone=1', { withCredentials: true })
-                .then(res => {
-                    console.log(res.data);
-                })
-                .catch(e => {
-                    console.log(e);
-                });
+            oldConfirmationCode();
         }
     }, [isActive]);
 
     return (
         <>
             <h1>
-                Изменить телефон
+                {step === "success" ?
+                    <>
+                        Ваш телефон <br />
+                        успешно изменён!
+                    </>
+                    :
+                    <>Изменить телефон</>
+                }
             </h1>
             {step === "old" &&
                 <MobileAuthCode
                     data={data}
                     setStep={setStep}
                     timer={timer}
-                    repeatRequest={sendPhone}
+                    repeatRequest={oldConfirmationCode}
                     send={sendCode}
                     closeFunc={closeFunc}
                     type={'old'}
                 />
             }
-            {step === "phone" &&
+            {step === "new" &&
                 <NewPhone data={data} setData={setData} submit={sendPhone} />
             }
             {step === "confirm" &&
@@ -158,7 +181,20 @@ const MobileEditPhone: React.FC<{
                     repeatRequest={sendPhone}
                     send={sendCode}
                     closeFunc={closeFunc}
+                    type={"phone"}
                 />
+            }
+            {step === "success" &&
+                <div className="mobile-modal_body-action mb-3">
+                    <button
+                        className={"site-btn small"}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            closeFunc();
+                        }}>
+                        Закрыть
+                    </button>
+                </div>
             }
             <p className="form-mobile-policy ">
                 Нажимая на кнопку, вы соглашаетесь с{" "}

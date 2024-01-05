@@ -5,6 +5,7 @@ import { ModalTemplateInput } from "../../../ModalFormTemplate";
 import CardSelect from "../../../CardSelect/CardSelect";
 import { CodeConfirmForm } from "../../../../pages/PersonalAccount/PersonalAccountModal/PersonalAccountModal";
 import Utils from "../../../../../utils/Utils";
+import { useAuth } from "../../../../../hooks/useAuth";
 
 interface cardProps {
     name: string,
@@ -56,13 +57,15 @@ const cardsData: cardsDataProps = {
 
 const WithdrawDesktop: React.FC<{
     onHide: () => void,
-    getCode: () => void,
+    getCode: (item: string, setError: (err: string) => void) => void,
     step: string,
     setStep: (arg0: string) => void,
     currentPhone: string,
     balance?: number
 }> = (props) => {
     const { onHide, getCode, step, setStep, currentPhone, balance } = props;
+
+    const { phone } = useAuth();
 
     const [data, setData] = useState({
         card: {
@@ -94,13 +97,22 @@ const WithdrawDesktop: React.FC<{
         errors = Utils.validateWithdraw(data, balance);
     }
 
+    const setServerError = (err: string) => {
+        let errors = data.errors;
+
+        errors['server'] = err;
+
+        let newData = { ...data, errors: errors };
+        setData(newData);
+    }
+
     const send = () => {
         let errors = Utils.validateWithdraw(data, balance);
         if (Object.keys(errors).length > 0) {
             setData({ ...data, errors: errors });
             return;
         }
-        getCode();
+        getCode(phone, setServerError);
     }
 
     return (
