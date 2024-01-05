@@ -74,7 +74,7 @@ export const MobileAuthCode: React.FC<{
     repeatRequest: () => void,
     closeFunc: () => void,
     send: (code: string, setPassed: (arg0: boolean) => void, setError: (arg0: string) => void) => Promise<void>,
-    type?: string
+    type?: string,
 }> = (props) => {
     const [passed, setPassed] = useState(false);
     const [code, setCode] = useState("      ");
@@ -210,9 +210,15 @@ export const MobileAuthCode: React.FC<{
                         className={
                             "default-link text-uppercase text-decoration-none default-transition text-gray-color text-hover-default font-size-12 "
                         }
-                        onClick={() => props.setStep("auth")}>
+                        onClick={() => {
+                            if (props.type) {
+                                props.setStep("new");
+                            } else {
+                                props.setStep("auth");
+                            }
+                        }}>
                         <FontAwesomeIcon icon={faAngleLeft} />
-                        &nbsp;&nbsp;&nbsp;Изменить номер
+                        &nbsp;&nbsp;&nbsp;{props.type && props.type === "email" ? <>Изменить почту</> : <>Изменить номер</>}
                     </button>
                 }
 

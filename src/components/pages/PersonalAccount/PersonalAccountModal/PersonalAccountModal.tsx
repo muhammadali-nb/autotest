@@ -15,10 +15,11 @@ export const CodeConfirmForm: React.FC<{
     newPhone: string,
     type: string,
     currentPhone: string,
-    repeatRequest: () => void,
-    onHide: () => void
+    repeatRequest: (item: string, setError: (err: string) => void) => void,
+    onHide: () => void,
+    newEmail?: string
 }> = (props) => {
-    const { step, setStep, newPhone, repeatRequest, currentPhone, type, onHide } = props;
+    const { step, setStep, newPhone, repeatRequest, currentPhone, type, onHide, newEmail } = props;
     const { phone } = useAuth();
 
     const [passed, setPassed] = useState(false);
@@ -80,6 +81,31 @@ export const CodeConfirmForm: React.FC<{
                         setError(e.response.data.message)
                     }
                 });
+        } else if (type === "email") {
+            const email = step === "confirm" ? newEmail : '';
+
+            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-email&change-${step === "confirmOld" ? 'old' : 'new'}-email=1&code=${code}&email=${email}`, { withCredentials: true })
+                .then(res => {
+                    if (res.data.result === 1) {
+                        setPassed(true);
+                        if (step === "confirmOld") {
+                            setStep("new");
+                        } else {
+                            window.location.reload();
+                            // console.log(res.data)
+                        }
+                    } else {
+                        setPassed(false);
+                        setError(res.data.message);
+                    }
+                })
+                .catch((e) => {
+                    setPassed(false);
+                    console.log(e);
+                    if (e.response.data.message) {
+                        setError(e.response.data.message)
+                    }
+                });
         }
     }
 
@@ -112,12 +138,8 @@ export const CodeConfirmForm: React.FC<{
                         "default-link font-size-18 font-weight-semibold text-hover-default"
                     }
                     onClick={() => {
-                        if (type === "phone") {
-                            if (step === "confirmOld") {
-                                onHide();
-                            } else {
-                                setStep("new");
-                            }
+                        if (step === "confirmOld") {
+                            onHide();
                         } else {
                             setStep("new");
                         }
@@ -204,7 +226,7 @@ export const CodeConfirmForm: React.FC<{
                             className={
                                 "default-link text-default text-decoration-underline font-size-14"
                             }
-                            onClick={repeatRequest}>
+                            onClick={() => repeatRequest(newPhone ? newPhone : currentPhone, setError)}>
                             Отправить СМС ещё раз
                         </button>
                     </div>
@@ -242,10 +264,10 @@ export const CodeConfirmForm: React.FC<{
 
 const EditPhoneForm: React.FC<{
     onHide: () => void,
-    getCode: (phone?: string) => void,
+    getCode: (item: string, setError: (err: string) => void) => void,
     step: string,
     setStep: (arg0: string) => void,
-    currentPhone?: string
+    currentPhone: string
 }> = (props) => {
     const { onHide, getCode, step, setStep, currentPhone } = props;
     // const [passed, setPassed] = useState(false);
@@ -266,6 +288,15 @@ const EditPhoneForm: React.FC<{
         Utils.validatePhone(data.phone);
     }
 
+    const setServerError = (err: string) => {
+        let errors = data.errors;
+
+        errors['server'] = err;
+
+        let newData = { ...data, errors: errors };
+        setData(newData);
+    }
+
     const sendPhone = () => {
         let errors = Utils.validateConfirmPhone(data);
         if (Object.keys(errors).length > 0) {
@@ -273,15 +304,15 @@ const EditPhoneForm: React.FC<{
             // setPassed(false);
             return;
         }
-        getCode(data.phone);
+        getCode(data.phone, setServerError);
     }
 
     const oldConfirmationCode = () => {
         if (oldConfirmation) return;
-        setOldConfirmation(prev => !prev);
         axios.get('https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-old-phone=1', { withCredentials: true })
             .then(res => {
                 console.log(res.data);
+                setOldConfirmation(false);
             })
             .catch((e) => {
                 console.log(e);
@@ -290,6 +321,7 @@ const EditPhoneForm: React.FC<{
 
     useEffect(() => {
         if (step !== "confirmOld" || oldConfirmation) return;
+        setOldConfirmation(true);
         oldConfirmationCode();
     }, []);
 
@@ -302,7 +334,7 @@ const EditPhoneForm: React.FC<{
                     repeatRequest={oldConfirmationCode}
                     type={"phone"}
                     newPhone={''}
-                    currentPhone={currentPhone || ''}
+                    currentPhone={currentPhone}
                     onHide={onHide}
                 />
             }
@@ -373,12 +405,14 @@ const EditPhoneForm: React.FC<{
 
 const EditEmailForm: React.FC<{
     onHide: () => void,
-    getCode: () => void,
+    getCode: (item: string, setError: (err: string) => void) => void,
     step: string,
     setStep: (arg0: string) => void,
     currentPhone: string
 }> = (props) => {
     const { onHide, getCode, step, setStep, currentPhone } = props;
+
+    const [oldConfirmation, setOldConfirmation] = useState(false);
 
     const [data, setData] = useState({
         email: "",
@@ -394,17 +428,58 @@ const EditEmailForm: React.FC<{
         errors = Utils.validateEmail(data);
     }
 
+    const setServerError = (err: string) => {
+        let errors = data.errors;
+
+        errors['server'] = err;
+
+        let newData = { ...data, errors: errors };
+        setData(newData);
+    }
+
     const sendEmail = () => {
         let errors = Utils.validateEmail(data);
         if (Object.keys(errors).length > 0) {
             setData({ ...data, errors: errors });
             return;
         }
-        getCode();
+        getCode(data.email, setServerError);
     }
+
+    const oldConfirmationCode = () => {
+        if (oldConfirmation) return;
+
+        axios.get('https://taxivoshod.ru/api/voshod-auto/?w=change-email&change-old-email=1', { withCredentials: true })
+        .then(res => {
+            if (res.data.reason) {
+                setOldConfirmation(false);
+                setStep("new");
+            }
+        })
+        .catch(e => {
+            console.log(e);
+        })
+    }
+
+    useEffect(() => {
+        if (step !== "confirmOld" || oldConfirmation) return;
+        setOldConfirmation(true);
+        oldConfirmationCode();
+    }, []);
 
     return (
         <>
+            {step === "confirmOld" &&
+                <CodeConfirmForm
+                    step={step}
+                    newPhone={''}
+                    currentPhone={currentPhone}
+                    setStep={setStep}
+                    repeatRequest={oldConfirmationCode}
+                    type={"email"}
+                    onHide={onHide}
+                />
+            }
             {step === "new" &&
                 <>
                     <div className={"mb-px-60"}>
@@ -463,6 +538,7 @@ const EditEmailForm: React.FC<{
                     currentPhone={currentPhone}
                     type={"email"}
                     onHide={onHide}
+                    newEmail={data.email}
                 />
             }
         </>
@@ -478,17 +554,32 @@ const PersonalAccountModal: React.FC<{
 }> = (props) => {
     const { type, onHide, currentPhone, balance } = props;
 
-    const [step, setStep] = useState(type === "phone" ? "confirmOld" : "new");
+    const [step, setStep] = useState("confirmOld");
 
-    const getCode = (phone?: string) => {
-        if (type === "phone" && phone) {
-            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-new-phone=1&phone=${phone}`, { withCredentials: true })
+    const getCode = (item: string, setError: (err: string) => void) => {
+        if (type === "phone") {
+            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-new-phone=1&phone=${item}`, { withCredentials: true })
                 .then(res => {
                     // console.log(res.data)
                     setStep("confirm");
                 })
                 .catch((e) => {
                     console.log(e);
+                    if (e.response.data.message) {
+                        setError(e.response.data.message);
+                    }
+                });
+        } else if (type === "email") {
+            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-email&change-new-email=1&email=${item}`, { withCredentials: true })
+                .then(res => {
+                    // console.log(res.data)
+                    setStep("confirm");
+                })
+                .catch((e) => {
+                    console.log(e);
+                    if (e.response.data.message) {
+                        setError(e.response.data.message);
+                    }
                 });
         }
     }
@@ -499,7 +590,7 @@ const PersonalAccountModal: React.FC<{
     }
 
     useEffect(() => {
-        setStep(type === "phone" ? "confirmOld" : "new");
+        setStep("confirmOld");
     }, [type]);
 
     return (

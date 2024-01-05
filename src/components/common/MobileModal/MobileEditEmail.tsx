@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MobileAuthCode } from "./MobileAuthForm";
 import { useAuth } from "../../../hooks/useAuth";
 import { ModalTemplateInput } from "../ModalFormTemplate";
 import Utils from "../../../utils/Utils";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 interface EditEmailProps {
     email: string,
@@ -23,7 +24,7 @@ const NewEmail: React.FC<{
         let errors = Utils.validateEmail(data);
         if (Object.keys(errors).length > 0) {
             setData({ ...data, errors: errors });
-            // setPassed(false);
+            setPassed(false);
             return;
         }
         submit();
@@ -72,33 +73,110 @@ const NewEmail: React.FC<{
 }
 
 const MobileEditEmail: React.FC<{
-    closeFunc: () => void
+    closeFunc: () => void,
+    isActive: boolean
 }> = (props) => {
-    const { closeFunc } = props;
+    const { closeFunc, isActive } = props;
 
-    const [step, setStep] = useState("email");
+    const [step, setStep] = useState("old");
     const [data, setData] = useState({
         email: "",
         errors: {},
         confirm: true
     });
-    const [timer, setTimer] = useState(0);
+    const [timer, setTimer] = useState(60);
     const { phone } = useAuth();
 
+    const setServerError = (err: string) => {
+        let errors = data.errors;
+
+        errors['server'] = err;
+
+        let newData = { ...data, errors: errors };
+        setData(newData);
+    }
+
     const sendEmail = () => {
+        axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-email&change-new-email=1&email=${data.email}`, { withCredentials: true })
+            .then(res => {
+                // console.log(res.data)
+                setStep("confirm");
+            })
+            .catch((e) => {
+                console.log(e);
+                if (e.response.data.message) {
+                    setServerError(e.response.data.message);
+                }
+            });
         setStep("confirm");
     }
 
     const sendCode = async (code: string, setPassed: (arg0: boolean) => void, setError: (arg0: string) => void) => {
+        const email = step === "confirm" ? data.email : '';
 
+        axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-email&change-${step === "old" ? 'old' : 'new'}-email=1&code=${code}&phone=${email}`, { withCredentials: true })
+            .then(res => {
+                if (res.data.result === 1) {
+                    setPassed(true);
+                    if (step === "old") {
+                        setStep("new");
+                    } else {
+                        window.location.reload();
+                        // console.log(res.data)
+                    }
+                } else {
+                    setPassed(false);
+                    setError(res.data.message);
+                }
+            })
+            .catch((e) => {
+                setPassed(false);
+                console.log(e);
+                if (e.response.data.message) {
+                    setError(e.response.data.message)
+                }
+            });
     }
+
+    const oldConfirmationCode = () => {
+        axios.get('https://taxivoshod.ru/api/voshod-auto/?w=change-email&change-old-email=1', { withCredentials: true })
+            .then(res => {
+                if (res.data.reason) {
+                    setStep("new");
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    }
+
+    useEffect(() => {
+        if (step === "old" && isActive) {
+            oldConfirmationCode();
+        }
+    }, [isActive]);
 
     return (
         <>
             <h1>
                 Изменить e-mail
             </h1>
-            {step === "email" &&
+            {step === "old" &&
+                <MobileAuthCode
+                    data={{
+                        phone: phone ? Utils.formatPhone(phone) : "",
+                        confirm: true,
+                        errors: {}
+                    }}
+                    setStep={setStep}
+                    timer={timer}
+                    repeatRequest={oldConfirmationCode}
+                    send={sendCode}
+                    closeFunc={closeFunc}
+                    type={"old"}
+                />
+            }
+            {step === "new" &&
                 <NewEmail data={data} setData={setData} submit={sendEmail} />
             }
             {step === "confirm" &&
@@ -113,6 +191,7 @@ const MobileEditEmail: React.FC<{
                     repeatRequest={sendEmail}
                     send={sendCode}
                     closeFunc={closeFunc}
+                    type={"email"}
                 />
             }
             <p className="form-mobile-policy ">
