@@ -79,22 +79,55 @@ const MobileEditPhone: React.FC<{
         confirm: true,
         errors: {}
     });
-    const [timer, setTimer] = useState(0);
+    const [timer, setTimer] = useState(60);
 
     const sendPhone = () => {
-        setStep("confirm");
+        axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-new-phone=1&phone=${data.phone}`, { withCredentials: true })
+            .then(res => {
+                // console.log(res.data)
+                setStep("confirm");
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     }
 
     const sendCode = async (code: string, setPassed: (arg0: boolean) => void, setError: (arg0: string) => void) => {
+        const phone = step === "confirm" ? data.phone : '';
 
+        axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-${step === "old" ? 'old' : 'new'}-phone=1&code=${code}&phone=${phone}`, { withCredentials: true })
+            .then(res => {
+                if (res.data.result === 1) {
+                    setPassed(true);
+                    if (step === "old") {
+                        setStep("phone");
+                    } else {
+                        window.location.reload();
+                        // console.log(res.data)
+                    }
+                } else {
+                    setPassed(false);
+                    setError(res.data.message);
+                }
+            })
+            .catch((e) => {
+                setPassed(false);
+                console.log(e);
+                if (e.response.data.message) {
+                    setError(e.response.data.message)
+                }
+            });
     }
 
     useEffect(() => {
         if (step === "old" && isActive) {
-            axios.get('https://taxivoshod.ru/api/?w=change-phone&change-old-phone=1', { withCredentials: true })
+            axios.get('https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-old-phone=1', { withCredentials: true })
                 .then(res => {
                     console.log(res.data);
                 })
+                .catch(e => {
+                    console.log(e);
+                });
         }
     }, [isActive]);
 
