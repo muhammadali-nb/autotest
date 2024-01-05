@@ -164,8 +164,10 @@ const WithdrawDesktop: React.FC<{
             }
             {step === "confirm" &&
                 <CodeConfirmForm
+                    step={step}
                     setStep={setStep}
                     repeatRequest={getCode}
+                    newPhone={''}
                     currentPhone={Utils.formatPhone(currentPhone)}
                     type={"withdraw"}
                     onHide={onHide}

@@ -14,11 +14,18 @@ const FinesHead: React.FC<{
     payed: boolean,
     setPayed: () => void,
     range: rangeProps,
-    setDates: (arg0: rangeProps) => void
+    setDates: (arg0: rangeProps) => void,
+    page: number,
+    setPage: (arg0: number) => void,
+    totalPages: number
 }> = (props) => {
-    const { payed, setPayed, range, setDates } = props;
+    const { payed, setPayed, range, setDates, page, setPage, totalPages } = props;
 
     const [pickerOpened, setPickerOpened] = useState(false);
+    const [subPage, setSubPage] = useState(1);
+
+    const maxSubPage = Math.floor(totalPages / 3) + (totalPages % 3 > 0 ? 1 : 0);
+
     const pickerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -74,8 +81,8 @@ const FinesHead: React.FC<{
             newStartDate = addDaysToDate(currentStartDate, daysDifference);
             newEndDate = addDaysToDate(currentEndDate, daysDifference);
         } else {
-            newStartDate = addDaysToDate(currentStartDate, daysDifference*-1);
-            newEndDate = addDaysToDate(currentEndDate, daysDifference*-1);
+            newStartDate = addDaysToDate(currentStartDate, daysDifference * -1);
+            newEndDate = addDaysToDate(currentEndDate, daysDifference * -1);
         }
 
         setDates({
@@ -84,6 +91,31 @@ const FinesHead: React.FC<{
             key: 'selection'
         });
     }
+
+    const renderPageButtons = () => {
+        const buttons: React.ReactNode[] = [];
+
+        for (let i = subPage; i <= subPage + 2; i++) {
+            if (i <= totalPages) {
+                buttons.push(
+                    <div className={'personal-account_fines-page ' + (page === i * subPage ? 'active' : '')} onClick={() => setPage(i * subPage)}>
+                        {i + (subPage > 1 ? 2 : 0)}
+                    </div>
+                );
+            }
+            
+        }
+
+        return buttons;
+    }
+
+    // useEffect(() => {
+    //     if (page > 3) {
+    //         setSubPage(page % 3);
+    //     } else {
+    //         setSubPage(1);
+    //     }
+    // }, [page]);
 
     return (
         <div className="personal-account_fines-head">
@@ -121,28 +153,32 @@ const FinesHead: React.FC<{
                 <span>Не оплачены</span>
             </div>
             <div className="personal-account_fines-pages">
-                <div className="personal-account_fines-prevPage">
-                    <img src={arrow} alt="Предыдущая страница" />
-                </div>
-
-                <div className="personal-account_fines-page active">
-                    1
-                </div>
-                <div className="personal-account_fines-page">
-                    2
-                </div>
-                <div className="personal-account_fines-page">
-                    3
-                </div>
-                <div className="personal-account_fines-nextPage">
-                    <img src={arrow} alt="Следующая страница" />
-                </div>
-                <div className="personal-account_fines-nextPages">
-                    <img src={doubleArrow} alt="След. 3 страницы" />
-                </div>
-                <div className="personal-account_fines-page">
-                    5
-                </div>
+                {(totalPages > 3 && subPage > 1) &&
+                    <div className="personal-account_fines-prevPages" onClick={() => setSubPage(prev => prev - 1)}>
+                        <img src={doubleArrow} alt="Пред. 3 страницы" />
+                    </div>
+                }
+                {page > 1 &&
+                    <div className="personal-account_fines-prevPage" onClick={() => setPage(page - 1)}>
+                        <img src={arrow} alt="Предыдущая страница" />
+                    </div>
+                }
+                {renderPageButtons()}
+                {page < totalPages &&
+                    <div className="personal-account_fines-nextPage" onClick={() => setPage(page + 1)}>
+                        <img src={arrow} alt="Следующая страница" />
+                    </div>
+                }
+                {(subPage < maxSubPage && totalPages > 3) &&
+                    <div className="personal-account_fines-nextPages" onClick={() => setSubPage(prev => prev + 1)}>
+                        <img src={doubleArrow} alt="След. 3 страницы" />
+                    </div>
+                }
+                {totalPages > 3 &&
+                    <div className="personal-account_fines-page" onClick={() => setPage(totalPages)}>
+                        {totalPages}
+                    </div>
+                }
             </div>
         </div>
     )

@@ -244,6 +244,14 @@
         }
     }
 
+    &-prevPages {
+        display: flex;
+        align-items: center;
+        img {
+            transform: rotate(180deg) translateY(-1px);
+        }
+    }
+
     &-page {
         width: 25px;
         height: 25px;
@@ -265,6 +273,15 @@
     &-nextPage {
         img {
             transform: rotate(180deg);
+        }
+    }
+
+    &-prevPages,
+    &-nextPages,
+    &-nextPage,
+    &-prevPage {
+        img {
+            pointer-events: none;
         }
     }
 

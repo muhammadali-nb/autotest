@@ -175,10 +175,18 @@ const TransactionsPage: React.FC = () => {
                     <div className="personal-account_transactions">
                         <div className="personal-account_transactions-items">
                             <div className="personal-account_transactions-item">
-                                <TransactionsBalance data={balanceData} filters={filters} updateFilters={updateFilters} />
+                                {(isLoading && page === 1) ?
+                                    <BalanceLoader />
+                                    :
+                                    <TransactionsBalance data={balanceData} filters={filters} updateFilters={updateFilters} />
+                                }
                             </div>
                             <div className="personal-account_transactions-item">
-                                <TransactionsList data={transactions} page={page} setPage={() => setPage(prev => prev + 1)} totalPages={totalPages} isLoading={isLoading} />
+                                {(isLoading && page === 1) ?
+                                    <TransactionsLoader />
+                                    :
+                                    <TransactionsList data={transactions} page={page} setPage={() => setPage(prev => prev + 1)} totalPages={totalPages} isLoading={isLoading} />
+                                }
                             </div>
                         </div>
                     </div>

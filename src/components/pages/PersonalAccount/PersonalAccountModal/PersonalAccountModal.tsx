@@ -10,11 +10,11 @@ import WithdrawDesktop from "../../../common/PersonalAccount/PersonalAccountWith
 import axios from "axios";
 
 export const CodeConfirmForm: React.FC<{
-    step?: string, 
+    step: string,
     setStep: (arg0: string) => void,
-    newPhone?: string,
+    newPhone: string,
     type: string,
-    currentPhone?: string,
+    currentPhone: string,
     repeatRequest: () => void,
     onHide: () => void
 }> = (props) => {
@@ -26,7 +26,7 @@ export const CodeConfirmForm: React.FC<{
     const [error, setError] = useState("");
     const [idPrefix] = useState(Utils.randomString());
     const { register, error_message } = useAuth();
-    const [timer, setTimer] = useState(0);
+    const [timer, setTimer] = useState(60);
 
     useEffect(() => {
         let id = "confirm" + idPrefix + "-0";
@@ -48,7 +48,36 @@ export const CodeConfirmForm: React.FC<{
     };
 
     const senCode = () => {
+        if (code.replace(/\D+/g, "").length < 5) {
+            setPassed(false);
+            setError("Укажите код подтверждения!");
+            return;
+        }
+        setError("");
 
+        if (type === "phone") {
+            const phone = step === "confirm" ? newPhone : '';
+
+            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-old-phone=1&code=${code}&phone=${phone}`, { withCredentials: true })
+                .then(res => {
+                    if (res.data.result === 1) {
+                        setPassed(true);
+                        if (step === "confirmOld") {
+                            setStep("new");
+                        } else {
+                            window.location.reload();
+                            // console.log(res.data)
+                        }
+                    } else {
+                        setPassed(false);
+                        setError(res.data.message);
+                    }
+                })
+                .catch((e) => {
+                    setPassed(false);
+                    console.log(e);
+                });
+        }
     }
 
     const update = (index: number, value: string) => {
@@ -200,7 +229,7 @@ export const CodeConfirmForm: React.FC<{
                         }
                         onClick={() => setStep("new")}>
                         <FontAwesomeIcon icon={faAngleLeft} />
-                        &nbsp;&nbsp;&nbsp;{type === "phone" && step && <>Изменить номер</>}{type === "email" && <>Изменить почту</>}
+                        &nbsp;&nbsp;&nbsp;{(type === "phone" && step === "confirm") && <>Изменить номер</>}{type === "email" && <>Изменить почту</>}
                     </button>
                 }
             </div>
@@ -210,13 +239,14 @@ export const CodeConfirmForm: React.FC<{
 
 const EditPhoneForm: React.FC<{
     onHide: () => void,
-    getCode: () => void,
+    getCode: (phone?: string) => void,
     step: string,
     setStep: (arg0: string) => void,
     currentPhone?: string
 }> = (props) => {
     const { onHide, getCode, step, setStep, currentPhone } = props;
     // const [passed, setPassed] = useState(false);
+    const [oldConfirmation, setOldConfirmation] = useState(false);
     const [data, setData] = useState({
         phone: "",
         errors: {},
@@ -240,15 +270,24 @@ const EditPhoneForm: React.FC<{
             // setPassed(false);
             return;
         }
-        getCode();
+        getCode(data.phone);
     }
 
-    useEffect(() => {
-        if (step !== "confirmOld") return;
-        axios.get('https://taxivoshod.ru/api/?w=change-phone&change-old-phone=1', { withCredentials: true })
+    const oldConfirmationCode = () => {
+        if (oldConfirmation) return;
+        setOldConfirmation(prev => !prev);
+        axios.get('https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-old-phone=1', { withCredentials: true })
             .then(res => {
                 console.log(res.data);
             })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
+
+    useEffect(() => {
+        if (step !== "confirmOld" || oldConfirmation) return;
+        oldConfirmationCode();
     }, []);
 
     return (
@@ -257,9 +296,10 @@ const EditPhoneForm: React.FC<{
                 <CodeConfirmForm
                     step={step}
                     setStep={setStep}
-                    repeatRequest={getCode}
+                    repeatRequest={oldConfirmationCode}
                     type={"phone"}
-                    currentPhone={currentPhone}
+                    newPhone={''}
+                    currentPhone={currentPhone || ''}
                     onHide={onHide}
                 />
             }
@@ -315,7 +355,9 @@ const EditPhoneForm: React.FC<{
             }
             {step === "confirm" &&
                 <CodeConfirmForm
+                    step={step}
                     newPhone={data.phone}
+                    currentPhone={''}
                     setStep={setStep}
                     repeatRequest={getCode}
                     type={"phone"}
@@ -411,8 +453,10 @@ const EditEmailForm: React.FC<{
             }
             {step === "confirm" &&
                 <CodeConfirmForm
+                    step={step}
                     setStep={setStep}
                     repeatRequest={getCode}
+                    newPhone={''}
                     currentPhone={currentPhone}
                     type={"email"}
                     onHide={onHide}
@@ -433,8 +477,17 @@ const PersonalAccountModal: React.FC<{
 
     const [step, setStep] = useState(type === "phone" ? "confirmOld" : "new");
 
-    const getCode = () => {
-        setStep("confirm");
+    const getCode = (phone?: string) => {
+        if (type === "phone" && phone) {
+            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-phone&change-new-phone=1&phone=${phone}`, { withCredentials: true })
+                .then(res => {
+                    // console.log(res.data)
+                    setStep("confirm");
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
     }
 
     const handleClose = () => {
