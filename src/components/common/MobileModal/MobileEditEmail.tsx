@@ -78,7 +78,7 @@ const MobileEditEmail: React.FC<{
 }> = (props) => {
     const { closeFunc, isActive } = props;
 
-    const [step, setStep] = useState("old");
+    const [step, setStep] = useState("new");
     const [data, setData] = useState({
         email: "",
         errors: {},
@@ -97,10 +97,11 @@ const MobileEditEmail: React.FC<{
     }
 
     const sendEmail = () => {
-        axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-email&change-new-email=1&email=${data.email}`, { withCredentials: true })
+        axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-email&email=${data.email}`, { withCredentials: true })
             .then(res => {
                 // console.log(res.data)
-                setStep("confirm");
+                // setStep("confirm");
+                setStep("success");
             })
             .catch((e) => {
                 console.log(e);
@@ -108,7 +109,6 @@ const MobileEditEmail: React.FC<{
                     setServerError(e.response.data.message);
                 }
             });
-        setStep("confirm");
     }
 
     const sendCode = async (code: string, setPassed: (arg0: boolean) => void, setError: (arg0: string) => void) => {
@@ -153,6 +153,9 @@ const MobileEditEmail: React.FC<{
     useEffect(() => {
         if (step === "old" && isActive) {
             oldConfirmationCode();
+        }
+        if (!isActive) {
+            setStep("new");
         }
     }, [isActive]);
 
