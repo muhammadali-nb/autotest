@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Utils from "../../../../../utils/Utils";
 import { finesProps } from "../../../../pages/Fines/FinesPage";
 import FinesModalMobile from "./FinesModalMobile";
+import Loader from "../../../Loader";
 
 const FinesList: React.FC<{
-    data: finesProps[]
+    data: finesProps[],
+    page: number,
+    totalPages: number,
+    isLoading: boolean,
+    setPage: () => void
 }> = (props) => {
-    const { data } = props;
+    const { data, page, totalPages, isLoading, setPage } = props;
+
+    const bottomOfList = useRef<HTMLDivElement>(null);
 
     const [modalOpened, setModalOpened] = useState(false);
     const [modalData, setModalData] = useState<finesProps>({
@@ -31,6 +38,26 @@ const FinesList: React.FC<{
     const totalSum = () => {
         return data.reduce((acc, item) => acc + parseFloat(item.sum) + parseFloat(item.penalties), 0);
     }
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !isLoading) {
+                setPage();
+            }
+        }, {
+            rootMargin: '10px'
+        });
+
+        if (bottomOfList.current) {
+            observer.observe(bottomOfList.current);
+        }
+
+        return () => {
+            if (bottomOfList.current) {
+                observer.unobserve(bottomOfList.current);
+            }
+        }
+    }, [bottomOfList, isLoading, page, setPage]);
 
     return (
         <>
@@ -83,6 +110,12 @@ const FinesList: React.FC<{
                     </li>
                 )}
             </ul>
+            {page < totalPages &&
+                <div ref={bottomOfList}></div>
+            }
+            {(isLoading && page > 1) &&
+                <Loader />
+            }
             <button className="site-btn big personal-account_fines-mobileBtn">
                 Оплатить всё ({Utils.formatNumber(totalSum())} ₽)
             </button>
