@@ -59,7 +59,12 @@ const FinesHead: React.FC<{
     const goToLastPage = () => {
         setSubPage(totalGroups);
         setPage(totalPages);
-      };
+    };
+
+    const goToFirstPage = () => {
+        setSubPage(1);
+        setPage(1);
+    }
 
     useEffect(() => {
         const handleClick = (e: MouseEvent) => {
@@ -162,6 +167,11 @@ const FinesHead: React.FC<{
             </div>
             {totalPages > 1 &&
                 <div className="personal-account_fines-pages">
+                    {subPage > 1 &&
+                        <div className="personal-account_fines-page" onClick={goToFirstPage}>
+                            1
+                        </div>
+                    }
                     {(totalPages > 3 && subPage > 1) &&
                         <div className="personal-account_fines-prevPages" onClick={goToPreviousGroup}>
                             <img src={doubleArrow} alt="Пред. 3 страницы" />
