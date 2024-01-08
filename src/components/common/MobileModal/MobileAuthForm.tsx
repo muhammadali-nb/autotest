@@ -8,7 +8,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { ModalTemplatePhone, ModalTemplateConfirm, ModalTemplateInput, ModalTemplateContent } from "../ModalFormTemplate";
 import FileInput from "../FileInput";
 import { RentCreateAccountForm } from "../../../types/RentTypes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MobileAuthPhone: React.FC<{
     data: ConfirmPhone,
@@ -241,6 +241,8 @@ const MobileAuthAccount: React.FC<{
     });
     const [passed, setPassed] = useState(false);
 
+    const navigate = useNavigate();
+
     const createAccount = async () => {
         let errors = Utils.validateRentCreateAccont(data);
 
@@ -276,8 +278,9 @@ const MobileAuthAccount: React.FC<{
                 const payload = await res.json();
                 if (payload.result === 1) {
                     console.log(payload);
-                    window.location.reload();
+                    // window.location.reload();
                     // props.closeFunc();
+                    navigate('/personal-account');
                     props.setStep('auth');
                 }
             } catch (error) {
@@ -351,6 +354,8 @@ const MobileAuthForm: React.FC<{
 
     const { user_status, register } = useAuth();
 
+    const navigate = useNavigate();
+
     const phoneConfirm = () => {
         if (user_status === "banned") {
             return;
@@ -389,7 +394,8 @@ const MobileAuthForm: React.FC<{
                 if (!res.has_profile) {
                     setStep("createAccount");
                 } else {
-                    props.closeFunc();
+                    // props.closeFunc();
+                    navigate('/personal-account');
                     setStep('auth');
                 }
                 // props.setStep("createAccount");
