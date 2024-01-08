@@ -16,10 +16,19 @@ import Utils from "../../utils/Utils";
 import AdvanceLogin from "../common/AdvanceLogin";
 import { MobileModal } from "../common/MobileModal/MobileModal";
 
+// icons for white icon
+import carWhite from "../../images/common/mobile_menu-icons/white-menu/car.svg";
+import dashboardWhite from "../../images/common/mobile_menu-icons/white-menu/programs.svg";
+import houseWhite from "../../images/common/mobile_menu-icons/white-menu/home.svg";
+import phoneWhite from "../../images/common/mobile_menu-icons/white-menu/call.svg";
+import questionWhite from "../../images/common/mobile_menu-icons/white-menu/question.svg";
+import tickedWhite from "../../images/common/mobile_menu-icons/white-menu/ticket.svg";
+
 interface MobileMenuProps {
 	menuIsOpen: boolean;
 	setMenuIsOpen: (e: boolean) => void;
 	menuRef: RefObject<HTMLDivElement>;
+	whiteTheme?: boolean;
 }
 
 const defaultLinks = [
@@ -37,10 +46,38 @@ const defaultLinks = [
 	{ text: "Контакты", path: "/contacts", className: "", icon: phone, id: 6 },
 ];
 
+const defaultWhiteLinks = [
+	{ text: "Главная", path: "/", className: "", icon: houseWhite, id: 1 },
+	{ text: "Выкуп", path: "/catalog", className: "", icon: carWhite, id: 2 },
+	{
+		text: "Программы",
+		path: "/programs",
+		className: "",
+		icon: dashboardWhite,
+		id: 3,
+	},
+	{
+		text: "Аренда",
+		path: "/rent/page/1",
+		className: "",
+		icon: tickedWhite,
+		id: 4,
+	},
+	{ text: "Вопросы", path: "/faq", className: "", icon: questionWhite, id: 5 },
+	{
+		text: "Контакты",
+		path: "/contacts",
+		className: "",
+		icon: phoneWhite,
+		id: 6,
+	},
+];
+
 const MobileMenu = (props: MobileMenuProps) => {
-	const { menuIsOpen, setMenuIsOpen, menuRef } = props;
+	const { menuIsOpen, setMenuIsOpen, menuRef, whiteTheme = true } = props;
 	const [loginAdvanceIsShow, setLoginAdvanceIsShow] = useState(true);
 	const [authIsOpen, setAuthIsOpen] = useState(false);
+	// const whiteTheme = true;
 
 	const { isAuthenticated, logout, first_name, last_name, phone } = useAuth();
 	const navigate = useNavigate();
@@ -56,36 +93,75 @@ const MobileMenu = (props: MobileMenuProps) => {
 	};
 
 	return (
-		<div className={`mobile-menu ${menuIsOpen ? "active" : ""} `}>
+		<div
+			className={`mobile-menu ${menuIsOpen ? "active" : ""} ${
+				whiteTheme ? "mobile-menu__white" : ""
+			} `}>
 			<div
 				ref={menuRef}
-				className={`mobile-menu_container ${menuIsOpen ? "active" : ""} `}>
+				className={`mobile-menu_container ${menuIsOpen ? "active" : ""} ${
+					whiteTheme ? "mobile-menu__white_container" : ""
+				}  `}>
 				<div>
 					<div className={"d-flex align-items-center gap-px-15"}>
-						{/* <FontAwesomeIcon
-							color={"#fff"}
-							width={20}
-							height={20}
-							onClick={() => setMenuIsOpen(false)}
-							icon={faArrowLeft}
-						/> */}
-
 						<div onClick={() => setMenuIsOpen(false)}>
-							<img src={arrow} alt="" />
-							{/* <ReactSVG src={arrow} color="#222" fill="#222" /> */}
+							{/* <img src={arrow} alt="" /> */}
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								viewBox="0 0 20 20"
+								fill="none">
+								<g filter="url(#filter0_i_9141_60467)">
+									<path
+										d="M11.6666 15L6.66663 10L11.6666 5"
+										stroke={whiteTheme ? "#222222" : "#ffffff"}
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+								</g>
+							</svg>
 						</div>
-						<HeaderLogoImage image={"light"} width={"100px"} height={"24px"} />
+						<HeaderLogoImage
+							image={whiteTheme ? "dark" : "light"}
+							width={"100px"}
+							height={"24px"}
+						/>
 					</div>
 					<div>
-						<ul className="mobile-menu_routes">
-							{defaultLinks.map((_item) => (
-								<li className="mobile-menu_routes_item" key={_item.id}>
-									<Link to={_item.path}>
-										<img src={_item.icon} alt={_item.text} />
-										<p>{_item.text}</p>
-									</Link>
-								</li>
-							))}
+						<ul
+							className={
+								"mobile-menu_routes " +
+								(whiteTheme ? "mobile-menu__white_routes" : "")
+							}>
+							{whiteTheme
+								? defaultWhiteLinks.map((_item) => (
+										<li
+											className={
+												"mobile-menu_routes_item " +
+												(whiteTheme ? "mobile-menu__white_routes_item" : "")
+											}
+											key={_item.id}>
+											<Link to={_item.path}>
+												<img src={_item.icon} alt={_item.text} />
+												<p>{_item.text}</p>
+											</Link>
+										</li>
+								  ))
+								: defaultLinks.map((_item) => (
+										<li
+											className={
+												"mobile-menu_routes_item " +
+												(whiteTheme ? "mobile-menu__white_routes_item" : "")
+											}
+											key={_item.id}>
+											<Link to={_item.path}>
+												<img src={_item.icon} alt={_item.text} />
+												<p>{_item.text}</p>
+											</Link>
+										</li>
+								  ))}
 						</ul>
 					</div>
 				</div>
@@ -97,7 +173,10 @@ const MobileMenu = (props: MobileMenuProps) => {
 								setIsShow={setLoginAdvanceIsShow}
 							/>
 							<div
-								className="mobile-menu_login mt-4"
+								className={
+									"mobile-menu_login mt-4 " +
+									(whiteTheme ? "mobile-menu__white_login" : "")
+								}
 								onClick={() => setAuthIsOpen(!authIsOpen)}>
 								<img src={loginIcon} alt={"login"} />
 								<h5>Войти в ЛК</h5>
@@ -109,12 +188,15 @@ const MobileMenu = (props: MobileMenuProps) => {
 							/>
 						</>
 					) : (
-						<div className="mobile-menu_user mt-4 d-flex flex-column">
+						<div
+							className={
+								"mobile-menu_user mt-4 d-flex flex-column " +
+								(whiteTheme ? "mobile-menu__white_user" : "")
+							}>
 							<Link to={"/personal-account"}>
 								<span
 									className="mb-1 fw-medium font-size-16"
-									// onClick={() => navigate("/personal-account")}
-								>
+									onClick={() => navigate("/personal-account")}>
 									{last_name + " " + first_name}
 								</span>
 							</Link>

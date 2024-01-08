@@ -6,6 +6,7 @@ import DocumentMeta from "react-document-meta";
 import Cookies from "../../common/Cookies";
 import MobileMenu from "../MobileMenu";
 import { useOutside } from "../../../hooks/useOutside";
+import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 
 export type MetaTags = {
 	description?: string;
@@ -61,21 +62,10 @@ const PaymentLayout: React.FunctionComponent<CatalogLayoutProps> = (
 	return (
 		<DocumentMeta {...meta}>
 			<div className={"site"}>
-				<MobileMenu
-					menuRef={ref}
-					setMenuIsOpen={setIsShow}
-					menuIsOpen={isShow}
-				/>
 				{!props.noTopPadding && <div className="no-top-padding" />}
-				<Header
-					burgerMenuIsShow={isShow}
-					setBurgerMenuIsShow={setIsShow}
-					image={props.headerImage}
-					type={props.headerType ?? "white"}
-					selectedLink={props.headerSelectedLink ?? "/"}
-					mobileModalType="orderCall"
-				/>
+
 				<main>{props.children}</main>
+				<PersonalAccountMenuBurger onClick={() => setIsShow(!isShow)} />
 				<Scroller className="personal-account-payments_scroller" />
 				<Cookies />
 			</div>

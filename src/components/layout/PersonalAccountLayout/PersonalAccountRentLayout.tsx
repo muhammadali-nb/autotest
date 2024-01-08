@@ -6,15 +6,22 @@ import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAcco
 import Footer from "../Footer";
 import { Col, Container, Row } from "react-bootstrap";
 import PersonalAccountMenu from "../../pages/PersonalAccount/PersonalAccountMenu";
+import Header from "../Header";
+import { CatalogLayoutProps } from "../RentLayout";
+import MobileMenu from "../MobileMenu";
 
-const PersonalAccountRentLayout: FC<{ children: ReactNode }> = ({
-	children,
-}) => {
-	// for menu personal account
+const PersonalAccountRentLayout: FC<{ children: ReactNode }> = (props) => {
 	const { ref, isShow, setIsShow } = useOutside(false);
 	return (
 		<>
-			<PersonalAccountLayout>
+			<PersonalAccountLayout mainMobileMenu={setIsShow}>
+				<Header
+					burgerMenuIsShow={isShow}
+					setBurgerMenuIsShow={setIsShow}
+					type={"white"}
+					selectedLink={"/"}
+					mobileModalType="orderCall"
+				/>
 				<Container fluid={"xxl"}>
 					<Row>
 						<Col className={"d-none d-lg-block"} lg={2}>
@@ -22,8 +29,7 @@ const PersonalAccountRentLayout: FC<{ children: ReactNode }> = ({
 						</Col>
 						<Col lg={10}>
 							<div className="personal-account_page">
-								{children}
-								<PersonalAccountMenuBurger onClick={() => setIsShow(!isShow)} />
+								{props.children}
 								<Footer
 									small={true}
 									className="justify-content-center mt-px-20"
@@ -33,11 +39,7 @@ const PersonalAccountRentLayout: FC<{ children: ReactNode }> = ({
 					</Row>
 				</Container>
 			</PersonalAccountLayout>
-			<PersonalAccountMenuMobile
-				menuIsOpen={isShow}
-				setMenuIsOpen={setIsShow}
-				menuRef={ref}
-			/>
+			<MobileMenu menuRef={ref} setMenuIsOpen={setIsShow} menuIsOpen={isShow} />
 		</>
 	);
 };

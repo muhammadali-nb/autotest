@@ -16,6 +16,7 @@ interface MobileMenuProps {
 	menuIsOpen: boolean;
 	setMenuIsOpen: (e: boolean) => void;
 	menuRef: RefObject<HTMLDivElement>;
+	setMainMenu: (arg: boolean) => void;
 }
 
 const defaultLinks = [
@@ -47,7 +48,13 @@ const defaultLinks = [
 		className: "",
 		icon: wallet,
 	},
-	{ text: "Карты оплаты", path: "/personal-account/payment", className: "", icon: card, id: 5 },
+	{
+		text: "Карты оплаты",
+		path: "/personal-account/payment",
+		className: "",
+		icon: card,
+		id: 5,
+	},
 	{
 		text: "Штрафы",
 		path: "/personal-account/fines",
@@ -55,17 +62,29 @@ const defaultLinks = [
 		id: 6,
 		className: "",
 	},
-	{ text: "Подписки", path: "/personal-account/subscriptions", className: "", icon: smile, id: 7 },
+	{
+		text: "Подписки",
+		path: "/personal-account/subscriptions",
+		className: "",
+		icon: smile,
+		id: 7,
+	},
 ];
 
 const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
-	const { menuIsOpen, setMenuIsOpen, menuRef } = props;
+	const { menuIsOpen, setMenuIsOpen, menuRef, setMainMenu } = props;
 	// const [loginAdvanceIsShow, setLoginAdvanceIsShow] = useState(true);
 
 	useEffect(() => {
 		if (menuIsOpen) document.body.style.overflow = "hidden";
 		else document.body.style.overflow = "unset";
 	}, [menuIsOpen]);
+
+	const backToMainMenu = () => {
+		if (!menuIsOpen) return;
+		setMenuIsOpen(false);
+		setMainMenu(true);
+	};
 
 	return (
 		<div
@@ -101,7 +120,9 @@ const PersonalAccountMenuMobile = (props: MobileMenuProps) => {
 						</ul>
 					</div>
 				</div>
-				<div className="mobile-menu-personal-account_come-to-menu">
+				<div
+					className="mobile-menu-personal-account_come-to-menu"
+					onClick={backToMainMenu}>
 					<img src={arrow} alt="" />
 					<p>Вернуться в меню</p>
 				</div>

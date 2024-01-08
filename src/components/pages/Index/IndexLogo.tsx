@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import bg from "./../../../images/index/logo-bg.webp";
 import bgNoCar from "./../../../images/index/logo-bg-no-car.webp";
 import { Col, Container, Row } from "react-bootstrap";
@@ -8,9 +8,12 @@ import Animator from "../../../Animator";
 import { useEffect } from "react";
 
 //bgNoCar:true заставляет бг отображаться без авто, а само авто становится отдельным анимированным элементом.
-const IndexLogo: React.FC<{ bgNoCar?: boolean }> = (
-	props = { bgNoCar: false }
-) => {
+const IndexLogo: React.FC<{
+	bgNoCar?: boolean;
+	sectionId: string;
+	setDarkMenu: (arg: boolean) => void;
+}> = (props) => {
+	const { bgNoCar = false, sectionId, setDarkMenu } = props;
 	useEffect(function () {
 		Animator.animateOnShow(
 			"index__logo",
@@ -22,11 +25,34 @@ const IndexLogo: React.FC<{ bgNoCar?: boolean }> = (
 			false
 		);
 	}, []);
+
+	const [isVisible, setIsVisible] = useState(true);
+
+	useEffect(() => {
+		const section = document.getElementById(sectionId) as HTMLElement;
+		const observer = new IntersectionObserver(
+			([entry]) => setIsVisible(entry.isIntersecting),
+			{ threshold: 0.5 }
+		);
+		observer.observe(section);
+		return () => observer.unobserve(section);
+	}, [sectionId]);
+
+	useEffect(() => {
+		if (!isVisible) {
+			// выполнение нужных действий при уходе секции из обзора экрана
+			// console.log(Секция ${sectionId} ушла из обзора экрана);
+			setDarkMenu(true);
+		} else {
+			setDarkMenu(false);
+		}
+	}, [isVisible]);
+
 	return (
 		<div
 			className={"index__logo"}
 			style={{ backgroundImage: `url(${props.bgNoCar ? bgNoCar : bg})` }}
-			id={"index__logo"}>
+			id={sectionId}>
 			<div className={"index__logo-overlay"}></div>
 			<div className={"index__logo-content"}>
 				<Container className={"h-100"}>

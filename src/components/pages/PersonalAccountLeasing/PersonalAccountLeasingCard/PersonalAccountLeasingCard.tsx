@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PersonalAccountLeasingCarCardMobile from "./mobile/PersonalAccountLeasingCarCardMobile";
 import PersonalAccountLeasingCarCardPad from "./pad/PersonalAccountLeasingCarCardPad";
 import PersonalAccountLeasingCarCardDesk from "../PersonalAccountLeasingCarCardDesk";
@@ -17,7 +17,10 @@ const PersonalAccountLeasingCard = (props: IProps) => {
 				car={car}
 				className="d-none d-xl-block"
 			/>
-			<PersonalAccountLeasingCarCardPad car={car} className="d-none d-md-block d-xl-none " />
+			<PersonalAccountLeasingCarCardPad
+				car={car}
+				className="d-none d-md-block d-xl-none "
+			/>
 			<PersonalAccountLeasingCarCardMobile
 				car={car}
 				className="d-block d-md-none"

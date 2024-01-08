@@ -12,7 +12,8 @@ import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAcco
 import PersonalAccountBalance from "./PersonalAccountBalance/PersonalAccountBalance";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import { is } from "date-fns/locale";
+import Header from "../../layout/Header";
+import MobileMenu from "../../layout/MobileMenu";
 
 export interface userManagerProps {
 	first_name: string;
@@ -73,46 +74,51 @@ const PersonalAccountPage: React.FC = () => {
 
 	useEffect(() => {
 		if (!isAuthenticated) {
-			navigate('/');
+			navigate("/");
 		}
 	}, []);
 
 	return (
-		<PersonalAccountLayout>
-			<Container fluid={"xxl"}>
-				<Row>
-					<Col className={"d-none d-lg-block"} lg={2}>
-						<PersonalAccountMenu selected="/personal-account" />
-					</Col>
-					<Col lg={10}>
-						<div className="personal-account_page">
-							<div className="personal-account_head d-flex align-items-end justify-content-between">
-								<PersonalAccountData data={userData} />
-								<PersonalAccountBalance />
-								{/* <PersonalAccountCards /> */}
+		<>
+			<PersonalAccountLayout mainMobileMenu={setIsShow}>
+				<Header
+					burgerMenuIsShow={isShow}
+					setBurgerMenuIsShow={setIsShow}
+					type={"white"}
+					selectedLink={"/"}
+					mobileModalType="orderCall"
+				/>
+				<Container fluid={"xxl"}>
+					<Row>
+						<Col className={"d-none d-lg-block"} lg={2}>
+							<PersonalAccountMenu selected="/personal-account" />
+						</Col>
+						<Col lg={10}>
+							<div className="personal-account_page">
+								<div className="personal-account_head d-flex align-items-end justify-content-between">
+									<PersonalAccountData data={userData} />
+									<PersonalAccountBalance />
+									{/* <PersonalAccountCards /> */}
+								</div>
+								<div className="personal-account_page_body">
+									<PersonalAccountForm data={userData} />
+									<PersonalAccountSocials
+										data={userData.manager}
+										tg_connected={userData.tg_connected}
+									/>
+								</div>
+								<SmallFooter className="d-none d-lg-block" />
+								<div className="d-block d-lg-none personal-account_footer">
+									ООО ВОСХОДⓒ 2023 год
+								</div>
+								{/* <PersonalAccountMenuBurger onClick={() => setIsShow(!isShow)} /> */}
 							</div>
-							<div className="personal-account_page_body">
-								<PersonalAccountForm data={userData} />
-								<PersonalAccountSocials
-									data={userData.manager}
-									tg_connected={userData.tg_connected}
-								/>
-							</div>
-							<SmallFooter className="d-none d-lg-block" />
-							<div className="d-block d-lg-none personal-account_footer">
-								ООО ВОСХОДⓒ 2023 год
-							</div>
-							<PersonalAccountMenuBurger onClick={() => setIsShow(!isShow)} />
-							<PersonalAccountMenuMobile
-								menuIsOpen={isShow}
-								setMenuIsOpen={setIsShow}
-								menuRef={ref}
-							/>
-						</div>
-					</Col>
-				</Row>
-			</Container>
-		</PersonalAccountLayout>
+						</Col>
+					</Row>
+				</Container>
+			</PersonalAccountLayout>
+			<MobileMenu menuRef={ref} setMenuIsOpen={setIsShow} menuIsOpen={isShow} />
+		</>
 	);
 };
 

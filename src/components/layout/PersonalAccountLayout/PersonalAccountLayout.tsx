@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Header, { HeaderImage, HeaderType } from "../Header";
 import Scroller from "../../common/Scroller";
 import Api from "../../../Api";
 import DocumentMeta from "react-document-meta";
 import Cookies from "../../common/Cookies";
-import MobileMenu from "../MobileMenu";
 import { useOutside } from "../../../hooks/useOutside";
+import PersonalAccountMenuMobile from "../../pages/PersonalAccount/PersonalAccountMenuMobile";
+import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 
 export type MetaTags = {
 	description?: string;
 	keywords?: string;
 };
 export type CatalogLayoutProps = {
-	children?: any;
+	children?: ReactNode;
 	headerType?: HeaderType;
 	headerSelectedLink?: string;
 	headerImage?: HeaderImage;
@@ -23,6 +24,7 @@ export type CatalogLayoutProps = {
 	meta?: MetaTags;
 	noTopPadding?: boolean;
 	[x: string]: any;
+	mainMobileMenu: (arg: boolean) => void;
 };
 const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 	props: CatalogLayoutProps
@@ -42,44 +44,35 @@ const PersonalAccountLayout: React.FunctionComponent<CatalogLayoutProps> = (
 			},
 		},
 	};
-	// useEffect(() => {
-	// 	window.scrollTo({ top: 0, behavior: "smooth" });
-	// 	if (!bState.loaded) {
-	// 		const loader = async () => {
-	// 			let data = await Api.baseData();
-	// 			if (Api.isError(data)) {
-	// 				//TODO:Error check!
-	// 				return;
-	// 			}
-	// 			dispatch(setBaseState(data));
-	// 		};
-	// 		loader();
-	// 	}
-	// });
+	// for menu personal account
 	const { ref, isShow, setIsShow } = useOutside(false);
 
 	return (
-		<DocumentMeta {...meta}>
-			<div className={"site"}>
-				<MobileMenu
-					menuRef={ref}
-					setMenuIsOpen={setIsShow}
-					menuIsOpen={isShow}
-				/>
-				{!props.noTopPadding && <div className="no-top-padding" />}
-				<Header
-					burgerMenuIsShow={isShow}
-					setBurgerMenuIsShow={setIsShow}
-					image={props.headerImage}
-					type={props.headerType ?? "white"}
-					selectedLink={props.headerSelectedLink ?? "/"}
-					mobileModalType="orderCall"
-				/>
-				<main>{props.children}</main>
-				<Scroller />
-				<Cookies />
-			</div>
-		</DocumentMeta>
+		<>
+			<DocumentMeta {...meta}>
+				<div className={"site"}>
+					{!props.noTopPadding && <div className="no-top-padding" />}
+					<Header
+						burgerMenuIsShow={isShow}
+						setBurgerMenuIsShow={setIsShow}
+						image={props.headerImage}
+						type={props.headerType ?? "white"}
+						selectedLink={props.headerSelectedLink ?? "/"}
+						mobileModalType="orderCall"
+					/>
+					<main>{props.children}</main>
+					<PersonalAccountMenuBurger onClick={() => setIsShow(!isShow)} />
+					<Scroller />
+					<Cookies />
+				</div>
+			</DocumentMeta>
+			<PersonalAccountMenuMobile
+				menuIsOpen={isShow}
+				setMenuIsOpen={setIsShow}
+				menuRef={ref}
+				setMainMenu={props.mainMobileMenu}
+			/>
+		</>
 	);
 };
 
