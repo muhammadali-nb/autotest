@@ -145,6 +145,9 @@ const MobileEditPhone: React.FC<{
         if (step === "old" && isActive) {
             oldConfirmationCode();
         }
+        if (!isActive) {
+            setStep("old");
+        }
     }, [isActive]);
 
     return (

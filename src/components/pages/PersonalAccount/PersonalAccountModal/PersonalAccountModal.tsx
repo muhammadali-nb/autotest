@@ -601,7 +601,7 @@ const PersonalAccountModal: React.FC<{
 }> = (props) => {
     const { type, onHide, currentPhone, balance } = props;
 
-    const [step, setStep] = useState("confirmOld");
+    const [step, setStep] = useState(type === "phone" ? "confirmOld" : "new");
 
     const getCode = (item: string, setError: (err: string) => void) => {
         if (type === "phone") {
@@ -617,10 +617,11 @@ const PersonalAccountModal: React.FC<{
                     }
                 });
         } else if (type === "email") {
-            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-email&change-new-email=1&email=${item}`, { withCredentials: true })
+            axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=change-email&email=${item}`, { withCredentials: true })
                 .then(res => {
                     // console.log(res.data)
-                    setStep("confirm");
+                    // setStep("confirm");
+                    setStep("success");
                 })
                 .catch((e) => {
                     console.log(e);
@@ -633,11 +634,11 @@ const PersonalAccountModal: React.FC<{
 
     const handleClose = () => {
         onHide();
-        setStep(type === "phone" || type === "email" ? "confirmOld" : "new");
+        setStep(type === "phone" ? "confirmOld" : "new");
     }
 
     useEffect(() => {
-        setStep(type === "phone" || type === "email" ? "confirmOld" : "new");
+        setStep(type === "phone" ? "confirmOld" : "new");
     }, [type]);
 
     return (
@@ -648,7 +649,7 @@ const PersonalAccountModal: React.FC<{
                         <EditPhoneForm step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
                     }
                     {type === "email" &&
-                        <EditEmailForm step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
+                        <EditEmailForm step={"new"} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
                     }
                     {type === "withdraw" &&
                         <WithdrawDesktop step={"new"} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} balance={balance} />
