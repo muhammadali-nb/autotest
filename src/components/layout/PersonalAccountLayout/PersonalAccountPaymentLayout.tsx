@@ -9,6 +9,8 @@ import PersonalAccountMenu from "../../pages/PersonalAccount/PersonalAccountMenu
 import PaymentAddCardsButtonsMobile from "../../pages/Payments/PaymentAddCardsButtonsMobile";
 import PaymentLayout from "./PaymentLayout";
 import { MobileModal } from "../../common/MobileModal/MobileModal";
+import MobileMenu from "../MobileMenu";
+import Header from "../Header";
 
 const PersonalAccountPaymentLayout: FC<{ children: ReactNode }> = ({
 	children,
@@ -21,6 +23,13 @@ const PersonalAccountPaymentLayout: FC<{ children: ReactNode }> = ({
 	return (
 		<>
 			<PaymentLayout>
+				<Header
+					burgerMenuIsShow={isShow}
+					setBurgerMenuIsShow={setIsShow}
+					type={"white"}
+					selectedLink={"/"}
+					mobileModalType="orderCall"
+				/>
 				<Container fluid={"xxl"}>
 					<Row className="min-100">
 						<Col className={"d-none d-lg-block"} lg={2}>
@@ -29,7 +38,7 @@ const PersonalAccountPaymentLayout: FC<{ children: ReactNode }> = ({
 						<Col lg={10}>
 							<div className="personal-account_page payment">
 								{children}
-								<PersonalAccountMenuBurger onClick={() => setIsShow(!isShow)} />
+
 								<Footer
 									small={true}
 									className="justify-content-center mt-px-20 pb-6 pb-md-0"
@@ -44,11 +53,7 @@ const PersonalAccountPaymentLayout: FC<{ children: ReactNode }> = ({
 					</Row>
 				</Container>
 			</PaymentLayout>
-			<PersonalAccountMenuMobile
-				menuIsOpen={isShow}
-				setMenuIsOpen={setIsShow}
-				menuRef={ref}
-			/>
+			<MobileMenu menuRef={ref} setMenuIsOpen={setIsShow} menuIsOpen={isShow} />
 			<MobileModal
 				type="paymentAddBankCard"
 				setActive={setAddBankCard}
