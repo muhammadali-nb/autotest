@@ -11,6 +11,7 @@ import FinesHeadMobile from "../../common/PersonalAccount/PersonalAccountFines/m
 import FinesFilterMobile from "../../common/PersonalAccount/PersonalAccountFines/mobile/FinesFilterMobile";
 import { useQuery } from "@tanstack/react-query";
 import finesService from "../../../api-functions/fines-page/fines-service";
+import FinesLoader from "../../common/PersonalAccount/PersonalAccountFines/FinesLoader";
 
 export interface finesProps {
     id: number,
@@ -46,15 +47,17 @@ const FinesPage: React.FC = () => {
         endDate: new Date(),
         key: 'selection',
     });
+    const [mobileData, setMobileData] = useState<finesProps[]>([]);
 
     const { data, isLoading } = useQuery({
-        queryKey: ['fines'],
-        queryFn: () => finesService.getFines()
+        queryKey: ['fines', page],
+        queryFn: () => finesService.getFines(page)
     });
 
     useEffect(() => {
         const checkSize = () => {
             if (window.innerWidth > 1024) {
+                setMobileData([]);
                 setSize("desk");
             } else {
                 setSize("mobile");
@@ -74,6 +77,10 @@ const FinesPage: React.FC = () => {
         if (totalPages !== data.pages) {
             setTotalPages(data.pages);
         }
+
+        if (mobileData !== data && !isLoading && size !== "desk") {
+            setMobileData(prev => prev.concat(...data.list));
+        }
     }, [data]);
 
     // console.log(data)
@@ -87,8 +94,10 @@ const FinesPage: React.FC = () => {
                         <PersonalAccountBalance />
                     </PersonalAccountHeader>
                     <div className="personal-account_fines">
-                        <FinesHead payed={payed} setPayed={() => setPayed(prev => !prev)} range={dateRange} setDates={setDateRange} page={page} setPage={setPage} totalPages={totalPages}  />
-                        {(!isLoading && data.list) &&
+                        <FinesHead payed={payed} setPayed={() => setPayed(prev => !prev)} range={dateRange} setDates={setDateRange} page={page} setPage={setPage} totalPages={totalPages} />
+                        {(isLoading && !data) ?
+                            <FinesLoader />
+                            :
                             <FinesTable data={data.list} />
                         }
                     </div>
@@ -102,8 +111,10 @@ const FinesPage: React.FC = () => {
                     </PersonalAccountHeaderMobile>
                     <div className="personal-account_fines">
                         <FinesHeadMobile payed={payed} setPayed={() => setPayed(prev => !prev)} range={dateRange} setDates={setDateRange} />
-                        {(!isLoading && data.list) &&
-                            <FinesList data={data.list} />
+                        {(isLoading && page === 1) ?
+                            <FinesLoader />
+                            :
+                            <FinesList data={mobileData} page={page} setPage={() => setPage(prev => prev + 1)} totalPages={totalPages} isLoading={isLoading} />
                         }
                     </div>
                 </div>

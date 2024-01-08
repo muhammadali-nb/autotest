@@ -103,11 +103,11 @@ export const ModalTemplatePhone: React.FC<ModalTemplateInputProps> = (
 			<InputMask
 				{...props}
 				className={"contacts__form-input " + (props.error ? " error" : "")}
-				mask="+9 999 999 99 99"
-				maskChar=" "
+				mask="+7 (999) 999-99-99"
+				maskChar="_"
 				type="tel"
 				name={props.name}
-				placeholder={"+7 000 000 00 00"}
+				placeholder={"+7 (000) 000-00-00"}
 			/>
 		</div>
 	);

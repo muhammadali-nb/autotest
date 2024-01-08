@@ -10,6 +10,7 @@ import PersonalAccountModal from "../PersonalAccountModal/PersonalAccountModal";
 import { useAuth } from "../../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import balanceService from "../../../../api-functions/balance/balance-service";
+import BalanceLoader from "../../../common/PersonalAccount/PersonalAccountBalance/BalanceLoader";
 
 export interface accountsProps {
     name: string,
@@ -83,7 +84,7 @@ const PersonalAccountBalance: React.FC = () => {
 
     return (
         <div className="personal-account_balance" ref={dropdownRef}>
-            {!isLoading &&
+            {!isLoading ?
                 <>
                     <div className={"personal-account_balance-head " + (active ? "active " : " ") + (data.total < 0 ? "negative" : "")} onClick={() => setActive(prev => !prev)}>
                         Баланс: <span>{Utils.formatNumber(data.total)} ₽</span>
@@ -134,6 +135,8 @@ const PersonalAccountBalance: React.FC = () => {
                         <BalanceMobile active={active} setActive={setActive} />
                     }
                 </>
+                :
+                <BalanceLoader type="desk" />
             }
         </div>
     )

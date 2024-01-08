@@ -12,6 +12,7 @@ import { useState } from "react";
 import WithdrawMobile from "../PersonalAccountWithdraw/mobile/PersonalAccountWithdraw";
 import { useQuery } from "@tanstack/react-query";
 import balanceService from "../../../../api-functions/balance/balance-service";
+import BalanceLoader from "./BalanceLoader";
 
 interface accountsProps {
     name: string,
@@ -56,7 +57,7 @@ const BalanceMobile: React.FC<{
 
     return (
         <>
-            {!isLoading &&
+            {!isLoading ?
                 <div className={`balance-mobile  ${active && "active"}`}>
                     <div className="balance-mobile_head">
                         <div className="mobile-modal_header-top">
@@ -102,6 +103,8 @@ const BalanceMobile: React.FC<{
                         setActive={setMobileModalOpened}
                     />
                 </div>
+                :
+                <BalanceLoader type={'mob'} />
             }
         </>
     )

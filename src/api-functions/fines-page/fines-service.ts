@@ -1,8 +1,8 @@
 import axios from "axios";
 
 class FinesService {
-    getFines() {
-        return axios.get('https://taxivoshod.ru/api/voshod-auto/?w=fines', { withCredentials: true }).then(res => res.data)
+    getFines(page: number) {
+        return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=fines&page=${page}`, { withCredentials: true }).then(res => res.data)
     }
 }
 
