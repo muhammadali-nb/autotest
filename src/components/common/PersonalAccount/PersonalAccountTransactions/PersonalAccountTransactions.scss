@@ -18,6 +18,12 @@
             margin-bottom: 20px;
         }
 
+        span {
+            &.outcome {
+                color: #b80600;
+            }
+        }
+
         &List {
             width: 100%;
             display: flex;

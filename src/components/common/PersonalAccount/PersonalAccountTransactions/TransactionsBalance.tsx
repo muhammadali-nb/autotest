@@ -83,7 +83,7 @@ const TransactionsBalance: React.FC<{
             <div className="personal-account_transactions-balance">
                 <div className="personal-account_transactions-title font-size-20 font-weight-semibold">
                     Баланс
-                    <span>
+                    <span className={data.balance.total < 0 ? "outcome" : ""}>
                         {Utils.formatNumber(data.balance.total)} ₽
                     </span>
                 </div>
@@ -98,7 +98,7 @@ const TransactionsBalance: React.FC<{
                             <span>
                                 {item.name}
                             </span>
-                            <span>
+                            <span className={item.balance < 0 ? "outcome" : ""}>
                                 {Utils.formatNumber(item.balance)} ₽
                             </span>
                         </li>
@@ -155,7 +155,7 @@ const TransactionsBalance: React.FC<{
                                                 {car.number}&nbsp;{car.region}
                                             </span>
                                         </span>
-                                        <span>
+                                        <span className={car.amount < 0 ? "outcome" : ""}>
                                             {Utils.formatNumber(car.amount)} ₽
                                         </span>
                                     </li>
@@ -235,7 +235,7 @@ const TransactionsBalance: React.FC<{
                                                     {car.number}&nbsp;{car.region}
                                                 </span>
                                             </span>
-                                            <span>
+                                            <span className={car.amount < 0 ? "outcome" : ""}>
                                                 {Utils.formatNumber(car.amount)} ₽
                                             </span>
                                         </li>

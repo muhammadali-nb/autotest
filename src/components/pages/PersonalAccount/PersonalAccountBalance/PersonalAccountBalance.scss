@@ -1,6 +1,10 @@
 .personal-account_balance {
     position: relative;
 
+    &.negative {
+        color: #b80600;
+    }
+
     &-head {
         display: flex;
         align-items: center;

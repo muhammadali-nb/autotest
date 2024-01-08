@@ -71,7 +71,7 @@ const BalanceMobile: React.FC<{
                             <div className="font-size-20">
                                 Баланс
                             </div>
-                            <div className="font-size-16">
+                            <div className={"font-size-16 " + (data.total < 0 ? "negative" : "")}>
                                 {Utils.formatNumber(data.total)} ₽
                             </div>
                         </div>
