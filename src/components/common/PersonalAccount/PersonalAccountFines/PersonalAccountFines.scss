@@ -497,7 +497,10 @@
             margin-top: auto;
             padding: 12px 16px 0 16px;
             background-color: #fff;
-            width: 100%;
+            width: calc(100% + 32px);
+            margin-left: -16px;
+            box-shadow: 0px -5px 32px 0px rgba(0, 0, 0, 0.05);
+
 
             .site-btn {
                 width: 100%;
@@ -586,8 +589,19 @@
             }
         }
 
+        &Action {
+            position: fixed;
+            z-index: 2;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0px -5px 32px 0px rgba(0, 0, 0, 0.05);
+            padding: 12px 16px 24px;
+        }
+
         &Btn {
-            margin-top: 70px;
+            width: 100%;
         }
     }
 

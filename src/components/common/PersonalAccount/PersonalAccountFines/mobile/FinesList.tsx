@@ -116,9 +116,11 @@ const FinesList: React.FC<{
             {(isLoading && page > 1) &&
                 <Loader />
             }
-            <button className="site-btn big personal-account_fines-mobileBtn">
-                Оплатить всё ({Utils.formatNumber(totalSum())} ₽)
-            </button>
+            <div className="personal-account_fines-mobileAction">
+                <button className="site-btn big personal-account_fines-mobileBtn">
+                    Оплатить всё ({Utils.formatNumber(totalSum())} ₽)
+                </button>
+            </div>
             {modalOpened &&
                 <FinesModalMobile data={modalData} setActive={setModalOpened} />
             }

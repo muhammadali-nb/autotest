@@ -141,6 +141,10 @@
   @include l-lg {
     display: flex;
   }
+
+  &.upper {
+    bottom: 95px;
+  }
 }
 
 .personal-account_footer {
@@ -203,6 +207,10 @@
       line-height: 150%; /* 24px */
       text-transform: uppercase;
     }
+  }
+
+  &.upper {
+    bottom: 95px;
   }
 }
 

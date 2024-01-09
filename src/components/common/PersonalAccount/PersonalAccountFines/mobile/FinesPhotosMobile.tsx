@@ -19,7 +19,9 @@ const FinesPhotosMobile: React.FC<{
     const [index, setIndex] = useState(0);
 
     const handleSelect = (selectedIndex) => {
-        setIndex(selectedIndex);
+        if (selectedIndex >= (images?.length ?? 0)) selectedIndex = 0;
+		if (selectedIndex < 0) selectedIndex = (images?.length ?? 1) - 1;
+		setIndex(selectedIndex);
     };
 
     return (
@@ -38,6 +40,7 @@ const FinesPhotosMobile: React.FC<{
                     className="personal-account_fines-modalSlider"
                     controls={false}
                     indicators={false}
+                    onSelect={handleSelect}
                 >
                     {images.map((item, index) =>
                         <Carousel.Item key={index}>
