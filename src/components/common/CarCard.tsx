@@ -257,18 +257,20 @@ export const CarRentCard: React.FC<{
 							small={true}
 							type={car.available ? "free" : "not-free"}
 							car={car}>
-							{car.available ? "Свободна" : "Занята"}
+							{car.available ? "Свободна " : "Занята "}
+
+							{car.available_at ? car.available_at : ""}
 						</CarTag>
+						{/* {car.available_at && (
+							<CarTag small={true} type={"free"} car={car}>
+								Доступна с {car.available_at}
+							</CarTag>
+						)} */}
 						{car.tarif.map((_item) => (
 							<CarTag small={true} type={"default"} car={car}>
 								{_item.Name}
 							</CarTag>
 						))}
-						{car.available_at && (
-							<CarTag small={true} type={"free"} car={car}>
-								{car.available_at}
-							</CarTag>
-						)}
 					</div>
 
 					<div className={"car__card-image"}>
