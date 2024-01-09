@@ -10,6 +10,7 @@ import "./PersonalAccountTransactions.scss";
 import Utils from "../../../../utils/Utils";
 import { useEffect, useState } from "react";
 import { transactionsDataProps } from "../../../pages/Transactions/TransactionsPage";
+import PersonalAccountActions from "../PersonalAccountActions/PersonalAccountActions";
 
 const MobileFilter: React.FC<{
     title: string,
@@ -80,6 +81,9 @@ const TransactionsBalance: React.FC<{
 
     return (
         <>
+            <div className="personal-account_transactions-actions">
+                <PersonalAccountActions balance={data.balance.total} setCallModal={() => console.log('Device is not mobile')} />
+            </div>
             <div className="personal-account_transactions-balance">
                 <div className="personal-account_transactions-title font-size-20 font-weight-semibold">
                     Баланс

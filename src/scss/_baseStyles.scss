@@ -384,7 +384,7 @@ main {
   transition: all 0.2s ease-in-out;
   position: relative;
 
-  &[type=number] {
+  &[type="number"] {
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;

@@ -11,6 +11,7 @@ import { useAuth } from "../../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import balanceService from "../../../../api-functions/balance/balance-service";
 import BalanceLoader from "../../../common/PersonalAccount/PersonalAccountBalance/BalanceLoader";
+import PersonalAccountActions from "../../../common/PersonalAccount/PersonalAccountActions/PersonalAccountActions";
 
 export interface accountsProps {
     name: string,
@@ -59,15 +60,13 @@ export const BalanceItem: React.FC<accountsProps> = (props) => {
 
 const PersonalAccountBalance: React.FC = () => {
     const [active, setActive] = useState(false);
-    const [withdrawOpened, setWithdrawOpened] = useState(false);
+    // const [withdrawOpened, setWithdrawOpened] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const { data, isLoading } = useQuery({
         queryKey: ["balance"],
         queryFn: () => balanceService.getBalance()
     });
-
-    const { phone } = useAuth();
 
     useEffect(() => {
         const handleClick = (e: MouseEvent) => {
@@ -114,22 +113,10 @@ const PersonalAccountBalance: React.FC = () => {
                                         <BalanceItem name={item.name} icon={item.icon} balance={item.balance} deposit={item.deposit} key={index} />
                                     )}
                                 </ul>
-                                {data.total > 0 &&
-                                    <div className="personal-account_balance-action">
-                                        <button className="site-btn dark big" onClick={() => {
-                                            setActive(false);
-                                            setWithdrawOpened(true);
-                                        }}>
-                                            Вывести
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-                                                <path d="M9.5 1.5L5 5.89024M9.5 1.5L14 5.89024M9.5 1.5L9.5 13.5" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                <path d="M2 16.5H17" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                }
+                                <div className="personal-account_balance-actions">
+                                    <PersonalAccountActions balance={data.total} setCallModal={() => {console.log('Device is not mobile')}} />
+                                </div>
                             </div>
-                            <PersonalAccountModal type="withdraw" show={withdrawOpened} onHide={() => setWithdrawOpened(false)} currentPhone={phone} balance={data.total} />
                         </>
                         :
                         <BalanceMobile active={active} setActive={setActive} />

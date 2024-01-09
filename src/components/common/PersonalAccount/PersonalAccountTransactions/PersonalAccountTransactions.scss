@@ -1,4 +1,25 @@
 .personal-account_transactions {
+    .personal-account_transactions-actions {
+        margin-bottom: 20px;
+
+        @media (max-width: 1024px) {
+            position: fixed;
+            z-index: 2;
+            margin-bottom: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0px -5px 32px 0px rgba(0, 0, 0, 0.05);
+            padding: 12px 16px 16px;
+
+            svg {
+                width: auto;
+                max-height: 14px;
+            }
+        }
+    }
+
     &-balance {
         display: flex;
         flex-direction: column;

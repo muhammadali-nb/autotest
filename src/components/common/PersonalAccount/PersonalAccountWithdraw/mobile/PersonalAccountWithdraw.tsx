@@ -8,7 +8,7 @@ import { ModalTemplateInput } from "../../../ModalFormTemplate";
 import CardSelect from "../../../CardSelect/CardSelect";
 import { MobileModal } from "../../../MobileModal/MobileModal";
 
-const cardsData = {
+export const cardsData = {
     cards: [
         {
             name: "1",
@@ -41,13 +41,18 @@ const cardsData = {
             name: "6",
             number: "**** 0044",
             favourite: false
+        },
+        {
+            name: "7",
+            number: "**** 0044",
+            favourite: false
         }
     ]
 }
 
 const WithdrawMobile: React.FC<{
     active: boolean,
-    setActive: (e: boolean) => void,
+    setActive: (e: { opened: boolean, type: string }) => void,
     setCallActive: (e: boolean) => void,
     balance: number
 }> = (props) => {
@@ -98,7 +103,7 @@ const WithdrawMobile: React.FC<{
             <div className={`balance-mobile  ${active && "active"}`}>
                 <div className="balance-mobile_head">
                     <div className="mobile-modal_header-top">
-                        <img src={back} onClick={() => setActive(false)} alt="" />
+                        <img src={back} onClick={() => setActive({ opened: false, type: "" })} alt="" />
                         <HeaderLogoImage width={"100px"} height={"24px"} image="dark" />
                         <img src={call} alt="" onClick={() => setCallActive(true)} />
                     </div>
@@ -111,7 +116,7 @@ const WithdrawMobile: React.FC<{
                         Выберите карту или счёт <br />
                         и введите необходимую сумму для вывода
                     </p>
-                    {balance &&
+                    {(balance !== undefined && balance >= 0) &&
                         <div>
                             <p className="font-size-12 font-weight-medium">
                                 Доступный баланс: {Utils.formatNumber(balance)} ₽

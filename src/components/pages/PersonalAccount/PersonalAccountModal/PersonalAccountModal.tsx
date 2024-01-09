@@ -8,6 +8,7 @@ import Utils from "../../../../utils/Utils";
 import { useAuth } from "../../../../hooks/useAuth";
 import WithdrawDesktop from "../../../common/PersonalAccount/PersonalAccountWithdraw/desktop/PersonalAccountWithdraw";
 import axios from "axios";
+import PersonalAccountReplenish from "../../../common/PersonalAccount/PersonalAccountReplenish/desktop/PersonalAccountReplenish";
 
 const SuccessStep: React.FC<{
     type: string,
@@ -653,6 +654,9 @@ const PersonalAccountModal: React.FC<{
                     }
                     {type === "withdraw" &&
                         <WithdrawDesktop step={"new"} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} balance={balance} />
+                    }
+                    {type === "replenish" &&
+                        <PersonalAccountReplenish step={"new"} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone}  />
                     }
                 </ModalTemplateContent>
             </div>

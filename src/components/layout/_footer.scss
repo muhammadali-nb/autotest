@@ -19,25 +19,25 @@
   .map_container {
     position: relative;
     display: flex;
-    filter: grayscale(0.7);
+    filter: grayscale(1);
     min-height: 400px;
     height: 100%;
     width: 100%;
 
-    canvas {
-      filter: grayscale(0.7) !important;
-      -webkit-filter: grayscale(100%) !important;
-    }
+    // canvas {
+    //   // filter: grayscale(0.7) !important;
+    //   // -webkit-filter: grayscale(100%) !important;
+    // }
   }
 }
 
-.ymaps-layers-pane {
-  filter: grayscale(1);
-  -ms-filter: grayscale(1);
-  -webkit-filter: grayscale(1);
-  -moz-filter: grayscale(1);
-  -o-filter: grayscale(1);
-}
+// .ymaps-layers-pane {
+//   filter: grayscale(1);
+//   -ms-filter: grayscale(1);
+//   -webkit-filter: grayscale(1);
+//   -moz-filter: grayscale(1);
+//   -o-filter: grayscale(1);
+// }
 
 .footer {
   background-size: cover;
