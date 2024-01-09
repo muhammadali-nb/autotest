@@ -155,7 +155,7 @@ const WithdrawDesktop: React.FC<{
                             </div>
                         )}
                     </div>
-                    {balance &&
+                    {(balance !== undefined && balance >= 0) &&
                         <div>
                             <p className="font-size-16 font-weight-semibold">
                                 Доступный баланс: {Utils.formatNumber(balance)} ₽

@@ -80,11 +80,11 @@ const TransactionsDayItem: React.FC<{
                 {formatDate(date)}
             </div>
             <ul className="personal-account_transactions-story">
-                {items.map((item, index) =>
-                    <li key={index}>
+                {items.map(item =>
+                    <li key={item.id}>
                         <div className={"personal-account_transactions-icons " + (item.type === "transaction" ? "transaction" : "")}>
                             {item.icons.map(icon =>
-                                <img src={getIcon(icon)} alt={icon} />
+                                <img src={getIcon(icon)} key={Utils.randomString()} alt={icon} />
                             )}
                         </div>
                         <div className="personal-account_transactions-time">
@@ -98,14 +98,14 @@ const TransactionsDayItem: React.FC<{
                         <div className="personal-account_transactions-name">
                             <div>
                                 {item.name.map(el =>
-                                    <>
+                                    <div key={Utils.randomString()}>
                                         {el.link ?
                                             <Link to={el.link}>{el.name}</Link>
                                             :
                                             el.name
                                         }
                                         &nbsp;
-                                    </>
+                                    </div>
                                 )}
                             </div>
                             <div className={(item.type === "transaction" ? "transaction" : (item.type === "income" ? "income" : "outcome"))}>
@@ -162,8 +162,8 @@ const TransactionsList: React.FC<{
         <>
             {data.length > 0 ?
                 <ul className="personal-account_transactions-list">
-                    {data && data.map((item, index) =>
-                        <TransactionsDayItem date={item.date} key={index} items={item.transactions} />
+                    {data && data.map(item =>
+                        <TransactionsDayItem date={item.date} key={Utils.randomString()} items={item.transactions} />
                     )}
                 </ul>
                 :

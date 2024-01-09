@@ -9,10 +9,10 @@ import Utils from "../../../../utils/Utils";
 import { Link } from "react-router-dom";
 import { MobileModal } from "../../MobileModal/MobileModal";
 import { useState } from "react";
-import WithdrawMobile from "../PersonalAccountWithdraw/mobile/PersonalAccountWithdraw";
 import { useQuery } from "@tanstack/react-query";
 import balanceService from "../../../../api-functions/balance/balance-service";
 import BalanceLoader from "./BalanceLoader";
+import PersonalAccountActions from "../PersonalAccountActions/PersonalAccountActions";
 
 interface accountsProps {
     name: string,
@@ -47,7 +47,7 @@ const BalanceMobile: React.FC<{
 }> = (props) => {
     const { active, setActive } = props;
 
-    const [withdrawModalOpened, setWithdrawModalOpened] = useState(false);
+    // const [withdrawModalOpened, setWithdrawModalOpened] = useState(false);
     const [mobileModalOpened, setMobileModalOpened] = useState(false);
 
     const { data, isLoading } = useQuery({
@@ -88,15 +88,17 @@ const BalanceMobile: React.FC<{
                             Перейти в Транзакции
                             <img src={back} alt="Перейти в Транзакции" />
                         </Link>
-                        {data.total > 0 &&
+                        {/* {data.total > 0 &&
                             <div className="personal-account_balance-action">
                                 <button className="site-btn big" onClick={() => setWithdrawModalOpened(prev => !prev)}>
                                     Вывести
                                 </button>
                             </div>
-                        }
+                        } */}
                     </div>
-                    <WithdrawMobile active={withdrawModalOpened} setActive={setWithdrawModalOpened} setCallActive={setMobileModalOpened} balance={data.total} />
+                    <div className="personal-account_balance-actions">
+                        <PersonalAccountActions balance={data.total} setCallModal={setMobileModalOpened} />
+                    </div>
                     <MobileModal
                         active={mobileModalOpened}
                         type={"orderCall"}

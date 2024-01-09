@@ -92,7 +92,7 @@ let Utils = {
         }
         return result;
     },
-    formatPhone(number: string) {
+    formatPhone(number: string): string {
         if (number) {
             const cleanedStr = number.replace(/\D/g, '');
             const countryCode = '+7';
@@ -105,7 +105,7 @@ let Utils = {
         }
         return number;
     },
-    validateEmail(request: { email: string, errors: Object }) {
+    validateEmail(request: { email: string, errors: Object }): Object {
         let errors = {};
 
         if (!request.email || request.email.length <= 0) {
@@ -154,7 +154,7 @@ let Utils = {
 
         return errors;
     },
-    formatNumber(value: number) {
+    formatNumber(value: number): string {
         return new Intl.NumberFormat().format(value);
     }
 }

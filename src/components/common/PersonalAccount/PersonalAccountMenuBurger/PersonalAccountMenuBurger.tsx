@@ -17,7 +17,7 @@ const PersonalAccountMenuBurger = ({
 	const location = useLocation();
 
 	useEffect(() => {
-		if (location.pathname === "/personal-account/fines" && window.innerWidth < 768) {
+		if ((location.pathname === "/personal-account/fines" || location.pathname === "/personal-account/transactions") && window.innerWidth < 1024) {
 			setUpper(true);
 		} else {
 			setUpper(false);
