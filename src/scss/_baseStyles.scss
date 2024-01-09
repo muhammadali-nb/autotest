@@ -761,6 +761,10 @@ code {
   &.show {
     opacity: 1;
   }
+
+  &.upper {
+    bottom: 95px;
+  }
 }
 
 .toggle_sent-data-mobile {
