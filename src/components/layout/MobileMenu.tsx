@@ -105,23 +105,22 @@ const MobileMenu = (props: MobileMenuProps) => {
 					}  `}>
 					<div>
 						<div className={"d-flex align-items-center gap-px-15"}>
-							<div onClick={() => setMenuIsOpen(false)}>
-								{/* <img src={arrow} alt="" /> */}
+							<div
+								onClick={() => setMenuIsOpen(false)}
+								className={"mobile-menu_close-btn "}>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="20"
 									height="20"
 									viewBox="0 0 20 20"
 									fill="none">
-									<g filter="url(#filter0_i_9141_60467)">
-										<path
-											d="M11.6666 15L6.66663 10L11.6666 5"
-											stroke={whiteTheme ? "#222222" : "#ffffff"}
-											strokeWidth="2"
-											strokeLinecap="round"
-											strokeLinejoin="round"
-										/>
-									</g>
+									<path
+										d="M11.6666 15L6.66663 10L11.6666 5"
+										stroke={whiteTheme ? "#222222" : "#ffffff"}
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
 								</svg>
 							</div>
 							<HeaderLogoImage
