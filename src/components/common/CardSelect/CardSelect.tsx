@@ -7,7 +7,7 @@ interface optionProps {
     favourite: boolean
 }
 
-const SelectOption: React.FC<{
+export const SelectOption: React.FC<{
     value: optionProps,
     onSelect: (arg0: { name: string, number: string }) => void
 }> = (props) => {
