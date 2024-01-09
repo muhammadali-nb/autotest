@@ -1,6 +1,7 @@
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const PersonalAccountMenuBurger = ({
 	onClick,
@@ -11,9 +12,21 @@ const PersonalAccountMenuBurger = ({
 	className?: string;
 	style?: CSSProperties;
 }) => {
+	const [upper, setUpper] = useState(false);
+
+	const location = useLocation();
+
+	useEffect(() => {
+		if (location.pathname === "/personal-account/fines" && window.innerWidth < 768) {
+			setUpper(true);
+		} else {
+			setUpper(false);
+		}
+	}, []);
+
 	return (
 		<div
-			className={"personal-account_mobile-burger " + (className ?? "")}
+			className={"personal-account_mobile-burger " + (className ?? "" + (upper ? "upper": ""))}
 			style={style}
 			onClick={onClick}>
 			<FontAwesomeIcon icon={faBars} />
