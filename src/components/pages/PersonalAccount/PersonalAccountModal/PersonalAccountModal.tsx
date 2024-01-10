@@ -630,6 +630,12 @@ const PersonalAccountModal: React.FC<{
                         setError(e.response.data.message);
                     }
                 });
+        } else if (type === "withdraw") {
+            setStep("confirm");
+        } else if (type === "replenish") {
+            setStep("confirm");
+        } else if (type === "transaction") {
+            setStep("confirm");
         }
     }
 
@@ -650,13 +656,13 @@ const PersonalAccountModal: React.FC<{
                         <EditPhoneForm step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
                     }
                     {type === "email" &&
-                        <EditEmailForm step={"new"} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
+                        <EditEmailForm step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
                     }
                     {type === "withdraw" &&
-                        <WithdrawDesktop step={"new"} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} balance={balance} />
+                        <WithdrawDesktop step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} balance={balance} />
                     }
                     {type === "replenish" &&
-                        <PersonalAccountReplenish step={"new"} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone}  />
+                        <PersonalAccountReplenish step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone}  />
                     }
                 </ModalTemplateContent>
             </div>

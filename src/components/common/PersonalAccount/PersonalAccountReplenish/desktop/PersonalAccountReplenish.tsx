@@ -67,15 +67,18 @@ const PersonalAccountReplenish: React.FC<{
     const validateData = (field: string, value: string) => {
         let errors = payload.errors;
         delete errors[field];
+        delete errors["server"];
         let newData = { ...payload, [field]: value, errors: errors };
         setPayload(newData);
         // errors = Utils.validateWithdraw(data, balance);
     }
 
     const setPaymentType = (type: string) => {
+        let errors = payload.errors;
+        delete errors["server"];
         setPayload(prev => ({ ...prev, type: type }));
         if (type === "card") {
-            setPayload(prev => ({ ...prev, from: cardsData.cards[0] }));
+            setPayload(prev => ({ ...prev, from: cardsData.cards[0], errors: errors }));
         }
         // else {
         //     setPayload(prev => ({
@@ -85,6 +88,19 @@ const PersonalAccountReplenish: React.FC<{
         //         }
         //     }));
         // }
+    }
+
+    const setServerError = (error: string) => {
+        let errors = payload.errors;
+        delete errors["server"];
+
+        setPayload(prev => ({
+            ...prev,
+            errors: {
+                ...errors,
+                server: error
+            }
+        }));
     }
 
     return (
@@ -146,7 +162,7 @@ const PersonalAccountReplenish: React.FC<{
                     <div>
                         <AccountSelect data={data} error={payload.errors["to"]} placeholder="Выберите счёт" onSelect={setToValue} />
                     </div>
-                    <div>
+                    <div className="mb-px-100">
                         <ModalTemplateInput
                             error={payload.errors["sum"]}
                             type={"number"}
@@ -154,13 +170,18 @@ const PersonalAccountReplenish: React.FC<{
                             placeholder="Введите сумму"
                             onChange={(e: any) => validateData("sum", e.target.value)}
                         />
+                        {payload.errors["server"] && (
+                            <div className={"my-2 text-red-color font-size-12"}>
+                                {payload.errors["server"]}
+                            </div>
+                        )}
                     </div>
                     <div className="mt-auto d-flex align-items-center justify-content-between">
                         <button
                             className={"site-btn small dark"}
                             onClick={(e) => {
                                 e.preventDefault();
-                                // send();
+                                getCode(`${payload.from.number}-${payload.to.name}-${payload.sum}`, setServerError);
                             }}>
                             Далее
                         </button>

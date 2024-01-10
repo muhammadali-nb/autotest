@@ -88,13 +88,6 @@ const BalanceMobile: React.FC<{
                             Перейти в Транзакции
                             <img src={back} alt="Перейти в Транзакции" />
                         </Link>
-                        {/* {data.total > 0 &&
-                            <div className="personal-account_balance-action">
-                                <button className="site-btn big" onClick={() => setWithdrawModalOpened(prev => !prev)}>
-                                    Вывести
-                                </button>
-                            </div>
-                        } */}
                     </div>
                     <div className="personal-account_balance-actions">
                         <PersonalAccountActions balance={data.total} setCallModal={setMobileModalOpened} />
