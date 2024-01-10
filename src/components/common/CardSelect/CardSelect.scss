@@ -15,10 +15,10 @@
         cursor: pointer;
 
         @media (max-width: 767px) {
-            padding: 8px 0;
+            padding: 8px 0 8px 12px;
             font-size: 12px;
             font-weight: 500;
-            border-bottom: 0;
+            // border-bottom: 0;
         }
 
         .card-select_value {
@@ -29,6 +29,23 @@
 
             &.selected {
                 color: #222;
+            }
+
+            &.account-value {
+                justify-content: flex-start;
+                align-items: center;
+
+                img, svg {
+                    width: 22px;
+                    height: auto;
+                    margin-right: 15px;
+                }
+
+                span {
+                    &:nth-child(3), &:nth-child(4) {
+                        margin-left: auto;
+                    }
+                }
             }
         }
 
@@ -61,7 +78,7 @@
         z-index: 999;
         // max-height: 250px;
         background-color: #fff;
-        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 5px 24px 0px rgba(0, 0, 0, 0.05);
         // overflow-y: scroll;
 
         // &::-webkit-scrollbar {
@@ -71,7 +88,8 @@
         // }
 
         @media (max-width: 767px) {
-            box-shadow: none;
+            padding-top: 8px;
+            padding-left: 12px;
         }
     }
 
@@ -161,6 +179,27 @@
                 svg {
                     width: 100%;
                     height: auto;
+                }
+            }
+        }
+
+        &.account-option {
+            justify-content: flex-start;
+            align-items: center;
+
+            .card-select_star {
+                width: fit-content;
+            }
+
+            img {
+                width: 22px;
+                height: auto;
+                // margin-right: 15px;
+            }
+
+            div {
+                &:nth-child(2) {
+                    margin-left: auto;
                 }
             }
         }

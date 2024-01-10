@@ -11,6 +11,7 @@ import MobileEditEmail from "./MobileEditEmail";
 import WithdrawConfirmPhone from "../PersonalAccount/PersonalAccountWithdraw/mobile/WithdrawConfirmPhone";
 import MobileAddBankCard from "./payment/MobileAddBankCard";
 import MobileAddScoreCard from "./payment/MobileAddScoreCard";
+import ReplenishConfirmPhone from "../PersonalAccount/PersonalAccountReplenish/mobile/ReplenishConfirmPhone";
 
 export const MobileModal = ({
 	active,
@@ -67,6 +68,9 @@ export const MobileModal = ({
 				)}
 				{type === "paymentAddScoreCard" && (
 					<MobileAddScoreCard closeFn={() => setActive(false)} />
+				)}
+				{type === "replenishConfirm" && (
+					<ReplenishConfirmPhone closeFunc={() => setActive(false)} />
 				)}
 			</div>
 		</div>
