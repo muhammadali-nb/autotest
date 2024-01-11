@@ -9,6 +9,7 @@ import { useAuth } from "../../../../hooks/useAuth";
 import WithdrawDesktop from "../../../common/PersonalAccount/PersonalAccountWithdraw/desktop/PersonalAccountWithdraw";
 import axios from "axios";
 import PersonalAccountReplenish from "../../../common/PersonalAccount/PersonalAccountReplenish/desktop/PersonalAccountReplenish";
+import PersonalAccountTransaction from "../../../common/PersonalAccount/PersonalAccountTransaction/desktop/PersonalAccountTransaction";
 
 const SuccessStep: React.FC<{
     type: string,
@@ -212,6 +213,16 @@ export const CodeConfirmForm: React.FC<{
                             Вывести деньги
                         </>
                     }
+                    {type === "replenish" &&
+                        <>
+                            Пополнить СЧЁТ
+                        </>
+                    }
+                    {type === "transaction" &&
+                        <>
+                            Перевести деньги
+                        </>
+                    }
                 </div>
                 <div className={"call-content-text font-size-16 fw-medium"}>
                     <span className={"text-default"}>Мы отправили вам код</span>
@@ -289,7 +300,7 @@ export const CodeConfirmForm: React.FC<{
                     onClick={senCode}>
                     Подтвердить код
                 </button>
-                {(type !== "withdraw" && step !== "confirmOld") &&
+                {(step !== "confirmOld") &&
                     <button
                         className={
                             "default-link text-decoration-none default-transition text-gray-color text-hover-default"
@@ -297,6 +308,7 @@ export const CodeConfirmForm: React.FC<{
                         onClick={() => setStep("new")}>
                         <FontAwesomeIcon icon={faAngleLeft} />
                         &nbsp;&nbsp;&nbsp;{(type === "phone" && step === "confirm") && <>Изменить номер</>}{type === "email" && <>Изменить почту</>}
+                        {(type === "withdraw" || type === "replenish" || type === "transaction") && <>Вернуться</>}
                     </button>
                 }
             </div>
@@ -662,7 +674,10 @@ const PersonalAccountModal: React.FC<{
                         <WithdrawDesktop step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} balance={balance} />
                     }
                     {type === "replenish" &&
-                        <PersonalAccountReplenish step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone}  />
+                        <PersonalAccountReplenish step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
+                    }
+                    {type === "transaction" &&
+                        <PersonalAccountTransaction step={step} setStep={setStep} onHide={handleClose} getCode={getCode} currentPhone={currentPhone} />
                     }
                 </ModalTemplateContent>
             </div>

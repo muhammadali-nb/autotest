@@ -4,6 +4,7 @@ import PersonalAccountModal from '../../../pages/PersonalAccount/PersonalAccount
 import { useAuth } from '../../../../hooks/useAuth';
 import WithdrawMobile from '../PersonalAccountWithdraw/mobile/PersonalAccountWithdraw';
 import ReplenishMobile from '../PersonalAccountReplenish/mobile/ReplenishMobile';
+import PersonalAccountTransaction from '../PersonalAccountTransaction/mobile/PersonalAccountTransaction';
 
 const PersonalAccountActions: React.FC<{
     balance: number,
@@ -121,6 +122,15 @@ const PersonalAccountActions: React.FC<{
                                 <PersonalAccountModal type="replenish" show={actionOpened.opened} onHide={handleClose} currentPhone={phone} />
                                 :
                                 <ReplenishMobile active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} />
+                            }
+                        </>
+                    }
+                    {actionOpened.type === "transaction" &&
+                        <>
+                            {size === "desk" ?
+                                <PersonalAccountModal type="transaction"  show={actionOpened.opened} onHide={handleClose} currentPhone={phone} />
+                                :
+                                <PersonalAccountTransaction active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} />
                             }
                         </>
                     }

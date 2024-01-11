@@ -9,7 +9,8 @@ import "../CardSelect/CardSelect.scss";
 interface optionProps {
     name: string,
     icon: string,
-    balance: number
+    balance: number,
+    deposit: boolean
 }
 
 const getIcon = (type: string) => {
@@ -43,7 +44,7 @@ export const SelectOption: React.FC<{
 }
 
 const AccountSelect: React.FC<{
-    data: balanceProps,
+    data: optionProps[],
     placeholder: string,
     onSelect: (value: { name: string, icon: string, balance: number }) => void,
     error: string,
@@ -67,6 +68,9 @@ const AccountSelect: React.FC<{
     }): void => {
         if (value !== null) {
             setSelected(value);
+            if (window.innerWidth > 1023) {
+                setActive(false);
+            }
             onSelect(value);
         }
     }
@@ -147,7 +151,7 @@ const AccountSelect: React.FC<{
                 active &&
                 <div className="card-select_dropdown">
                     <ul className="card-select_list">
-                        {data.accounts.map((item, index) =>
+                        {data.map((item, index) =>
                         (item.icon !== "deposit" &&
                             <SelectOption key={index} value={item} onSelect={setOption} />
                         )
