@@ -1,17 +1,31 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Utils from "../../../../../utils/Utils";
-import { CodeConfirmForm } from "../../../../pages/PersonalAccount/PersonalAccountModal/PersonalAccountModal";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import { ModalTemplateInput } from "../../../ModalFormTemplate";
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import balanceService from "../../../../../api-functions/balance/balance-service";
-import sbp from "../../../../../images/personal-account/transactions/sbp.png";
-import { cardsData } from "../../PersonalAccountWithdraw/mobile/PersonalAccountWithdraw";
-import CardSelect from "../../../CardSelect/CardSelect";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import AccountSelect from "../../../AccountSelect/AccountSelect";
+import { ModalTemplateInput } from "../../../ModalFormTemplate";
+import { CodeConfirmForm } from "../../../../pages/PersonalAccount/PersonalAccountModal/PersonalAccountModal";
+import Utils from "../../../../../utils/Utils";
+import { balanceProps } from "../../PersonalAccountBalance/BalanceMobile";
 
-const PersonalAccountReplenish: React.FC<{
+type accountProps = {
+    name: string,
+    icon: string,
+    balance: number,
+    deposit: boolean
+};
+
+type omittedProps = Omit<accountProps, "deposit">;
+
+type payloadProps = {
+    sum: number,
+    from: omittedProps,
+    to: omittedProps,
+    errors: {}
+}
+
+const PersonalAccountTransaction: React.FC<{
     onHide: () => void,
     getCode: (item: string, setError: (err: string) => void) => void,
     step: string,
@@ -20,12 +34,12 @@ const PersonalAccountReplenish: React.FC<{
 }> = (props) => {
     const { onHide, getCode, step, setStep, currentPhone } = props;
 
-    const [payload, setPayload] = useState({
+    const [payload, setPayload] = useState<payloadProps>({
         sum: 0,
-        type: "sbp",
         from: {
-            name: cardsData.cards[0].name,
-            number: cardsData.cards[0].number
+            name: "",
+            icon: "",
+            balance: 0
         },
         to: {
             name: "",
@@ -35,25 +49,26 @@ const PersonalAccountReplenish: React.FC<{
         errors: {}
     });
 
-    const { data, isLoading } = useQuery({
+    const { data } = useQuery({
         queryKey: ['accounts'],
         queryFn: () => balanceService.getBalance()
     });
-
-    const setFromValue = (value: { name: string, number: string }) => {
+    
+    const setFromValue = (value: omittedProps) => {
         let errors = payload.errors;
         delete errors["from"];
         let newData = {
             ...payload, from: {
                 name: value.name,
-                number: value.number
+                icon: value.icon,
+                balance: value.balance
             }, errors: errors
         };
         setPayload(newData);
         // errors = Utils.validateWithdraw(payload, data);
     }
 
-    const setToValue = (value: { name: string, icon: string, balance: number }) => {
+    const setToValue = (value: omittedProps) => {
         let newData = {
             ...payload, to: {
                 name: value.name,
@@ -73,23 +88,6 @@ const PersonalAccountReplenish: React.FC<{
         // errors = Utils.validateWithdraw(data, balance);
     }
 
-    const setPaymentType = (type: string) => {
-        let errors = payload.errors;
-        delete errors["server"];
-        setPayload(prev => ({ ...prev, type: type }));
-        if (type === "card") {
-            setPayload(prev => ({ ...prev, from: cardsData.cards[0], errors: errors }));
-        }
-        // else {
-        //     setPayload(prev => ({
-        //         ...prev, from: {
-        //             name: "",
-        //             number: ""
-        //         }
-        //     }));
-        // }
-    }
-
     const setServerError = (error: string) => {
         let errors = payload.errors;
         delete errors["server"];
@@ -103,11 +101,16 @@ const PersonalAccountReplenish: React.FC<{
         }));
     }
 
+    // const getCustomData = (type: string): accountProps[] => {
+    //     if (!data) return [];
+    //     return data.accounts.filter(item => item.name !== payload[type].name);
+    // }
+
     return (
         <>
             {step === "new" &&
                 <>
-                    <div className={"mb-px-60"}>
+                    <div className={"mb-px-80"}>
                         <button
                             className={
                                 "default-link font-size-18 font-weight-semibold text-hover-default"
@@ -122,45 +125,17 @@ const PersonalAccountReplenish: React.FC<{
                             className={
                                 "call-content-text-header font-size-40 mb-px-10 line-height-130 font-weight-semibold"
                             }>
-                            Пополнить счёт
+                            Перевести деньги
                         </div>
                         <div className={"call-content-text font-size-16 fw-medium"}>
-                            Выберите способ оплаты и&nbsp;счёт,<br />
-                            и&nbsp;введите необходимую сумму для пополнения
+                            Выберите счета и сумму перевода
                         </div>
                     </div>
-                    <div className="mb-px-20">
-                        <div className="replenish_types">
-                            <div className={"replenish_type " + (payload.type === "sbp" ? "active" : "")} onClick={() => setPaymentType("sbp")}>
-                                <img src={sbp} alt="СБП" />
-                                <span className="font-size-12">
-                                    Коммисия: <span>
-                                        1%
-                                    </span>
-                                </span>
-                            </div>
-                            <div className={"replenish_type " + (payload.type === "card" ? "active" : "")} onClick={() => setPaymentType("card")}>
-                                <div className="font-size-14 font-weight-semibold">
-                                    {payload.from.name}
-                                </div>
-                                <div className="font-size-12">
-                                    {payload.from.number}
-                                </div>
-                                <span className="font-size-12">
-                                    Коммисия: <span>
-                                        3%
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    {payload.type === "card" &&
-                        <div>
-                            <CardSelect cards={cardsData.cards} accounts={cardsData.accounts} onSelect={setFromValue} error={payload.errors["from"]} placeholder="Выбрать другую карту или счёт" />
-                        </div>
-                    }
                     <div>
-                        <AccountSelect data={data && data.accounts} error={payload.errors["to"]} placeholder="Выберите счёт" onSelect={setToValue} />
+                        <AccountSelect data={data && data.accounts} icon="outcome" error={payload.errors["from"]} placeholder="Выберите счёт" onSelect={setFromValue} />
+                    </div>
+                    <div>
+                        <AccountSelect data={data && data.accounts} icon="income" error={payload.errors["to"]} placeholder="Выберите счёт" onSelect={setToValue} />
                     </div>
                     <div className="mb-px-100">
                         <ModalTemplateInput
@@ -181,15 +156,10 @@ const PersonalAccountReplenish: React.FC<{
                             className={"site-btn small dark"}
                             onClick={(e) => {
                                 e.preventDefault();
-                                getCode(`${payload.from.number}-${payload.to.name}-${payload.sum}`, setServerError);
+                                getCode(`${payload.from.name}-${payload.to.name}-${payload.sum}`, setServerError);
                             }}>
                             Далее
                         </button>
-                        {(payload.sum > 0 && payload.sum) &&
-                            <span className="font-size-16 font-weight-semibold">
-                                К оплате: {Utils.formatNumber(payload.sum)} ₽
-                            </span>
-                        }
                     </div>
                 </>
             }
@@ -200,7 +170,7 @@ const PersonalAccountReplenish: React.FC<{
                     repeatRequest={getCode}
                     newPhone={''}
                     currentPhone={Utils.formatPhone(currentPhone)}
-                    type={"replenish"}
+                    type={"transaction"}
                     onHide={onHide}
                 />
             }
@@ -208,4 +178,4 @@ const PersonalAccountReplenish: React.FC<{
     )
 }
 
-export default PersonalAccountReplenish;
+export default PersonalAccountTransaction;
