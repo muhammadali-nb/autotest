@@ -54,6 +54,8 @@ const ReplenishMobile: React.FC<{
     }
 
     const setToValue = (value: { name: string, icon: string, balance: number }) => {
+        let errors = payload.errors;
+        delete errors["to"];
         let newData = {
             ...payload, to: {
                 name: value.name,
@@ -96,11 +98,12 @@ const ReplenishMobile: React.FC<{
     }
 
     const send = () => {
-        // let errors = Utils.validateWithdraw(data, balance);
-        // if (Object.keys(errors).length > 0) {
-        //     setData({ ...data, errors: errors });
-        //     return;
-        // }
+        let errors = Utils.validateReplenish(payload);
+        if (Object.keys(errors).length > 0) {
+            setPayload({ ...payload, errors: errors });
+            return;
+        }
+        // getCode(`${payload.from.number}-${payload.to.name}-${payload.sum}`, setServerError);
         setConfirmModalOpened(true);
     }
 
@@ -111,7 +114,10 @@ const ReplenishMobile: React.FC<{
                     <div className="mobile-modal_header-top">
                         <img src={back} onClick={() => setActive({ opened: false, type: "" })} alt="" />
                         <HeaderLogoImage width={"100px"} height={"24px"} image="dark" />
-                        <img src={call} alt="" onClick={() => setCallActive(true)} />
+                        <img src={call} alt="" onClick={() => {
+                            setActive({ opened: false, type: "replenish" });
+                            setCallActive(true);
+                        }} />
                     </div>
                 </div>
                 <div className="balance-mobile_body">

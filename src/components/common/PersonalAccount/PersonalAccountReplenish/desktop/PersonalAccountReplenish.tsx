@@ -54,6 +54,8 @@ const PersonalAccountReplenish: React.FC<{
     }
 
     const setToValue = (value: { name: string, icon: string, balance: number }) => {
+        let errors = payload.errors;
+        delete errors["to"];
         let newData = {
             ...payload, to: {
                 name: value.name,
@@ -101,6 +103,15 @@ const PersonalAccountReplenish: React.FC<{
                 server: error
             }
         }));
+    }
+
+    const send = () => {
+        let errors = Utils.validateReplenish(payload);
+        if (Object.keys(errors).length > 0) {
+            setPayload({ ...payload, errors: errors });
+            return;
+        }
+        getCode(`${payload.from.number}-${payload.to.name}-${payload.sum}`, setServerError);
     }
 
     return (
@@ -181,7 +192,7 @@ const PersonalAccountReplenish: React.FC<{
                             className={"site-btn small dark"}
                             onClick={(e) => {
                                 e.preventDefault();
-                                getCode(`${payload.from.number}-${payload.to.name}-${payload.sum}`, setServerError);
+                                send();
                             }}>
                             Далее
                         </button>
