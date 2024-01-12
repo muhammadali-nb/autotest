@@ -116,7 +116,10 @@ const PersonalAccountTransaction: React.FC<{
                     <div className="mobile-modal_header-top">
                         <img src={back} onClick={() => setActive({ opened: false, type: "" })} alt="" />
                         <HeaderLogoImage width={"100px"} height={"24px"} image="dark" />
-                        <img src={call} alt="" onClick={() => setCallActive(true)} />
+                        <img src={call} alt="" onClick={() => {
+                            setActive({ opened: false, type: "transaction" });
+                            setCallActive(true);
+                        }} />
                     </div>
                 </div>
                 <div className="balance-mobile_body">

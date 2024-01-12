@@ -68,9 +68,7 @@ const AccountSelect: React.FC<{
     }): void => {
         if (value !== null) {
             setSelected(value);
-            if (window.innerWidth > 1023) {
-                setActive(false);
-            }
+            setActive(false);
             onSelect(value);
         }
     }
