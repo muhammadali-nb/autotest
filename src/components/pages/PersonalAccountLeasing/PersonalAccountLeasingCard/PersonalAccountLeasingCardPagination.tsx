@@ -1,32 +1,61 @@
-import React from "react";
-import { TypeMaintenceTableRow, TypePaymentTableRow } from "../../../../types/PersonalAccount/LeasingTypes";
+import React, { ReactElement, useEffect, useState } from "react";
+import {
+	TypeMaintenceTableRow,
+	TypePaymentTableRow,
+} from "../../../../types/PersonalAccount/LeasingTypes";
+import { log } from "console";
 
 const PersonalAccountLeasingCardPagination = ({
-	list,
 	setActive,
 	active,
+	totalPages,
 }: {
-	list: TypeMaintenceTableRow[][] | TypePaymentTableRow[][];
-	setActive: (e: number) => void;
+	setActive: (e: any) => void;
 	active: number;
+	totalPages: number;
 }) => {
-	const decrease = () => {
-		if (active > 0) {
-			setActive(active - 1);
-		}
+	const [currentPage, setCurrentPage] = useState(1);
+
+	useEffect(() => {
+		console.log(totalPages);
+	}, [totalPages]);
+	const handlePrevClick = () => {
+		setActive((prev) => Math.max(prev - 1, 1));
 	};
 
-	const increase = () => {
-		if (active !== list.length - 1) {
-			setActive(active + 1);
+	const handleNextClick = () => {
+		setActive((prev) => Math.min(prev + 1, totalPages));
+	};
+
+	const renderPages = () => {
+		const pagesToShow: ReactElement[] = [];
+		const startPage = Math.max(1, active - 1);
+		const endPage = Math.min(totalPages, startPage + 1);
+
+		for (let i = startPage; i <= endPage; i++) {
+			pagesToShow.push(
+				<button
+					key={i}
+					onClick={() => setActive(i)}
+					disabled={active === i}
+					className={
+						"personal-account-leasing-car_card-table_header_pagination_btn " +
+						(active === i ? " active" : "")
+					}>
+					{i}
+				</button>
+			);
 		}
+
+		return pagesToShow;
 	};
 
 	return (
 		<div className="personal-account-leasing-car_card-table_header_pagination">
 			<button
 				className="personal-account-leasing-car_card-table_header_pagination_btn-arrow"
-				onClick={decrease}>
+				onClick={handlePrevClick}
+				disabled={active === 1}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="19"
@@ -43,20 +72,12 @@ const PersonalAccountLeasingCardPagination = ({
 				</svg>
 			</button>
 
-			{list.map((_item, index) => (
-				<button
-					onClick={() => setActive(index)}
-					className={
-						"personal-account-leasing-car_card-table_header_pagination_btn " +
-						(active === index ? " active" : "")
-					}>
-					{index + 1}
-				</button>
-			))}
+			{renderPages()}
 
 			<button
 				className="personal-account-leasing-car_card-table_header_pagination_btn-arrow"
-				onClick={increase}>
+				onClick={handleNextClick}
+				disabled={active === totalPages}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="19"

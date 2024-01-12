@@ -11,7 +11,6 @@ const PersonalAccountLeasingCarCardDesk = ({
 	className?: string;
 	car: IPersonalAccountLeasingCarData;
 }) => {
-	
 	return (
 		<div className={"personal-account-leasing-car " + (className ?? "")}>
 			<PersonalAccountLeasingCardCar
@@ -21,7 +20,6 @@ const PersonalAccountLeasingCarCardDesk = ({
 			/>
 			<div className="d-flex mt-px-15">
 				<PersonalAccountLeasingMaintenance
-				
 					maintenanceList={car.maintance_hitory}
 				/>
 				<PersonalAccountLeasingPayments

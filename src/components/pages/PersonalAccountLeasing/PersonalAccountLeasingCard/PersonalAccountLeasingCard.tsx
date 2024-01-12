@@ -19,7 +19,7 @@ const PersonalAccountLeasingCard = (props: IProps) => {
 			/>
 			<PersonalAccountLeasingCarCardPad
 				car={car}
-				className="d-none d-md-block d-xl-none "
+				className="d-none d-md-block d-xl-none"
 			/>
 			<PersonalAccountLeasingCarCardMobile
 				car={car}
