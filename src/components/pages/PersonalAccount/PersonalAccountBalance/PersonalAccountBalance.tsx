@@ -70,7 +70,7 @@ const PersonalAccountBalance: React.FC = () => {
 
     useEffect(() => {
         const handleClick = (e: MouseEvent) => {
-            if (e.target instanceof Node && !dropdownRef.current?.contains(e.target))
+            if (e.target instanceof Node && !dropdownRef.current?.contains(e.target) && window.innerWidth > 767)
                 setActive(false);
         }
 

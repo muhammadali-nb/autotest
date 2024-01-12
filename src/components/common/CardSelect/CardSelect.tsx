@@ -65,6 +65,7 @@ const CardSelect: React.FC<{
             number: value.number
         });
         onSelect({ name: value.name, number: value.number });
+        setActive(false);
     }
 
     useEffect(() => {

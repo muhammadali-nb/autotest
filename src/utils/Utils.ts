@@ -154,6 +154,65 @@ let Utils = {
 
         return errors;
     },
+    validateTransaction(request: {
+        sum: number,
+        from: {
+            name: string,
+            icon: string,
+            balance: number,
+        },
+        to: {
+            name: string,
+            icon: string,
+            balance: number
+        },
+        errors: Object
+    }): Object {
+        let errors = {};
+
+        if (request.sum <= 0 || !request.sum) {
+            errors["sum"] = "Не указана сумма";
+        }
+        if (!request.from || !request.from.name) {
+            errors["from"] = "Не указан счёт для отправления"
+        }
+        if (request.from.balance < request.sum) {
+            errors["from"] = "На указанном счёте недостаточно средств для перевода"
+        }
+        if (!request.to || !request.to.name) {
+            errors["to"] = "Не указан счёт для получения"
+        }
+
+        return errors;
+    },
+    validateReplenish(request: {
+        sum: number,
+        type: string,
+        from: {
+            name: string,
+            number: string
+        },
+        to: {
+            name: string,
+            icon: string,
+            balance: number
+        },
+        errors: {}
+    }): Object {
+        let errors = {};
+
+        if (request.sum <= 0 || !request.sum) {
+            errors["sum"] = "Не указана сумма";
+        }
+        if ((!request.from || !request.from.number) && request.type !== "sbp") {
+            errors["from"] = "Не указана карта или счёт";
+        }
+        if (!request.to || !request.to.name) {
+            errors["to"] = "Не указан счёт для пополнения";
+        }
+
+        return errors;
+    },
     formatNumber(value: number): string {
         return new Intl.NumberFormat().format(value);
     }

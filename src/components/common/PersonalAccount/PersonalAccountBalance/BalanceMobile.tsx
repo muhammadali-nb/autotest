@@ -8,11 +8,12 @@ import "./BalanceMobile.scss";
 import Utils from "../../../../utils/Utils";
 import { Link } from "react-router-dom";
 import { MobileModal } from "../../MobileModal/MobileModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import balanceService from "../../../../api-functions/balance/balance-service";
 import BalanceLoader from "./BalanceLoader";
 import PersonalAccountActions from "../PersonalAccountActions/PersonalAccountActions";
+import { fixWindow } from "../../../../utils/fixWindow";
 
 interface accountsProps {
     name: string,
@@ -55,6 +56,14 @@ const BalanceMobile: React.FC<{
         queryFn: () => balanceService.getBalance()
     });
 
+    useEffect(() => {
+        if (active) {
+            fixWindow(true);
+        } else {
+            fixWindow(false);
+        }
+    }, [active]);
+
     return (
         <>
             {!isLoading ?
@@ -88,13 +97,6 @@ const BalanceMobile: React.FC<{
                             Перейти в Транзакции
                             <img src={back} alt="Перейти в Транзакции" />
                         </Link>
-                        {/* {data.total > 0 &&
-                            <div className="personal-account_balance-action">
-                                <button className="site-btn big" onClick={() => setWithdrawModalOpened(prev => !prev)}>
-                                    Вывести
-                                </button>
-                            </div>
-                        } */}
                     </div>
                     <div className="personal-account_balance-actions">
                         <PersonalAccountActions balance={data.total} setCallModal={setMobileModalOpened} />
