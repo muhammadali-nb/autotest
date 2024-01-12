@@ -5,6 +5,23 @@ import { useAuth } from '../../../../hooks/useAuth';
 import WithdrawMobile from '../PersonalAccountWithdraw/mobile/PersonalAccountWithdraw';
 import ReplenishMobile from '../PersonalAccountReplenish/mobile/ReplenishMobile';
 import PersonalAccountTransaction from '../PersonalAccountTransaction/mobile/PersonalAccountTransaction';
+import ReactDOM from 'react-dom';
+import { fixWindow } from '../../../../utils/fixWindow';
+
+const TransactionsPortal: React.FC<{
+    children: React.ReactNode
+}> = (props) => {
+    const { children } = props;
+
+    const node = document.getElementById('modal_root');
+    if (!node) return null;
+
+    return ReactDOM.createPortal((
+        <>
+            {children}
+        </>
+    ), node);
+}
 
 const PersonalAccountActions: React.FC<{
     balance: number,
@@ -34,6 +51,14 @@ const PersonalAccountActions: React.FC<{
             window.removeEventListener('resize', checkSize);
         }
     }, []);
+
+    useEffect(() => {
+        if (actionOpened.opened && size !== "desk") {
+            fixWindow(true);
+        } else {
+            fixWindow(false);
+        }
+    }, [actionOpened]);
 
     const { phone } = useAuth();
 
@@ -112,7 +137,9 @@ const PersonalAccountActions: React.FC<{
                             {size === "desk" ?
                                 <PersonalAccountModal type="withdraw" show={actionOpened.opened} onHide={handleClose} currentPhone={phone} balance={balance} />
                                 :
-                                <WithdrawMobile active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} balance={balance} />
+                                <TransactionsPortal>
+                                    <WithdrawMobile active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} balance={balance} />
+                                </TransactionsPortal>
                             }
                         </>
                     }
@@ -121,16 +148,20 @@ const PersonalAccountActions: React.FC<{
                             {size === "desk" ?
                                 <PersonalAccountModal type="replenish" show={actionOpened.opened} onHide={handleClose} currentPhone={phone} />
                                 :
-                                <ReplenishMobile active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} />
+                                <TransactionsPortal>
+                                    <ReplenishMobile active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} />
+                                </TransactionsPortal>
                             }
                         </>
                     }
                     {actionOpened.type === "transaction" &&
                         <>
                             {size === "desk" ?
-                                <PersonalAccountModal type="transaction"  show={actionOpened.opened} onHide={handleClose} currentPhone={phone} />
+                                <PersonalAccountModal type="transaction" show={actionOpened.opened} onHide={handleClose} currentPhone={phone} />
                                 :
-                                <PersonalAccountTransaction active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} />
+                                <TransactionsPortal>
+                                    <PersonalAccountTransaction active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} />
+                                </TransactionsPortal>
                             }
                         </>
                     }
