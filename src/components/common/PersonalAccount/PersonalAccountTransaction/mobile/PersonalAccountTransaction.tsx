@@ -64,7 +64,6 @@ const PersonalAccountTransaction: React.FC<{
             }, errors: errors
         };
         setPayload(newData);
-        // errors = Utils.validateWithdraw(payload, data);
     }
 
     const setToValue = (value: omittedProps) => {
@@ -84,7 +83,6 @@ const PersonalAccountTransaction: React.FC<{
         delete errors["server"];
         let newData = { ...payload, [field]: value, errors: errors };
         setPayload(newData);
-        // errors = Utils.validateWithdraw(data, balance);
     }
 
     const setServerError = (error: string) => {
@@ -101,12 +99,13 @@ const PersonalAccountTransaction: React.FC<{
     }
 
     const send = () => {
-        // let errors = Utils.validateWithdraw(data, balance);
-        // if (Object.keys(errors).length > 0) {
-        //     setData({ ...data, errors: errors });
-        //     return;
-        // }
+        let errors = Utils.validateTransaction(payload);
+        if (Object.keys(errors).length > 0) {
+            setPayload({ ...payload, errors: errors });
+            return;
+        }
         setConfirmModalOpened(true);
+        // getCode(`${payload.from.name}-${payload.to.name}-${payload.sum}`, setServerError);
     }
 
     return (

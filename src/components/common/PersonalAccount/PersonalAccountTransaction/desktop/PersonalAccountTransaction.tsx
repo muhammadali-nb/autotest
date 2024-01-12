@@ -65,7 +65,6 @@ const PersonalAccountTransaction: React.FC<{
             }, errors: errors
         };
         setPayload(newData);
-        // errors = Utils.validateWithdraw(payload, data);
     }
 
     const setToValue = (value: omittedProps) => {
@@ -85,7 +84,6 @@ const PersonalAccountTransaction: React.FC<{
         delete errors["server"];
         let newData = { ...payload, [field]: value, errors: errors };
         setPayload(newData);
-        // errors = Utils.validateWithdraw(data, balance);
     }
 
     const setServerError = (error: string) => {
@@ -105,6 +103,15 @@ const PersonalAccountTransaction: React.FC<{
     //     if (!data) return [];
     //     return data.accounts.filter(item => item.name !== payload[type].name);
     // }
+
+    const send = () => {
+        let errors = Utils.validateTransaction(payload);
+        if (Object.keys(errors).length > 0) {
+            setPayload({ ...payload, errors: errors });
+            return;
+        }
+        getCode(`${payload.from.name}-${payload.to.name}-${payload.sum}`, setServerError);
+    }
 
     return (
         <>
@@ -156,7 +163,7 @@ const PersonalAccountTransaction: React.FC<{
                             className={"site-btn small dark"}
                             onClick={(e) => {
                                 e.preventDefault();
-                                getCode(`${payload.from.name}-${payload.to.name}-${payload.sum}`, setServerError);
+                                send();
                             }}>
                             Далее
                         </button>

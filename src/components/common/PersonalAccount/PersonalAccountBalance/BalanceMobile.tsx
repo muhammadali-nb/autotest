@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import balanceService from "../../../../api-functions/balance/balance-service";
 import BalanceLoader from "./BalanceLoader";
 import PersonalAccountActions from "../PersonalAccountActions/PersonalAccountActions";
+import { fixWindow } from "../../../../utils/fixWindow";
 
 interface accountsProps {
     name: string,
@@ -54,6 +55,14 @@ const BalanceMobile: React.FC<{
         queryKey: ["balance"],
         queryFn: () => balanceService.getBalance()
     });
+
+    useEffect(() => {
+        if (active) {
+            fixWindow(true);
+        } else {
+            fixWindow(false);
+        }
+    }, [active]);
 
     return (
         <>
