@@ -3,78 +3,51 @@ import './PersonalAccountActions.scss';
 import PersonalAccountModal from '../../../pages/PersonalAccount/PersonalAccountModal/PersonalAccountModal';
 import { useAuth } from '../../../../hooks/useAuth';
 import WithdrawMobile from '../PersonalAccountWithdraw/mobile/PersonalAccountWithdraw';
-import ReplenishMobile from '../PersonalAccountReplenish/mobile/ReplenishMobile';
-import PersonalAccountTransaction from '../PersonalAccountTransaction/mobile/PersonalAccountTransaction';
-import ReactDOM from 'react-dom';
-import { fixWindow } from '../../../../utils/fixWindow';
-
-const TransactionsPortal: React.FC<{
-    children: React.ReactNode
-}> = (props) => {
-    const { children } = props;
-
-    const node = document.getElementById('modal_root');
-    if (!node) return null;
-
-    return ReactDOM.createPortal((
-        <>
-            {children}
-        </>
-    ), node);
-}
 
 const PersonalAccountActions: React.FC<{
-    balance: number,
-    setCallModal: (e: boolean) => void
+	balance: number;
+	setCallModal: (e: boolean) => void;
 }> = (props) => {
-    const { balance, setCallModal } = props;
+	const { balance, setCallModal } = props;
 
-    const [size, setSize] = useState("desk");
-    const [actionOpened, setActionOpened] = useState({
-        opened: false,
-        type: ''
-    });
+	const [size, setSize] = useState("desk");
+	const [actionOpened, setActionOpened] = useState({
+		opened: false,
+		type: "",
+	});
 
-    useEffect(() => {
-        const checkSize = () => {
-            if (window.innerWidth > 1024) {
-                setSize("desk");
-            } else {
-                setSize("mobile");
-            }
-        }
-        window.addEventListener('resize', checkSize);
+	useEffect(() => {
+		const checkSize = () => {
+			if (window.innerWidth > 1024) {
+				setSize("desk");
+			} else {
+				setSize("mobile");
+			}
+		};
+		window.addEventListener("resize", checkSize);
 
-        checkSize();
+		checkSize();
 
         return () => {
             window.removeEventListener('resize', checkSize);
         }
     }, []);
 
-    useEffect(() => {
-        if (actionOpened.opened && size !== "desk") {
-            fixWindow(true);
-        } else {
-            fixWindow(false);
-        }
-    }, [actionOpened]);
+	const { phone } = useAuth();
 
-    const { phone } = useAuth();
+	const handleOpen = (type: string) => {
+		setActionOpened({
+			opened: true,
+			type: type,
+		});
+	};
 
-    const handleOpen = (type: string) => {
-        setActionOpened({
-            opened: true,
-            type: type
-        });
-    }
-
-    const handleClose = () => {
-        setActionOpened({
-            opened: false,
-            type: ""
-        });
-    }
+	const handleClose = () => {
+		setActionOpened({
+			opened: false,
+			type: "",
+		});
+	};
 
     return (
         <>
@@ -82,7 +55,7 @@ const PersonalAccountActions: React.FC<{
                 <div className={"personal-account_actions-item " + (balance <= 0 ? "disabled" : "")}>
                     <button className={"personal-account_actions-btn "} onClick={() => handleOpen("withdraw")}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                            <g clipPath="url(#clip0_6038_184856)">
+                            <g clip-path="url(#clip0_6038_184856)">
                                 <path d="M11 1.83333L5.5 7.19919M11 1.83333L16.5 7.19919M11 1.83333L11 16.5"
                                     stroke="#222222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 <path d="M1.83337 20.166H20.1667" stroke="#222222" strokeWidth="2" strokeLinecap="round" />
@@ -101,7 +74,7 @@ const PersonalAccountActions: React.FC<{
                 <div className="personal-account_actions-item">
                     <button className={"personal-account_actions-btn"} onClick={() => handleOpen("replenish")}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                            <g clipPath="url(#clip0_6038_184853)">
+                            <g clip-path="url(#clip0_6038_184853)">
                                 <path d="M11 16.5007L5.5 11.1348M11 16.5007L16.5 11.1348M11 16.5007L11 1.83398"
                                     stroke="#222222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 <path d="M1.83337 20.166H20.1667" stroke="#222222" strokeWidth="2" strokeLinecap="round" />
@@ -137,9 +110,7 @@ const PersonalAccountActions: React.FC<{
                             {size === "desk" ?
                                 <PersonalAccountModal type="withdraw" show={actionOpened.opened} onHide={handleClose} currentPhone={phone} balance={balance} />
                                 :
-                                <TransactionsPortal>
-                                    <WithdrawMobile active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} balance={balance} />
-                                </TransactionsPortal>
+                                <WithdrawMobile active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} balance={balance} />
                             }
                         </>
                     }
@@ -148,20 +119,7 @@ const PersonalAccountActions: React.FC<{
                             {size === "desk" ?
                                 <PersonalAccountModal type="replenish" show={actionOpened.opened} onHide={handleClose} currentPhone={phone} />
                                 :
-                                <TransactionsPortal>
-                                    <ReplenishMobile active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} />
-                                </TransactionsPortal>
-                            }
-                        </>
-                    }
-                    {actionOpened.type === "transaction" &&
-                        <>
-                            {size === "desk" ?
-                                <PersonalAccountModal type="transaction" show={actionOpened.opened} onHide={handleClose} currentPhone={phone} />
-                                :
-                                <TransactionsPortal>
-                                    <PersonalAccountTransaction active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} />
-                                </TransactionsPortal>
+                                <WithdrawMobile active={actionOpened.opened} setActive={setActionOpened} setCallActive={setCallModal} balance={balance} />
                             }
                         </>
                     }

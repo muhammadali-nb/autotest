@@ -105,10 +105,12 @@ const PersonalAccountLeasingCarCardMobile = (props: IProps) => {
 				active={maintenanceModal}
 				setActive={setMaintenanceModal}
 				maintance={car.maintance_hitory}
+		
 			/>
 			<PersonalAccountLeasingCarModalPayments
 				active={paymentsModal}
 				setActive={setPaymentsModal}
+				payments={car.payment_history}
 			/>
 		</>
 	);

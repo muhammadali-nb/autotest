@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import PersonalAccountLeasingCardPagination from "../../PersonalAccountLeasingCardPagination";
 import PersonalAccountLeasingCardHeader from "../../PersonalAccountLeasingTableHeader";
 import { PersonalAccountLeasingMaintenanceRow } from "./PersonalAccountLeasingMaintenanceRow";
@@ -10,16 +10,15 @@ interface IProps {
 
 const PersonalAccountLeasingMaintenance = (props: IProps) => {
 	const { maintenanceList } = props;
-	const [activePage, setActivePage] = useState(0);
-
+	const [activePage, setActivePage] = useState(1);
 
 	const sortedArray = () => {
 		const result: TypeMaintenceTableRow[][] = [];
-
-		for (let i = 0; i < maintenanceList.length; i += 15) {
-			const fifteenWords = maintenanceList.slice(i, i + 15);
-
-			result.push(fifteenWords);
+		if (maintenanceList.length > 0) {
+			for (let i = 0; i < maintenanceList.length; i += 15) {
+				const fifteenWords = maintenanceList.slice(i, i + 15);
+				result.push(fifteenWords);
+			}
 		}
 
 		return result;
@@ -29,22 +28,34 @@ const PersonalAccountLeasingMaintenance = (props: IProps) => {
 		<div className="personal-account-leasing-car_card_maintenace">
 			<PersonalAccountLeasingCardHeader>
 				<h3>TO</h3>
-				<PersonalAccountLeasingCardPagination
-					setActive={setActivePage}
-					list={sortedArray()}
-					active={activePage}
-				/>
+				{maintenanceList.length > 15 && (
+					<PersonalAccountLeasingCardPagination
+						setActive={setActivePage}
+						active={activePage}
+						totalPages={sortedArray().length}
+					/>
+				)}
 			</PersonalAccountLeasingCardHeader>
 			<div className="personal-account-leasing-car_card_maintenace-table_body">
-				<PersonalAccountLeasingMaintenanceRow type="header" />
-				{sortedArray()[activePage].map((_item, index) => (
-					<PersonalAccountLeasingMaintenanceRow
-						type="row"
-						key={index}
-						data={_item}
-						className={index % 2 !== 0 ? "odd_row" : ""}
-					/>
-				))}
+				{maintenanceList.length > 0 ? (
+					<>
+						<PersonalAccountLeasingMaintenanceRow type="header" />
+						{sortedArray()[activePage - 1].map((_item, index) => (
+							<PersonalAccountLeasingMaintenanceRow
+								type="row"
+								key={index}
+								data={_item}
+								className={index % 2 !== 0 ? "odd_row" : ""}
+							/>
+						))}
+					</>
+				) : (
+					<>
+						<p className="ps-px-20 font-size-16 font-weight-semi">
+							Список с тех.ослуживанием пока пуст
+						</p>
+					</>
+				)}
 			</div>
 		</div>
 	);

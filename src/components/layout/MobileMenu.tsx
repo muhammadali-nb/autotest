@@ -5,7 +5,6 @@ import { MobileModal } from "../common/MobileModal/MobileModal";
 
 //icons
 import { useAuth } from "../../hooks/useAuth";
-import arrow from "../../images/common/menu-arrow.svg";
 import car from "../../images/common/mobile_menu-icons/car.svg";
 import dashboard from "../../images/common/mobile_menu-icons/dashboard.svg";
 import house from "../../images/common/mobile_menu-icons/house.svg";
@@ -77,7 +76,6 @@ const MobileMenu = (props: MobileMenuProps) => {
 	const { menuIsOpen, setMenuIsOpen, menuRef, whiteTheme = true } = props;
 	const [loginAdvanceIsShow, setLoginAdvanceIsShow] = useState(true);
 	const [authIsOpen, setAuthIsOpen] = useState(false);
-	// const whiteTheme = true;
 
 	const { isAuthenticated, logout, first_name, last_name, phone } = useAuth();
 	const navigate = useNavigate();

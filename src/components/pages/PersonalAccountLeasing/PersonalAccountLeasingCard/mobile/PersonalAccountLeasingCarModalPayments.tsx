@@ -5,13 +5,15 @@ import back from "../../../../../images/common/back.svg";
 import MobileModalHeader from "../../../../common/MobileModal/headers/MobileModalHeader";
 import PersonalAccountLeasingCarCardMobileMaintanceRow from "./PersonalAccountLeasingCarCardMobileMaintanceRow";
 import PersonalAccountLeasingCarCardMobilePaymentsRow from "./PersonalAccountLeasingCarCardMobilePaymentsRow";
+import { TypePaymentTableRow } from "../../../../../types/PersonalAccount/LeasingTypes";
 interface IProps {
 	setActive: Dispatch<boolean>;
 	active: boolean;
+	payments: TypePaymentTableRow[];
 }
 
 const PersonalAccountLeasingCarModalPayments = (props: IProps) => {
-	const { active, setActive } = props;
+	const { active, setActive, payments } = props;
 
 	useEffect(() => {
 		if (active) document.body.style.overflow = "hidden";
@@ -40,11 +42,12 @@ const PersonalAccountLeasingCarModalPayments = (props: IProps) => {
 				</div>
 				<div className="personal-account-leasing-modal_body-table">
 					<PersonalAccountLeasingCarCardMobilePaymentsRow type="header" />
-					{[...new Array(50)].map((_item, index) => (
+					{payments.map((_item, index) => (
 						<PersonalAccountLeasingCarCardMobilePaymentsRow
 							type="row"
-							key={index}
+							key={index}							
 							className={index % 2 !== 0 ? "odd_row" : ""}
+							data={_item}
 						/>
 					))}
 				</div>

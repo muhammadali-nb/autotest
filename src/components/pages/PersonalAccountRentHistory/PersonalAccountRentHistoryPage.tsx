@@ -97,7 +97,7 @@ const PersonalAccountRentHistoryPage = () => {
 					<h2>Аренда</h2>
 				</PersonalAccountHeaderMobile>
 				<div className="personal-account_page-rent_cars">
-					{/* {!isLoading ? (
+					{!isLoading ? (
 						data.list.map((_item) => (
 							<PersonalAccountCarCard
 								key={_item.id}
@@ -108,9 +108,7 @@ const PersonalAccountRentHistoryPage = () => {
 						))
 					) : (
 						<RentHistoryPageLoader />
-					)} */}
-						<RentHistoryPageLoader />
-
+					)}
 				</div>
 			</div>
 		</PersonalAccountRentLayout>

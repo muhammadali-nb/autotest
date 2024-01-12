@@ -30,7 +30,7 @@ export type TypePaymentTableRow = {
   type: string
   date: string
   price: 60000
-  singing?: boolean
+  fine: null | number
   status: "payed" | "overdue" | 'term' | "waiting"
   id: number
 }

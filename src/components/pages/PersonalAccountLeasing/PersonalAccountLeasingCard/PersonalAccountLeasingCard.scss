@@ -1,6 +1,10 @@
 .personal-account-leasing {
   &-car {
     display: grid;
+
+    &:not(:first-child) {
+      margin: 30px 0 0 0;
+    }
   }
 
   &-car_card {
@@ -46,29 +50,31 @@
               }
 
               &:nth-child(1) {
-                min-width: 60px;
+                width: 80px;
 
                 // @include l-md {
                 //   min-width: 34px;
                 // }
               }
               &:nth-child(2) {
-                min-width: 90px;
-
+                width: 100px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
                 @include l-md {
                   min-width: 80px;
                 }
               }
 
               &:nth-child(3) {
-                min-width: 112px;
+                min-width: 100px;
                 @include l-md {
                   min-width: 103px;
                 }
               }
 
               &:nth-child(4) {
-                min-width: 80px;
+                min-width: 77px;
 
                 &.success {
                   color: #008f4b;
@@ -152,6 +158,7 @@
               &:nth-child(3) {
                 width: 80px;
 
+                white-space: nowrap;
                 @include l-md {
                   min-width: 102px;
                 }
