@@ -13,11 +13,16 @@ interface IProps {
 const PersonalAccountLeasingCarCardPad = (props: IProps) => {
 	const { className, car } = props;
 	return (
-		<div className={className}>
+		<div className={"personal-account-leasing-car-mobile_card " + className}>
 			<PersonalAccountLeasingCarCardPadInfo />
 			<div className="mt-px-15 d-flex">
-				<PersonalAccountLeasingMaintenance maintenanceList={car.maintance_hitory} />
-				<PersonalAccountLeasingPayments paymentsList={car.payment_history} className="ms-px-15" />
+				<PersonalAccountLeasingMaintenance
+					maintenanceList={car.maintance_hitory}
+				/>
+				<PersonalAccountLeasingPayments
+					paymentsList={car.payment_history}
+					className="ms-px-15"
+				/>
 			</div>
 		</div>
 	);
