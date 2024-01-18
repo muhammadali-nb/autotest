@@ -899,7 +899,7 @@ code {
 
   .modal-image-block {
     width: 55%;
-    @include l-lg {
+    @include l-xl {
       display: none;
     }
     display: flex;
@@ -910,9 +910,9 @@ code {
   }
 
   .modal-content-block-container {
-    width: 45%;
+    width: 51%;
 
-    @include l-lg {
+    @include l-xl {
       width: 100%;
     }
   }
