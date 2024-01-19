@@ -40,7 +40,6 @@ const FoldableQuestion: React.FC<{
 						</svg>
 					) : (
 						<>
-							{" "}
 							<img
 								src={open ? circleDown : circleUp}
 								className={

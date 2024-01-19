@@ -177,17 +177,35 @@ const AuthPhoneConfirm: React.FC<{
 		let output = code.substring(0, index) + value + code.substring(index + 1);
 		setCode(output);
 
-		console.log("update code: " + output);
+		// console.log("update code: " + output);
+
 		let id = "confirm" + idPrefix + "-" + (index + 1);
+		console.log("id " + id);
 		if (index < 5) {
 			let item = document.getElementById(id) as HTMLInputElement;
 			item?.focus();
 			item?.setSelectionRange(0, 1);
 		}
+		if (index === 0 && value === "") {
+			console.log("hello world");
+		}
 
 		let passed = output.replace(/\D+/g, "").length >= 5;
 		setPassed(passed);
 		console.log("passed: " + passed);
+	};
+
+	const handleKeyDown = (
+		index: number,
+		e: React.KeyboardEvent<HTMLInputElement>
+	) => {
+		if (e.key === "Backspace" && index > 0 && code.charAt(index) === "") {
+			console.log("keydown");
+			// let id = "confirm" + idPrefix + "-" + (index - 1);
+			// let item = document.getElementById(id) as HTMLInputElement;
+			// item?.focus();
+			// item?.setSelectionRange(0, 1);
+		}
 	};
 	return (
 		<ModalTemplateContent>
@@ -226,6 +244,9 @@ const AuthPhoneConfirm: React.FC<{
 						maxLength={1}
 						small={false}
 						onInput={(e: any) => update(0, e.target.value)}
+						onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+							handleKeyDown(0, e)
+						}
 					/>
 					<ModalTemplateInput
 						id={"confirm" + idPrefix + "-1"}
@@ -233,6 +254,9 @@ const AuthPhoneConfirm: React.FC<{
 						maxLength={1}
 						small={false}
 						onInput={(e: any) => update(1, e.target.value)}
+						onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+							handleKeyDown(1, e)
+						}
 					/>
 					<ModalTemplateInput
 						small={false}
@@ -240,6 +264,9 @@ const AuthPhoneConfirm: React.FC<{
 						container_style={{ maxWidth: "40px" }}
 						maxLength={1}
 						onInput={(e: any) => update(2, e.target.value)}
+						onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+							handleKeyDown(2, e)
+						}
 					/>
 					<ModalTemplateInput
 						small={false}
@@ -247,6 +274,9 @@ const AuthPhoneConfirm: React.FC<{
 						container_style={{ maxWidth: "40px" }}
 						maxLength={1}
 						onInput={(e: any) => update(3, e.target.value)}
+						onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+							handleKeyDown(3, e)
+						}
 					/>
 					<ModalTemplateInput
 						small={false}
@@ -254,6 +284,9 @@ const AuthPhoneConfirm: React.FC<{
 						container_style={{ maxWidth: "40px" }}
 						maxLength={1}
 						onInput={(e: any) => update(4, e.target.value)}
+						onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+							handleKeyDown(4, e)
+						}
 					/>
 				</div>
 				{timer > 0 && (

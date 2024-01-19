@@ -19,6 +19,7 @@ import geoImage from "../../images/common/footer/contct-page-icons/Geolocation.s
 import clockImage from "../../images/common/footer/contct-page-icons/Clock 2.svg";
 import phoneImage from "../../images/common/footer/contct-page-icons/Phone 2.svg";
 import Utils from "../../utils/Utils";
+import ContactFeedBackForm from "../common/ContactFeedBackForm";
 
 const ContactBlock: React.FC<{
 	icon: ReactNode;
@@ -133,10 +134,11 @@ const ContactsPage = () => {
 								/>
 							</div>
 
-							<FooterBottom />
+							{/* <FooterBottom /> */}
 						</Col>
 						<Col sm={12} md={6} className=" footer-contacts-page_contact-form">
-							<ContactsForm />
+							{/* <ContactsForm big={true} /> */}
+							<ContactFeedBackForm />
 						</Col>
 					</Row>
 				</Container>

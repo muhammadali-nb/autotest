@@ -17,6 +17,7 @@ interface ModalTemplateInputProps {
 	container_class_name?: string;
 	container_style?: React.CSSProperties;
 	style?: React.CSSProperties;
+	onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 	small: any;
 	[x: string]: any;
 	type?: string;
@@ -53,6 +54,7 @@ export const ModalTemplateInput: React.FC<ModalTemplateInputProps> = (
 				value={props.value}
 				style={props.style}
 				name={props.name}
+				onKeyDown={props.onKeyDown}
 			/>
 		</div>
 	);
