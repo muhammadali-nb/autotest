@@ -71,7 +71,7 @@
   color: #222222;
   //min-height: 650px;
   //line-height: 120%;
-  padding-top: 70px;
+  padding-top: 50px;
   //max-width: 700px;
   //width: 100%;
   position: relative;
@@ -118,7 +118,7 @@
     line-height: 120%;
     padding-bottom: 15px;
     border-bottom: 6px solid $redColor;
-    margin-bottom: 80px;
+    margin-bottom: 45px;
     max-width: 460px;
     @include l-xl {
       margin-bottom: 30px;
@@ -151,7 +151,11 @@
     align-items: start;
     gap: 20px;
     color: white;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    &:last-child {
+      margin-bottom: 45px;
+    }
+
     @include l-md {
       margin-bottom: 20px;
       gap: 16px;
@@ -200,7 +204,7 @@
     }
   }
   &_links {
-    margin-bottom: 135px;
+    margin-bottom: 50px;
     display: flex;
     flex-direction: row;
     gap: 15px;

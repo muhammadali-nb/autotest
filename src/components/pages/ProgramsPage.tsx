@@ -138,7 +138,10 @@ const HowBlock = () => (
 					</p>
 				</div>
 			</div>
-			<div className={"font-size-16 line-height-140 font-weight-medium ls-001"}>
+			<div
+				className={
+					"arrange-leasing_side font-size-16 line-height-140 font-weight-medium ls-001"
+				}>
 				<div className={"arrange-leasing_options"}>
 					<p>Список документов, необходимых для заключения договора:</p>
 				</div>
@@ -561,7 +564,7 @@ const FaqBlock = () => {
 					автомобиля
 				</p>
 				<Row className={"faq-block_body gx-lg-5 gx-sm-0"}>
-					<Col sm={12} lg={6} className="px-0 px-md-3 faq-block_body-leftside">
+					<Col sm={12} lg={6} className="px-0  faq-block_body-leftside">
 						<div
 						// className={"w-100"}
 						>
@@ -572,7 +575,7 @@ const FaqBlock = () => {
 							))}
 						</div>
 					</Col>
-					<Col sm={12} lg={6} className="px-0 px-md-3 faq-block_body-rightside">
+					<Col sm={12} lg={6} className="px-0  faq-block_body-rightside">
 						<div
 						// className={"w-100"}
 						>

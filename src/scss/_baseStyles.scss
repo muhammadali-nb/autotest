@@ -381,6 +381,18 @@ main {
   }
 }
 
+.contacts__form-feedback {
+  padding: 80px 100px 60px 100px;
+  max-width: 680px;
+
+  @include l-xl {
+    padding: 60px 60px 40px 60px;
+  }
+  @include l-lg {
+    padding: 40px 50px 30px 50px;
+  }
+}
+
 .contacts__form-input {
   outline: none;
   border: unset;
@@ -1400,9 +1412,11 @@ code {
     text-transform: uppercase;
     color: $textColor;
     margin-bottom: 20px;
+    letter-spacing: 1px;
 
     @include l-md {
       font-size: 44px;
+      letter-spacing: normal;
     }
 
     @include l-sm {
@@ -1496,6 +1510,19 @@ code {
     @include l-md {
       height: 18px;
       width: 18px;
+    }
+
+    &_desk {
+      width: 24px;
+      height: 24px;
+      transition: all 0.4s ease-in-out;
+
+      &.turned {
+        transform: rotate(180deg) translateX(3px);
+        // path {
+        //   stroke: #bf3535;
+        // }
+      }
     }
 
     &_mobile {
@@ -2003,6 +2030,7 @@ code {
 
   &_side {
     margin: 0 0 60px 0;
+    padding: 0 0 0 42px;
 
     @include l-md {
       margin: 0 0 32px 0;
@@ -2014,7 +2042,8 @@ code {
     text-transform: uppercase;
     font-size: 52px;
     border-left: 6px solid $redColor;
-    padding: 0 0 0 36px;
+    padding: 0 0 0 30px;
+    line-height: normal;
 
     &:first-child {
       @include l-sm {
@@ -2118,7 +2147,7 @@ code {
     //   }
     // }
 
-    margin: 0 0 40px 0;
+    margin: 0 0 50px 0;
     //font-weight-semibold text-uppercase font-size-50 mb-px-40 line-height-120
 
     @include l-md {
@@ -2445,7 +2474,7 @@ code {
 
 .faq-contacts {
   //margin: 100px 0 90px;
-  padding: 0 0 0 36px;
+  padding: 0 0 0 30px;
   border-left: 6px solid #bf3535;
   @include l-md {
     padding: 0 0 0 24px;
