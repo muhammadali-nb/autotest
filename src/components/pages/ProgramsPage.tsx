@@ -557,7 +557,8 @@ const FaqBlock = () => {
 		<div className={"faq-block"}>
 			<Container fluid={"xxl"}>
 				<h1 className={"faq-block_header"}>
-					чАСТО ЗАДАВАЕМЫЕ <br /> ВОПРОСЫ
+					{/* чАСТО ЗАДАВАЕМЫЕ <br />  */}
+					ВОПРОСЫ
 				</h1>
 				<p className={"faq-block_description"}>
 					В разделе Вопросы, вы также можете получить ответы по вопросам аренды
