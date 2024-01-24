@@ -9,6 +9,8 @@ export interface AuthResponce {
   middle_name?: string;
   last_name?: string;
   phone?: string | null
+  access_token: null | string
+  refresh_token: null | string
 }
 
 interface ResponseDataTypes {

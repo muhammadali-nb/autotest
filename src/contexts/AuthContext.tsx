@@ -11,6 +11,9 @@ const actions = {
 	LOGIN: "LOGIN",
 	REGISTER: "REGISTER",
 	LOGOUT: "LOGOUT",
+	CONFIRMPHONE: "CONFIRMPHONE",
+	LOGINCONFIRM: "LOGINCONFIRM",
+	INITIALIZETEST: "INITIALIZETEST",
 };
 
 const initialState: AuthInitialState = {
@@ -53,12 +56,30 @@ const handlers = {
 		};
 	},
 	LOGIN: (state: AuthInitialState, action) => {
-		const { user } = action.payload;
+		const {
+			user,
+			user_status,
+			has_profile,
+			error_message,
+			api_status,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+		} = action.payload;
 
 		return {
 			...state,
 			isAuthenticated: true,
 			user,
+			user_status,
+			has_profile,
+			api_status,
+			error_message,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
 		};
 	},
 	LOGOUT: (state: AuthInitialState) => ({
@@ -87,6 +108,31 @@ const handlers = {
 			has_profile,
 			api_status,
 			error_message,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+		};
+	},
+	CONFIRMPHONE: (state: AuthInitialState, action) => {
+		const {
+			isAuthenticated,
+			api_status,
+			user_status,
+			has_profile,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+		} = action.payload;
+
+		return {
+			...state,
+			isAuthenticated,
+			isInitialized: true,
+			api_status,
+			user_status,
+			has_profile,
 			first_name,
 			middle_name,
 			last_name,
@@ -227,11 +273,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		}
 	};
 
-	const login = (data: AuthResponce) => {
-		dispatch({
-			type: actions.LOGIN,
-			payload: data,
-		});
+	const login = async (data: AuthResponce) => {
+		try {
+			const res: AxiosResponse<AuthResponce> = await axios.get(
+				`https://taxivoshod.ru/api/login.php?logout=1`,
+				{ withCredentials: true }
+			);
+			const { refresh_token } = res.data;
+
+			if (refresh_token) localStorage.setItem("refreshToken", refresh_token);
+
+			dispatch({
+				type: actions.LOGIN,
+				payload: data,
+			});
+
+			return res.data;
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	const initializetest = async () => {
+		const refresh_token = globalThis.localStorage.getItem("refreshToken");
+		try {
+			const res = axios.get("", {
+				headers: { Authorization: `Bearer ${refresh_token}` },
+				withCredentials: true,
+			});
+		} catch (error) {}
 	};
 
 	useEffect(() => {
