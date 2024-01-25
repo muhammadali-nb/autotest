@@ -5,7 +5,7 @@ import {
 	AuthResponce,
 	RegisterErrorType,
 } from "../types/AuthContextTypes";
-
+import { jwtDecode } from "jwt-decode";
 const actions = {
 	INITIALIZE: "INITIALIZE",
 	LOGIN: "LOGIN",
@@ -24,21 +24,9 @@ const initialState: AuthInitialState = localData !== null ? JSON.parse(localData
 	isInitialized: false,
 	middle_name: "",
 	last_name: "",
-	phone: ""
+	phone: null,
+	access_token: null,
 };
-
-// const initialState: AuthInitialState = {
-// 	isAuthenticated: false,
-// 	user_status: null,
-// 	has_profile: false,
-// 	isInitialized: false,
-// 	api_status: "pending",
-// 	error_message: null,
-// 	first_name: "",
-// 	middle_name: "",
-// 	last_name: "",
-// 	phone: ""
-// }
 
 const handlers = {
 	INITIALIZE: (state: AuthInitialState, action) => {
@@ -51,6 +39,7 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		} = action.payload;
 
 		return {
@@ -64,6 +53,7 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		};
 	},
 	LOGIN: (state: AuthInitialState, action) => {
@@ -109,6 +99,7 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		} = action.payload;
 
 		return {
@@ -123,6 +114,7 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		};
 	},
 	CONFIRMPHONE: (state: AuthInitialState, action) => {
@@ -255,39 +247,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				{ withCredentials: true }
 			);
 
-			const payload = {
-				isAuthenticated: true,
-				api_status: "success",
-				has_profile: false,
-				user_status: null,
-				err_message: null,
-				first_name: res.data.first_name,
-				middle_name: res.data.middle_name,
-				last_name: res.data.last_name,
-				phone: res.data.phone
-			};
-
-			localStorage.setItem("voshod-user", JSON.stringify(payload));
+			//@ts-ignore
+			const access_token = res.headers?.get("x-jwt-access");
+			//@ts-ignore
+			const refresh_token = res.headers?.get("x-jwt-refresh");
+			if (refresh_token) localStorage.setItem("refreshToken", refresh_token);
 
 			dispatch({
 				type: actions.REGISTER,
-				payload: payload,
+				payload: {
+					isAuthenticated: true,
+					api_status: "success",
+					has_profile: res.data.has_profile,
+					user_status: null,
+					err_message: null,
+					first_name: res.data.first_name,
+					middle_name: res.data.middle_name,
+					last_name: res.data.last_name,
+					phone: res.data.phone,
+					access_token: access_token,
+				},
 			});
-
-			// dispatch({
-			// 	type: actions.REGISTER,
-			// 	payload: {
-			// 		isAuthenticated: true,
-			// 		api_status: "success",
-			// 		has_profile: false,
-			// 		user_status: null,
-			// 		err_message: null,
-			// 		first_name: res.data.first_name,
-			// 		middle_name: res.data.middle_name,
-			// 		last_name: res.data.last_name,
-			// 		phone: res.data.phone
-			// 	},
-			// });
 
 			return res.data;
 		} catch (error) {
@@ -348,16 +328,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const initializetest = async () => {
 		const refresh_token = globalThis.localStorage.getItem("refreshToken");
+
+		if (!refresh_token) {
+			return;
+		}
+
 		try {
-			const res = axios.get("", {
-				headers: { Authorization: `Bearer ${refresh_token}` },
-				withCredentials: true,
-			});
-		} catch (error) {}
+			const res = axios.get(
+				"https://taxivoshod.ru/api/voshod-auto/?w=refresh-token",
+				{
+					headers: { Authorization: `Bearer ${refresh_token}` },
+					withCredentials: true,
+				}
+			);
+			console.log(res);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
 		initialize().catch(console.error);
+		initializetest().catch(console.error);
 	}, []);
 
 	return (
@@ -367,6 +359,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				register,
 				initialize,
 				logout,
+				initializetest,
+				login,
 			}}>
 			{children}
 		</AuthContext.Provider>
