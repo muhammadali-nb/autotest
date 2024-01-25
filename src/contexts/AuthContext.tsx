@@ -5,7 +5,7 @@ import {
 	AuthResponce,
 	RegisterErrorType,
 } from "../types/AuthContextTypes";
-
+import { jwtDecode } from "jwt-decode";
 const actions = {
 	INITIALIZE: "INITIALIZE",
 	LOGIN: "LOGIN",
@@ -27,6 +27,7 @@ const initialState: AuthInitialState = {
 	middle_name: "",
 	last_name: "",
 	phone: null,
+	access_token: null,
 };
 
 const handlers = {
@@ -40,6 +41,7 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		} = action.payload;
 
 		return {
@@ -53,6 +55,7 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		};
 	},
 	LOGIN: (state: AuthInitialState, action) => {
@@ -98,6 +101,7 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		} = action.payload;
 
 		return {
@@ -112,6 +116,7 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		};
 	},
 	CONFIRMPHONE: (state: AuthInitialState, action) => {
@@ -223,6 +228,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				{ withCredentials: true }
 			);
 
+			//@ts-ignore
+			const access_token = res.headers?.get("x-jwt-access");
+			//@ts-ignore
+			const refresh_token = res.headers?.get("x-jwt-refresh");
+			if (refresh_token) localStorage.setItem("refreshToken", refresh_token);
+
 			dispatch({
 				type: actions.REGISTER,
 				payload: {
@@ -235,6 +246,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 					middle_name: res.data.middle_name,
 					last_name: res.data.last_name,
 					phone: res.data.phone,
+					access_token: access_token,
 				},
 			});
 
@@ -296,16 +308,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const initializetest = async () => {
 		const refresh_token = globalThis.localStorage.getItem("refreshToken");
+
+		if (!refresh_token) {
+			return;
+		}
+
 		try {
-			const res = axios.get("", {
-				headers: { Authorization: `Bearer ${refresh_token}` },
-				withCredentials: true,
-			});
-		} catch (error) {}
+			const res = axios.get(
+				"https://taxivoshod.ru/api/voshod-auto/?w=refresh-token",
+				{
+					headers: { Authorization: `Bearer ${refresh_token}` },
+					withCredentials: true,
+				}
+			);
+			console.log(res);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
 		initialize().catch(console.error);
+		initializetest().catch(console.error);
 	}, []);
 
 	return (
@@ -315,6 +339,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				register,
 				initialize,
 				logout,
+				initializetest,
+				login,
 			}}>
 			{children}
 		</AuthContext.Provider>

@@ -31,6 +31,7 @@ export interface AuthInitialState {
   middle_name?: string,
   last_name?: string,
   phone?: string | null
+  access_token: null | string
 }
 
 export type RegisterErrorType = {
