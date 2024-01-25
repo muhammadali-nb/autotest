@@ -68,7 +68,7 @@ const WithdrawConfirmPhone: React.FC<{
             <div className={"call-content-text font-size-16"}>
                 <span className={"text-default"}>Мы отправили вам код</span>
                 <br />
-                на номер {Utils.formatPhone(phone)}
+                на номер {Utils.formatPhone(phone ?? "")}
             </div>
             <div>
                 <div className={"d-flex justify-content-between"}>

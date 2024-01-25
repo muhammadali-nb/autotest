@@ -112,7 +112,7 @@ const WithdrawDesktop: React.FC<{
             setData({ ...data, errors: errors });
             return;
         }
-        getCode(phone, setServerError);
+        getCode(phone ?? "", setServerError);
     }
 
     return (
