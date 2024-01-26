@@ -252,6 +252,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			//@ts-ignore
 			const refresh_token = res.headers?.get("x-jwt-refresh");
 			if (refresh_token) localStorage.setItem("refreshToken", refresh_token);
+			if (access_token) localStorage.setItem("accessToken", access_token);
 
 			dispatch({
 				type: actions.REGISTER,
@@ -294,6 +295,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				`https://taxivoshod.ru/api/login.php?logout=1`,
 				{ withCredentials: true }
 			);
+			localStorage.removeItem("refreshToken");
+			localStorage.removeItem("accessToken");
 			return res.data;
 		} catch (error) {
 			console.log((error as AxiosError).response);
@@ -327,21 +330,47 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	};
 
 	const initializetest = async () => {
-		const refresh_token = globalThis.localStorage.getItem("refreshToken");
-
-		if (!refresh_token) {
+		const stored_refresh_token =
+			globalThis.localStorage.getItem("refreshToken");
+		const stored_access_token = globalThis.localStorage.getItem("accessToken");
+		const stored_expiration_date = jwtDecode(stored_access_token as string).exp;
+		console.log("old " + stored_access_token);
+		if (!stored_refresh_token && !stored_access_token) {
 			return;
 		}
+
+		const sendToken = () => {
+			//@ts-ignore
+			if (new Date() > stored_expiration_date) {
+				console.log("access");
+				return stored_access_token;
+			} else {
+				console.log("refresh");
+				return stored_refresh_token;
+			}
+		};
 
 		try {
 			const res = axios.get(
 				"https://taxivoshod.ru/api/voshod-auto/?w=refresh-token",
 				{
-					headers: { Authorization: `Bearer ${refresh_token}` },
+					headers: {
+						Authorization: `Bearer ${sendToken()}`,
+					},
 					withCredentials: true,
 				}
 			);
-			console.log(res);
+
+			//@ts-ignore
+			const new_access_token = res.headers?.get("x-jwt-access");
+			//@ts-ignore
+			const new_refresh_token = res.headers?.get("x-jwt-refresh");
+			if (new_refresh_token)
+				localStorage.setItem("refreshToken", new_access_token);
+			if (new_access_token)
+				localStorage.setItem("accessToken", new_access_token);
+
+			console.log("new " + new_access_token);
 		} catch (error) {
 			console.log(error);
 		}
@@ -349,6 +378,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	useEffect(() => {
 		initialize().catch(console.error);
+	}, []);
+
+	useEffect(() => {
 		initializetest().catch(console.error);
 	}, []);
 
