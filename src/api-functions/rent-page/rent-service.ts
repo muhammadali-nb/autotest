@@ -1,9 +1,10 @@
 import axios from "axios";
 import { Filter } from "../../store/reducers/filterSlice";
+import api from "../../core/axios";
 
 class RentService {
   getFilter() {
-    return axios.get('https://taxivoshod.ru/api/voshod-auto/?w=filter-rent', { withCredentials: true }).then(res => res.data)
+    return api.get('https://taxivoshod.ru/api/voshod-auto/?w=filter-rent').then(res => res.data)
   }
   getCars(id: number, filter: Filter) {
     const { year, brands, models, price, special, tarif } = filter

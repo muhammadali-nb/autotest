@@ -3,7 +3,7 @@ import { CatalogFilter } from "../../store/reducers/catalogFilterSlice";
 
 class CatalogService {
   getFilter() {
-    return axios.get('https://taxivoshod.ru/api/voshod-auto/?w=catalog-filter', { withCredentials: true }).then(res => res.data)
+    return axios.get('https://taxivoshod.ru/api/voshod-auto/?w=catalog-filter').then(res => res.data)
   }
   getCars(id: string | number, filter: CatalogFilter) {
     const { year, brands, models, price, tags, condition } = filter
