@@ -13,7 +13,7 @@ import { SmallFooter } from "../layout/Footer";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -306,14 +306,14 @@ const RentPage = ({ children }: { children?: ReactNode }) => {
 					<Col lg={3}>
 						<FiltersBlock filterData={!isLoading && data} />
 					</Col>
-					<Col lg={9}  className="d-flex flex-column">
+					<Col lg={9} className="d-flex flex-column">
 						<FilterButtons
 							rentFilterData={!isLoading && data.top}
 							mode="rent"
 							isShowMobileFiler={setOpen}
-						/> 
+						/>
 						<RentGrid activePage={paramsId} />
-						<SmallFooter className={'mt-auto'} />
+						<SmallFooter className={"mt-auto"} />
 					</Col>
 				</Row>
 			</Container>

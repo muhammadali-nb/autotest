@@ -128,6 +128,7 @@ export const BottomMessageMobile: React.FC<{
 const CatalogPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
 	const title = "Выкуп - " + process.env.REACT_APP_WEBSITE_NAME;
+	
 	const meta: MetaTags = {
 		description: "Выкуп,Каталог автомобилей",
 		keywords: "выкуп,каталог,лизинг,авто,список,leasing",
@@ -154,9 +155,9 @@ const CatalogPage = () => {
 					<div>
 						<Row>
 							<Col lg={3}>
-								<div className={"sticky-no-scrollbar"}>
+								{/* <div className={"sticky-no-scrollbar"}> */}
 									<CatalogFiltersBlock filterData={!isLoading && data} />
-								</div>
+								{/* </div> */}
 							</Col>
 							<Col lg={9} className="d-flex flex-column">
 								<AlertMessage

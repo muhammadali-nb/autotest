@@ -315,7 +315,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				{ withCredentials: true }
 			);
 			const { refresh_token } = res.data;
-
 			if (refresh_token) localStorage.setItem("refreshToken", refresh_token);
 
 			dispatch({
@@ -334,7 +333,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			globalThis.localStorage.getItem("refreshToken");
 		const stored_access_token = globalThis.localStorage.getItem("accessToken");
 		const stored_expiration_date = jwtDecode(stored_access_token as string).exp;
-		console.log("old " + stored_access_token);
+		// console.log("old " + stored_access_token);
 		if (!stored_refresh_token && !stored_access_token) {
 			return;
 		}
@@ -370,7 +369,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			if (new_access_token)
 				localStorage.setItem("accessToken", new_access_token);
 
-			console.log("new " + new_access_token);
+			// console.log("new " + new_access_token);
 		} catch (error) {
 			console.log(error);
 		}
@@ -380,9 +379,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		initialize().catch(console.error);
 	}, []);
 
-	useEffect(() => {
-		initializetest().catch(console.error);
-	}, []);
+	// useEffect(() => {
+	// 	initializetest().catch(console.error);
+	// }, []);
 
 	return (
 		<AuthContext.Provider

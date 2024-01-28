@@ -33,7 +33,7 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 				<div className={"catalog__grid"}>
 					{!isLoading &&
 						data.list.map((i, index) => (
-							<CarCard responsive={true} car={i} key={index} />
+							<CarCard responsive={true} car={i} key={i.id} />
 						))}
 				</div>
 				{/* <BottomMessage

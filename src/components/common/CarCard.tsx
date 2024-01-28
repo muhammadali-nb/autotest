@@ -266,8 +266,8 @@ export const CarRentCard: React.FC<{
 								Доступна с {car.available_at}
 							</CarTag>
 						)} */}
-						{car.tarif.map((_item) => (
-							<CarTag small={true} type={"default"} car={car}>
+						{car.tarif.map((_item, index) => (
+							<CarTag key={index} small={true} type={"default"} car={car}>
 								{_item.Name}
 							</CarTag>
 						))}
@@ -326,8 +326,8 @@ export const CarRentCard: React.FC<{
 							car={car}>
 							{car.available ? "Свободна" : "Занята"}
 						</CarTag>
-						{car.tarif.map((_item) => (
-							<CarTag small={true} type={"default"} car={car}>
+						{car.tarif.map((_item, index) => (
+							<CarTag key={index} small={true} type={"default"} car={car}>
 								{_item.Name}
 							</CarTag>
 						))}
