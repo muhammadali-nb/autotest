@@ -14,6 +14,7 @@ import { CarCatalogDataInfo } from "../../types/CatalogTypes";
 import axios, { AxiosError } from "axios";
 import { MobileModal } from "./MobileModal/MobileModal";
 import { BrowserView, MobileView } from "react-device-detect";
+import api from "../../core/axios";
 
 const CarBookingFormContent: React.FC<{
 	car: CarDataInfo | CarCatalogDataInfo;
@@ -40,7 +41,7 @@ const CarBookingFormContent: React.FC<{
 		}
 
 		try {
-			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("https://taxivoshod.ru/api/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({
 					w: "form",

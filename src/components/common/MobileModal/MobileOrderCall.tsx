@@ -4,6 +4,7 @@ import Utils from "../../../utils/Utils";
 import { CallRequestData, ErrorResponse } from "../../../Api";
 import axios, { AxiosError } from "axios";
 import { Link } from "react-router-dom";
+import api from "../../../core/axios";
 
 const MobileOrderCallForm: FC<{
 	closeFn: () => void;
@@ -29,7 +30,7 @@ const MobileOrderCallForm: FC<{
 		}
 
 		try {
-			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("https://taxivoshod.ru/api/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({
 					w: "form",

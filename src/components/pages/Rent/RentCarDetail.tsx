@@ -19,6 +19,7 @@ import Loader from "../../common/Loader";
 import CarFullImageModal from "./RentCarFullImage";
 import { RentBookingPaymentStatus } from "../../../types/RentTypes";
 import axios from "axios";
+import api from "../../../core/axios";
 
 const RentCarDetail = () => {
 	const { carID } = useParams();
@@ -58,7 +59,7 @@ const RentCarDetail = () => {
 
 	const getPriceCar = async () => {
 		try {
-			const res = await axios.get(
+			const res = await api.get(
 				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${carID}`,
 				{
 					withCredentials: true,

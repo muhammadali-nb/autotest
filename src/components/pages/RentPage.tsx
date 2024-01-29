@@ -14,6 +14,7 @@ import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
 import { useParams } from "react-router-dom";
+import LoadError from "../common/LoadError";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -283,11 +284,11 @@ const RentPage = ({ children }: { children?: ReactNode }) => {
 	const [isOpen, setOpen] = useState<boolean>(false);
 	const { id } = useParams();
 	const paramsId = id ? parseInt(id) : 1;
-	const { data, isLoading } = useQuery({
+	const { data, isLoading, error } = useQuery({
 		queryKey: ["rent-filter"],
 		queryFn: () => rentService.getFilter(),
 	});
-
+	// if (error) return <LoadError response={error} />;
 	return (
 		<RentLayout
 			meta={meta}
@@ -307,11 +308,14 @@ const RentPage = ({ children }: { children?: ReactNode }) => {
 						<FiltersBlock filterData={!isLoading && data} />
 					</Col>
 					<Col lg={9} className="d-flex flex-column">
-						<FilterButtons
-							rentFilterData={!isLoading && data.top}
-							mode="rent"
-							isShowMobileFiler={setOpen}
-						/>
+						{!error && (
+							<FilterButtons
+								rentFilterData={!isLoading && data.top}
+								mode="rent"
+								isShowMobileFiler={setOpen}
+							/>
+						)}
+
 						<RentGrid activePage={paramsId} />
 						<SmallFooter className={"mt-auto"} />
 					</Col>

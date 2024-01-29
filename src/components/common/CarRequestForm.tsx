@@ -10,6 +10,7 @@ import ModalFormTemplate, {
 } from "./ModalFormTemplate";
 import Utils from "../../utils/Utils";
 import axios, { AxiosError } from "axios";
+import api from "../../core/axios";
 
 const CarRequestFormContent: React.FC<{
 	closeFunc: () => void;
@@ -33,7 +34,7 @@ const CarRequestFormContent: React.FC<{
 			return;
 		}
 		try {
-			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("https://taxivoshod.ru/api/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({
 					w: "form",
