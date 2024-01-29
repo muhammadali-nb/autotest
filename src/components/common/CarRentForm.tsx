@@ -32,6 +32,7 @@ import ModalFormTemplate, {
 	ModalTemplateInput,
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
+import api from "../../core/axios";
 export type CarBookingStepsType =
 	| "rent"
 	| "start"
@@ -404,7 +405,7 @@ export const CarRentPaymentType: React.FC<{
 		}
 		setRedButton(false);
 		try {
-			const res = await axios.get(
+			const res = await api.get(
 				`https://taxivoshod.ru/api/voshod-auto/?w=pay&summ=${
 					payment === "sbp" ? sbpPrice : cardPrice
 				}&payment=${payment === "card" ? "classic" : "sbp"}&car_id=${
@@ -1138,7 +1139,7 @@ export const CarBookingForm: React.FC<{
 
 	const getPriceCar = async () => {
 		try {
-			const res = await axios.get(
+			const res = await api.get(
 				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${props.car_id}`,
 				{
 					withCredentials: true,

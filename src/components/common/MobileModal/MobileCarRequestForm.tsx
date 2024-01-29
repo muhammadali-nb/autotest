@@ -8,6 +8,7 @@ import {
 	ModalTemplatePhone,
 	ModalTemplateTextarea,
 } from "../ModalFormTemplate";
+import api from "../../../core/axios";
 
 const CallRequestForm: FC<{
 	closeFn: () => void;
@@ -33,7 +34,7 @@ const CallRequestForm: FC<{
 			return;
 		}
 		try {
-			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("https://taxivoshod.ru/api/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({
 					w: "form",

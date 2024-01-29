@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../common/Loader";
+import api from "../../core/axios";
 
 const Payment = () => {
 	const { pid, id } = useParams();
@@ -9,7 +10,7 @@ const Payment = () => {
 
 	const checkPayment = async () => {
 		try {
-			const res = await axios.get(
+			const res = await api.get(
 				`https://taxivoshod.ru/api/voshod-auto/?w=check-pay&pid=${pid}`
 			);
 			if (res.data.result === 1) {

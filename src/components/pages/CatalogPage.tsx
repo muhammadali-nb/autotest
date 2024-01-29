@@ -128,13 +128,13 @@ export const BottomMessageMobile: React.FC<{
 const CatalogPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
 	const title = "Выкуп - " + process.env.REACT_APP_WEBSITE_NAME;
-	
+
 	const meta: MetaTags = {
 		description: "Выкуп,Каталог автомобилей",
 		keywords: "выкуп,каталог,лизинг,авто,список,leasing",
 	};
 
-	const { data, isLoading } = useQuery({
+	const { data, isLoading, error } = useQuery({
 		queryKey: ["catalog-filter"],
 		queryFn: () => catalogService.getFilter(),
 	});
@@ -156,7 +156,7 @@ const CatalogPage = () => {
 						<Row>
 							<Col lg={3}>
 								{/* <div className={"sticky-no-scrollbar"}> */}
-									<CatalogFiltersBlock filterData={!isLoading && data} />
+								<CatalogFiltersBlock filterData={!isLoading && data} />
 								{/* </div> */}
 							</Col>
 							<Col lg={9} className="d-flex flex-column">
@@ -174,11 +174,13 @@ const CatalogPage = () => {
 										</p>
 									}
 								/>
-								<FilterButtons
-									mode="book"
-									isShowMobileFiler={setOpen}
-									catalogData={!isLoading && data.top}
-								/>
+								{!error && (
+									<FilterButtons
+										mode="book"
+										isShowMobileFiler={setOpen}
+										catalogData={!isLoading && data.top}
+									/>
+								)}
 								<CarGrid />
 								<SmallFooter className="mt-auto" />
 							</Col>

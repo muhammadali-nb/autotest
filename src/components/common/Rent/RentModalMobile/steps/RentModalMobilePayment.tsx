@@ -6,6 +6,7 @@ import { CarDataType } from "../../../../../types/RentTypes";
 import { ConfirmPhone, ErrorResponse } from "../../../../../Api";
 import { ConfirmPaymentQR } from "../../../../../types/AuthContextTypes";
 import axios, { AxiosError } from "axios";
+import api from "../../../../../core/axios";
 
 const pay_koef = {
 	// процеты оплаты
@@ -41,7 +42,7 @@ const RentModalMobilePayment = (props: {
 		}
 		setRedButton(false);
 		try {
-			const res = await axios.get(
+			const res = await api.get(
 				`https://taxivoshod.ru/api/voshod-auto/?w=pay&summ=${
 					payment === "sbp" ? sbpPrice : cardPrice
 				}&payment=${payment === "card" ? "classic" : "sbp"}&car_id=${

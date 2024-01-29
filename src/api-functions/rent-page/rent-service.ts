@@ -11,7 +11,7 @@ class RentService {
     if (!id) {
       return
     }
-    return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=cars-rent&page=${id}` +
+    return api.get(`https://taxivoshod.ru/api/voshod-auto/?w=cars-rent&page=${id}` +
       `${year.from && year.to ? `&year[]=${year.from}&year[]=${year.to}` : ""}` +
       `${price.from && price.to ? `&price[]=${price.from}&price[]=${price.to}` : ""}` +
       `${brands.length > 0 ? "&brands[]=" + brands.join("&brands[]=") : ''}` +
@@ -25,7 +25,7 @@ class RentService {
     if (!id) {
       return
     }
-    return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=car-rent&id=${id}`, { withCredentials: true }).then(res => res.data)
+    return api.get(`https://taxivoshod.ru/api/voshod-auto/?w=car-rent&id=${id}`, { withCredentials: true }).then(res => res.data)
   }
 }
 

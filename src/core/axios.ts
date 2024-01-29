@@ -3,21 +3,34 @@ import { jwtDecode } from 'jwt-decode';
 
 const api = axios.create();
 
+
+const isTokenExpired = (token) => {
+  try {
+
+    const decoded = jwtDecode(token);
+    //@ts-ignore
+    return decoded.exp * 1000 < Date.now();
+  } catch (error) {
+    return true;
+  }
+};
+
+
 api.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
-  //@ts-ignore
-  const activeToken = new Date() > jwtDecode(accessToken as string).exp ? accessToken : refreshToken;
 
   const sessid = localStorage.getItem('sessid');
 
+  if (accessToken && !isTokenExpired(accessToken)) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  } else if (refreshToken) {
+    config.headers.Authorization = `Bearer ${refreshToken}`;
 
-  if (accessToken && refreshToken) {
-    config.headers.Authorization = `Bearer ${activeToken}`;
   }
 
   if (sessid) {
-    config.headers['X-SESSID'] = sessid;
+    config.headers['x-sessid'] = sessid;
   }
 
   return config;

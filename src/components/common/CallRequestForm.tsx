@@ -13,6 +13,7 @@ import { faPhoneVolume } from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
 import callIcon from "../../images/common/Phone-header.svg";
 import callIconDark from "../../images/common/Phone-header-dark.svg";
 import axios, { AxiosError } from "axios";
+import api from "../../core/axios";
 
 const CallRequestFormContent: React.FC<{
 	closeFunc: () => void;
@@ -37,7 +38,7 @@ const CallRequestFormContent: React.FC<{
 		}
 
 		try {
-			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("https://taxivoshod.ru/api/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({
 					w: "form",

@@ -6,6 +6,7 @@ import {
 	RegisterErrorType,
 } from "../types/AuthContextTypes";
 import { jwtDecode } from "jwt-decode";
+import api from "../core/axios";
 const actions = {
 	INITIALIZE: "INITIALIZE",
 	LOGIN: "LOGIN",
@@ -161,7 +162,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const initialize = async () => {
-		axios
+		api
 			.get("https://taxivoshod.ru/api/login.php", {
 				withCredentials: true,
 			})
@@ -297,6 +298,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			);
 			localStorage.removeItem("refreshToken");
 			localStorage.removeItem("accessToken");
+			localStorage.removeItem("sessid");
 			return res.data;
 		} catch (error) {
 			console.log((error as AxiosError).response);
