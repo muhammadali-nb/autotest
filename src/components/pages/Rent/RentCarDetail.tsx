@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { CarSameLink } from "../../common/CarCard";
-import Api from "../../../Api";
+import Api, { ErrorResponse } from "../../../Api";
 import { CarDetailLayout } from "../../layout/CarDetailLayout";
 import RentCarImagesCarousel from "./RentCarImagesCarousel";
 import { Container } from "react-bootstrap";
@@ -18,7 +18,7 @@ import RentDetailModalLayout from "../../layout/RentDetailModalLayout";
 import Loader from "../../common/Loader";
 import CarFullImageModal from "./RentCarFullImage";
 import { RentBookingPaymentStatus } from "../../../types/RentTypes";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import api from "../../../core/axios";
 
 const RentCarDetail = () => {
@@ -32,6 +32,7 @@ const RentCarDetail = () => {
 	const { isAuthenticated, has_profile } = useAuth();
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [depositPrice, setDepositPrice] = useState(0);
+	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 	const { data, error, isLoading, isSuccess } = useQuery({
 		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
@@ -60,7 +61,7 @@ const RentCarDetail = () => {
 	const getPriceCar = async () => {
 		try {
 			const res = await api.get(
-				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${carID}`,
+				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${-1}`,
 				{
 					withCredentials: true,
 				}
@@ -69,9 +70,15 @@ const RentCarDetail = () => {
 				setDepositPrice(res.data.summ);
 				if (res.data.summ > 0) setStep("payment");
 				else setStep("finish");
+			} else {
+				setStep("rent");
 			}
 		} catch (error) {
-			console.log(error);
+			setStep("rent");
+			setErrorMessage(
+				(error as AxiosError<ErrorResponse>).response?.data.message ??
+					"Возникла ошибка с сервером поробуйте позже"
+			);
 		}
 	};
 	const checkSteps = async () => {
@@ -94,6 +101,7 @@ const RentCarDetail = () => {
 					<BrowserView>
 						<RentDetailModalLayout>
 							<RentCarDetailModal
+							errorMessage={errorMessage}
 								step={step}
 								setStep={setStep}
 								paymentStatus={paymentStatus}

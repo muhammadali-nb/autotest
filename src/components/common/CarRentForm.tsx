@@ -736,6 +736,7 @@ export const CarRequestFormContent: React.FC<{
 	setStep: (e: CarBookingStepsType) => void;
 	car: CarDataType;
 	getDeposit: () => void;
+	errorMessage: null | string;
 }> = (props) => {
 	const { isAuthenticated, user_status, has_profile } = useAuth();
 
@@ -805,6 +806,11 @@ export const CarRequestFormContent: React.FC<{
 					)}
 
 					<div></div>
+					{props.errorMessage && (
+						<div className={"my-2 text-red-color font-size-12"}>
+							{props.errorMessage}
+						</div>
+					)}
 				</div>
 				<div
 					className={
@@ -1175,6 +1181,7 @@ export const CarBookingForm: React.FC<{
 				}>
 				{step === "rent" && (
 					<CarRequestFormContent
+						errorMessage={error_message}
 						getDeposit={getPriceCar}
 						setStep={setStep}
 						closeFunc={handleClose}
