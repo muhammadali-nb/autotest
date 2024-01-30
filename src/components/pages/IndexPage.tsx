@@ -5,9 +5,8 @@ import IndexSteps from "./Index/IndexSteps";
 import IndexAbout from "./Index/IndexAbout";
 import IndexOffers from "./Index/IndexOffers";
 import Api from "../../Api";
-import IndexGreatDeals from "./Index/IndexGreatDeals";
-import { Helmet } from "react-helmet";
-import Logo from "../../images/logo.png";
+import IndexGreatDeals from "./Index/IndexGreatDeals"; 
+import MetaDecorator from "../layout/MetaDecorator";
 
 const IndexPage = () => {
 	const title = process.env.REACT_APP_WEBSITE_NAME;
@@ -19,14 +18,7 @@ const IndexPage = () => {
 
 	return (
 		<>
-			<Helmet>
-				<meta property="og:title" content={title} />
-				<meta
-					property="og:image"
-					content={process.env.REACT_APP_API_HOST + "/" + Logo}
-				/>
-				<meta property="og:url" content={process.env.REACT_APP_API_HOST} />
-			</Helmet>
+			<MetaDecorator title={title ?? "Компания Восход"} />
 			<BaseLayout
 				whiteMenu={whiteMenu}
 				title={title}

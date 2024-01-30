@@ -20,6 +20,7 @@ import CarFullImageModal from "./RentCarFullImage";
 import { RentBookingPaymentStatus } from "../../../types/RentTypes";
 import axios, { AxiosError } from "axios";
 import api from "../../../core/axios";
+import MetaDecorator from "../../layout/MetaDecorator";
 
 const RentCarDetail = () => {
 	const { carID } = useParams();
@@ -37,6 +38,13 @@ const RentCarDetail = () => {
 		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
 	});
+
+	const title =
+		data?.item?.brand +
+		" " +
+		data?.item?.model +
+		" - " +
+		process.env.REACT_APP_WEBSITE_NAME;
 
 	const checkCardPayment = () => {
 		if (!location.state) {
@@ -61,7 +69,7 @@ const RentCarDetail = () => {
 	const getPriceCar = async () => {
 		try {
 			const res = await api.get(
-				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${-1}`,
+				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${carID}`,
 				{
 					withCredentials: true,
 				}
@@ -70,8 +78,7 @@ const RentCarDetail = () => {
 				setDepositPrice(res.data.summ);
 				if (res.data.summ > 0) setStep("payment");
 				else setStep("finish");
-			} else {
-				setStep("rent");
+				setModalBookingCar(true);
 			}
 		} catch (error) {
 			setStep("rent");
@@ -81,27 +88,33 @@ const RentCarDetail = () => {
 			);
 		}
 	};
+
 	const checkSteps = async () => {
 		if (!isAuthenticated && !has_profile) {
 			setStep("start");
+			setModalBookingCar(true);
 		} else if (isAuthenticated && has_profile) {
 			await getPriceCar();
-			setStep("payment");
 		} else if (isAuthenticated && !has_profile) {
 			setStep("create");
+			setModalBookingCar(true);
 		}
-		setModalBookingCar(true);
 	};
 	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={error} />;
 	return (
 		<>
+			<MetaDecorator
+				title={title}
+				url={`/catalog/${carID}`}
+				image={data?.item?.images[0].image}
+			/>
 			{!isLoading && (
 				<>
 					<BrowserView>
 						<RentDetailModalLayout>
 							<RentCarDetailModal
-							errorMessage={errorMessage}
+								errorMessage={errorMessage}
 								step={step}
 								setStep={setStep}
 								paymentStatus={paymentStatus}
@@ -127,6 +140,11 @@ const RentCarDetail = () => {
 											{data.item?.brand} <span>{data.item?.model}</span>
 										</h1>
 										<h4 className="car-detail_id">{data.item?.regnum}</h4>
+										{errorMessage && (
+											<div className={"my-2 text-red-color font-size-8"}>
+												{errorMessage}
+											</div>
+										)}
 										<div className="car-detail_price">
 											<p>Цена</p>
 											<div className="car-detail_price-value">

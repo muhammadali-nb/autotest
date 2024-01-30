@@ -20,6 +20,7 @@ import clockImage from "../../images/common/footer/contct-page-icons/Clock 2.svg
 import phoneImage from "../../images/common/footer/contct-page-icons/Phone 2.svg";
 import Utils from "../../utils/Utils";
 import ContactFeedBackForm from "../common/ContactFeedBackForm";
+import MetaDecorator from "../layout/MetaDecorator";
 
 const ContactBlock: React.FC<{
 	icon: ReactNode;
@@ -58,92 +59,98 @@ const ContactsPage = () => {
 	const lines2 = process.env.REACT_APP_WORKTIME?.split("\n") ?? [];
 
 	return (
-		<BaseLayout
-			meta={meta}
-			title={title}
-			footerNoContacts={true}
-			footerNoForm={true}
-			headerSelectedLink={"/contacts"}>
-			{/*<FooterContacts/>*/}
-			<div className="footer-contacts-page ">
-				<Container fluid={"xxl"}>
-					<Row className={"gx-3"}>
-						<Col sm={12} md={6}>
-							<div className=" footer-contacts-page_top">
-								<div>Контакты</div>
-							</div>
-							<div className="footer-contacts-page_blocks">
-								<FooterContactsBlock
-									image={geoImage}
-									text={"Адрес"}
-									theme="light">
-									{lines.map((i, index) => (
-										<div key={index} className={"mb-px-10 line-height-120"}>
-											{i}
-										</div>
-									))}
-									{/* Санкт-Петербург <br />
+		<>
+			<MetaDecorator title={title} url="/contacts" />
+			<BaseLayout
+				meta={meta}
+				title={title}
+				footerNoContacts={true}
+				footerNoForm={true}
+				headerSelectedLink={"/contacts"}>
+				{/*<FooterContacts/>*/}
+				<div className="footer-contacts-page ">
+					<Container fluid={"xxl"}>
+						<Row className={"gx-3"}>
+							<Col sm={12} md={6}>
+								<div className=" footer-contacts-page_top">
+									<div>Контакты</div>
+								</div>
+								<div className="footer-contacts-page_blocks">
+									<FooterContactsBlock
+										image={geoImage}
+										text={"Адрес"}
+										theme="light">
+										{lines.map((i, index) => (
+											<div key={index} className={"mb-px-10 line-height-120"}>
+												{i}
+											</div>
+										))}
+										{/* Санкт-Петербург <br />
 									Торфяная дорога 7Ф <br />
 									БЦ «Гулливер» 2 оф. 104 <br /> */}
-								</FooterContactsBlock>
-								<FooterContactsBlock
-									theme="light"
-									image={clockImage}
-									text={"Время работы"}>
-									{lines2.map((i, index) => (
-										<div key={index} className={"mb-px-10 line-height-120"}>
-											{i}
-										</div>
-									))}
-									{/* пн-вс: с 10.00 - 19.00 */}
-								</FooterContactsBlock>
-								<FooterContactsBlock
-									theme="light"
-									image={phoneImage}
-									text={"Телефон"}>
-									{/* <a
+									</FooterContactsBlock>
+									<FooterContactsBlock
+										theme="light"
+										image={clockImage}
+										text={"Время работы"}>
+										{lines2.map((i, index) => (
+											<div key={index} className={"mb-px-10 line-height-120"}>
+												{i}
+											</div>
+										))}
+										{/* пн-вс: с 10.00 - 19.00 */}
+									</FooterContactsBlock>
+									<FooterContactsBlock
+										theme="light"
+										image={phoneImage}
+										text={"Телефон"}>
+										{/* <a
 										href={
 											"tel:" +
 											Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")
 										}>
 										{process.env.REACT_APP_PHONE}
 									</a> */}
-									+7 (812) 317-68-15
-								</FooterContactsBlock>
-							</div>
-							<div className="footer-contacts-page_lines d-block d-sm-none">
-								<div className="footer-contacts-page_lines_line" />
-								<div className="footer-contacts-page_lines_dot" />
-								<div className="footer-contacts-page_lines_dot" />
-								<div className="footer-contacts-page_lines_dot" />
-								<div className="footer-contacts-page_lines_dot" />
-								<div className="footer-contacts-page_lines_dot" />
-							</div>
-							<div className={"footer-contacts-page_links"}>
-								<FooterLink
-									img={vkW}
-									link={process.env.REACT_APP_VK_LINK ?? "/"}
-								/>
-								<FooterLink
-									img={wappW}
-									link={process.env.REACT_APP_WAPP_LINK ?? "/"}
-								/>
-								<FooterLink
-									img={teleW}
-									link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
-								/>
-							</div>
+										+7 (812) 317-68-15
+									</FooterContactsBlock>
+								</div>
+								<div className="footer-contacts-page_lines d-block d-sm-none">
+									<div className="footer-contacts-page_lines_line" />
+									<div className="footer-contacts-page_lines_dot" />
+									<div className="footer-contacts-page_lines_dot" />
+									<div className="footer-contacts-page_lines_dot" />
+									<div className="footer-contacts-page_lines_dot" />
+									<div className="footer-contacts-page_lines_dot" />
+								</div>
+								<div className={"footer-contacts-page_links"}>
+									<FooterLink
+										img={vkW}
+										link={process.env.REACT_APP_VK_LINK ?? "/"}
+									/>
+									<FooterLink
+										img={wappW}
+										link={process.env.REACT_APP_WAPP_LINK ?? "/"}
+									/>
+									<FooterLink
+										img={teleW}
+										link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
+									/>
+								</div>
 
-							{/* <FooterBottom /> */}
-						</Col>
-						<Col sm={12} md={6} className=" footer-contacts-page_contact-form">
-							{/* <ContactsForm big={true} /> */}
-							<ContactFeedBackForm />
-						</Col>
-					</Row>
-				</Container>
-			</div>
-		</BaseLayout>
+								{/* <FooterBottom /> */}
+							</Col>
+							<Col
+								sm={12}
+								md={6}
+								className=" footer-contacts-page_contact-form">
+								{/* <ContactsForm big={true} /> */}
+								<ContactFeedBackForm />
+							</Col>
+						</Row>
+					</Container>
+				</div>
+			</BaseLayout>
+		</>
 	);
 };
 

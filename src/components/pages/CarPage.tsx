@@ -13,6 +13,7 @@ import { CarDetailLayout } from "../layout/CarDetailLayout";
 import { useQuery } from "@tanstack/react-query";
 import catalogService from "../../api-functions/catalog-page/catalog-service";
 import Loader from "../common/Loader";
+import MetaDecorator from "../layout/MetaDecorator";
 
 const CarPage = () => {
 	const car = useLoaderData() as any;
@@ -33,40 +34,47 @@ const CarPage = () => {
 	};
 	if (isLoading) return <Loader />;
 	return (
-		<CarDetailLayout
-			meta={meta}
-			title={title}
-			headerSelectedLink={"/catalog"}
-			footerSmall>
-			<Container
-				fluid={"xxl"}
-				className={"d-none d-lg-block car-page pt-px-20"}>
-				<LoadError response={car} />
-				{!Api.isError(car) && (
-					<Row className={"gx-5"}>
-						<Col lg={6} className={"d-none d-lg-block"}>
-							<CarImages car={data.item} />
-							<CarInfo car_data={data.item} type={"descktop"} car={car} />
-						</Col>
-						<Col lg={6}>
-							<div className={"sticky-no-scrollbar top100 "}>
-								<div className={"d-block d-lg-none"}>
-									<CarImages car={data.item} />
+		<>
+			<MetaDecorator
+				title={title}
+				url={`/catalog/${id}`}
+				image={data?.item?.images[0].image}
+			/>
+			<CarDetailLayout
+				meta={meta}
+				title={title}
+				headerSelectedLink={"/catalog"}
+				footerSmall>
+				<Container
+					fluid={"xxl"}
+					className={"d-none d-lg-block car-page pt-px-20"}>
+					<LoadError response={car} />
+					{!Api.isError(car) && (
+						<Row className={"gx-5"}>
+							<Col lg={6} className={"d-none d-lg-block"}>
+								<CarImages car={data.item} />
+								<CarInfo car_data={data.item} type={"descktop"} car={car} />
+							</Col>
+							<Col lg={6}>
+								<div className={"sticky-no-scrollbar top100 "}>
+									<div className={"d-block d-lg-none"}>
+										<CarImages car={data.item} />
+									</div>
+									<CarBase car_data={data.item} car={car} />
 								</div>
-								<CarBase car_data={data.item} car={car} />
-							</div>
-						</Col>
-					</Row>
-				)}
-			</Container>
-			<div className={" d-block d-lg-none "}>
-				<Container fluid={"xxl"}>
-					<CarImages car={data.item} />
+							</Col>
+						</Row>
+					)}
 				</Container>
-				<CarBase car_data={data.item} car={car} />
-				<CarInfo car_data={data.item} type={"mobile"} car={car} />
-			</div>
-		</CarDetailLayout>
+				<div className={" d-block d-lg-none "}>
+					<Container fluid={"xxl"}>
+						<CarImages car={data.item} />
+					</Container>
+					<CarBase car_data={data.item} car={car} />
+					<CarInfo car_data={data.item} type={"mobile"} car={car} />
+				</div>
+			</CarDetailLayout>
+		</>
 	);
 };
 

@@ -16,6 +16,7 @@ import catalogService from "../../api-functions/catalog-page/catalog-service";
 import CatalogFiltersBlock from "./Catalog/CatalogFilterBlock";
 import chevron from "../../images/common/footer/chevron-for-bottom.svg";
 import { Link } from "react-router-dom";
+import MetaDecorator from "../layout/MetaDecorator";
 
 export const AlertMessage: React.FC<{
 	page: string;
@@ -127,7 +128,7 @@ export const BottomMessageMobile: React.FC<{
 
 const CatalogPage = () => {
 	const [isOpen, setOpen] = useState<boolean>(false);
-	const title = "Выкуп - " + process.env.REACT_APP_WEBSITE_NAME;
+	const title = "Рассрочка - " + process.env.REACT_APP_WEBSITE_NAME;
 
 	const meta: MetaTags = {
 		description: "Выкуп,Каталог автомобилей",
@@ -140,55 +141,58 @@ const CatalogPage = () => {
 	});
 
 	return (
-		<CatalogLayout
-			meta={meta}
-			title={title}
-			headerSelectedLink={"/catalog"}
-			footerSmall>
-			<div className="catalog">
-				<Container fluid={"xxl"}>
-					<CatalogMobileMenu
-						data={data}
-						isActive={isOpen}
-						setIsActive={setOpen}
-					/>
-					<div>
-						<Row>
-							<Col lg={3}>
-								{/* <div className={"sticky-no-scrollbar"}> */}
-								<CatalogFiltersBlock filterData={!isLoading && data} />
-								{/* </div> */}
-							</Col>
-							<Col lg={9} className="d-flex flex-column">
-								<AlertMessage
-									page={"catalog"}
-									type={"danger"}
-									className={"catalog-alert"}
-									local_message={
-										<p className="catalog-alert_message">
-											Здесь представлены автомобили, которые проходят по
-											программам лизинга.
-											<br></br>
-											Если Вам необходим автомобиль в аренду перейдите в раздел{" "}
-											<Link to={"/rent/page/1"}>Аренда.</Link>
-										</p>
-									}
-								/>
-								{!error && (
-									<FilterButtons
-										mode="book"
-										isShowMobileFiler={setOpen}
-										catalogData={!isLoading && data.top}
+		<>
+			<MetaDecorator title={title} url="/catalog" />
+			<CatalogLayout
+				meta={meta}
+				title={title}
+				headerSelectedLink={"/catalog"}
+				footerSmall>
+				<div className="catalog">
+					<Container fluid={"xxl"}>
+						<CatalogMobileMenu
+							data={data}
+							isActive={isOpen}
+							setIsActive={setOpen}
+						/>
+						<div>
+							<Row>
+								<Col lg={3}>
+									{/* <div className={"sticky-no-scrollbar"}> */}
+									<CatalogFiltersBlock filterData={!isLoading && data} />
+									{/* </div> */}
+								</Col>
+								<Col lg={9} className="d-flex flex-column">
+									<AlertMessage
+										page={"catalog"}
+										type={"danger"}
+										className={"catalog-alert"}
+										local_message={
+											<p className="catalog-alert_message">
+												Здесь представлены автомобили, которые проходят по
+												программам лизинга.
+												<br></br>
+												Если Вам необходим автомобиль в аренду перейдите в
+												раздел <Link to={"/rent/page/1"}>Аренда.</Link>
+											</p>
+										}
 									/>
-								)}
-								<CarGrid />
-								<SmallFooter className="mt-auto" />
-							</Col>
-						</Row>
-					</div>
-				</Container>
-			</div>
-		</CatalogLayout>
+									{!error && (
+										<FilterButtons
+											mode="book"
+											isShowMobileFiler={setOpen}
+											catalogData={!isLoading && data.top}
+										/>
+									)}
+									<CarGrid />
+									<SmallFooter className="mt-auto" />
+								</Col>
+							</Row>
+						</div>
+					</Container>
+				</div>
+			</CatalogLayout>
+		</>
 	);
 };
 
