@@ -33,6 +33,7 @@ const RentCarDetailModal: FC<{
 	setDepositPrice: (e: number) => void;
 	carName: string | null;
 	setCarName: (e: string) => void;
+	errorMessage: null | string;
 }> = ({
 	paymentStatus,
 	setPaymentStatus,
@@ -43,6 +44,7 @@ const RentCarDetailModal: FC<{
 	setDepositPrice,
 	carName,
 	setCarName,
+	errorMessage,
 }) => {
 	const { id, carID } = useParams();
 	const location = useLocation();
@@ -109,6 +111,7 @@ const RentCarDetailModal: FC<{
 			}>
 			{step === "rent" && (
 				<CarRequestFormContent
+					errorMessage={errorMessage}
 					getDeposit={getPriceCar}
 					setStep={setStep}
 					closeFunc={handleClose}

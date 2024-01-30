@@ -21,7 +21,7 @@ const IndexPage = () => {
 				<meta property="og:title" content={title} />
 				<meta
 					property="og:image"
-					content={"https://test.voshod-auto.ru/" + Logo}
+					content={process.env.REACT_APP_API_HOST + "/" + Logo}
 				/>
 				<meta property="og:url" content={process.env.REACT_APP_API_HOST} />
 			</Helmet>
