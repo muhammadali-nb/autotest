@@ -20,6 +20,7 @@ import coverLetter02 from "../../images/common/cover-letter-02.png";
 import first from "../../images/common/number-faq/01.svg";
 import second from "../../images/common/number-faq/02.svg";
 import third from "../../images/common/number-faq/03.svg";
+import MetaDecorator from "../layout/MetaDecorator";
 
 const Header: React.FC<{ text: string | ReactNode }> = (props) => (
 	<div className={"arrange-leasing_header"}>{props.text}</div>
@@ -604,19 +605,22 @@ const ProgramsPage = () => {
 			"leasing,rent,аренда,авто,новое авто, новый автомобиль,подержанное авто,подержанный автомобиль,автомобиль,лизинг,бронирование",
 	};
 	return (
-		<BaseLayout
-			title={title}
-			meta={meta}
-			headerImage={"dark"}
-			headerSelectedLink={"/programs"}>
-			<div>
-				<FirstBlock />
-				<SecondBlock />
-				<HowBlock />
-				<StepBlock />
-				<FaqBlock />
-			</div>
-		</BaseLayout>
+		<>
+			<MetaDecorator title={title} url="/programs" />
+			<BaseLayout
+				title={title}
+				meta={meta}
+				headerImage={"dark"}
+				headerSelectedLink={"/programs"}>
+				<div>
+					<FirstBlock />
+					<SecondBlock />
+					<HowBlock />
+					<StepBlock />
+					<FaqBlock />
+				</div>
+			</BaseLayout>
+		</>
 	);
 };
 

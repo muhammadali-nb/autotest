@@ -743,7 +743,6 @@ export const CarRequestFormContent: React.FC<{
 	const ckeckSteps = async () => {
 		if (isAuthenticated && has_profile) {
 			await props.getDeposit();
-			props.setStep("payment");
 		} else if (!has_profile && user_status === "need_auth") {
 			props.setStep("start");
 		} else if (isAuthenticated && !has_profile) {
