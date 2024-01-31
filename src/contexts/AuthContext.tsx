@@ -267,7 +267,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 					middle_name: res.data.middle_name,
 					last_name: res.data.last_name,
 					phone: res.data.phone,
-					access_token: access_token,
+					// access_token: access_token,
 				},
 			});
 
