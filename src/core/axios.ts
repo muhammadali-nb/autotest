@@ -23,8 +23,11 @@ api.interceptors.request.use((config) => {
   const sessid = localStorage.getItem('sessid');
 
   if (accessToken && !isTokenExpired(accessToken)) {
+    console.log('access')
     config.headers.Authorization = `Bearer ${accessToken}`;
+
   } else if (refreshToken) {
+    console.log('refresh')
     config.headers.Authorization = `Bearer ${refreshToken}`;
 
   }
@@ -39,15 +42,17 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use((response) => {
-  const newAccessToken = response.headers['X-Jwt-Access'];
-  const newRefreshToken = response.headers['X-Jwt-Refresh'];
+  const newAccessToken = response.headers['x-jwt-access'];
+  const newRefreshToken = response.headers['x-jwt-refresh'];
   const sessid = response.headers['x-sessid'];
 
   if (newAccessToken && newRefreshToken) {
+    
     localStorage.setItem('accessToken', newAccessToken);
     localStorage.setItem('refreshToken', newRefreshToken);
   }
   if (sessid) {
+  
     localStorage.setItem('sessid', sessid)
   }
 
