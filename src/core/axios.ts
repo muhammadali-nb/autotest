@@ -47,17 +47,24 @@ api.interceptors.response.use((response) => {
   const sessid = response.headers['x-sessid'];
 
   if (newAccessToken && newRefreshToken) {
-    
+    console.log('update tokens')
     localStorage.setItem('accessToken', newAccessToken);
     localStorage.setItem('refreshToken', newRefreshToken);
   }
+
   if (sessid) {
-  
     localStorage.setItem('sessid', sessid)
   }
 
   return response;
 }, (error) => {
+  const newAccessToken = error.response.headers['x-jwt-access'];
+  const newRefreshToken = error.response.headers['x-jwt-refresh'];
+
+  if (newAccessToken && newRefreshToken) {
+    localStorage.setItem('accessToken', newAccessToken);
+    localStorage.setItem('refreshToken', newRefreshToken);
+  }
   // Обработка ошибки
   return Promise.reject(error);
 });
