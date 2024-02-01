@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface IPersonalAccountRaiting {
+interface PersonalAccountRaitingProps {
     props: any
 }
 
 
-const PersonalAccountRaiting: React.FC<IPersonalAccountRaiting> = (props) => {
+const PersonalAccountRaiting: React.FC<PersonalAccountRaitingProps> = (props) => {
 
     return <h1>Hello World</h1>
 }
