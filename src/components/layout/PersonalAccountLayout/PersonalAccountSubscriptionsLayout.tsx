@@ -1,7 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
-import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 import PersonalAccountMenu from "../../pages/PersonalAccount/PersonalAccountMenu";
-import PersonalAccountMenuMobile from "../../pages/PersonalAccount/PersonalAccountMenuMobile";
 import Footer from "../Footer";
 import PersonalAccountLayout from "./PersonalAccountLayout";
 import { useOutside } from "../../../hooks/useOutside";
