@@ -1,4 +1,4 @@
-import { Route,createBrowserRouter,createRoutesFromElements} from "react-router-dom";
+import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import IndexPage, { indexLoader } from "../components/pages/IndexPage";
 import CatalogPage from "../components/pages/CatalogPage";
 import CarPage, { carDataLoader } from "../components/pages/CarPage";
@@ -28,34 +28,20 @@ export const router = createBrowserRouter(
 		<Route path="*" element={<App />}>
 			<Route index element={<IndexPage />} loader={indexLoader} />
 			<Route path={"catalog"} element={<CatalogPage />} />
-			<Route
-				path={"catalog/:id"}
-				element={<CarPage />}
-				loader={carDataLoader}
-			/>
+			<Route path={"catalog/:id"} element={<CarPage />} loader={carDataLoader} />
 			<Route path="rent/page/:id">
 				<Route index element={<RentPage />} />
 				<Route path={"car/:carID"} element={<RentCarDetail />} />
 			</Route>
 			<Route path="payment/confirm/car/:id/pid/:pid" element={<Payment />} />
-			<Route
-				path={"programs"}
-				element={<ProgramsPage />}
-				loader={faqProgramsLoader}
-			/>
+			<Route path={"programs"} element={<ProgramsPage />} loader={faqProgramsLoader} />
 			<Route path={"faq"} element={<FaqPage />} loader={faqLoader} />
 			<Route path={"contacts"} element={<ContactsPage />} />
 			<Route path={"policy"} element={<PolicyPage />} />
 			<Route path={"userAgreement"} element={<UserAgreementPage />} />
 			<Route path="personal-account" element={<PersonalAccountPage />} />
-			<Route
-				path="personal-account/rent-history"
-				element={<PersonalAccountRentHistoryPage />}
-			/>	
-			<Route
-				path="personal-account/leasing"
-				element={<PersonalAccountLeasingPage />}
-			/>
+			<Route path="personal-account/rent-history" element={<PersonalAccountRentHistoryPage />} />	
+			<Route path="personal-account/leasing" element={<PersonalAccountLeasingPage />} />
 			<Route path="personal-account/payment" element={<PaymentsPage />} />
 			<Route path="personal-account/transactions" element={<TransactionsPage />} />
 			<Route path="personal-account/fines" element={<FinesPage />} />
