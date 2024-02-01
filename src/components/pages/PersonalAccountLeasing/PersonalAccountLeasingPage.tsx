@@ -517,8 +517,6 @@ import leasingService from "../../../api-functions/leasing-page/leasing-service"
 // ];
 
 const PersonalAccountLeasingPage = () => {
-	// const isLoading = false;
-
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["personal-accout"],
 		queryFn: () => leasingService.getLeasingCars(),
