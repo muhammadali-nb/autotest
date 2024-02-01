@@ -15,37 +15,36 @@ const PersonalAccountRaitingLayout: React.FC<PersonalAccountRaitingLayoutProps> 
 
     const { ref, isShow, setIsShow } = useOutside(false);
 
-  return (
-    
-    <>
-			<PersonalAccountLayout mainMobileMenu={setIsShow}>
-				<Header
-					burgerMenuIsShow={isShow}
-					setBurgerMenuIsShow={setIsShow}
-					type={"white"}
-					selectedLink={"/"}
-					mobileModalType="orderCall"
-				/>
-				<Container fluid={"xxl"}>
-					<Row>
-						<Col className={"d-none d-lg-block"} lg={2}>
-							<PersonalAccountMenu selected="/personal-account/raiting" />
-						</Col>
-						<Col lg={10}>
-							<div className="personal-account_page">
-								{children}
-								
-								<Footer
-									small={true}
-									className="justify-content-center mt-px-20"
-								/>
-							</div>
-						</Col>
-					</Row>
-				</Container>
-			</PersonalAccountLayout>
-			<MobileMenu menuRef={ref} setMenuIsOpen={setIsShow} menuIsOpen={isShow} />
-		</>
+    return (
+        <>
+            <PersonalAccountLayout mainMobileMenu={setIsShow}>
+                <Header
+                    burgerMenuIsShow={isShow}
+                    setBurgerMenuIsShow={setIsShow}
+                    type={"white"}
+                    selectedLink={"/"}
+                    mobileModalType="orderCall"
+                />
+                <Container fluid={"xxl"}>
+                    <Row>
+                        <Col className={"d-none d-lg-block"} lg={2}>
+                            <PersonalAccountMenu selected="/personal-account/raiting" />
+                        </Col>
+                        <Col lg={10}>
+                            <div className="personal-account_page">
+                                {children}
+                                
+                                <Footer
+                                    small={true}
+                                    className="justify-content-center mt-px-20"
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </PersonalAccountLayout>
+            <MobileMenu menuRef={ref} setMenuIsOpen={setIsShow} menuIsOpen={isShow} />
+        </>
   )
 }
 
