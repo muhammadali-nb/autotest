@@ -151,16 +151,16 @@ const AuthPhoneConfirm: React.FC<{
 		}
 		setError("");
 
-        try {
-            const res: any = await register(props.data.phone, code);
-            if (res.success) {
-                if (!res.has_profile) {
-                    props.setStep("createAccount");
-                } else {
-                    // props.closeFunc();
-                    // navigate('/personal-account');
-                    props.setStep('auth');
-                }
+		try {
+			const res: any = await register(props.data.phone, code);
+
+			if (res.success) {
+				if (!res.has_profile) {
+					props.setStep("createAccount");
+				} else {
+					props.closeFunc();
+					props.setStep("auth");
+				}
 
 				setPassed(true);
 			}
@@ -520,66 +520,86 @@ const AuthForm: React.FC<{
 		navigate("/");
 	};
 
-    return (
-        <>
-            <div className={"user-btn " + (props.light ? "light" : "")}>
-                <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
-                    {isAuthenticated ?
-                        <div className="user-tooltip-content">
-                            <p
-														// to={"/personal-account"} link tag should be have
-														><span className="font-size-16 cursor-pointer fw-medium m-0">{last_name + " " + first_name}</span></p>
-                            {phone &&
-                                <span className="font-size-12 fw-medium">{Utils.formatPhone(phone)}</span>
-                            }
-                            <button className="font-size-14 fw-medium" onClick={exit}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path
-                                        d="M6.66667 14.6667H3.33333C2.59695 14.6667 2 14.0697 2 13.3333V2.66666C2 1.93028 2.59695 1.33333 3.33333 1.33333H6.66667"
-                                        stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M11.3333 10.6667L14 7.99999M14 7.99999L11.3333 5.33333M14 7.99999H6" stroke="#222222"
-                                        strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                Выйти
-                            </button>
-                        </div>
-                        :
-                        <div className="user-tooltip-content">
-                            <button className="font-size-14" onClick={handleShow}>
-                                Вход в Личный кабинет
-                            </button>
-                        </div>
-                    }
-                </div>
-            </div>
-            <ModalFormTemplate show={show} onHide={handleClose} centered size={"xl"}>
-                {step === 'auth' &&
-                    <AuthFormContent
-                        closeFunc={handleClose}
-                        setStep={setStep}
-                        data={data}
-                        setData={setData}
-                        submit={confirmPhone}
-                    />
-                }
-                {step === 'phoneConfirm' &&
-                    <AuthPhoneConfirm
-                        setStep={setStep}
-                        timer={timer}
-                        repeatRequest={confirmPhone}
-                        data={data}
-                        closeFunc={handleClose}
-                    />
-                }
-                {step === 'createAccount' &&
-                    <AuthCreateAccount
-                        closeFunc={handleClose}
-                        setStep={setStep}
-                    />
-                }
-            </ModalFormTemplate>
-        </>
-    )
-}
+	return (
+		<>
+			<div className={"user-btn " + (props.light ? "light" : "")}>
+				<div
+					className={
+						"user-tooltip " + (isAuthenticated ? "authentificated" : "")
+					}>
+					{isAuthenticated ? (
+						<div className="user-tooltip-content">
+							<p
+							// to={"/personal-account"} link tag should be have
+							>
+								<span className="font-size-16 cursor-pointer fw-medium m-0">
+									{last_name + " " + first_name}
+								</span>
+							</p>
+							{phone && (
+								<span className="font-size-12 fw-medium">
+									{Utils.formatPhone(phone)}
+								</span>
+							)}
+							<button className="font-size-14 fw-medium" onClick={exit}>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									viewBox="0 0 16 16"
+									fill="none">
+									<path
+										d="M6.66667 14.6667H3.33333C2.59695 14.6667 2 14.0697 2 13.3333V2.66666C2 1.93028 2.59695 1.33333 3.33333 1.33333H6.66667"
+										stroke="#222222"
+										strokeWidth="1.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+									<path
+										d="M11.3333 10.6667L14 7.99999M14 7.99999L11.3333 5.33333M14 7.99999H6"
+										stroke="#222222"
+										strokeWidth="1.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+								</svg>
+								Выйти
+							</button>
+						</div>
+					) : (
+						<div className="user-tooltip-content">
+							<button className="font-size-14" onClick={handleShow}>
+								Вход в Личный кабинет
+							</button>
+						</div>
+					)}
+				</div>
+			</div>
+			<ModalFormTemplate show={show} onHide={handleClose} centered size={"xl"}>
+				{step === "auth" && (
+					<AuthFormContent
+						closeFunc={handleClose}
+						setStep={setStep}
+						data={data}
+						setData={setData}
+						submit={confirmPhone}
+					/>
+				)}
+				{step === "phoneConfirm" && (
+					<AuthPhoneConfirm
+						setStep={setStep}
+						timer={timer}
+						repeatRequest={confirmPhone}
+						data={data}
+						closeFunc={handleClose}
+					/>
+				)}
+				{step === "createAccount" && (
+					<AuthCreateAccount closeFunc={handleClose} setStep={setStep} />
+				)}
+			</ModalFormTemplate>
+		</>
+	);
+};
 
 export default AuthForm;

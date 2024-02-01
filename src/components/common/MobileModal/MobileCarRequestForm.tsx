@@ -119,7 +119,7 @@ const CallRequestForm: FC<{
 						перезвоните мне
 					</button>
 					<p className="form-mobile-policy">
-						Нажимая на кнопку “Забронировать”, вы соглашаетесь с{" "}
+						Нажимая на кнопку “Забронировать”, вы соглашаетесь <br /> с{" "}
 						<Link
 							to={"/policy"}
 							target={"_blank"}

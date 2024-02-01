@@ -217,7 +217,7 @@ const MobileEditEmail: React.FC<{
                 </div>
             }
             <p className="form-mobile-policy ">
-                Нажимая на кнопку, вы соглашаетесь с{" "}
+                Нажимая на кнопку, вы соглашаетесь <br /> с{" "}
                 <Link
                     to={"/policy"}
                     target={"_blank"}
