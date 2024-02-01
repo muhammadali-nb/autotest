@@ -32,7 +32,7 @@ interface MobileMenuProps {
 
 const defaultLinks = [
 	{ text: "Главная", path: "/", className: "", icon: house, id: 1 },
-	{ text: "Выкуп", path: "/catalog", className: "", icon: car, id: 2 },
+	{ text: "Рассрочка", path: "/catalog", className: "", icon: car, id: 2 },
 	{
 		text: "Программы",
 		path: "/programs",
@@ -233,7 +233,7 @@ const MobileMenu = (props: MobileMenuProps) => {
 							</button>
 						</div>
 					)}
-					</div>
+				</div>
 			</div>
 		</div>
 	);

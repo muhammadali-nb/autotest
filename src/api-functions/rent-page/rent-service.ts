@@ -1,16 +1,17 @@
 import axios from "axios";
 import { Filter } from "../../store/reducers/filterSlice";
+import api from "../../core/axios";
 
 class RentService {
   getFilter() {
-    return axios.get('https://taxivoshod.ru/api/voshod-auto/?w=rent-filter', { withCredentials: true }).then(res => res.data)
+    return api.get('https://taxivoshod.ru/api/voshod-auto/?w=filter-rent').then(res => res.data)
   }
   getCars(id: number, filter: Filter) {
     const { year, brands, models, price, special, tarif } = filter
     if (!id) {
       return
     }
-    return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=rent-cars&page=${id}` +
+    return api.get(`https://taxivoshod.ru/api/voshod-auto/?w=cars-rent&page=${id}` +
       `${year.from && year.to ? `&year[]=${year.from}&year[]=${year.to}` : ""}` +
       `${price.from && price.to ? `&price[]=${price.from}&price[]=${price.to}` : ""}` +
       `${brands.length > 0 ? "&brands[]=" + brands.join("&brands[]=") : ''}` +
@@ -24,7 +25,7 @@ class RentService {
     if (!id) {
       return
     }
-    return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=rent-car&id=${id}`, { withCredentials: true }).then(res => res.data)
+    return api.get(`https://taxivoshod.ru/api/voshod-auto/?w=car-rent&id=${id}`, { withCredentials: true }).then(res => res.data)
   }
 }
 

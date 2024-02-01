@@ -13,7 +13,9 @@ import { SmallFooter } from "../layout/Footer";
 import CatalogMobileMenu from "./Catalog/CatalogMobileMenu";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import LoadError from "../common/LoadError";
+import MetaDecorator from "../layout/MetaDecorator";
 
 const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
@@ -287,38 +289,44 @@ const RentPage = ({ children }: { children?: ReactNode }) => {
 		queryKey: ["rent-filter"],
 		queryFn: () => rentService.getFilter(),
 	});
-
+	// if (error) return <LoadError response={error} />;
 	return (
-		<RentLayout
-			meta={meta}
-			title={title}
-			headerSelectedLink={`/rent/page/${paramsId}`}
-			footerSmall>
-			<RentPageHeader />
-			<Container fluid={"xxl"} className={" mt-px-30"}>
-				<CatalogMobileMenu
-					data={!isLoading && data}
-					isActive={isOpen}
-					setIsActive={setOpen}
-				/>
+		<>
+			<MetaDecorator title={title} url="/rent" />
+			<RentLayout
+				meta={meta}
+				title={title}
+				headerSelectedLink={`/rent/page/${paramsId}`}
+				footerSmall>
+				<RentPageHeader />
+				<Container fluid={"xxl"} className={" mt-px-30"}>
+					<CatalogMobileMenu
+						data={!isLoading && data}
+						isActive={isOpen}
+						setIsActive={setOpen}
+					/>
 
-				<Row>
-					<Col lg={3}>
-						<FiltersBlock filterData={!isLoading && data} />
-					</Col>
-					<Col lg={9}>
-						<FilterButtons
-							rentFilterData={!isLoading && data.top}
-							mode="rent"
-							isShowMobileFiler={setOpen}
-						/> 
-						<RentGrid activePage={paramsId} />
-						<SmallFooter />
-					</Col>
-				</Row>
-			</Container>
-			{children}
-		</RentLayout>
+					<Row>
+						<Col lg={3}>
+							<FiltersBlock filterData={!isLoading && data} />
+						</Col>
+						<Col lg={9} className="d-flex flex-column">
+							{!error && (
+								<FilterButtons
+									rentFilterData={!isLoading && data.top}
+									mode="rent"
+									isShowMobileFiler={setOpen}
+								/>
+							)}
+
+							<RentGrid activePage={paramsId} />
+							<SmallFooter className={"mt-auto"} />
+						</Col>
+					</Row>
+				</Container>
+				{children}
+			</RentLayout>
+		</>
 	);
 };
 

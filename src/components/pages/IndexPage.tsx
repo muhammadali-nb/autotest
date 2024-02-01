@@ -5,7 +5,8 @@ import IndexSteps from "./Index/IndexSteps";
 import IndexAbout from "./Index/IndexAbout";
 import IndexOffers from "./Index/IndexOffers";
 import Api from "../../Api";
-import IndexGreatDeals from "./Index/IndexGreatDeals";
+import IndexGreatDeals from "./Index/IndexGreatDeals"; 
+import MetaDecorator from "../layout/MetaDecorator";
 
 const IndexPage = () => {
 	const title = process.env.REACT_APP_WEBSITE_NAME;
@@ -17,6 +18,7 @@ const IndexPage = () => {
 
 	return (
 		<>
+			<MetaDecorator title={title ?? "Компания Восход"} />
 			<BaseLayout
 				whiteMenu={whiteMenu}
 				title={title}

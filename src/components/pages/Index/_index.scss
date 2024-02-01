@@ -11,16 +11,20 @@
     padding-top: unset;
   }
 
+  @include l-md {
+    background-position: 30%;
+  }
+
   .index__logo-overlay {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.24) 92.52%);
+    // background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.24) 92.52%);
 
     @include l-md {
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.75);
     }
 
     z-index: 20;
@@ -37,6 +41,13 @@
     min-height: 100%;
     width: 100%;
     justify-content: center;
+
+    & .indexCalculatorSliderLabel,
+    .indexCalculatorPeriodIndicatorComment {
+      @include l-md {
+        font-size: 10px;
+      }
+    }
 
     @include l-md() {
       padding: 100px 0 70px 0;
@@ -55,6 +66,7 @@
       //text-transform: uppercase;
       @include l-xxl {
         font-size: 42px;
+        letter-spacing: 1px;
       }
       // @include l-md {
       //   font-size: 48px;
@@ -74,6 +86,12 @@
           margin: 0;
         }
       }
+
+      & .indexCalculatorPeriodIndicator {
+        span {
+          font-size: 10px !important;
+        }
+      }
     }
 
     @include l-md() {
@@ -86,7 +104,7 @@
   }
 
   @include l-md {
-    padding-top: 120px;
+    padding-top: 105px;
     padding-bottom: 40px;
   }
 
@@ -106,6 +124,10 @@
   }
   @include l-md {
     font-size: 22px;
+  }
+
+  & > span {
+    font-weight: 300;
   }
 
   .indexCalculatorPeriodIndicatorComment {
@@ -134,7 +156,7 @@
   @include l-sm() {
     margin: 54px 0 0 0;
     font-size: 12px;
-    max-width: 100%;
+    max-width: 328px;
     width: 100%;
   }
 }
@@ -359,9 +381,13 @@
   }
 
   @include l-sm {
-    height: 47%;
-
-    background: rgba(0, 0, 0, 0.8) url("./../../../images/index/about_bg.webp");
+    height: 48.5%;
+    clip-path: polygon(0 0, 100% 0, 100% 95%, 0% 100%);
+    background-position: 25% 0% !important;
+    background:
+      // rgba(0, 0, 0, 0.8)
+       linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+      url("./../../../images/index/logo-bg.jpg");
   }
 }
 
@@ -386,7 +412,7 @@
 
 .index__about-text {
   font-family: "Inter";
-  font-weight: 300;
+  font-weight: 400;
   font-size: 20px;
   line-height: 140%;
   letter-spacing: 0.01em;
@@ -396,7 +422,11 @@
   }
   @include l-md() {
     font-size: 16px;
-    // margin-bottom: 24px;
+
+    &:last-child {
+      max-width: 315px !important;
+    }
+
     font-weight: 500;
     &:not(:last-child) {
       margin-bottom: 24px;
@@ -441,10 +471,10 @@
   @include l-md() {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 8px;
     &:not(:first-child) {
-      margin: 0 0 20px 0;
+      margin: 0 0 24px 0;
     }
   }
   &-big {
@@ -472,6 +502,7 @@
 
     @include l-sm() {
       font-size: 12px;
+      margin: 0 0 4px 0;
     }
   }
 }
@@ -587,6 +618,9 @@
       min-height: 60px;
       width: 60px;
       height: 60px;
+      border: 0.983px solid var(--BG, #f2f3f6);
+      background: var(--default-white, #fff);
+      box-shadow: 0px 0px 9.834px 0px rgba(0, 0, 0, 0.15);
       img {
         width: 30px;
         height: 30px;
@@ -630,7 +664,11 @@
     }
   }
   .index__about-badge-text {
+    font-size: 16px;
+    font-style: normal;
     font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    letter-spacing: 0.16px;
     @include l-lg {
       color: #dadada;
     }
@@ -866,6 +904,10 @@
       text-transform: uppercase;
       // transform: translateY(2px);
       color: #606569;
+
+      @include l-md {
+        color: #222222;
+      }
     }
 
     & > svg {
@@ -884,13 +926,24 @@
 
     &-gray {
       display: block;
+
+      @include l-md {
+        display: none;
+      }
     }
 
     &-black {
       display: none;
+
+      @include l-md {
+        display: block;
+      }
     }
 
     &:hover {
+      @include l-md {
+        pointer-events: none;
+      }
       .great-deal_more-gray {
         display: none !important;
       }

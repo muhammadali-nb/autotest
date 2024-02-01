@@ -367,6 +367,7 @@ main {
   }
 
   &-footer > button {
+    width: 152px;
     @include l-md {
       width: 100%;
     }
@@ -377,6 +378,18 @@ main {
     max-width: unset;
     min-height: 600px;
     height: 100%;
+  }
+}
+
+.contacts__form-feedback {
+  padding: 80px 100px 60px 100px;
+  max-width: 680px;
+
+  @include l-xl {
+    padding: 60px 60px 40px 60px;
+  }
+  @include l-lg {
+    padding: 40px 50px 30px 50px;
   }
 }
 
@@ -464,6 +477,7 @@ main {
   .contacts__form-textarea {
     @extend .contacts__form-input;
     min-height: 100px;
+    height: 100%;
     resize: none;
 
     &::-webkit-scrollbar {
@@ -543,6 +557,12 @@ main {
     }
   }
 
+  svg {
+    path {
+      stroke: #222;
+    }
+  }
+
   &.small {
     padding: 10px 25px;
     //font-weight: 500;
@@ -553,6 +573,12 @@ main {
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
     color: white;
     border-color: $redColor;
+
+    svg {
+      path {
+        stroke: white;
+      }
+    }
   }
 
   &:active {
@@ -560,6 +586,12 @@ main {
     color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border-color: $redColor;
+
+    svg {
+      path {
+        stroke: #222222;
+      }
+    }
   }
 
   &.big {
@@ -618,11 +650,22 @@ main {
     filter: drop-shadow(0px 0px 10px rgba(55, 73, 96, 0.25));
     border-radius: 2px;
 
+    svg {
+      path {
+        stroke: white;
+      }
+    }
+
     &:hover {
       background: #ffffff;
       box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
       border-radius: 2px;
       color: $textColor;
+      svg {
+        path {
+          stroke: #222;
+        }
+      }
     }
 
     &:active {
@@ -897,7 +940,7 @@ code {
 
   .modal-image-block {
     width: 55%;
-    @include l-lg {
+    @include l-xl {
       display: none;
     }
     display: flex;
@@ -908,9 +951,9 @@ code {
   }
 
   .modal-content-block-container {
-    width: 45%;
+    width: 51%;
 
-    @include l-lg {
+    @include l-xl {
       width: 100%;
     }
   }
@@ -1398,9 +1441,11 @@ code {
     text-transform: uppercase;
     color: $textColor;
     margin-bottom: 20px;
+    letter-spacing: 0.5px;
 
     @include l-md {
       font-size: 44px;
+      letter-spacing: normal;
     }
 
     @include l-sm {
@@ -1494,6 +1539,19 @@ code {
     @include l-md {
       height: 18px;
       width: 18px;
+    }
+
+    &_desk {
+      width: 24px;
+      height: 24px;
+      transition: all 0.4s ease-in-out;
+
+      &.turned {
+        transform: rotate(180deg) translateX(3px);
+        // path {
+        //   stroke: #bf3535;
+        // }
+      }
     }
 
     &_mobile {
@@ -2001,6 +2059,7 @@ code {
 
   &_side {
     margin: 0 0 60px 0;
+    padding: 0 0 0 42px;
 
     @include l-md {
       margin: 0 0 32px 0;
@@ -2012,7 +2071,8 @@ code {
     text-transform: uppercase;
     font-size: 52px;
     border-left: 6px solid $redColor;
-    padding: 0 0 0 36px;
+    padding: 0 0 0 30px;
+    line-height: normal;
 
     &:first-child {
       @include l-sm {
@@ -2116,7 +2176,7 @@ code {
     //   }
     // }
 
-    margin: 0 0 40px 0;
+    margin: 0 0 50px 0;
     //font-weight-semibold text-uppercase font-size-50 mb-px-40 line-height-120
 
     @include l-md {
@@ -2443,7 +2503,7 @@ code {
 
 .faq-contacts {
   //margin: 100px 0 90px;
-  padding: 0 0 0 36px;
+  padding: 0 0 0 30px;
   border-left: 6px solid #bf3535;
   @include l-md {
     padding: 0 0 0 24px;
@@ -2680,4 +2740,19 @@ code {
   &_collapse-body {
     padding: 32px 0 0 0;
   }
+}
+
+.order-call_button {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+
+  & > svg {
+    margin: 0 0 0 10px;
+  }
+  // font-weight-semibold d-flex align-items-center
 }

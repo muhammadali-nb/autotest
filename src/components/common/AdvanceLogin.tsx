@@ -12,7 +12,7 @@ const AdvanceLogin = (props: AdvanceLoginProps) => {
 		<div className={`mobile-menu_advance ${isShow && "active"} `}>
 			<div className="mobile-menu_advance_content">
 				<h5>Войдите в личный кабинет</h5>
-				<p>Бронировать и арендовать автомобили и станет быстрее и удобнее</p>
+				<p>Бронировать и арендовать автомобили станет быстрее и удобнее</p>
 			</div>
 			<div
 				className="mobile-menu_advance_close"

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { CarSameLink } from "../../common/CarCard";
-import Api from "../../../Api";
+import Api, { ErrorResponse } from "../../../Api";
 import { CarDetailLayout } from "../../layout/CarDetailLayout";
 import RentCarImagesCarousel from "./RentCarImagesCarousel";
 import { Container } from "react-bootstrap";
@@ -18,7 +18,9 @@ import RentDetailModalLayout from "../../layout/RentDetailModalLayout";
 import Loader from "../../common/Loader";
 import CarFullImageModal from "./RentCarFullImage";
 import { RentBookingPaymentStatus } from "../../../types/RentTypes";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import api from "../../../core/axios";
+import MetaDecorator from "../../layout/MetaDecorator";
 
 const RentCarDetail = () => {
 	const { carID } = useParams();
@@ -31,10 +33,18 @@ const RentCarDetail = () => {
 	const { isAuthenticated, has_profile } = useAuth();
 	const [step, setStep] = useState<CarBookingStepsType>("rent");
 	const [depositPrice, setDepositPrice] = useState(0);
+	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 	const { data, error, isLoading, isSuccess } = useQuery({
 		queryKey: [`rent-car-${carID}`, carID],
 		queryFn: () => rentService.getOneCar(carID),
 	});
+
+	const title =
+		data?.item?.brand +
+		" " +
+		data?.item?.model +
+		" - " +
+		process.env.REACT_APP_WEBSITE_NAME;
 
 	const checkCardPayment = () => {
 		if (!location.state) {
@@ -58,7 +68,7 @@ const RentCarDetail = () => {
 
 	const getPriceCar = async () => {
 		try {
-			const res = await axios.get(
+			const res = await api.get(
 				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${carID}`,
 				{
 					withCredentials: true,
@@ -68,31 +78,43 @@ const RentCarDetail = () => {
 				setDepositPrice(res.data.summ);
 				if (res.data.summ > 0) setStep("payment");
 				else setStep("finish");
+				setModalBookingCar(true);
 			}
 		} catch (error) {
-			console.log(error);
+			setStep("rent");
+			setErrorMessage(
+				(error as AxiosError<ErrorResponse>).response?.data.message ??
+					"Возникла ошибка с сервером поробуйте позже"
+			);
 		}
 	};
+
 	const checkSteps = async () => {
 		if (!isAuthenticated && !has_profile) {
 			setStep("start");
+			setModalBookingCar(true);
 		} else if (isAuthenticated && has_profile) {
 			await getPriceCar();
-			setStep("payment");
 		} else if (isAuthenticated && !has_profile) {
 			setStep("create");
+			setModalBookingCar(true);
 		}
-		setModalBookingCar(true);
 	};
 	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={error} />;
 	return (
 		<>
+			<MetaDecorator
+				title={title}
+				url={`/catalog/${carID}`}
+				image={data?.item?.images[0].image}
+			/>
 			{!isLoading && (
 				<>
 					<BrowserView>
 						<RentDetailModalLayout>
 							<RentCarDetailModal
+								errorMessage={errorMessage}
 								step={step}
 								setStep={setStep}
 								paymentStatus={paymentStatus}
@@ -118,6 +140,11 @@ const RentCarDetail = () => {
 											{data.item?.brand} <span>{data.item?.model}</span>
 										</h1>
 										<h4 className="car-detail_id">{data.item?.regnum}</h4>
+										{errorMessage && (
+											<div className={"my-2 text-red-color font-size-8"}>
+												{errorMessage}
+											</div>
+										)}
 										<div className="car-detail_price">
 											<p>Цена</p>
 											<div className="car-detail_price-value">

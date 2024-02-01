@@ -81,6 +81,8 @@
   text-transform: uppercase;
   margin-bottom: 20px;
   color: $textColor;
+  text-decoration: none;
+  cursor: pointer;
   .model {
     color: $redColor;
   }
@@ -92,6 +94,10 @@
   @include l-sm {
     margin: 0 0 16px 0;
   }
+}
+
+.car__card-regnum {
+  color: #606569;
 }
 .car__card-payment {
   font-family: "Inter";
@@ -249,6 +255,8 @@
     text-transform: uppercase;
     margin-bottom: 20px;
     color: $textColor;
+    text-decoration: none;
+    cursor: pointer;
     .model {
       color: $redColor;
     }

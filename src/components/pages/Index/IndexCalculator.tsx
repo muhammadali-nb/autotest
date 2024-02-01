@@ -53,7 +53,7 @@ const IndexCalculatorPeriodIndicator: React.FC<{
 				(props.bold ? " font-weight-medium" : "")
 			}>
 			{props.amount.toLocaleString()}
-			{props.suffix ?? ""}
+			<span>{props.suffix ?? ""}</span>
 			<span
 				className={
 					"indexCalculatorPeriodIndicatorComment" +
@@ -87,7 +87,7 @@ const IndexCalculator: React.FC<IndexCalculatorProps> = (props) => {
 	const monthSum = () => {
 		let base = values.price - values.prepaid;
 		let interestRate = (props.koef ?? 1.5) / 100;
-		return Math.round((base / values.time + base * interestRate) * 100) / 100;
+		return Math.round(((base / values.time + base * interestRate) * 100) / 100); // proverit nado
 	};
 	const daySum = () => {
 		return Math.round(monthSum() / (props.daysInMonth ?? 30));
@@ -166,13 +166,13 @@ const IndexCalculator: React.FC<IndexCalculatorProps> = (props) => {
 				<IndexCalculatorPeriodIndicator
 					amount={daySum()}
 					suffix={" ₽"}
-					comment={" в сутки"}
+					comment={"/ в сутки"}
 					bold={props.fontBold}
 				/>
 				<IndexCalculatorPeriodIndicator
 					amount={monthSum()}
 					suffix={" ₽"}
-					comment={" в месяц"}
+					comment={"/ в месяц"}
 					bold={props.fontBold}
 				/>
 			</div>

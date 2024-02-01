@@ -20,6 +20,7 @@ import coverLetter02 from "../../images/common/cover-letter-02.png";
 import first from "../../images/common/number-faq/01.svg";
 import second from "../../images/common/number-faq/02.svg";
 import third from "../../images/common/number-faq/03.svg";
+import MetaDecorator from "../layout/MetaDecorator";
 
 const Header: React.FC<{ text: string | ReactNode }> = (props) => (
 	<div className={"arrange-leasing_header"}>{props.text}</div>
@@ -138,7 +139,10 @@ const HowBlock = () => (
 					</p>
 				</div>
 			</div>
-			<div className={"font-size-16 line-height-140 font-weight-medium ls-001"}>
+			<div
+				className={
+					"arrange-leasing_side font-size-16 line-height-140 font-weight-medium ls-001"
+				}>
 				<div className={"arrange-leasing_options"}>
 					<p>Список документов, необходимых для заключения договора:</p>
 				</div>
@@ -554,14 +558,15 @@ const FaqBlock = () => {
 		<div className={"faq-block"}>
 			<Container fluid={"xxl"}>
 				<h1 className={"faq-block_header"}>
-					чАСТО ЗАДАВАЕМЫЕ <br /> ВОПРОСЫ
+					{/* чАСТО ЗАДАВАЕМЫЕ <br />  */}
+					ВОПРОСЫ
 				</h1>
 				<p className={"faq-block_description"}>
 					В разделе Вопросы, вы также можете получить ответы по вопросам аренды
 					автомобиля
 				</p>
 				<Row className={"faq-block_body gx-lg-5 gx-sm-0"}>
-					<Col sm={12} lg={6} className="px-0 px-md-3 faq-block_body-leftside">
+					<Col sm={12} lg={6} className="px-0  faq-block_body-leftside">
 						<div
 						// className={"w-100"}
 						>
@@ -572,7 +577,7 @@ const FaqBlock = () => {
 							))}
 						</div>
 					</Col>
-					<Col sm={12} lg={6} className="px-0 px-md-3 faq-block_body-rightside">
+					<Col sm={12} lg={6} className="px-0  faq-block_body-rightside">
 						<div
 						// className={"w-100"}
 						>
@@ -600,19 +605,22 @@ const ProgramsPage = () => {
 			"leasing,rent,аренда,авто,новое авто, новый автомобиль,подержанное авто,подержанный автомобиль,автомобиль,лизинг,бронирование",
 	};
 	return (
-		<BaseLayout
-			title={title}
-			meta={meta}
-			headerImage={"dark"}
-			headerSelectedLink={"/programs"}>
-			<div>
-				<FirstBlock />
-				<SecondBlock />
-				<HowBlock />
-				<StepBlock />
-				<FaqBlock />
-			</div>
-		</BaseLayout>
+		<>
+			<MetaDecorator title={title} url="/programs" />
+			<BaseLayout
+				title={title}
+				meta={meta}
+				headerImage={"dark"}
+				headerSelectedLink={"/programs"}>
+				<div>
+					<FirstBlock />
+					<SecondBlock />
+					<HowBlock />
+					<StepBlock />
+					<FaqBlock />
+				</div>
+			</BaseLayout>
+		</>
 	);
 };
 

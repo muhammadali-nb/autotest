@@ -5,12 +5,16 @@ import {
 	AuthResponce,
 	RegisterErrorType,
 } from "../types/AuthContextTypes";
-
+import { jwtDecode } from "jwt-decode";
+import api from "../core/axios";
 const actions = {
 	INITIALIZE: "INITIALIZE",
 	LOGIN: "LOGIN",
 	REGISTER: "REGISTER",
 	LOGOUT: "LOGOUT",
+	CONFIRMPHONE: "CONFIRMPHONE",
+	LOGINCONFIRM: "LOGINCONFIRM",
+	INITIALIZETEST: "INITIALIZETEST",
 };
 
 const localData = localStorage.getItem("voshod-user");
@@ -48,6 +52,7 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		} = action.payload;
 
 		return {
@@ -61,23 +66,10 @@ const handlers = {
 			middle_name,
 			last_name,
 			phone,
+			access_token,
 		};
 	},
 	LOGIN: (state: AuthInitialState, action) => {
-		const { user } = action.payload;
-
-		return {
-			...state,
-			isAuthenticated: true,
-			user,
-		};
-	},
-	LOGOUT: (state: AuthInitialState) => ({
-		...state,
-		isAuthenticated: false,
-		user: null,
-	}),
-	REGISTER: (state: AuthInitialState, action) => {
 		const {
 			user,
 			user_status,
@@ -104,6 +96,65 @@ const handlers = {
 			phone,
 		};
 	},
+	LOGOUT: (state: AuthInitialState) => ({
+		...state,
+		isAuthenticated: false,
+		user: null,
+	}),
+	REGISTER: (state: AuthInitialState, action) => {
+		const {
+			user,
+			user_status,
+			has_profile,
+			error_message,
+			api_status,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+			access_token,
+		} = action.payload;
+
+		return {
+			...state,
+			isAuthenticated: true,
+			user,
+			user_status,
+			has_profile,
+			api_status,
+			error_message,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+			access_token,
+		};
+	},
+	CONFIRMPHONE: (state: AuthInitialState, action) => {
+		const {
+			isAuthenticated,
+			api_status,
+			user_status,
+			has_profile,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+		} = action.payload;
+
+		return {
+			...state,
+			isAuthenticated,
+			isInitialized: true,
+			api_status,
+			user_status,
+			has_profile,
+			first_name,
+			middle_name,
+			last_name,
+			phone,
+		};
+	},
 };
 
 const reducer = (state: AuthInitialState, action) =>
@@ -123,7 +174,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const initialize = async () => {
-		axios
+		api
 			.get("https://taxivoshod.ru/api/login.php", {
 				withCredentials: true,
 			})
@@ -209,23 +260,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				{ withCredentials: true }
 			);
 
-			const payload = {
-				isAuthenticated: true,
-				api_status: "success",
-				has_profile: false,
-				user_status: null,
-				err_message: null,
-				first_name: res.data.first_name,
-				middle_name: res.data.middle_name,
-				last_name: res.data.last_name,
-				phone: res.data.phone
-			};
-
-			localStorage.setItem("voshod-user", JSON.stringify(payload));
+			//@ts-ignore
+			const access_token = res.headers?.get("x-jwt-access");
+			//@ts-ignore
+			const refresh_token = res.headers?.get("x-jwt-refresh");
+			if (refresh_token) localStorage.setItem("refreshToken", refresh_token);
+			if (access_token) localStorage.setItem("accessToken", access_token);
 
 			dispatch({
 				type: actions.REGISTER,
-				payload: payload,
+				payload: {
+					isAuthenticated: true,
+					api_status: "success",
+					has_profile: res.data.has_profile,
+					user_status: null,
+					err_message: null,
+					first_name: res.data.first_name,
+					middle_name: res.data.middle_name,
+					last_name: res.data.last_name,
+					phone: res.data.phone,
+					// access_token: access_token,
+				},
 			});
 
 			// dispatch({
@@ -268,6 +323,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				`https://taxivoshod.ru/api/login.php?logout=1`,
 				{ withCredentials: true }
 			);
+			localStorage.removeItem("refreshToken");
+			localStorage.removeItem("accessToken");
+			localStorage.removeItem("sessid");
 			return res.data;
 		} catch (error) {
 			console.log((error as AxiosError).response);
@@ -279,16 +337,80 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		}
 	};
 
-	const login = (data: AuthResponce) => {
-		dispatch({
-			type: actions.LOGIN,
-			payload: data,
-		});
+	const login = async (data: AuthResponce) => {
+		try {
+			const res: AxiosResponse<AuthResponce> = await axios.get(
+				`https://taxivoshod.ru/api/login.php?logout=1`,
+				{ withCredentials: true }
+			);
+			const { refresh_token } = res.data;
+			if (refresh_token) localStorage.setItem("refreshToken", refresh_token);
+
+			dispatch({
+				type: actions.LOGIN,
+				payload: data,
+			});
+
+			return res.data;
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	const initializetest = async () => {
+		const stored_refresh_token =
+			globalThis.localStorage.getItem("refreshToken");
+		const stored_access_token = globalThis.localStorage.getItem("accessToken");
+		const stored_expiration_date = jwtDecode(stored_access_token as string).exp;
+		// console.log("old " + stored_access_token);
+		if (!stored_refresh_token && !stored_access_token) {
+			return;
+		}
+
+		const sendToken = () => {
+			//@ts-ignore
+			if (new Date() > stored_expiration_date) {
+				console.log("access");
+				return stored_access_token;
+			} else {
+				console.log("refresh");
+				return stored_refresh_token;
+			}
+		};
+
+		try {
+			const res = axios.get(
+				"https://taxivoshod.ru/api/voshod-auto/?w=refresh-token",
+				{
+					headers: {
+						Authorization: `Bearer ${sendToken()}`,
+					},
+					withCredentials: true,
+				}
+			);
+
+			//@ts-ignore
+			const new_access_token = res.headers?.get("x-jwt-access");
+			//@ts-ignore
+			const new_refresh_token = res.headers?.get("x-jwt-refresh");
+			if (new_refresh_token)
+				localStorage.setItem("refreshToken", new_access_token);
+			if (new_access_token)
+				localStorage.setItem("accessToken", new_access_token);
+
+			// console.log("new " + new_access_token);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
 		initialize().catch(console.error);
 	}, []);
+
+	// useEffect(() => {
+	// 	initializetest().catch(console.error);
+	// }, []);
 
 	return (
 		<AuthContext.Provider
@@ -297,6 +419,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				register,
 				initialize,
 				logout,
+				initializetest,
+				login,
 			}}>
 			{children}
 		</AuthContext.Provider>

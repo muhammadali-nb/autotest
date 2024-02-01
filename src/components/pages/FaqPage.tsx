@@ -4,6 +4,7 @@ import BaseLayout, { MetaTags } from "../layout/BaseLayout";
 import FoldableQuestion from "../common/FoldableQuestion";
 import Api, { FaqResponse } from "../../Api";
 import { useLoaderData } from "react-router-dom";
+import MetaDecorator from "../layout/MetaDecorator";
 
 export const FaqNotFound = () => {
 	return (
@@ -92,72 +93,77 @@ const FaqPage = () => {
 		keywords: "faq,вопросы,авто,лизинг,аренда",
 	};
 	return (
-		<BaseLayout
-			meta={meta}
-			title={title}
-			headerImage={"dark"}
-			headerSelectedLink={"/faq"}>
-			<div className={"faq"}>
-				<Container fluid={"xxl"}>
-					<div className={"faq_header d-none d-md-block"}>
-						Часто задаваемые вопросы
-					</div>
-					<div className={"faq_header d-block d-md-none"}>вопросы</div>
-					<div className={"faq_description faq_description-top "}>
-						Список ответов на часто задаваемые вопросы от наших клиентов
-						постоянно пополняется.
-						{/* <br /> */}
-					</div>
-					<div className={"faq_description"}>
-						Напишите нам, чтобы мы могли дополнить список.
-					</div>
+		<>
+			<MetaDecorator title={title} url="/faq" />
+			<BaseLayout
+				meta={meta}
+				title={title}
+				headerImage={"dark"}
+				headerSelectedLink={"/faq"}>
+				<div className={"faq"}>
+					<Container fluid={"xxl"}>
+						<div className={"faq_header d-none d-md-block"}>
+							Часто задаваемые вопросы
+						</div>
+						<div className={"faq_header d-block d-md-none"}>вопросы</div>
+						<div className={"faq_description faq_description-top "}>
+							Список ответов на часто задаваемые вопросы от наших клиентов
+							постоянно пополняется.
+							{/* <br /> */}
+						</div>
+						<div className={"faq_description"}>
+							Напишите нам, чтобы мы могли дополнить список.
+						</div>
 
-					<div className="nav nav-tabs car-info-btns_mobile d-flex d-md-none">
-						<button
-							onClick={() => {
-								setPage("leasing");
-							}}
-							className={"nav-link " + (page === "leasing" ? "active" : "")}>
-							Лизинг
-						</button>
-						<button
-							onClick={() => {
-								setPage("rent");
-							}}
-							className={"nav-link " + (page === "rent" ? "active" : "")}>
-							Аренда
-						</button>
-					</div>
+						<div className="nav nav-tabs car-info-btns_mobile d-flex d-md-none">
+							<button
+								onClick={() => {
+									setPage("leasing");
+								}}
+								className={"nav-link " + (page === "leasing" ? "active" : "")}>
+								Лизинг
+							</button>
+							<button
+								onClick={() => {
+									setPage("rent");
+								}}
+								className={"nav-link " + (page === "rent" ? "active" : "")}>
+								Аренда
+							</button>
+						</div>
 
-					<div
-						className={"car-info-btns justify-content-start d-none d-md-flex"}>
-						<button
+						<div
 							className={
-								"car-info-btn big " + (page === "leasing" ? "active" : "")
-							}
-							onClick={() => {
-								setPage("leasing");
-							}}>
-							Лизинг
-						</button>
-						<button
-							className={
-								"car-info-btn big " + (page === "rent" ? "active" : "")
-							}
-							onClick={() => {
-								setPage("rent");
-							}}>
-							Аренда
-						</button>
-					</div>
-					<div className={"faq_questions"}>
-						{page === "leasing" && <FaqLeasing />}
-						{page === "rent" && <FaqRent />}
-					</div>
-					<FaqNotFound />
-				</Container>
-			</div>
-		</BaseLayout>
+								"car-info-btns justify-content-start d-none d-md-flex"
+							}>
+							<button
+								className={
+									"car-info-btn big " + (page === "leasing" ? "active" : "")
+								}
+								onClick={() => {
+									setPage("leasing");
+								}}>
+								Лизинг
+							</button>
+							<button
+								className={
+									"car-info-btn big " + (page === "rent" ? "active" : "")
+								}
+								onClick={() => {
+									setPage("rent");
+								}}>
+								Аренда
+							</button>
+						</div>
+						<div className={"faq_questions"}>
+							{page === "leasing" && <FaqLeasing />}
+							{page === "rent" && <FaqRent />}
+						</div>
+						<FaqNotFound />
+					</Container>
+				</div>
+			</BaseLayout>
+		</>
 	);
 };
 

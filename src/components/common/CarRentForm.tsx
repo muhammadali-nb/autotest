@@ -32,6 +32,7 @@ import ModalFormTemplate, {
 	ModalTemplateInput,
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
+import api from "../../core/axios";
 export type CarBookingStepsType =
 	| "rent"
 	| "start"
@@ -404,10 +405,10 @@ export const CarRentPaymentType: React.FC<{
 		}
 		setRedButton(false);
 		try {
-			const res = await axios.get(
+			const res = await api.get(
 				`https://taxivoshod.ru/api/voshod-auto/?w=pay&summ=${
 					payment === "sbp" ? sbpPrice : cardPrice
-				}&payment=${payment === "card" ? "classic" : "sbp"}&car=${
+				}&payment=${payment === "card" ? "classic" : "sbp"}&car_id=${
 					props.car.id
 				}`,
 				{ withCredentials: true }
@@ -735,13 +736,13 @@ export const CarRequestFormContent: React.FC<{
 	setStep: (e: CarBookingStepsType) => void;
 	car: CarDataType;
 	getDeposit: () => void;
+	errorMessage: null | string;
 }> = (props) => {
 	const { isAuthenticated, user_status, has_profile } = useAuth();
 
 	const ckeckSteps = async () => {
 		if (isAuthenticated && has_profile) {
 			await props.getDeposit();
-			props.setStep("payment");
 		} else if (!has_profile && user_status === "need_auth") {
 			props.setStep("start");
 		} else if (isAuthenticated && !has_profile) {
@@ -804,6 +805,11 @@ export const CarRequestFormContent: React.FC<{
 					)}
 
 					<div></div>
+					{props.errorMessage && (
+						<div className={"my-2 text-red-color font-size-12"}>
+							{props.errorMessage}
+						</div>
+					)}
 				</div>
 				<div
 					className={
@@ -1138,7 +1144,7 @@ export const CarBookingForm: React.FC<{
 
 	const getPriceCar = async () => {
 		try {
-			const res = await axios.get(
+			const res = await api.get(
 				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${props.car_id}`,
 				{
 					withCredentials: true,
@@ -1174,6 +1180,7 @@ export const CarBookingForm: React.FC<{
 				}>
 				{step === "rent" && (
 					<CarRequestFormContent
+						errorMessage={error_message}
 						getDeposit={getPriceCar}
 						setStep={setStep}
 						closeFunc={handleClose}

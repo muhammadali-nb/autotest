@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import badge1 from "./../../../images/index/bank.png";
-import badge2 from "./../../../images/index/cards.png";
-import badge3 from "./../../../images/index/jewel.png";
-import badge4 from "./../../../images/index/document.png";
+import badge1 from "./../../../images/index/bank.svg";
+import badge2 from "./../../../images/index/cards.svg";
+import badge3 from "./../../../images/index/jewel.svg";
+import badge4 from "./../../../images/index/document.svg";
 import Animator from "../../../Animator";
+import { BrowserView, MobileView } from "react-device-detect";
 
 const IndexAboutBadge: React.FC<{
 	index: number;
@@ -51,7 +52,8 @@ const IndexBadges = () => {
 				image={badge1}
 				header={"просто"}
 				id={"index__badge1"}>
-				Не требуется одобрение на автокредит или потребительский кредит в банке
+				Не требуется одобрение на автокредит <br /> или потребительский кредит в
+				банке
 			</IndexAboutBadge>
 			<IndexAboutBadge
 				index={2}
@@ -89,6 +91,7 @@ const IndexLabel: React.FC<{ big: string; small: string }> = (props) => {
 const IndexAboutContent = () => {
 	return (
 		<Container fluid={"xxl"} style={{ position: "relative", zIndex: 40 }}>
+			<div className={"index__logo-overlay"}></div>
 			<Row>
 				<Col sm={12} lg={6}>
 					<div className={"index__about-header"}>О&nbsp;компании</div>
@@ -96,22 +99,34 @@ const IndexAboutContent = () => {
 						Наша компания создана в 2012 году.
 					</div>
 					<div className={"index__about-text"} style={{ maxWidth: "620px" }}>
-						Основным видом деятельности является предоставление услуг по аренде
-						и лизингу автомобилей для компаний и физический лиц.
+						Основным видом деятельности является{" "}
+						<br className="d-block d-md-none" /> предоставление услуг по аренде
+						и лизингу <br className="d-block d-md-none" /> автомобилей для
+						компаний <br className="d-none d-md-block" /> и физический лиц.
 					</div>
 					<div className={"index__about-text"} style={{ maxWidth: "560px" }}>
-						Мы ценим комфорт и время наших клиентов, поэтому стремимся оформить
-						автомобиль для вас в максимально короткие сроки. Индивидуальный
-						подход позволяет выбрать условия необходимые именно вам.
+						Мы ценим комфорт и время наших клиентов, <br /> поэтому стремимся
+						оформить автомобиль для вас <br /> в максимально короткие сроки.
+						Индивидуальный подход позволяет выбрать условия необходимые именно
+						вам.
 					</div>
 				</Col>
 				<Col lg={6}></Col>
 				<Col sm={12} lg={4}>
-					<div className={"index__about-labels"}>
-						<IndexLabel big={">10"} small={"Лет работы"} />
-						<IndexLabel big={">500"} small={"Автомобилей"} />
-						<IndexLabel big={">500"} small={"Довольных клиентов"} />
-					</div>
+					<BrowserView>
+						<div className={"index__about-labels"}>
+							<IndexLabel big={">10"} small={"Лет работы"} />
+							<IndexLabel big={">500"} small={"Автомобилей"} />
+							<IndexLabel big={">500"} small={"Довольных клиентов"} />
+						</div>
+					</BrowserView>
+					<MobileView>
+						<div className={"index__about-labels"}>
+							<IndexLabel big={"> 10"} small={"Лет работы"} />
+							<IndexLabel big={"> 500"} small={"Автомобилей"} />
+							<IndexLabel big={"> 500"} small={"Довольных клиентов"} />
+						</div>
+					</MobileView>
 				</Col>
 			</Row>
 		</Container>
