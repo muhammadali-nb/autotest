@@ -7,7 +7,6 @@ import { IRentHistoryData } from "../../../types/PersonalAccount/RentHistoryType
 import PersonalAccountBalance from "../PersonalAccount/PersonalAccountBalance/PersonalAccountBalance";
 import { useQuery } from "@tanstack/react-query";
 import RentHistoryService from "../../../api-functions/rent-history-page/rent-history-page";
-import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
 import RentHistoryPageLoader from "./RentHistoryPageLoader";
 
