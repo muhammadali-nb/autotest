@@ -7,8 +7,6 @@ import PersonalAccountData from "./PersonalAccountData";
 import PersonalAccountForm from "./PersonalAccountForm/PersonalAccountForm";
 import PersonalAccountSocials from "./PersonalAccountSocials/PersonalAccountSocials";
 import { useOutside } from "../../../hooks/useOutside";
-import PersonalAccountMenuMobile from "./PersonalAccountMenuMobile";
-import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 import PersonalAccountBalance from "./PersonalAccountBalance/PersonalAccountBalance";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
@@ -98,7 +96,6 @@ const PersonalAccountPage: React.FC = () => {
 								<div className="personal-account_head d-flex align-items-end justify-content-between">
 									<PersonalAccountData data={userData} />
 									<PersonalAccountBalance />
-									{/* <PersonalAccountCards /> */}
 								</div>
 								<div className="personal-account_page_body">
 									<PersonalAccountForm data={userData} />
@@ -111,7 +108,6 @@ const PersonalAccountPage: React.FC = () => {
 								<div className="d-block d-lg-none personal-account_footer">
 									ООО ВОСХОДⓒ 2023 год
 								</div>
-								{/* <PersonalAccountMenuBurger onClick={() => setIsShow(!isShow)} /> */}
 							</div>
 						</Col>
 					</Row>
