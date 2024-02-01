@@ -43,6 +43,7 @@ export const router = createBrowserRouter(
 			<Route path="personal-account/rent-history" element={<PersonalAccountRentHistoryPage />} />	
 			<Route path="personal-account/leasing" element={<PersonalAccountLeasingPage />} />
 			<Route path="personal-account/payment" element={<PaymentsPage />} />
+			<Route path="personal-account/raiting" element={<PersonalAccountPage /> } />
 			<Route path="personal-account/transactions" element={<TransactionsPage />} />
 			<Route path="personal-account/fines" element={<FinesPage />} />
 			<Route path="personal-account/subscriptions" element={<SubscriptionsPage />} />
