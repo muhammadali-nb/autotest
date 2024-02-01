@@ -1,17 +1,9 @@
-import {
-	Route,
-	Router,
-	Routes,
-	createBrowserRouter,
-	createRoutesFromElements,
-} from "react-router-dom";
+import { Route,createBrowserRouter,createRoutesFromElements} from "react-router-dom";
 import IndexPage, { indexLoader } from "../components/pages/IndexPage";
 import CatalogPage from "../components/pages/CatalogPage";
 import CarPage, { carDataLoader } from "../components/pages/CarPage";
 import RentPage from "../components/pages/RentPage";
-import RentCarDetail, {
-	carRentDataLoader,
-} from "../components/pages/Rent/RentCarDetail";
+import RentCarDetail from "../components/pages/Rent/RentCarDetail";
 import ProgramsPage, {
 	faqProgramsLoader,
 } from "../components/pages/ProgramsPage";
