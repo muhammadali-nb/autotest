@@ -22,6 +22,7 @@ import TransactionsPage from "../components/pages/Transactions/TransactionsPage"
 import FinesPage from "../components/pages/Fines/FinesPage";
 import { PaymentsPage } from "../components/pages/Payments/PaymentsPage";
 import SubscriptionsPage from "../components/pages/Subscriptions/SubscriptionsPage";
+import PersonalAccountRaiting from "../components/pages/PersonalAccountRaiting/PersonalAccountRating";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -43,7 +44,7 @@ export const router = createBrowserRouter(
 			<Route path="personal-account/rent-history" element={<PersonalAccountRentHistoryPage />} />	
 			<Route path="personal-account/leasing" element={<PersonalAccountLeasingPage />} />
 			<Route path="personal-account/payment" element={<PaymentsPage />} />
-			<Route path="personal-account/raiting" element={<PersonalAccountPage /> } />
+			<Route path="personal-account/raiting" element={<PersonalAccountRaiting /> } />
 			<Route path="personal-account/transactions" element={<TransactionsPage />} />
 			<Route path="personal-account/fines" element={<FinesPage />} />
 			<Route path="personal-account/subscriptions" element={<SubscriptionsPage />} />
