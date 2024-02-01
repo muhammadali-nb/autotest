@@ -65,7 +65,6 @@ export const userData: userDataProps = {
 };
 
 const PersonalAccountPage: React.FC = () => {
-	// for menu personal account
 	const { ref, isShow, setIsShow } = useOutside(false);
 	const navigate = useNavigate();
 	const { isAuthenticated } = useAuth();
