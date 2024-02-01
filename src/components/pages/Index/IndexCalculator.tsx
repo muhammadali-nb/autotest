@@ -53,7 +53,7 @@ const IndexCalculatorPeriodIndicator: React.FC<{
 				(props.bold ? " font-weight-medium" : "")
 			}>
 			{props.amount.toLocaleString()}
-			{props.suffix ?? ""}
+			<span>{props.suffix ?? ""}</span>
 			<span
 				className={
 					"indexCalculatorPeriodIndicatorComment" +

@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 // import callIcon from "../../img/common/Phone-header.svg";
 // import callIconDark from "../../img/common/Phone-header-dark.svg"; // header phone icons
-import logoDark from "./../../images/logo-dark.svg";
-import logoDarkCred from "./../../images/logo-dark-cred.svg";
-import logoLight from "./../../images/logo-light.svg";
+import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import CallRequestForm from "../common/CallRequestForm";
-import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
-import { faPhoneVolume } from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
-import ModalFormTemplate from "../common/ModalFormTemplate";
-import { MobileModal } from "../common/MobileModal/MobileModal";
-import callIcon from "./../../images/common/Phone-header.svg";
-import callIconDark from "./../../images/common/Phone-header-dark.svg";
 import AuthForm from "../common/AuthForm";
+import CallRequestForm from "../common/CallRequestForm";
+import { MobileModal } from "../common/MobileModal/MobileModal";
+import callIconDark from "./../../images/common/Phone-header-dark.svg";
+import callIcon from "./../../images/common/Phone-header.svg";
+import logoDarkCred from "./../../images/logo-dark-cred.svg";
+import logoDark from "./../../images/logo-dark.svg";
+import logoLight from "./../../images/logo-light.svg";
 
 export type HeaderType = "transparent" | "white" | "logo";
 export type HeaderImage = "dark" | "darkCred" | "light";
@@ -94,9 +91,24 @@ export const HeaderLinks: React.FC<{
 
 				<CallRequestForm
 					text={
-						<span className={"font-weight-semibold"}>
-							Заказать звонок&nbsp;&nbsp;&nbsp;
-							<FontAwesomeIcon icon={faArrowRight} />
+						<span className={"order-call_button"}>
+							Заказать звонок
+							{/* &nbsp;&nbsp;&nbsp; */}
+							{/* <FontAwesomeIcon icon={faArrowRight} /> */}
+							<svg
+								width="18"
+								height="18"
+								viewBox="0 0 18 18"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M15.75 9L11.561 4.5M15.75 9L11.561 13.5M15.75 9H2.25"
+									stroke="white"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								/>
+							</svg>
 						</span>
 					}
 					small={true}
@@ -155,7 +167,7 @@ export const WhiteHeader: React.FC<{
 							src={callIconDark}
 							className="d-block d-md-none"
 							onClick={() => setMobileModal(true)}
-							alt="order call"
+							alt="Заказать звонок"
 						/>
 					</div>
 					<div className={"header-desktop"}>

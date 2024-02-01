@@ -539,6 +539,12 @@ main {
     }
   }
 
+  svg {
+    path {
+      stroke: #222;
+    }
+  }
+
   &.small {
     padding: 10px 25px;
     //font-weight: 500;
@@ -549,6 +555,12 @@ main {
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
     color: white;
     border-color: $redColor;
+
+    svg {
+      path {
+        stroke: white;
+      }
+    }
   }
 
   &:active {
@@ -556,6 +568,12 @@ main {
     color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     border-color: $redColor;
+
+    svg {
+      path {
+        stroke: #222222;
+      }
+    }
   }
 
   &.big {
@@ -614,11 +632,22 @@ main {
     filter: drop-shadow(0px 0px 10px rgba(55, 73, 96, 0.25));
     border-radius: 2px;
 
+    svg {
+      path {
+        stroke: white;
+      }
+    }
+
     &:hover {
       background: #ffffff;
       box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
       border-radius: 2px;
       color: $textColor;
+      svg {
+        path {
+          stroke: #222;
+        }
+      }
     }
 
     &:active {
@@ -2689,4 +2718,19 @@ code {
   &_collapse-body {
     padding: 32px 0 0 0;
   }
+}
+
+.order-call_button {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+
+  & > svg {
+    margin: 0 0 0 10px;
+  }
+  // font-weight-semibold d-flex align-items-center
 }
