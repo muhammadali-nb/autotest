@@ -1,0 +1,128 @@
+@mixin flexColumnCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+@mixin lowGrayFont {
+    color: rgba(186, 188, 191, 1);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.personal-account {
+
+    &__raiting-page {
+        border-top: 2px solid #f2f3f6;
+        
+    }
+
+    &__header {
+        margin-top: 30px;
+        margin-bottom: 25px;
+
+        font-size: 18px;
+        font-weight: 600;
+        color: rgba(186, 188, 191, 1);
+
+        text-transform: uppercase;
+    }
+
+    &__raiting-list {
+        border-radius: unset;
+    }
+
+    &__raiting-item {
+        border: none;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+
+        &:nth-of-type(-n + 3) {
+            background-color: rgba(0, 143, 75, 0.05);
+        }
+
+        
+
+        &__raiting {
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+
+
+
+            background-color: rgba(160, 219, 201, 1);
+            color: rgba(34, 34, 34, 1); 
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__avatar {
+            margin-left: 20px;
+            min-width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid rgba(231, 231, 232, 1);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+
+            & > img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        &__fullname {
+            @include flexColumnCenter;
+
+            width: 40%;
+
+            margin-left: 20px;
+
+            &--name {
+                @include lowGrayFont;
+            }
+        }
+
+        &__car {
+            @include flexColumnCenter;
+
+            width: 25%;
+
+            color: rgba(186, 188, 191, 1);
+
+            &--number {
+                @include lowGrayFont;
+            }
+        }
+
+        &__bonus {
+
+            @include flexColumnCenter;
+
+            width: 10%;
+
+            &--type {
+                @include lowGrayFont;
+            }
+        }
+
+        &__worked {
+            @include flexColumnCenter;
+
+            &--orders {
+                @include lowGrayFont;
+            }
+        }
+    }
+}
