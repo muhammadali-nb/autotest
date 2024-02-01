@@ -3,7 +3,6 @@
   align-items: end;
   justify-content: space-between;
   padding: 0 0 20px 0;
-  border-bottom: 2px solid #f2f3f6;
   &_title {
     color: var(--Text, #222);
     font-family: Inter;
@@ -29,6 +28,24 @@
 
     & > svg {
       transform: translateY(-3px);
+    }
+  }
+
+  &_mobile {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 12px 0;
+    border-bottom: 1px solid #222;
+    & > h2 {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 140%; /* 22.4px */
+      letter-spacing: 0.16px;
+      text-transform: uppercase;
+      margin: 0;
+      &:last-child {
+        color: #e7e7e8;
+      }
     }
   }
 }

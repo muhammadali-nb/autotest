@@ -1,4 +1,5 @@
 import React from "react";
+
 import { BankCardProps } from "../PersonalAccount/BankCard/BankCard";
 
 const ScoreCard = (props: BankCardProps) => {

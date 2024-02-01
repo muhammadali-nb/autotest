@@ -6,6 +6,14 @@
   text-decoration: none;
 }
 
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -384,6 +392,16 @@ main {
   transition: all 0.2s ease-in-out;
   position: relative;
 
+  &[type="number"] {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    -moz-appearance: textfield;
+  }
+
   @include media-breakpoint-down(md) {
     font-size: 14px !important;
   }
@@ -750,6 +768,10 @@ code {
 
   &.show {
     opacity: 1;
+  }
+
+  &.upper {
+    bottom: 95px;
   }
 }
 

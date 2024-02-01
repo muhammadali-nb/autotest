@@ -1,0 +1,178 @@
+.personal-account_balance {
+    position: relative;
+
+    &.negative {
+        color: #b80600;
+    }
+
+    &-head {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: 500;
+
+        &.negative {
+            color: #B80600;
+
+            svg {
+                path {
+                    fill: #B80600;
+
+                    @media (max-width: 767px) {
+                        stroke: #B80600;
+                        fill: none;
+                    }
+                }
+            }
+        }
+
+        span {
+            display: inline-flex;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        svg {
+            transition: 0.3s;
+            transform-origin: center;
+        }
+
+        &.active {
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 10px);
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        min-width: 300px;
+        width: fit-content;
+        padding: 25px 20px 0 20px;
+        transition: 0.2s;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10%);
+        background: #fff;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+
+        &.active {
+            pointer-events: all;
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    &-title {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        line-height: 140%;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f2f3f6;
+
+        &.negative {
+            color: #B80600;
+        }
+    }
+
+    &-list {
+        display: flex;
+        flex-direction: column;
+        padding: 25px 0;
+        margin-bottom: 0;
+    }
+
+    &-item {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: flex-start;
+        font-weight: 500;
+
+        &:not(:last-child) {
+            margin-bottom: 25px;
+        }
+
+        &.deposit {
+            color: #737D89;
+        }
+
+        &.negative {
+            color: #B80600;
+        }
+
+        .personal-account_balance-icon {
+            position: relative;
+            margin-right: 15px;
+            width: 22px;
+
+            img,
+            svg {
+                width: 100%;
+                height: 22px;
+                object-fit: cover;
+            }
+
+            &:hover {
+                .personal-account_balance-tooltip {
+                    opacity: 1;
+                }
+            }
+
+            .personal-account_balance-tooltip {
+                position: absolute;
+                z-index: 8;
+                left: -20px;
+                top: calc(100% + 15px);
+                width: 300px;
+                padding: 10px 20px;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 140%;
+                color: #fff;
+                border-radius: 4px;
+                background: rgba(34, 34, 34, 0.9);
+                backdrop-filter: blur(1px);
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        .personal-account_balance-value {
+            margin-left: auto;
+        }
+    }
+
+    &-action {
+        width: 100%;
+        padding-bottom: 25px;
+
+        .site-btn {
+            svg {
+                margin-left: 10px;
+            }
+
+            &:hover {
+                svg {
+                    path {
+                        stroke: #fff;
+                    }
+                }
+            }
+        }
+    }
+    
+    &-actions {
+        width: 100%;
+        padding-bottom: 15px;
+    }
+}

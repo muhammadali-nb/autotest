@@ -31,7 +31,8 @@ export const ModalTemplateInput: React.FC<ModalTemplateInputProps> = (
 				"call-content-input " +
 				(props.error ? "error " : "") +
 				(props.small ? "small-form-input " : "") +
-				(props.container_class_name ?? "")
+				(props.container_class_name ?? "") +
+				(props.className ?? "")
 			}
 			style={props.container_style}
 			data-error={
@@ -102,11 +103,11 @@ export const ModalTemplatePhone: React.FC<ModalTemplateInputProps> = (
 			<InputMask
 				{...props}
 				className={"contacts__form-input " + (props.error ? " error" : "")}
-				mask="+9 999 999 99 99"
-				maskChar=" "
+				mask="+7 (999) 999-99-99"
+				maskChar="_"
 				type="tel"
 				name={props.name}
-				placeholder={"+7 000 000 00 00"}
+				placeholder={"+7 (000) 000-00-00"}
 			/>
 		</div>
 	);
@@ -131,7 +132,9 @@ export const ModalTemplateConfirm: React.FC<ModalTemplateInputProps> = (
 					<span
 						style={{ fontSize: "14px", marginLeft: "12px" }}
 						className={
-							"font-weight-medium " + (props.error ? "text-red-color" : "")
+							"font-weight-medium " +
+							(props.error ? "text-red-color " : "") +
+							(props.className ?? " ")
 						}>
 						Я соглашаюсь с&nbsp;
 						<Link

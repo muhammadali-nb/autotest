@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BaseLayout, { MetaTags } from "../layout/BaseLayout";
 import IndexLogo from "./Index/IndexLogo";
 import IndexSteps from "./Index/IndexSteps";
@@ -13,15 +13,22 @@ const IndexPage = () => {
 		description: process.env.REACT_APP_WEBSITE_NAME,
 		keywords: "leasing,rent,аренда,авто,автомобиль,лизинг,бронирование",
 	};
+	const [whiteMenu, setWhiteMenu] = useState(false); // этот стейт отвечает за цвет menu для первой секций
+
 	return (
 		<>
 			<BaseLayout
+				whiteMenu={whiteMenu}
 				title={title}
 				meta={meta}
 				headerType={"transparent"}
 				headerSelectedLink={"/"}
 				noTopPadding={true}>
-				<IndexLogo bgNoCar={false} />
+				<IndexLogo
+					sectionId="index__logo"
+					setDarkMenu={setWhiteMenu}
+					bgNoCar={false}
+				/>
 				<IndexSteps />
 				<IndexAbout />
 				<IndexGreatDeals />

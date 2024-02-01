@@ -205,8 +205,15 @@ $selectedColor: #bf3535;
     white-space: nowrap;
     border-radius: 2px;
 
+    a {
+      text-decoration: none;
+      color: #222;
+    }
+
     span {
       display: block;
+      text-decoration: none;
+      color: #222;
 
       &:not(:last-child) {
         margin-bottom: 10px;
@@ -225,7 +232,8 @@ $selectedColor: #bf3535;
       border: 0;
       align-items: center;
 
-      img, svg {
+      img,
+      svg {
         margin-right: 10px;
         pointer-events: none;
         max-width: 16px;
@@ -377,6 +385,11 @@ $selectedColor: #bf3535;
   &_user {
     color: white;
 
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
     span {
       &:nth-child(2) {
         color: #606569;
@@ -409,4 +422,44 @@ $selectedColor: #bf3535;
   //-ms-filter:blur(20px);
   //-moz-filter:blur(20px);
   //-webkit-filter:blur(20px);
+}
+
+.mobile-menu__white {
+  &_container {
+    background-color: #fff;
+  }
+
+  &_routes {
+    &_item {
+      & > a {
+        & > p {
+          color: #222222;
+        }
+      }
+    }
+  }
+
+  &_login {
+    & > h5 {
+      color: #222;
+    }
+  }
+
+  &_user {
+    color: #222;
+
+    a {
+      color: #222;
+    }
+
+    button {
+      color: #222;
+
+      svg {
+        path {
+          stroke: #bf3535;
+        }
+      }
+    }
+  }
 }

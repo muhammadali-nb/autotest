@@ -24,6 +24,7 @@ export type BaseLayoutProps = {
 	meta?: MetaTags;
 	noTopPadding?: boolean;
 	[x: string]: any;
+	whiteMenu?: boolean;
 };
 const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 	props: BaseLayoutProps
@@ -65,6 +66,7 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 					menuRef={ref}
 					setMenuIsOpen={setIsShow}
 					menuIsOpen={isShow}
+					whiteTheme={props.whiteMenu}
 				/>
 				{!props.noTopPadding && <div className="no-top-padding" />}
 				<Header
@@ -76,13 +78,11 @@ const BaseLayout: React.FunctionComponent<BaseLayoutProps> = (
 					mobileModalType="orderCall"
 				/>
 				<main>{props.children}</main>
-
 				<Footer
 					small={props.footerSmall}
 					noContacts={props.footerNoContacts}
 					noForm={props.footerNoForm}
 				/>
-
 				<Scroller />
 				<ToggleSentUserData />
 				<Cookies />

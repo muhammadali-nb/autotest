@@ -1,6 +1,6 @@
+
+import { CallRequestData, ConfirmPhone } from "../Api";
 import { RentCreateAccountForm } from '../types/RentTypes';
-import { CallRequestData } from "../Api";
-import { ConfirmPhone } from '../Api';
 
 
 let Utils = {
@@ -92,7 +92,7 @@ let Utils = {
         }
         return result;
     },
-    formatPhone(number: string) {
+    formatPhone(number: string): string {
         if (number) {
             const cleanedStr = number.replace(/\D/g, '');
             const countryCode = '+7';
@@ -103,6 +103,118 @@ let Utils = {
 
             return `${countryCode} (${areaCode}) ${firstPart} ${secondPart} ${thirdPart}`;
         }
+        return number;
+    },
+    validateEmail(request: { email: string, errors: Object }): Object {
+        let errors = {};
+
+        if (!request.email || request.email.length <= 0) {
+            errors['email'] = "Не указан E-mail";
+        } else if (!request.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+            errors['email'] = "E-mail в неверном формате";
+        }
+
+        return errors;
+    },
+    validateAddBankCard(request: {
+        number: string;
+        name?: string;
+        main?: boolean;
+        errors: Object;
+        confirm: boolean
+    }) {
+        let errors = {}
+        if (!request.number) {
+            errors["number"] = "Не указана карта";
+        } else if (request.number.length < 16) {
+            errors["number"] = "Номер карты не корректен"
+        }
+        if (!request.confirm)
+            errors['confirm'] = true;
+        return errors;
+    },
+    validateWithdraw(request: {
+        card: {
+            name: string,
+            number: string
+        }, amount: number, errors: Object
+    }, balance: number | undefined) {
+        let errors = {};
+
+        const card = request.card
+        if (!card.name || !card.number) {
+            errors["card"] = "Не указана карта или номер счёта";
+        }
+        if (!request.amount || request.amount <= 0) {
+            errors["amount"] = "Не указана сумма"
+        }
+        if (balance && request.amount > balance) {
+            errors["amount"] = "Недостаточно средств"
+        }
+
+        return errors;
+    },
+    validateTransaction(request: {
+        sum: number,
+        from: {
+            name: string,
+            icon: string,
+            balance: number,
+        },
+        to: {
+            name: string,
+            icon: string,
+            balance: number
+        },
+        errors: Object
+    }): Object {
+        let errors = {};
+
+        if (request.sum <= 0 || !request.sum) {
+            errors["sum"] = "Не указана сумма";
+        }
+        if (!request.from || !request.from.name) {
+            errors["from"] = "Не указан счёт для отправления"
+        }
+        if (request.from.balance < request.sum) {
+            errors["from"] = "На указанном счёте недостаточно средств для перевода"
+        }
+        if (!request.to || !request.to.name) {
+            errors["to"] = "Не указан счёт для получения"
+        }
+
+        return errors;
+    },
+    validateReplenish(request: {
+        sum: number,
+        type: string,
+        from: {
+            name: string,
+            number: string
+        },
+        to: {
+            name: string,
+            icon: string,
+            balance: number
+        },
+        errors: {}
+    }): Object {
+        let errors = {};
+
+        if (request.sum <= 0 || !request.sum) {
+            errors["sum"] = "Не указана сумма";
+        }
+        if ((!request.from || !request.from.number) && request.type !== "sbp") {
+            errors["from"] = "Не указана карта или счёт";
+        }
+        if (!request.to || !request.to.name) {
+            errors["to"] = "Не указан счёт для пополнения";
+        }
+
+        return errors;
+    },
+    formatNumber(value: number): string {
+        return new Intl.NumberFormat().format(value);
     }
 }
 export default Utils;

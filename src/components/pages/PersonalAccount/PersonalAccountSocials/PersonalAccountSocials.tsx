@@ -1,51 +1,89 @@
 import React from "react";
 import "./PersonalAccountsSocials.scss";
+import { userManagerProps } from "../PersonalAccountPage";
+import { Link } from "react-router-dom";
+import vk from '../../../../images/personal-account/social/vk.svg';
+import wp from '../../../../images/personal-account/social/wp.svg';
+import tg from '../../../../images/personal-account/social/tg.svg';
+import tgBlue from "../../../../images/personal-account/social/tg-blue.svg";
 
-const PersonalAccountSocials = () => {
+const PersonalAccountSocials: React.FC<{
+	data: userManagerProps,
+	tg_connected: boolean
+}> = (props) => {
+	const { data, tg_connected } = props;
+
+	const socialIcon = (type: string) => {
+		switch (type) {
+			case "vk": return vk;
+			case "wp": return wp;
+			case "tg": return tg;
+			default: return;
+		}
+	}
+
 	return (
 		<div className="personal-account-socials">
-			<h1 className="personal-account-socials_header">Ваш менеджер</h1>
-			<div className="personal-account-socials_divider"></div>
-			<h4 className="personal-account-socials_name">Иванова</h4>
-			<h3 className="personal-account-socials_fullname">Мария Ивановна</h3>
-			<p className="personal-account-socials_number">8 (900) 999 90 90</p>
-			<p className="personal-account-socials_email">maria.ii@mail.ru</p>
-			<div className="d-flex justify-content-between align-items-end">
-				<p className="personal-account-socials_worktime">
-					Мы на связи каждый день с 10:00 до 19:00
-				</p>
-				<div className="personal-account-socials_links">
-					<div className="personal-account-socials_link">
-						<svg
-							viewBox="0 0 24 16"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg">
-							<path
-								fillRule="evenodd"
-								clipRule="evenodd"
-								d="M23.4474 0.939473C23.6162 0.386842 23.4474 0 22.6596 0H20.0335C19.3582 0 19.0581 0.35 18.8892 0.736842C18.8892 0.736842 17.5574 3.94211 15.6629 6.00526C15.0439 6.61316 14.7813 6.79737 14.4436 6.79737C14.2748 6.79737 14.0309 6.61316 14.0309 6.06053V0.939473C14.0309 0.276315 13.8434 0 13.2806 0H9.15387C8.7412 0 8.47859 0.313157 8.47859 0.589473C8.47859 1.21579 9.41648 1.36316 9.52903 3.09474V6.88947C9.52903 7.71842 9.37897 7.86579 9.04132 7.86579C8.1597 7.86579 5.98378 4.66053 4.70824 0.976316C4.44563 0.294737 4.20178 0 3.52649 0H0.900381C0.150063 0 0 0.35 0 0.736842C0 1.41842 0.881623 4.8079 4.1455 9.28421C6.32142 12.3421 9.37897 14 12.1551 14C13.8246 14 14.0309 13.6316 14.0309 13.0053V10.6842C14.0309 9.94737 14.181 9.8 14.725 9.8C15.1189 9.8 15.7754 9.98421 17.3323 11.4579C19.1143 13.2079 19.4145 14 20.4086 14H23.0347C23.7851 14 24.1602 13.6316 23.9351 12.9132C23.6913 12.1947 22.8472 11.1447 21.7217 9.89211C21.1027 9.17368 20.1835 8.41842 19.9209 8.03158C19.527 7.53421 19.6396 7.31316 19.9209 6.88947C19.9209 6.87105 23.1285 2.45 23.4474 0.939473Z"
-							/>
-						</svg>
-					</div>
-					<div className="personal-account-socials_link">
-						<svg
-							viewBox="0 0 24 24"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg">
-							<path d="M12 0C5.38336 0 7.74381e-05 5.3833 7.74381e-05 12C7.74381e-05 14.0661 0.533815 16.0977 1.54599 17.8904L0.0193817 23.3374C-0.0307051 23.5163 0.0178165 23.7083 0.147207 23.8414C0.246859 23.9442 0.382511 24 0.521815 24C0.563554 24 0.605815 23.9948 0.647032 23.9849L6.33188 22.5767C8.0677 23.5085 10.0227 24 12 24C18.6167 24 24 18.6167 24 12C24 5.3833 18.6167 0 12 0ZM18.0365 16.2344C17.7798 16.945 16.5485 17.5936 15.9569 17.6807C15.4258 17.7584 14.7538 17.7918 14.016 17.5602C13.5689 17.4193 12.995 17.2325 12.2599 16.919C9.16961 15.601 7.15153 12.5285 6.9971 12.3256C6.84319 12.1226 5.73919 10.6763 5.73919 9.17948C5.73919 7.68261 6.53484 6.94643 6.81762 6.64174C7.1004 6.33704 7.43379 6.26087 7.63936 6.26087C7.84492 6.26087 8.04996 6.26348 8.22996 6.27183C8.41936 6.28122 8.67344 6.20035 8.92335 6.79409C9.18005 7.40348 9.79622 8.90035 9.87239 9.05322C9.94961 9.20556 10.0007 9.38348 9.89848 9.58644C9.79622 9.78939 9.74509 9.91617 9.59066 10.0941C9.43622 10.272 9.26718 10.4906 9.1284 10.6273C8.97396 10.7791 8.81379 10.9435 8.99327 11.2482C9.17274 11.5529 9.791 12.5489 10.7072 13.3555C11.8837 14.3917 12.8766 14.713 13.1844 14.8654C13.4922 15.0177 13.6722 14.9922 13.8517 14.7892C14.0312 14.5857 14.6218 13.9007 14.8268 13.5965C15.0319 13.2923 15.2374 13.3424 15.5202 13.4442C15.803 13.5454 17.3176 14.281 17.6254 14.4334C17.9332 14.5857 18.1388 14.6619 18.216 14.7887C18.2932 14.915 18.2932 15.5243 18.0365 16.2344Z" />
-						</svg>
-					</div>
-					<div className="personal-account-socials_link">
-						<svg
-							viewBox="0 0 24 20"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg">
-							<path d="M1.4714 8.71005C1.4714 8.71005 12.086 4.31967 15.7673 2.77372C17.1786 2.15538 21.9643 0.176548 21.9643 0.176548C21.9643 0.176548 24.1732 -0.689117 23.9891 1.4133C23.9277 2.27905 23.4369 5.30901 22.9461 8.58638C22.2098 13.2242 21.4121 18.2948 21.4121 18.2948C21.4121 18.2948 21.2894 19.717 20.2464 19.9644C19.2033 20.2117 17.4853 19.0987 17.1786 18.8513C16.9331 18.6658 12.5768 15.8831 10.9816 14.5227C10.5521 14.1517 10.0613 13.4097 11.0429 12.544C13.2518 10.5033 15.8901 7.96805 17.4853 6.3603C18.2216 5.61822 18.9579 3.8868 15.8901 5.98921C11.5338 9.01926 7.23888 11.8638 7.23888 11.8638C7.23888 11.8638 6.25715 12.4821 4.41649 11.9255C2.57575 11.3691 0.428278 10.627 0.428278 10.627C0.428278 10.627 -1.04418 9.69946 1.4714 8.71005Z" />
-						</svg>
+			<div className="personal-account-socials_wrapper">
+				<h1 className="personal-account-socials_header">Ваш менеджер</h1>
+				<div className="personal-account-socials_divider"></div>
+				<h4 className="personal-account-socials_name">{data.last_name}</h4>
+				<h3 className="personal-account-socials_fullname">{data.first_name + " " + data.middle_name}</h3>
+				<Link className="personal-account-socials_number" to={"tel:" + data.phone}>{data.phone}</Link>
+				<Link className="personal-account-socials_email" target="_blank" to={"mailto:" + data.email}>{data.email}</Link>
+				<div className="d-flex justify-content-between align-items-end">
+					<p className="personal-account-socials_worktime">
+						Мы на связи каждый день с 10:00 до 19:00
+					</p>
+					<div className="personal-account-socials_links">
+						{data.social && data.social.map((item, index) =>
+							<Link target="_blank" to={item.url} className="personal-account-socials_link" key={index}>
+								<img src={socialIcon(item.type)} alt={item.type} />
+							</Link>
+						)}
 					</div>
 				</div>
 			</div>
+			<Link className={"personal-account-socials_wrapper tg " + (tg_connected ? "connected" : "")} target="_blank" to={"/"}>
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+					<rect width="40" height="40" rx="20" fill="url(#paint0_linear_5970_50547)" />
+					<path fillRule="evenodd" clipRule="evenodd"
+						d="M9.04622 19.7917C14.8771 17.2595 18.7588 15.5768 20.708 14.7605C26.2557 12.4448 27.4219 12.045 28.1716 12.0283C28.3382 12.0283 28.7047 12.0616 28.9546 12.2616C29.1545 12.4282 29.2045 12.6447 29.2378 12.8113C29.2711 12.9779 29.3044 13.3278 29.2711 13.5943C28.9713 16.7597 27.6718 24.4398 27.0054 27.9717C26.7222 29.471 26.1724 29.9708 25.6393 30.0208C24.4731 30.1208 23.5902 29.2545 22.474 28.5214C20.708 27.3719 19.7251 26.6556 18.0092 25.5227C16.0266 24.2232 17.3094 23.5069 18.4423 22.3407C18.7422 22.0408 23.8567 17.3761 23.9567 16.9596C23.9733 16.9096 23.9733 16.7097 23.8567 16.6097C23.7401 16.5098 23.5735 16.5431 23.4402 16.5764C23.257 16.6097 20.4581 18.4756 15.0104 22.1574C14.2107 22.7072 13.4944 22.9738 12.8446 22.9571C12.1283 22.9404 10.7622 22.5573 9.72927 22.2241C8.47979 21.8242 7.48021 21.6077 7.56351 20.908C7.61349 20.5414 8.11328 20.1749 9.04622 19.7917Z"
+						fill="white" />
+					<defs>
+						<linearGradient id="paint0_linear_5970_50547" x1="0" y1="40" x2="40" y2="0"
+							gradientUnits="userSpaceOnUse">
+							<stop offset="0.146484" stopColor="#239FDB" />
+							<stop offset="0.853516" stopColor="#28A8EA" />
+						</linearGradient>
+					</defs>
+				</svg>
+				{tg_connected ?
+					<p className="font-size-18">
+						Telegram подключен!
+					</p>
+					:
+					<>
+						<p className="font-size-18">
+							Подключите Telegram <br />
+							для бесплатных сообщений
+						</p>
+						<div className="personal-account-socials_tg">
+							Подключить
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path d="M16.25 9L12.061 4.5M16.25 9L12.061 13.5M16.25 9H2.75" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+							</svg>
+						</div>
+						<div className="personal-account-socials_mobIcon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path d="M10 18L16 12L10 6" stroke="#222222" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+							</svg>
+						</div>
+					</>
+				}
+			</Link>
 		</div>
+
 	);
 };
 

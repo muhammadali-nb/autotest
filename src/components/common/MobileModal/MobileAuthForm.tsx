@@ -8,7 +8,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { ModalTemplatePhone, ModalTemplateConfirm, ModalTemplateInput, ModalTemplateContent } from "../ModalFormTemplate";
 import FileInput from "../FileInput";
 import { RentCreateAccountForm } from "../../../types/RentTypes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MobileAuthPhone: React.FC<{
     data: ConfirmPhone,
@@ -62,30 +62,25 @@ const MobileAuthPhone: React.FC<{
                     onClick={() => phoneSend()}>
                     Отправить код
                 </button>
-                {/* <ModalTemplateConfirm
-                    small={false}
-                    error={props.data.errors["confirm"]}
-                    confirmed={props.data.confirm}
-                    onChange={(e) => update("confirm", e.target.checked)}
-                    mobile={true}
-                /> */}
             </div>
         </div>
     )
 }
 
-const MobileAuthCode: React.FC<{
+export const MobileAuthCode: React.FC<{
     data: ConfirmPhone,
     setStep: (arg0: string) => void,
     timer: number,
     repeatRequest: () => void,
-    closeFunc: () => void
+    closeFunc: () => void,
+    send: (code: string, setPassed: (arg0: boolean) => void, setError: (arg0: string) => void) => Promise<void>,
+    type?: string,
 }> = (props) => {
     const [passed, setPassed] = useState(false);
     const [code, setCode] = useState("      ");
     const [error, setError] = useState("");
     const [idPrefix] = useState(Utils.randomString());
-    const { register, error_message } = useAuth();
+    const { error_message } = useAuth();
     const [timer, setTimer] = useState(props.timer);
 
     useEffect(() => {
@@ -107,31 +102,7 @@ const MobileAuthCode: React.FC<{
         return minutes + ":" + seconds;
     };
 
-    const send = async () => {
-        if (code.replace(/\D+/g, "").length < 5) {
-            setPassed(false);
-            setError("Укажите код подтверждения!");
-            return;
-        }
-        setError("");
 
-        try {
-            const res: any = await register(props.data.phone, code);
-            if (res.success) {
-                if (!res.has_profile) {
-                    props.setStep("createAccount");
-                } else {
-                    props.closeFunc();
-                    props.setStep('auth');
-                }
-                // props.setStep("createAccount");
-                setPassed(true);
-            }
-        } catch (error) {
-            console.log(error);
-            setPassed(false);
-        }
-    };
 
     const update = (index: number, value: string) => {
         if (!value.replace(/\D/, "")) {
@@ -228,17 +199,29 @@ const MobileAuthCode: React.FC<{
             <div className={"d-flex justify-content-between mobile-modal_body-action mb-3"}>
                 <button
                     className={"site-btn small " + (!passed ? "dark" : "")}
-                    onClick={() => send()}>
+                    onClick={(e) => {
+                        e.preventDefault();
+                        props.send(code, setPassed, setError);
+                    }}>
                     Подтвердить код
                 </button>
-                <button
-                    className={
-                        "default-link text-uppercase text-decoration-none default-transition text-gray-color text-hover-default font-size-12 "
-                    }
-                    onClick={() => props.setStep("auth")}>
-                    <FontAwesomeIcon icon={faAngleLeft} />
-                    &nbsp;&nbsp;&nbsp;Изменить номер
-                </button>
+                {(!props.type || props.type !== "old") &&
+                    <button
+                        className={
+                            "default-link text-uppercase text-decoration-none default-transition text-gray-color text-hover-default font-size-12 "
+                        }
+                        onClick={() => {
+                            if (props.type) {
+                                props.setStep("new");
+                            } else {
+                                props.setStep("auth");
+                            }
+                        }}>
+                        <FontAwesomeIcon icon={faAngleLeft} />
+                        &nbsp;&nbsp;&nbsp;{props.type && props.type === "email" ? <>Изменить почту</> : <>Изменить номер</>}
+                    </button>
+                }
+
             </div>
         </div>
     )
@@ -257,6 +240,8 @@ const MobileAuthAccount: React.FC<{
         errors: {},
     });
     const [passed, setPassed] = useState(false);
+
+    const navigate = useNavigate();
 
     const createAccount = async () => {
         let errors = Utils.validateRentCreateAccont(data);
@@ -293,8 +278,9 @@ const MobileAuthAccount: React.FC<{
                 const payload = await res.json();
                 if (payload.result === 1) {
                     console.log(payload);
-                    window.location.reload();
+                    // window.location.reload();
                     // props.closeFunc();
+                    navigate('/personal-account');
                     props.setStep('auth');
                 }
             } catch (error) {
@@ -366,7 +352,9 @@ const MobileAuthForm: React.FC<{
     const [error_message, setErrorMessage] = useState<string | null>(null);
     const [timer, setTimer] = useState(0);
 
-    const { user_status } = useAuth();
+    const { user_status, register } = useAuth();
+
+    const navigate = useNavigate();
 
     const phoneConfirm = () => {
         if (user_status === "banned") {
@@ -392,6 +380,33 @@ const MobileAuthForm: React.FC<{
             });
     }
 
+    const sendCode = async (code: string, setPassed: (arg0: boolean) => void, setError: (arg0: string) => void) => {
+        if (code.replace(/\D+/g, "").length < 5) {
+            setPassed(false);
+            setError("Укажите код подтверждения!");
+            return;
+        }
+        setError("");
+
+        try {
+            const res: any = await register(data.phone, code);
+            if (res.success) {
+                if (!res.has_profile) {
+                    setStep("createAccount");
+                } else {
+                    // props.closeFunc();
+                    navigate('/personal-account');
+                    setStep('auth');
+                }
+                // props.setStep("createAccount");
+                setPassed(true);
+            }
+        } catch (error) {
+            console.log(error);
+            setPassed(false);
+        }
+    };
+
     return (
         <>
             <h1>
@@ -412,6 +427,7 @@ const MobileAuthForm: React.FC<{
                     timer={timer}
                     repeatRequest={phoneConfirm}
                     closeFunc={props.closeFunc}
+                    send={sendCode}
                 />
             }
             {step === 'createAccount' &&
@@ -421,7 +437,7 @@ const MobileAuthForm: React.FC<{
                 />
             }
             <p className="form-mobile-policy ">
-                Нажимая на кнопку “Забронировать”, вы соглашаетесь с{" "}
+                Нажимая на кнопку, вы соглашаетесь с{" "}
                 <Link
                     to={"/policy"}
                     target={"_blank"}

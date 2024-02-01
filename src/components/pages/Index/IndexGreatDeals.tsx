@@ -64,7 +64,11 @@ const IndexGreatDeals = () => {
 								responsive={false}
 								id={"great-deal_car1"}
 								car={{
-									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
+									tags: [
+										{ id: 17, name: "Лизинг до 7 лет" },
+										{ id: 18, name: "Аванс 0%" },
+										{ id: 19, name: "Гарантия 150 тыс. км" },
+									],
 									id: 1,
 									brand: "Porsche",
 									model: "911 GT3",
@@ -81,7 +85,11 @@ const IndexGreatDeals = () => {
 								id={"great-deal_car2"}
 								car={{
 									id: 1,
-									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
+									tags: [
+										{ id: 17, name: "Лизинг до 7 лет" },
+										{ id: 18, name: "Аванс 0%" },
+										{ id: 19, name: "Гарантия 150 тыс. км" },
+									],
 									model_id: "Sonata",
 
 									brand: "Porsche",
@@ -98,7 +106,11 @@ const IndexGreatDeals = () => {
 								id={"great-deal_car3"}
 								car={{
 									id: 1,
-									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
+									tags: [
+										{ id: 17, name: "Лизинг до 7 лет" },
+										{ id: 18, name: "Аванс 0%" },
+										{ id: 19, name: "Гарантия 150 тыс. км" },
+									],
 									model_id: "Sonata",
 
 									brand: "Porsche",
@@ -114,7 +126,11 @@ const IndexGreatDeals = () => {
 								responsive={false}
 								id={"great-deal_car4"}
 								car={{
-									tags: [{ id: 17, name: "Гарантия 150 тыс. км" }],
+									tags: [
+										{ id: 17, name: "Лизинг до 7 лет" },
+										{ id: 18, name: "Аванс 0%" },
+										{ id: 19, name: "Гарантия 150 тыс. км" },
+									],
 									id: 1,
 									model_id: "Sonata",
 									brand: "Porsche",

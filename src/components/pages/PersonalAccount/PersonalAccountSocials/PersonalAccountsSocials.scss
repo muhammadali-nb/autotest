@@ -1,10 +1,88 @@
 .personal-account-socials {
-  background: var(--default-white, #fff);
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  margin: -7px;
 
-  width: 300px;
-  padding: 25px 20px;
-  height: 400px;
+  &_wrapper {
+    background: var(--default-white, #fff);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    margin: 7px;
+    width: 300px;
+    padding: 25px 20px;
+    height: fit-content;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+
+    &.tg {
+      border-radius: 4px;
+      text-decoration: none;
+      color: #222;
+
+      p {
+        font-weight: 600;
+        margin: 20px 0;
+      }
+
+      &.connected {
+        display: flex;
+        align-items: center;
+
+        p {
+          margin: 0 0 0 20px;
+        }
+      }
+
+      &:hover {
+        color: #fff;
+        background: linear-gradient(45deg, #239fdb 14.65%, #28a8ea 85.35%), #fff;
+
+        svg {
+          rect {
+            fill: #fff;
+          }
+          path {
+            fill: #24A0DD;
+          }
+        }
+
+        .personal-account-socials_tg {
+          color: #24A0DD;
+          background: #fff;
+
+          svg {
+            path {
+              stroke: #24A0DD;
+            }
+          }
+        }
+      }
+
+      .personal-account-socials_tg {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 15px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+        border-radius: 2px;
+        background: linear-gradient(45deg, #239fdb 14.65%, #28a8ea 85.35%);
+        box-shadow: 0px 0px 10px 0px rgba(55, 73, 96, 0.25);
+        text-transform: uppercase;
+    
+        svg {
+          margin-left: 10px;
+        }
+      }
+
+      .personal-account-socials_mobIcon {
+        display: none;
+      }
+    }
+  }
 
   &_divider {
     width: 32px;
@@ -36,10 +114,12 @@
 
   &_number,
   &_email {
+    display: block;
     color: var(--Text, #222);
     font-family: Inter;
     font-size: 14px;
     font-weight: 500;
+    text-decoration: none;
   }
 
   &_number {
@@ -60,18 +140,26 @@
     border: 2px solid;
     border-radius: 50%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: #222;
 
     &:not(:last-child) {
       margin: 0 0 20px 0;
     }
 
-    svg {
-      width: 12px;
+    svg,
+    img {
+      width: 60%;
+      height: auto;
     }
     svg > path {
       fill: #222;
+    }
+
+    &:hover {
+      color: #222;
     }
   }
 
@@ -91,8 +179,48 @@
 @media (max-width: 767px) {
   .personal-account-socials {
     width: 100%;
-    height: auto;
-    position: relative;
+
+    &_wrapper {
+      width: 100%;
+      height: auto;
+      position: relative;
+
+      &.tg {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding: 16px 20px;
+
+        svg:first-child {
+          width: 34px;
+          height: 34px;
+        }
+
+        p {
+          font-size: 14px !important;
+          margin: 0 16px;
+          line-height: 120%;
+        }
+
+        .personal-account-socials_tg {
+          display: none;
+        }
+
+        .personal-account-socials_mobIcon {
+          display: block;
+
+          svg {
+            width: 24px;
+            height: auto;
+          }
+        }
+
+        &.connected {
+          justify-content: flex-start;
+        }
+      }
+    }
+
     &_divider {
       display: block;
     }

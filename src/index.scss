@@ -25,5 +25,11 @@
 @import "components/pages/PersonalAccount/PersonalAccountBankCards/PersonalAccountBankCards.scss";
 @import "components/common/PersonalAccount/PersonalAccountCarCard/personal-account-car-card";
 
+// personal account leasing styles
+@import "components/pages/PersonalAccountLeasing/PersonalAccountLeasingCard/PersonalAccountLeasingCard.scss";
+
 // rent styles
 @import "components/common/Rent/RentModalMobile/RentModalMobile.scss";
+
+//personal account card payments styles
+@import "components/pages/Payments/Payments.scss";

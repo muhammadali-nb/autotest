@@ -7,7 +7,7 @@ import Api, { ConfirmPhone, CallRequestData, ErrorResponse, RentCreateAccountFor
 import axios, { AxiosError } from 'axios';
 import { useAuth } from "../../hooks/useAuth";
 import FileInput from "./FileInput";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AuthFormContent: React.FC<{
     closeFunc: () => void,
@@ -117,6 +117,8 @@ const AuthPhoneConfirm: React.FC<{
     const { register, error_message } = useAuth();
     const [timer, setTimer] = useState(props.timer);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         let id = "confirm" + idPrefix + "-0";
         let item = document.getElementById(id) as HTMLInputElement;
@@ -150,7 +152,8 @@ const AuthPhoneConfirm: React.FC<{
                 if (!res.has_profile) {
                     props.setStep("createAccount");
                 } else {
-                    props.closeFunc();
+                    // props.closeFunc();
+                    // navigate('/personal-account');
                     props.setStep('auth');
                 }
 
@@ -310,6 +313,8 @@ const AuthCreateAccount: React.FC<{
     });
     const [passed, setPassed] = useState(false);
 
+    const navigate = useNavigate();
+
     const createAccount = async () => {
         let errors = Utils.validateRentCreateAccont(data);
 
@@ -346,7 +351,8 @@ const AuthCreateAccount: React.FC<{
                 if (payload.result === 1) {
                     console.log(payload);
                     // props.closeFunc();
-                    window.location.reload();
+                    // window.location.reload();
+                    navigate('/personal-account')
                     props.setStep('auth')
                 }
             } catch (error) {
@@ -487,7 +493,9 @@ const AuthForm: React.FC<{
                 <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
                     {isAuthenticated ?
                         <div className="user-tooltip-content">
-                            <span className="font-size-16 cursor-pointer fw-medium" onClick={() => navigate('/personal-account')}>{last_name + " " + first_name}</span>
+                            <p
+														// to={"/personal-account"} link tag should be have
+														><span className="font-size-16 cursor-pointer fw-medium m-0">{last_name + " " + first_name}</span></p>
                             {phone &&
                                 <span className="font-size-12 fw-medium">{Utils.formatPhone(phone)}</span>
                             }
