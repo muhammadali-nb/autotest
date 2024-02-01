@@ -21,7 +21,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.24) 92.52%);
+    // background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.24) 92.52%);
 
     @include l-md {
       background: rgba(0, 0, 0, 0.75);
@@ -124,6 +124,10 @@
   }
   @include l-md {
     font-size: 22px;
+  }
+
+  & > span {
+    font-weight: 300;
   }
 
   .indexCalculatorPeriodIndicatorComment {
