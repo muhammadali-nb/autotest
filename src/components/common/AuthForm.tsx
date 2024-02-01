@@ -153,7 +153,7 @@ const AuthPhoneConfirm: React.FC<{
                     props.setStep("createAccount");
                 } else {
                     // props.closeFunc();
-                    navigate('/personal-account');
+                    // navigate('/personal-account');
                     props.setStep('auth');
                 }
 
@@ -493,7 +493,9 @@ const AuthForm: React.FC<{
                 <div className={"user-tooltip " + (isAuthenticated ? "authentificated" : "")}>
                     {isAuthenticated ?
                         <div className="user-tooltip-content">
-                            <Link to={"/personal-account"}><span className="font-size-16 cursor-pointer fw-medium">{last_name + " " + first_name}</span></Link>
+                            <p
+														// to={"/personal-account"} link tag should be have
+														><span className="font-size-16 cursor-pointer fw-medium m-0">{last_name + " " + first_name}</span></p>
                             {phone &&
                                 <span className="font-size-12 fw-medium">{Utils.formatPhone(phone)}</span>
                             }
