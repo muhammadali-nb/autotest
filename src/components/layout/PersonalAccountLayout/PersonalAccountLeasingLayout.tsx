@@ -2,9 +2,7 @@ import React, { FC, ReactNode } from "react";
 import PersonalAccountLayout from "./PersonalAccountLayout";
 import { Col, Container, Row } from "react-bootstrap";
 import PersonalAccountMenu from "../../pages/PersonalAccount/PersonalAccountMenu";
-import PersonalAccountMenuBurger from "../../common/PersonalAccount/PersonalAccountMenuBurger/PersonalAccountMenuBurger";
 import Footer from "../Footer";
-import PersonalAccountMenuMobile from "../../pages/PersonalAccount/PersonalAccountMenuMobile";
 import { useOutside } from "../../../hooks/useOutside";
 import MobileMenu from "../MobileMenu";
 import Header from "../Header";
@@ -12,7 +10,6 @@ import Header from "../Header";
 const PersonalAccountLeasingLayout: FC<{ children: ReactNode }> = ({
 	children,
 }) => {
-	// for menu personal account
 	const { ref, isShow, setIsShow } = useOutside(false);
 	return (
 		<>
