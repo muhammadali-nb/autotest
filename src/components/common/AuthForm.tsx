@@ -349,15 +349,8 @@ const AuthCreateAccount: React.FC<{
 	});
 	const [passed, setPassed] = useState(false);
 
-<<<<<<< HEAD
-    const navigate = useNavigate();
-
-    const createAccount = async () => {
-        let errors = Utils.validateRentCreateAccont(data);
-=======
 	const createAccount = async () => {
 		let errors = Utils.validateRentCreateAccont(data);
->>>>>>> mobile-version
 
 		if (Object.keys(errors).length > 0) {
 			console.log(errors);
