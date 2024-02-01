@@ -5,7 +5,6 @@ import FinesHead from "../../common/PersonalAccount/PersonalAccountFines/desktop
 import FinesTable from "../../common/PersonalAccount/PersonalAccountFines/desktop/FinesTable";
 import { useEffect, useState } from "react";
 import PersonalAccountHeaderMobile from "../../common/PersonalAccount/PersonalAccountHeader/PersonalAccountHeaderMobile";
-import doc from "../../../images/personal-account/fines/fine-doc.png";
 import FinesList from "../../common/PersonalAccount/PersonalAccountFines/mobile/FinesList";
 import FinesHeadMobile from "../../common/PersonalAccount/PersonalAccountFines/mobile/FinesHeadMobile";
 import FinesFilterMobile from "../../common/PersonalAccount/PersonalAccountFines/mobile/FinesFilterMobile";
@@ -83,8 +82,6 @@ const FinesPage: React.FC = () => {
         }
     }, [data]);
 
-    // console.log(data)
-
     return (
         <PersonalAccountFinesLayout>
             {size === "desk" ?
@@ -106,7 +103,6 @@ const FinesPage: React.FC = () => {
                 <div>
                     <PersonalAccountHeaderMobile>
                         <h2>Штрафы</h2>
-                        <h2></h2>
                         <FinesFilterMobile />
                     </PersonalAccountHeaderMobile>
                     <div className="personal-account_fines">
