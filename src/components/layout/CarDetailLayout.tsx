@@ -37,7 +37,7 @@ export const CarDetailLayout = (props: BaseLayoutProps) => {
 				<main>{props.children}</main>
 
 				<Container fluid={"xxl"}>
-					<SmallFooter className="mb-px-70" />
+					<SmallFooter />
 				</Container>
 
 				<Cookies />

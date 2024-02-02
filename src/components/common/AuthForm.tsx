@@ -153,6 +153,7 @@ const AuthPhoneConfirm: React.FC<{
 
 		try {
 			const res: any = await register(props.data.phone, code);
+
 			if (res.success) {
 				if (!res.has_profile) {
 					props.setStep("createAccount");
@@ -528,9 +529,13 @@ const AuthForm: React.FC<{
 					}>
 					{isAuthenticated ? (
 						<div className="user-tooltip-content">
-							<span className="font-size-16 cursor-pointer fw-medium">
-								{last_name + " " + first_name}
-							</span>
+							<p
+							// to={"/personal-account"} link tag should be have
+							>
+								<span className="font-size-16 cursor-pointer fw-medium m-0">
+									{last_name + " " + first_name}
+								</span>
+							</p>
 							{phone && (
 								<span className="font-size-12 fw-medium">
 									{Utils.formatPhone(phone)}

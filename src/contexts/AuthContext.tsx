@@ -25,9 +25,21 @@ const initialState: AuthInitialState = localData !== null ? JSON.parse(localData
 	isInitialized: false,
 	middle_name: "",
 	last_name: "",
-	phone: null,
-	access_token: null,
+	phone: ""
 };
+
+// const initialState: AuthInitialState = {
+// 	isAuthenticated: false,
+// 	user_status: null,
+// 	has_profile: false,
+// 	isInitialized: false,
+// 	api_status: "pending",
+// 	error_message: null,
+// 	first_name: "",
+// 	middle_name: "",
+// 	last_name: "",
+// 	phone: ""
+// }
 
 const handlers = {
 	INITIALIZE: (state: AuthInitialState, action) => {
@@ -217,7 +229,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 							first_name: "",
 							middle_name: "",
 							last_name: "",
-							phone: null
+							phone: ""
 						},
 					});
 				}

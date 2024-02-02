@@ -45,12 +45,12 @@ const CarFullImageModal = ({
 				onSelect={handleSelect}
 				controls={false}
 				indicators={false}>
-				{images.map((_item) => (
+				{images?.map((_item) => (
 					<Carousel.Item key={_item.id}>
 						<div className={"car-images-image-container cursor-pointer "}>
 							<img
 								className="d-block w-100 car-images-image "
-								src={_item.image}
+								src={_item?.image}
 								alt=""
 							/>
 						</div>
