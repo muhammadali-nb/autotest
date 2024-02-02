@@ -1,5 +1,6 @@
-import ListGroup from 'react-bootstrap/ListGroup';
+import { useQuery } from "@tanstack/react-query";
 
+import ListGroup from 'react-bootstrap/ListGroup';
 import PersonalAccountRaitingLayout from '../../layout/PersonalAccountLayout/PersonalAccountRaitingLayout';
 import PersonalAccountHeader from '../../common/PersonalAccount/PersonalAccountHeader/PersonalAccountHeader';
 import PersonalAccountData from '../PersonalAccount/PersonalAccountData';
@@ -7,57 +8,65 @@ import { userData } from '../PersonalAccount/PersonalAccountPage';
 import UserNoAvatar from "../../../images/common/userG.svg";
 
 import "./PersonalAccountRaiting.scss";
-
-const DATA = Array(10).fill({
-    name: 'анастасия',
-    surname: 'фокина',
-    fatherName: 'алексеева',
-    carModel: 'kia k5',
-    carNumber: 'm766kc 198',
-    bonusSum: 1000,
-    orders: 50,
-    ordersTime: 50,
-    totalEarnSum: 500000
-})
+import RaitingService from "../../../api-functions/raiting-service/raiting-service";
+import Loader from "../../common/Loader";
 
 const PersonalAccountRaiting = () => {
+
+    const { data, isLoading } = useQuery({
+        queryKey: ['raitings'],
+        queryFn: () => RaitingService.getRaitingUsers()
+    });
+
+    console.log(data)
+
     return (
         <PersonalAccountRaitingLayout>
             <PersonalAccountHeader>
 				<PersonalAccountData data={userData} />
 			</PersonalAccountHeader>
 
-            <div className="personal-account__raiting-page">
-
-                <h2 className="personal-account__header">Топ 10 лучших водителей / 18.01</h2>
-
-                <ListGroup className="personal-account__raiting-list">
-                    {DATA.map((item, i) => {
-                        return <ListGroup.Item className="personal-account__raiting-item" key={i}>
-                            <div className="personal-account__raiting-item__raiting">1</div>
-                            <div className="personal-account__raiting-item__avatar"><img src={UserNoAvatar} alt="user" /></div>
-                            <div className="personal-account__raiting-item__fullname">
-                                <div className="personal-account__raiting-item__fullname--surname">{item.surname}</div>
-                                <div className="personal-account__raiting-item__fullname--name">{item.name} {item.fatherName}</div>
-                            </div>
-                            <div className="personal-account__raiting-item__car">
-                                <div className="personal-account__raiting-item__car--model">{item.carModel}</div>
-                                <div className="personal-account__raiting-item__car--number">{item.carNumber}</div>
-                            </div>
-                            <div className="personal-account__raiting-item__bonus">
-                                <div className="personal-account__raiting-item__bonus--sum">{item.bonusSum} ₽</div>
-                                <div className="personal-account__raiting-item__bonus--type">бонус</div>
-                            </div>
-                            <div className="personal-account__raiting-item__worked">
-                                <div className="personal-account__raiting-item__worked--sum">{item.totalEarnSum} ₽</div>
-                                <div className="personal-account__raiting-item__worked--orders">{item.orders} заказов / ${item.ordersTime} ч</div>
-                            </div>
-                        </ListGroup.Item>
-                    })}
-                </ListGroup>
-            </div>
+            {
+                isLoading 
+                ? <Loader /> 
+                : (
+                    <div className="personal-account__raiting-page">
+                        <h2 className="personal-account__header">Топ 10 лучших водителей / 18.01</h2>
+        
+                        <ListGroup className="personal-account__raiting-list">
+                            {data?.order_list.map((item, i) => <PersonalAccountListItem item={item} position={i+1} key={i}/>)}
+                        </ListGroup>
+                    </div>
+                ) 
+            }
             
         </PersonalAccountRaitingLayout>
+    )
+}
+
+const PersonalAccountListItem = ({ item, position }) => {
+
+    return (
+        <ListGroup.Item className="personal-account__raiting-item">
+            <div className="personal-account__raiting-item__raiting">{position}</div>
+            <div className="personal-account__raiting-item__avatar"><img src={UserNoAvatar} alt="user" /></div>
+            <div className="personal-account__raiting-item__fullname">
+                <div className="personal-account__raiting-item__fullname--surname">{item.last_name}</div>
+                <div className="personal-account__raiting-item__fullname--name">{item.first_name} {item.middle_name}</div>
+            </div>
+            <div className="personal-account__raiting-item__car">
+                <div className="personal-account__raiting-item__car--model">{item.car_brand} {item.car_model}</div>
+                <div className="personal-account__raiting-item__car--number">{item.car_number} {item.car_region}</div>
+            </div>
+            <div className="personal-account__raiting-item__bonus">
+                <div className="personal-account__raiting-item__bonus--sum"></div>
+                <div className="personal-account__raiting-item__bonus--type"></div>
+            </div>
+            <div className="personal-account__raiting-item__worked">
+                <div className="personal-account__raiting-item__worked--sum">{item.Price} ₽</div>
+                <div className="personal-account__raiting-item__worked--orders">{item.Count} заказов / ${item.hours} ч</div>
+            </div>
+        </ListGroup.Item>
     )
 }
 
