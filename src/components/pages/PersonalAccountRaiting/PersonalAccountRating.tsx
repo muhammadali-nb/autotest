@@ -7,7 +7,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import PersonalAccountRaitingLayout from '../../layout/PersonalAccountLayout/PersonalAccountRaitingLayout';
 import PersonalAccountHeader from '../../common/PersonalAccount/PersonalAccountHeader/PersonalAccountHeader';
 import PersonalAccountData from '../PersonalAccount/PersonalAccountData';
-import { userData } from '../PersonalAccount/PersonalAccountPage';
 import UserNoAvatar from "../../../images/common/userG.svg";
 import RaitingService from "../../../api-functions/raiting-service/raiting-service";
 import Loader from "../../common/Loader";
@@ -38,9 +37,23 @@ const PersonalAccountRaiting = () => {
 
     return (
         <PersonalAccountRaitingLayout>
-            <PersonalAccountHeader>
-				<PersonalAccountData data={userData} />
-			</PersonalAccountHeader>
+            <div className="personal-account__rating-page__user-info">
+                <PersonalAccountHeader>
+                    {data?.order_user ? (
+                        <PersonalAccountData 
+                            data={{ 
+                                name: data?.order_user?.first_name,
+                                last_name: data?.order_user?.last_name, 
+                                middle_name: data?.order_user?.middle_name || ""  }} 
+                        />
+                    ) : null
+                }
+                <div className="personal-account__rating-page__user-info__worked">
+                    <div className="personal-account__rating-page__user-info__worked--sum">{data?.order_user?.Price || 0} ₽</div>
+                    <div className="personal-account__rating-page__user-info__worked--orders">{data?.order_user?.Count || 0} заказов / {data?.order_user?.hours} ч</div>
+                </div>
+                </PersonalAccountHeader>
+                </div>
 
             {
                 isLoading 
@@ -86,7 +99,7 @@ const PersonalAccountListItem = ({ item, position }) => {
             </div>
             <div className="personal-account__raiting-page__raiting-item__worked">
                 <div className="personal-account__raiting-page__raiting-item__worked--sum">{item.Price} ₽</div>
-                <div className="personal-account__raiting-page__raiting-item__worked--orders">{item.Count} заказов / ${item.hours} ч</div>
+                <div className="personal-account__raiting-page__raiting-item__worked--orders">{item.Count} заказов / {item.hours} ч</div>
             </div>
         </ListGroup.Item>
     )

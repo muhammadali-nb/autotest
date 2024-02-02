@@ -1,8 +1,7 @@
 import React from "react";
-import { userDataProps } from "./PersonalAccountPage";
 
 const PersonalAccountData: React.FC<{
-	data: userDataProps
+	data: { name: string, last_name: string, middle_name: string }
 }> = (props) => {
 	return (
 		<div className="personal-account-data">
