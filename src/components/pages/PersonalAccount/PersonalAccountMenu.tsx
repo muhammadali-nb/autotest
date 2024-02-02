@@ -37,6 +37,11 @@ const PersonalAccountlinks = [
 		path: "/personal-account/subscriptions",
 		name: "Подписки",
 	},
+	{
+		id: 8,
+		path: "/personal-account/raiting",
+		name: "Рэйтинг"
+	}
 ];
 
 const PersonalAccountMenu = ({

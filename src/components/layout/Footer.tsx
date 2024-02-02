@@ -243,7 +243,7 @@ const Footer: React.FC<{
 	small?: boolean;
 	className?: string;
 }> = (props) => {
-	if (props.small) return <SmallFooter className={props.className} />;
+	if (props?.small) return <SmallFooter className={props.className} />;
 	return (
 		<footer className={"footer " + props.className}>
 			<FooterMap

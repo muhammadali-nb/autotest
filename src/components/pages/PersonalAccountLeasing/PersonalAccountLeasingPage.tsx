@@ -1,10 +1,7 @@
-import React from "react";
 import PersonalAccountLeasingLayout from "../../layout/PersonalAccountLayout/PersonalAccountLeasingLayout";
 import PersonalAccountHeader from "../../common/PersonalAccount/PersonalAccountHeader/PersonalAccountHeader";
 import PersonalAccountBalance from "../PersonalAccount/PersonalAccountBalance/PersonalAccountBalance";
 import PersonalAccountLeasingCard from "./PersonalAccountLeasingCard/PersonalAccountLeasingCard";
-import { IPersonalAccountLeasingCarData } from "../../../types/PersonalAccount/LeasingTypes";
-import carImage from "../../../images/index/car.webp";
 import LeasingLoader from "./LeasingLoader";
 import { useQuery } from "@tanstack/react-query";
 import LoadError from "../../common/LoadError";
@@ -520,8 +517,6 @@ import leasingService from "../../../api-functions/leasing-page/leasing-service"
 // ];
 
 const PersonalAccountLeasingPage = () => {
-	// const isLoading = false;
-
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["personal-accout"],
 		queryFn: () => leasingService.getLeasingCars(),
