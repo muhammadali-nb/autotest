@@ -928,7 +928,7 @@ export const CarRequestFormImage: React.FC<{
 							</div>
 						))}
 					</div>
-					<button
+					<button 
 						className={"car-images-controls-btn"}
 						onClick={() => handleSelect(index + 1)}>
 						<img src={caretRight} width={16} height={32} alt="" />
