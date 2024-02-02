@@ -5,10 +5,25 @@
     justify-content: center;
 }
 
+@mixin bigFont {
+    font-size: 18px;
+    font-weight: 600;
+}
+
 @mixin lowGrayFont {
     color: rgba(186, 188, 191, 1);
     font-size: 14px;
     font-weight: 500;
+}
+
+.personal-account__rating-page__user-info__worked {
+    &--sum {
+        @include bigFont;
+    }
+
+    &--orders {
+        @include lowGrayFont;
+    }
 }
 
 .personal-account {
