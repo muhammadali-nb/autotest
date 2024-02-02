@@ -122,6 +122,8 @@
 
             &--orders {
                 @include lowGrayFont;
+
+                text-transform: lowercase;
             }
         }
     }
