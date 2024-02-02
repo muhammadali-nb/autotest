@@ -890,14 +890,14 @@ export const CarRequestFormImage: React.FC<{
 					onSelect={handleSelect}
 					controls={false}
 					indicators={false}>
-					{props.car.images.map((img, index) => (
+					{props.car?.images?.map((img, index) => (
 						<Carousel.Item key={img.id}>
 							<div
 								className={"car-images-image-container cursor-pointer"}
 								onClick={handleShow}>
 								<img
 									className="d-block w-100 car-images-image"
-									src={img.image}
+									src={img?.image}
 									alt=""
 								/>
 							</div>

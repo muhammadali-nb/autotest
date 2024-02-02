@@ -102,12 +102,13 @@ const RentCarDetail = () => {
 	};
 	if (isLoading) return <Loader />;
 	if (error) return <LoadError response={error} />;
+
 	return (
 		<>
 			<MetaDecorator
 				title={title}
 				url={`/catalog/${carID}`}
-				image={data?.item?.images[0].image}
+				image={data?.item?.images[0]?.image}
 			/>
 			{!isLoading && (
 				<>

@@ -67,7 +67,7 @@ export const CarImagesModal: React.FC<{
 									}>
 									<img
 										className="d-block w-100 car-images-image big"
-										src={img.image}
+										src={img?.image}
 										alt=""
 									/>
 								</div>

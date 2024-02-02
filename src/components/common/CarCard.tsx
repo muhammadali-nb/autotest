@@ -311,11 +311,11 @@ export const CarRentCard: React.FC<{
 
 			<div className="d-block d-md-none car-rent-card">
 				<div className="car-rent-card_image">
-					<img src={car.image} alt={car.brand + " " + car.model} />
+					<img src={car?.image} alt={car.brand + " " + car.model} />
 				</div>
 				<div className=" car-rent-card_body">
 					<div className="car__card-taglist car-rent-card_taglist">
-						{car.available_at && (
+						{/* {car.available_at && (
 							<CarTag small={true} type={"free"} car={car}>
 								Свободна с {car.available_at}
 							</CarTag>
@@ -325,7 +325,17 @@ export const CarRentCard: React.FC<{
 							type={car.available ? "free" : "not-free"}
 							car={car}>
 							{car.available ? "Свободна" : "Занята"}
+						</CarTag> */}
+
+						<CarTag
+							small={true}
+							type={car.available ? "free" : "not-free"}
+							car={car}>
+							{car.available ? "Свободна " : "Занята "}
+
+							{car.available_at ? car.available_at : ""}
 						</CarTag>
+
 						{car.tarif.map((_item, index) => (
 							<CarTag key={index} small={true} type={"default"} car={car}>
 								{_item.Name}
