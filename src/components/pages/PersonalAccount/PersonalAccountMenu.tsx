@@ -40,7 +40,7 @@ const PersonalAccountlinks = [
 	{
 		id: 8,
 		path: "/personal-account/raiting",
-		name: "Рэйтинг"
+		name: "Рейтинг"
 	}
 ];
 
