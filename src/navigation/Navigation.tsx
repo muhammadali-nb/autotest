@@ -30,6 +30,8 @@ import TransactionsPage from "../components/pages/Transactions/TransactionsPage"
 import FinesPage from "../components/pages/Fines/FinesPage";
 import { PaymentsPage } from "../components/pages/Payments/PaymentsPage";
 import SubscriptionsPage from "../components/pages/Subscriptions/SubscriptionsPage";
+import CatalogCarDetailInfo from "../components/pages/CatalogCarDetail/CatalogCarDetailInfo/CatalogCarDetailInfo";
+import CatalogCarDetail from "../components/pages/CatalogCarDetail/CatalogCarDetail";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -38,7 +40,7 @@ export const router = createBrowserRouter(
 			<Route path={"catalog"} element={<CatalogPage />} />
 			<Route
 				path={"catalog/:id"}
-				element={<CarPage />}
+				element={<CatalogCarDetail />}
 				loader={carDataLoader}
 			/>
 			<Route path="rent/page/:id">
@@ -59,15 +61,21 @@ export const router = createBrowserRouter(
 			<Route
 				path="personal-account/rent-history"
 				element={<PersonalAccountRentHistoryPage />}
-			/>	
+			/>
 			<Route
 				path="personal-account/leasing"
 				element={<PersonalAccountLeasingPage />}
 			/>
 			<Route path="personal-account/payment" element={<PaymentsPage />} />
-			<Route path="personal-account/transactions" element={<TransactionsPage />} />
+			<Route
+				path="personal-account/transactions"
+				element={<TransactionsPage />}
+			/>
 			<Route path="personal-account/fines" element={<FinesPage />} />
-			<Route path="personal-account/subscriptions" element={<SubscriptionsPage />} />
+			<Route
+				path="personal-account/subscriptions"
+				element={<SubscriptionsPage />}
+			/>
 			<Route path={"offer"} element={<OfferPage />} />
 			<Route path={"*"} element={<NotExistsPage />} />
 		</Route>

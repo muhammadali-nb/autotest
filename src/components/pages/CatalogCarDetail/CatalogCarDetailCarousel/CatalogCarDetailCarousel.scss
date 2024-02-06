@@ -1,0 +1,28 @@
+.car_detail-carousel {
+  padding: 0 0 100px 0;
+  &_active {
+    width: 100%;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &_items {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin: 10px 0 0 0;
+
+    & > button {
+      // width: 100px;
+      // height: 90px;
+      border: none;
+      & > img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}

@@ -33,3 +33,12 @@
 
 //personal account card payments styles
 @import "components/pages/Payments/Payments.scss";
+
+//updated catalog
+@import "components/pages/UpdatedCatalog/CatalogCarCard/CarCard.scss";
+@import "components/pages/CatalogCarDetail/CatalogCarDetailInfo/CatalogCarDetailInfo.scss";
+@import "components/pages/CatalogCarDetail/CatalogCarDetailBase/CatalogCarDetailBase.scss";
+@import "components/pages/CatalogCarDetail/CatalogCarDetailBase/CatalogCarDetailBaseTable/CatalogCarDetailBaseTable.scss";
+@import "components/pages/CatalogCarDetail/CatalogCarDetailCarousel/CatalogCarDetailCarousel.scss";
+@import "components/pages/CatalogCarDetail/CatalogCarDetail.scss";
+@import "components/pages/CatalogCarDetail/CatalogCarDetailInfo/CatalogCarDetailInfoCalculator/CatalogCarDetailInfoCalculator.scss";

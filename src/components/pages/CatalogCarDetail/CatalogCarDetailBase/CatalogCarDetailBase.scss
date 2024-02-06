@@ -1,0 +1,24 @@
+.car_detail-base {
+  &_header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    & > h3 {
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 19px;
+      letter-spacing: 0.01;
+      text-align: left;
+      text-transform: uppercase;
+      padding: 0 0 12px 0;
+      border-bottom: 2px solid rgb(231, 231, 232);
+
+      &.active {
+        border-bottom: 2px solid rgb(191, 53, 53);
+      }
+    }
+  }
+}

@@ -1,0 +1,110 @@
+.car_detail-info {
+  &_header {
+    font-family: Lato;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: 0.01em;
+    text-align: left;
+    text-transform: uppercase;
+
+    & > span {
+      color: rgb(191, 53, 53);
+    }
+  }
+
+  &_payment {
+    &-perday {
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 0.01em;
+      text-align: left;
+      margin: 25px 0 0 0;
+      display: flex;
+      align-items: baseline;
+
+      & > h3 {
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 34px;
+        letter-spacing: 0.01em;
+        margin: 0;
+
+        & > span {
+          color: rgb(34, 34, 34);
+          font-family: Inter;
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0.01rem;
+          text-align: left;
+        }
+      }
+    }
+
+    &-overall {
+      color: rgb(96, 101, 105);
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 17px;
+      letter-spacing: 1%;
+      text-align: left;
+      margin: 15px 0 0 0;
+    }
+  }
+
+  &_btn {
+    color: rgb(34, 34, 34);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: 0.02rem;
+    text-align: left;
+    text-transform: uppercase;
+    margin: 40px 0 0 0;
+    padding: 15px 25px;
+  }
+
+  &_components {
+    padding: 0;
+    margin: 50px 0 0 0;
+    max-width: 244px;
+
+    &-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+
+      &:not(:last-child) {
+        border-bottom: 2px solid rgb(242, 243, 246);
+      }
+
+      &_left {
+        color: rgb(96, 101, 105);
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0.01rem;
+        text-align: left;
+
+        min-width: 110px;
+      }
+
+      &_right {
+        color: rgb(34, 34, 34);
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0.01rem;
+        text-align: left;
+      }
+    }
+  }
+}
