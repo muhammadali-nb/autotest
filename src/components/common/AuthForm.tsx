@@ -361,23 +361,20 @@ const AuthCreateAccount: React.FC<{
 
 		if (data) {
 			try {
-				const res = await fetch(
-					"https://taxivoshod.ru/api/voshod-auto/?w=update-profile",
-					{
-						method: "POST",
-						credentials: "include",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({
-							w: "update-profile",
-							first_name: data.name,
-							last_name: data.lastName,
-							middle_name: data.middleName,
-							license_photo: base64,
-						}),
-					}
-				);
+				const res = await fetch("/voshod-auto/?w=update-profile", {
+					method: "POST",
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						w: "update-profile",
+						first_name: data.name,
+						last_name: data.lastName,
+						middle_name: data.middleName,
+						license_photo: base64,
+					}),
+				});
 				if (!res.ok) {
 					throw new Error(res.statusText);
 				}
@@ -496,10 +493,9 @@ const AuthForm: React.FC<{
 			return;
 		}
 		axios
-			.get(
-				`https://taxivoshod.ru/api/login.php?auth=1&reg=1&phone=${data.phone}`,
-				{ withCredentials: true }
-			)
+			.get(`/login.php?auth=1&reg=1&phone=${data.phone}`, {
+				withCredentials: true,
+			})
 			.then((res) => {
 				if (res.data.success) {
 					setStep("phoneConfirm");

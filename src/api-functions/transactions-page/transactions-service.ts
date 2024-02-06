@@ -12,7 +12,7 @@ class TransactionsService {
         let vendor = '';
         let type = '';
         let cars = '';
-        let deductions ='';
+        let deductions = '';
 
         if (filters.balance.length) {
             filters.balance.map(item => {
@@ -38,11 +38,11 @@ class TransactionsService {
             });
         }
 
-        return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=transactions&page=${page}` + 
-        vendor +
-        type +
-        cars +
-        deductions, { withCredentials: true }).then(res => res.data)
+        return axios.get(`/voshod-auto/?w=transactions&page=${page}` +
+            vendor +
+            type +
+            cars +
+            deductions, { withCredentials: true }).then(res => res.data)
     }
 }
 

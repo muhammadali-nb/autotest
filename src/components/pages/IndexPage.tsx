@@ -5,7 +5,7 @@ import IndexSteps from "./Index/IndexSteps";
 import IndexAbout from "./Index/IndexAbout";
 import IndexOffers from "./Index/IndexOffers";
 import Api from "../../Api";
-import IndexGreatDeals from "./Index/IndexGreatDeals"; 
+import IndexGreatDeals from "./Index/IndexGreatDeals";
 import MetaDecorator from "../layout/MetaDecorator";
 
 const IndexPage = () => {
@@ -15,6 +15,10 @@ const IndexPage = () => {
 		keywords: "leasing,rent,аренда,авто,автомобиль,лизинг,бронирование",
 	};
 	const [whiteMenu, setWhiteMenu] = useState(false); // этот стейт отвечает за цвет menu для первой секций
+
+	useEffect(() => {
+		console.log(process.env.REACT_PUBLIC_API_BASE);
+	}, []);
 
 	return (
 		<>

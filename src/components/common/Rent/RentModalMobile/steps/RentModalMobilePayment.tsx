@@ -43,7 +43,7 @@ const RentModalMobilePayment = (props: {
 		setRedButton(false);
 		try {
 			const res = await api.get(
-				`https://taxivoshod.ru/api/voshod-auto/?w=pay&summ=${
+				`/voshod-auto/?w=pay&summ=${
 					payment === "sbp" ? sbpPrice : cardPrice
 				}&payment=${payment === "card" ? "classic" : "sbp"}&car_id=${
 					props.car.id
