@@ -24,9 +24,7 @@ const RentModalMobileConfirmPayment: FC<{
 		if (props.paymentStatus !== "CONFIRMED" || "REFUNDED" || "CANCELLED") {
 			const interval = setInterval(() => {
 				axios
-					.get(
-						`https://taxivoshod.ru/api/voshod-auto/?w=check-pay&pid=${props.confirmPayment.pid}`
-					)
+					.get(`/voshod-auto/?w=check-pay&pid=${props.confirmPayment.pid}`)
 					.then((res) => {
 						if (res.data.result === 1) {
 							props.setPaymentStatus(res.data.status);

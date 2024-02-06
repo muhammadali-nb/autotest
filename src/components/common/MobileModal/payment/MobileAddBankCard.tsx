@@ -22,7 +22,7 @@ const MobileAddBankCard: FC<{
 
 	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 	const [passed, setPassed] = useState(false);
-	
+
 	const send = async () => {
 		let errors = Utils.validateAddBankCard(data);
 		if (Object.keys(errors).length > 0) {
@@ -32,7 +32,7 @@ const MobileAddBankCard: FC<{
 		}
 
 		try {
-			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await axios.post("/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({}),
 			});

@@ -41,7 +41,7 @@ const PaymentBankCardAddModal = (props: { onHide: () => void }) => {
 		}
 
 		try {
-			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await axios.post("/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({}),
 			});

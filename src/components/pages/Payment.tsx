@@ -10,9 +10,7 @@ const Payment = () => {
 
 	const checkPayment = async () => {
 		try {
-			const res = await api.get(
-				`https://taxivoshod.ru/api/voshod-auto/?w=check-pay&pid=${pid}`
-			);
+			const res = await api.get(`/voshod-auto/?w=check-pay&pid=${pid}`);
 			if (res.data.result === 1) {
 				navigate(`/rent/page/1/car/${id}`, {
 					state: {
