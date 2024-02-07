@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../core/axios";
 
 export default class RaitingService {
     static getRaitingUsers(date?: string) {
@@ -7,6 +7,6 @@ export default class RaitingService {
             ? `/voshod-auto/?w=rating-order&date=${date}`
             : "/voshod-auto/?w=rating-order"
 
-        return axios.get(url, { withCredentials: true }).then(res => res.data);
+        return api.get(url, { withCredentials: true }).then(res => res.data);
     }
 }
