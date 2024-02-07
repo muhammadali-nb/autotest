@@ -1117,7 +1117,7 @@ export const CarBookingForm: React.FC<{
 		if (user_status === "banned") {
 			return;
 		}
-		axios
+		api
 			.get(`/login.php?auth=1&reg=1&phone=${state.phone}`, {
 				withCredentials: true,
 			})

@@ -1,8 +1,8 @@
-import axios from "axios"
+import api from "../../core/axios"
 
 class LeasingService {
   getLeasingCars() {
-    return axios.get('/voshod-auto/?w=car-leasing', { withCredentials: true }).then(res => res.data)
+    return api.get('/voshod-auto/?w=car-leasing', { withCredentials: true }).then(res => res.data)
   }
 }
 

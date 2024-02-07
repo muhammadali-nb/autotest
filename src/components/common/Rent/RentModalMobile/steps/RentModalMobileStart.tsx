@@ -23,7 +23,7 @@ const RentModalMobileStart = (props: {
 			return;
 		}
 		axios
-			.get(`/login.php?auth=1&reg=1&phone=${props.data.phone}`, {
+			.get(`/login.phpapi.eg=1&phone=${props.data.phone}`, {
 				withCredentials: true,
 			})
 			.then((res) => {

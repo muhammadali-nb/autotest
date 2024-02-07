@@ -258,7 +258,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const register = async (phone: string, password: string) => {
 		try {
-			const res: AxiosResponse<AuthResponce> = await axios.get(
+			const res: AxiosResponse<AuthResponce> = await api.get(
 				`/login.php?auth=1&reg=1&phone=${phone}&code=${password}`,
 				{ withCredentials: true }
 			);
@@ -307,7 +307,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const logout = async () => {
 		try {
-			const res: AxiosResponse<AuthResponce> = await axios.get(
+			const res: AxiosResponse<AuthResponce> = await api.get(
 				`/login.php?logout=1`,
 				{ withCredentials: true }
 			);
@@ -327,7 +327,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const login = async (data: AuthResponce) => {
 		try {
-			const res: AxiosResponse<AuthResponce> = await axios.get(
+			const res: AxiosResponse<AuthResponce> = await api.get(
 				`/login.php?logout=1`,
 				{ withCredentials: true }
 			);
@@ -367,7 +367,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		};
 
 		try {
-			const res = axios.get("/voshod-auto/?w=refresh-token", {
+			const res = api.get("/voshod-auto/?w=refresh-token", {
 				headers: {
 					Authorization: `Bearer ${sendToken()}`,
 				},

@@ -1,9 +1,10 @@
 import axios from "axios";
+import api from "../../core/axios";
 
 
 class RentHistoryService {
   getCars() {
-    return axios.get('/voshod-auto/?w=history-rent', { withCredentials: true }).then(res => res.data)
+    return api.get('/voshod-auto/?w=history-rent', { withCredentials: true }).then(res => res.data)
   }
 }
 
