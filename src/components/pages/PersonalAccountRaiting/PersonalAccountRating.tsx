@@ -20,14 +20,33 @@ import { useEffect, useState } from 'react';
 const PersonalAccountRaiting = () => {
 
     const [isOpenCalendar, setIsCalendarOpen] = useState<boolean>(false);
-    const [filterDate, setFilterDate] = useState<string>(format(new Date(), "yyyy-MM-dd"));
+    const [currentDate, setCurrentDate] = useState<Date>(new Date().getHours() < 9 ? returnYesterdayDate() : new Date());
+    const [filterDate, setFilterDate] = useState<string>("");
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['raitings'],
         queryFn: () => RaitingService.getRaitingUsers(filterDate)
     });
 
-    const onDateChange = (date: Date) => {
+    function onDateChange(date: Date) {
+        const todayDate = new Date();
+
+
+        if(format(todayDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && todayDate.getHours() < 9) {
+            setFilterDate(format(returnYesterdayDate(), "yyyy-MM-dd"));
+            setCurrentDate(returnYesterdayDate());
+            setIsCalendarOpen(false);
+            
+            return;
+        }
+
         setFilterDate(format(date, "yyyy-MM-dd"));
+        setCurrentDate(date);
+        setIsCalendarOpen(false);
+        
+    }
+
+    function returnYesterdayDate(): Date {
+        return new Date(new Date().setDate(new Date().getDate() - 1))
     }
 
     useEffect(() => {
@@ -64,7 +83,7 @@ const PersonalAccountRaiting = () => {
                             <h2 className="personal-account__raiting-page__header">Топ 10 лучших водителей / 18.01</h2>
                             <div className="personal-account__raiting-page__calendar-container">
                                 <CalendarSVG className={isOpenCalendar ? "active" : ""} onClick={() => setIsCalendarOpen(prevState => !prevState)} />
-                                <CustomCalendar isOpen={isOpenCalendar} locale={ru} onChange={onDateChange} />
+                                <CustomCalendar date={currentDate} isOpen={isOpenCalendar} locale={ru} onChange={onDateChange} />
                             </div>
                         </div>
         
