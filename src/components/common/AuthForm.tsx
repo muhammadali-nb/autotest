@@ -14,11 +14,13 @@ import Api, {
 	ErrorResponse,
 	RentCreateAccountForm,
 } from "../../Api";
-import axios, { AxiosError } from "axios";
 import { useAuth } from "../../hooks/useAuth";
 import FileInput from "./FileInput";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../core/axios";
+import { AxiosError } from "axios";
+
+
 
 const AuthFormContent: React.FC<{
 	closeFunc: () => void;

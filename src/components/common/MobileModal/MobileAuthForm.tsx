@@ -1,6 +1,6 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios, { AxiosError } from "axios";
+import  { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { ConfirmPhone, ErrorResponse } from "../../../Api";
 import Utils from "../../../utils/Utils";

@@ -18,7 +18,7 @@ import { ConfirmPaymentQR } from "../../types/AuthContextTypes";
 import { ConfirmPhone, ErrorResponse } from "../../Api";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import LoadError from "./LoadError";
 import ModalFormTemplate from "./ModalFormTemplate";
 import Loader from "./Loader";

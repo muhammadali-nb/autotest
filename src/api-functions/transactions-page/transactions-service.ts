@@ -1,5 +1,5 @@
-import axios from "axios";
 import api from "../../core/axios";
+
 
 interface filterProps {
     balance: string[],

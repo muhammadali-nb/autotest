@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { CatalogFilter } from "../../store/reducers/catalogFilterSlice";
 import api from "../../core/axios";
 
