@@ -1,8 +1,9 @@
-import axios from "axios";
+
+import api from "../../core/axios";
 
 class BalanceService {
     getBalance() {
-        return axios.get('https://taxivoshod.ru/api/voshod-auto/?w=balance', { withCredentials: true }).then(res => res.data)
+        return api.get('/voshod-auto/?w=balance', { withCredentials: true }).then(res => res.data)
     }
 }
 
