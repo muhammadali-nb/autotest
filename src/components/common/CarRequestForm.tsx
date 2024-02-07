@@ -9,7 +9,7 @@ import ModalFormTemplate, {
 	ModalTemplatePhone,
 } from "./ModalFormTemplate";
 import Utils from "../../utils/Utils";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import api from "../../core/axios";
 
 const CarRequestFormContent: React.FC<{

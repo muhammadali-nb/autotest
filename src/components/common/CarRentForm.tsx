@@ -535,7 +535,7 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 	useEffect(() => {
 		if (props.paymentStatus !== "CONFIRMED" || "REFUNDED" || "CANCELLED") {
 			const interval = setInterval(() => {
-				axios
+				api
 					.get(`/voshod-auto/?w=check-pay&pid=${props.confirmPayment.pid}`)
 					.then((res) => {
 						if (res.data.result === 1) {
@@ -1117,7 +1117,7 @@ export const CarBookingForm: React.FC<{
 		if (user_status === "banned") {
 			return;
 		}
-		axios
+		api
 			.get(`/login.php?auth=1&reg=1&phone=${state.phone}`, {
 				withCredentials: true,
 			})
