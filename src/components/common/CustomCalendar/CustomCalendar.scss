@@ -7,10 +7,6 @@
     }
   }
 
-  .rdrDateDisplayWrapper {
-    display: none;
-  }
-
   .rdrMonthAndYearWrapper {
     padding-top: 0;
     height: 40px;
@@ -41,6 +37,7 @@
     background: #222222;
     border-radius: 0 !important;
     margin: 0;
+    top: 0;
     left: 0 !important;
     right: 0 !important;
 
@@ -53,9 +50,9 @@
     }
   }
 
-  .rdrSelected {
-    top: 5px;
-  }
+  // .rdrSelected {
+  //   top: 5px;
+  // }
 
   .rdrInRange {
     background: #e7e7e8;
@@ -71,7 +68,6 @@
   }
 
   .rdrDayNumber {
-    height: 100%;
 
     &::after {
       content: none !important;
@@ -82,31 +78,28 @@
   .rdrDayEndPreview,
   .rdrDayInPreview {
     height: 100%;
-    top: 5px;
+    top: 0px;
     border-radius: 0 !important;
     margin: 0;
     z-index: 0;
     border: 0;
   }
-
-  .rdrDayStartPreview,
-  .rdrDayEndPreview {
-    background: #222;
-  }
-
   .rdrDayInPreview {
-    background: #e7e7e8;
-
-    &.rdrDayHovered {
-      span {
-        color: white !important;
-      }
-    }
+    background-color: black;
   }
 
   .rdrDayHovered {
     span {
       color: white !important;
+    }
+
+    .rdrDayNumber {
+      color: white !important;
+    }
+
+    .rdrDayStartPreview,
+    .rdrDayEndPreview {
+      background-color: black !important;
     }
   }
 
