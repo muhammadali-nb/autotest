@@ -41,7 +41,7 @@ const CarBookingFormContent: React.FC<{
 		}
 
 		try {
-			const res = await api.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({
 					w: "form",

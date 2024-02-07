@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import  { AxiosError, AxiosResponse } from "axios";
 import { ReactNode, createContext, useEffect, useReducer } from "react";
 import {
 	AuthInitialState,
@@ -18,16 +18,31 @@ const actions = {
 };
 
 const localData = localStorage.getItem("voshod-user");
-const initialState: AuthInitialState = localData !== null ? JSON.parse(localData) : {
-	isAuthenticated: false,
-	user_status: null,
-	has_profile: false,
-	isInitialized: false,
-	middle_name: "",
-	last_name: "",
-	phone: null,
-	access_token: null,
-};
+const initialState: AuthInitialState =
+	localData !== null
+		? JSON.parse(localData)
+		: {
+				isAuthenticated: false,
+				user_status: null,
+				has_profile: false,
+				isInitialized: false,
+				middle_name: "",
+				last_name: "",
+				phone: "",
+		  };
+
+// const initialState: AuthInitialState = {
+// 	isAuthenticated: false,
+// 	user_status: null,
+// 	has_profile: false,
+// 	isInitialized: false,
+// 	api_status: "pending",
+// 	error_message: null,
+// 	first_name: "",
+// 	middle_name: "",
+// 	last_name: "",
+// 	phone: ""
+// }
 
 const handlers = {
 	INITIALIZE: (state: AuthInitialState, action) => {
@@ -163,7 +178,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const initialize = async () => {
 		api
-			.get("https://taxivoshod.ru/api/login.php", {
+			.get("/login.php", {
 				withCredentials: true,
 			})
 			.then((res: AxiosResponse<AuthResponce>) => {
@@ -184,7 +199,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 						first_name: first_name,
 						middle_name: middle_name,
 						last_name: last_name,
-						phone: phone
+						phone: phone,
 					};
 
 					localStorage.setItem("voshod-user", JSON.stringify(payload));
@@ -217,7 +232,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 							first_name: "",
 							middle_name: "",
 							last_name: "",
-							phone: null
+							phone: "",
 						},
 					});
 				}
@@ -235,7 +250,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 						first_name: "",
 						middle_name: "",
 						last_name: "",
-						phone: ""
+						phone: "",
 					},
 				});
 			});
@@ -243,8 +258,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const register = async (phone: string, password: string) => {
 		try {
-			const res: AxiosResponse<AuthResponce> = await axios.get(
-				`https://taxivoshod.ru/api/login.php?auth=1&reg=1&phone=${phone}&code=${password}`,
+			const res: AxiosResponse<AuthResponce> = await api.get(
+				`/login.php?auth=1&reg=1&phone=${phone}&code=${password}`,
 				{ withCredentials: true }
 			);
 
@@ -292,8 +307,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const logout = async () => {
 		try {
-			const res: AxiosResponse<AuthResponce> = await axios.get(
-				`https://taxivoshod.ru/api/login.php?logout=1`,
+			const res: AxiosResponse<AuthResponce> = await api.get(
+				`/login.php?logout=1`,
 				{ withCredentials: true }
 			);
 			localStorage.removeItem("refreshToken");
@@ -312,8 +327,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 	const login = async (data: AuthResponce) => {
 		try {
-			const res: AxiosResponse<AuthResponce> = await axios.get(
-				`https://taxivoshod.ru/api/login.php?logout=1`,
+			const res: AxiosResponse<AuthResponce> = await api.get(
+				`/login.php?logout=1`,
 				{ withCredentials: true }
 			);
 			const { refresh_token } = res.data;
@@ -352,15 +367,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		};
 
 		try {
-			const res = axios.get(
-				"https://taxivoshod.ru/api/voshod-auto/?w=refresh-token",
-				{
-					headers: {
-						Authorization: `Bearer ${sendToken()}`,
-					},
-					withCredentials: true,
-				}
-			);
+			const res = api.get("/voshod-auto/?w=refresh-token", {
+				headers: {
+					Authorization: `Bearer ${sendToken()}`,
+				},
+				withCredentials: true,
+			});
 
 			//@ts-ignore
 			const new_access_token = res.headers?.get("x-jwt-access");

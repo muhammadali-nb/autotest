@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bg from "./../../../images/index/logo-bg.webp";
+import bg from "./../../../images/index/logo-bg.png";
 import bgNoCar from "./../../../images/index/logo-bg-no-car.webp";
 import { Col, Container, Row } from "react-bootstrap";
 import IndexCalculator from "./IndexCalculator";

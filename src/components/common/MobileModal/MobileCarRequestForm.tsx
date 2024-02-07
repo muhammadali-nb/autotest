@@ -34,7 +34,7 @@ const CallRequestForm: FC<{
 			return;
 		}
 		try {
-			const res = await api.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({
 					w: "form",
@@ -119,7 +119,7 @@ const CallRequestForm: FC<{
 						перезвоните мне
 					</button>
 					<p className="form-mobile-policy">
-						Нажимая на кнопку “Забронировать”, вы соглашаетесь с{" "}
+						Нажимая на кнопку “Забронировать”, вы соглашаетесь <br /> с{" "}
 						<Link
 							to={"/policy"}
 							target={"_blank"}

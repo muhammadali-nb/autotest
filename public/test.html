@@ -1,18 +1,18 @@
 <script>
-fetch('https://taxivoshod.ru/api/voshod-auto/custom_header.php')
-  .then((response) => {
-	console.log('fetch return');
-    console.log("response.headers =", response.headers);
-  });
-</script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
+	fetch("https://taxivoshod.ru/api/voshod-auto/custom_header.php").then(
+	 (response) => {
+	  console.log("fetch return");
+	  console.log("response.headers =", response.headers);
+	 }
+	);
+   </script>
+   <script src="https://unpkg.com/axios/dist/api.min.js"></script>
+   <script>
 	axios({
-  		method: 'get',
-  		url: 'https://taxivoshod.ru/api/voshod-auto/custom_header.php'
-	})
-  	.then(function (response) {
-		console.log('axios return');
-	    console.log(response.headers);
-  	});
-  </script>
+	 method: "get",
+	 url: "https://taxivoshod.ru/api/voshod-auto/custom_header.php",
+	}).then(function (response) {
+	 console.log("axios return");
+	 console.log(response.headers);
+	});
+</script>

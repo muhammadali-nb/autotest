@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
-const api = axios.create();
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_VERSION,
+  withCredentials: true
+});
 
 
 const isTokenExpired = (token) => {
@@ -23,13 +26,9 @@ api.interceptors.request.use((config) => {
   const sessid = localStorage.getItem('sessid');
 
   if (accessToken && !isTokenExpired(accessToken)) {
-    console.log('access')
     config.headers.Authorization = `Bearer ${accessToken}`;
-
   } else if (refreshToken) {
-    console.log('refresh')
     config.headers.Authorization = `Bearer ${refreshToken}`;
-
   }
 
   if (sessid) {

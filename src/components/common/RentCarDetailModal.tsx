@@ -71,10 +71,9 @@ const RentCarDetailModal: FC<{
 			return;
 		}
 		axios
-			.get(
-				`https://taxivoshod.ru/api/login.php?auth=1&reg=1&phone=${state.phone}`,
-				{ withCredentials: true }
-			)
+			.get(`/login.php?auth=1&reg=1&phone=${state.phone}`, {
+				withCredentials: true,
+			})
 			.then((res) => {
 				if (res.data.success) {
 					setStep("confirm");
