@@ -10,7 +10,7 @@ interface CustomCalendarProps extends CalendarProps {
 
 const CustomCalendar: React.FC<CustomCalendarProps> = ({ isOpen, ...otherProps }) => {
 
-    return <Calendar className={isOpen ? "active" : ""} {...otherProps} />
+    return <Calendar  className={isOpen ? "active" : ""} {...otherProps} />
 } 
 
 export default CustomCalendar;
