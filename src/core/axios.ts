@@ -6,6 +6,7 @@ const api = axios.create({
   withCredentials: true
 });
 
+axios.defaults.baseURL = process.env.REACT_APP_API_VERSION;
 
 const isTokenExpired = (token) => {
   try {
