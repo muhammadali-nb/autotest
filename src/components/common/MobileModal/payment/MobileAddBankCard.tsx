@@ -8,6 +8,7 @@ import axios, { AxiosError } from "axios";
 import { CallRequestData, ErrorResponse } from "../../../../Api";
 import Utils from "../../../../utils/Utils";
 import { FormCheck } from "react-bootstrap";
+import api from "../../../../core/axios";
 
 const MobileAddBankCard: FC<{
 	closeFn: () => void;
@@ -32,7 +33,7 @@ const MobileAddBankCard: FC<{
 		}
 
 		try {
-			const res = await axios.post("/voshod-auto/", {
+			const res = await api.post("/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({}),
 			});

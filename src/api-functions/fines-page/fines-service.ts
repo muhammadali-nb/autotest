@@ -1,8 +1,9 @@
-import axios from "axios";
+
+import api from "../../core/axios";
 
 class FinesService {
     getFines(page: number) {
-        return axios.get(`/voshod-auto/?w=fines&page=${page}`, { withCredentials: true }).then(res => res.data)
+        return api.get(`/voshod-auto/?w=fines&page=${page}`, { withCredentials: true }).then(res => res.data)
     }
 }
 

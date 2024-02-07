@@ -11,7 +11,7 @@ import ModalFormTemplate, {
 import Utils from "../../utils/Utils";
 import { CarDataInfo } from "./CarCard";
 import { CarCatalogDataInfo } from "../../types/CatalogTypes";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { MobileModal } from "./MobileModal/MobileModal";
 import { BrowserView, MobileView } from "react-device-detect";
 import api from "../../core/axios";

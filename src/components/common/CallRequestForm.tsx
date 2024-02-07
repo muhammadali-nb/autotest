@@ -12,8 +12,9 @@ import Utils from "../../utils/Utils";
 import { faPhoneVolume } from "@fortawesome/free-solid-svg-icons/faPhoneVolume";
 import callIcon from "../../images/common/Phone-header.svg";
 import callIconDark from "../../images/common/Phone-header-dark.svg";
-import axios, { AxiosError } from "axios";
 import api from "../../core/axios";
+
+
 
 const CallRequestFormContent: React.FC<{
 	closeFunc: () => void;

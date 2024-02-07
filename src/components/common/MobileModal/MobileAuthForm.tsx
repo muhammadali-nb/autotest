@@ -1,6 +1,6 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios, { AxiosError } from "axios";
+import  { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { ConfirmPhone, ErrorResponse } from "../../../Api";
 import Utils from "../../../utils/Utils";
@@ -14,6 +14,7 @@ import {
 import FileInput from "../FileInput";
 import { RentCreateAccountForm } from "../../../types/RentTypes";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../../../core/axios";
 
 const MobileAuthPhone: React.FC<{
 	data: ConfirmPhone;
@@ -380,7 +381,7 @@ const MobileAuthForm: React.FC<{
 		if (user_status === "banned") {
 			return;
 		}
-		axios
+		api
 			.get(`/login.php?auth=1&reg=1&phone=${data.phone}`, {
 				withCredentials: true,
 			})

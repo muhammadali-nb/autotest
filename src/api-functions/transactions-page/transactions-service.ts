@@ -1,4 +1,4 @@
-import axios from "axios";
+
 
 interface filterProps {
     balance: string[],
@@ -38,7 +38,7 @@ class TransactionsService {
             });
         }
 
-        return axios.get(`/voshod-auto/?w=transactions&page=${page}` +
+        return a.get(`/voshod-auto/?w=transactions&page=${page}` +
             vendor +
             type +
             cars +

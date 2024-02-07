@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { Filter } from "../../store/reducers/filterSlice";
 import api from "../../core/axios";
 
