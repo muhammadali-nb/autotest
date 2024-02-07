@@ -1,7 +1,12 @@
 import axios from "axios";
 
 export default class RaitingService {
-    static getRaitingUsers(date: string) {
-        return axios.get(`https://taxivoshod.ru/api/voshod-auto/?w=rating-order&date=${date}`, { withCredentials: true }).then(res => res.data);
+    static getRaitingUsers(date?: string) {
+
+        const url = date 
+            ? `https://taxivoshod.ru/api/voshod-auto/?w=rating-order&date=${date}`
+            : "https://taxivoshod.ru/api/voshod-auto/?w=rating-order"
+
+        return axios.get(url, { withCredentials: true }).then(res => res.data);
     }
 }
