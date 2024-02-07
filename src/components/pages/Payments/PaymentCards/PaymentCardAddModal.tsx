@@ -12,6 +12,7 @@ import { spawn } from "child_process";
 import Utils from "../../../../utils/Utils";
 import axios, { AxiosError } from "axios";
 import { ErrorResponse } from "../../../../Api";
+import api from "../../../../core/axios";
 interface IProps {
 	show: boolean;
 	onHide: () => void;

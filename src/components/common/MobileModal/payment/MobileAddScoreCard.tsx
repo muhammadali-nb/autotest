@@ -8,6 +8,7 @@ import axios, { AxiosError } from "axios";
 import { CallRequestData, ErrorResponse } from "../../../../Api";
 import Utils from "../../../../utils/Utils";
 import { FormCheck } from "react-bootstrap";
+import api from "../../../../core/axios";
 
 const MobileAddScoreCard: FC<{
 	closeFn: () => void;

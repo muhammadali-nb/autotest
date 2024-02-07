@@ -1,3 +1,4 @@
+import api from "../../core/axios";
 
 
 interface filterProps {
@@ -38,7 +39,7 @@ class TransactionsService {
             });
         }
 
-        return a.get(`/voshod-auto/?w=transactions&page=${page}` +
+        return api.get(`/voshod-auto/?w=transactions&page=${page}` +
             vendor +
             type +
             cars +
