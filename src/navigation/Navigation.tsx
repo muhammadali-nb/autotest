@@ -23,6 +23,7 @@ import FinesPage from "../components/pages/Fines/FinesPage";
 import { PaymentsPage } from "../components/pages/Payments/PaymentsPage";
 import SubscriptionsPage from "../components/pages/Subscriptions/SubscriptionsPage";
 import PersonalAccountRaiting from "../components/pages/PersonalAccountRaiting/PersonalAccountRating";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -40,14 +41,63 @@ export const router = createBrowserRouter(
 			<Route path={"contacts"} element={<ContactsPage />} />
 			<Route path={"policy"} element={<PolicyPage />} />
 			<Route path={"userAgreement"} element={<UserAgreementPage />} />
-			<Route path="personal-account" element={<PersonalAccountPage />} />
-			<Route path="personal-account/rent-history" element={<PersonalAccountRentHistoryPage />} />	
-			<Route path="personal-account/leasing" element={<PersonalAccountLeasingPage />} />
-			<Route path="personal-account/payment" element={<PaymentsPage />} />
-			<Route path="personal-account/raiting" element={<PersonalAccountRaiting /> } />
-			<Route path="personal-account/transactions" element={<TransactionsPage />} />
-			<Route path="personal-account/fines" element={<FinesPage />} />
-			<Route path="personal-account/subscriptions" element={<SubscriptionsPage />} />
+			<Route
+				path="personal-account"
+				element={
+					<ProtectedRoute>
+						<PersonalAccountPage />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="personal-account/rent-history"
+				element={
+					<ProtectedRoute>
+						<PersonalAccountRentHistoryPage />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="personal-account/leasing"
+				element={
+					<ProtectedRoute>
+						<PersonalAccountLeasingPage />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="personal-account/payment"
+				element={
+					<ProtectedRoute>
+						<PaymentsPage />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="personal-account/transactions"
+				element={
+					<ProtectedRoute>
+						<TransactionsPage />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="personal-account/fines"
+				element={
+					<ProtectedRoute>
+						<FinesPage />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="personal-account/subscriptions"
+				element={
+					<ProtectedRoute>
+						<SubscriptionsPage />
+					</ProtectedRoute>
+				}
+			/>
+
 			<Route path={"offer"} element={<OfferPage />} />
 			<Route path={"*"} element={<NotExistsPage />} />
 		</Route>
