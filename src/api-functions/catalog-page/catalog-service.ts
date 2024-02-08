@@ -1,17 +1,17 @@
-import axios from "axios";
+
 import { CatalogFilter } from "../../store/reducers/catalogFilterSlice";
 import api from "../../core/axios";
 
 class CatalogService {
   getFilter() {
-    return api.get('https://taxivoshod.ru/api/voshod-auto/?w=catalog-filter').then(res => res.data)
+    return api.get('/voshod-auto/?w=catalog-filter').then(res => res.data)
   }
   getCars(id: string | number, filter: CatalogFilter) {
     const { year, brands, models, price, tags, condition } = filter
     if (!id) {
       return
     }
-    return api.get(`https://taxivoshod.ru/api/voshod-auto/?w=catalog-cars&page=${id}` +
+    return api.get(`/voshod-auto/?w=catalog-cars&page=${id}` +
       `${year.from && year.to ? `&year[]=${year.from}&year[]=${year.to}` : ""}` +
       `${price.from && price.to ? `&price[]=${price.from}&price[]=${price.to}` : ""}` +
       `${brands.length > 0 ? "&brands[]=" + brands.join("&brands[]=") : ''}` +
@@ -26,7 +26,7 @@ class CatalogService {
     if (!id) {
       return
     }
-    return api.get(`https://taxivoshod.ru/api/voshod-auto/?w=catalog-car&id=${id}`, { withCredentials: true }).then(res => res.data)
+    return api.get(`/voshod-auto/?w=catalog-car&id=${id}`, { withCredentials: true }).then(res => res.data)
   }
 }
 

@@ -23,10 +23,9 @@ const RentModalMobileStart = (props: {
 			return;
 		}
 		axios
-			.get(
-				`https://taxivoshod.ru/api/login.php?auth=1&reg=1&phone=${props.data.phone}`,
-				{ withCredentials: true }
-			)
+			.get(`/login.php?auth=1&reg=1&phone=${props.data.phone}`, {
+				withCredentials: true,
+			})
 			.then((res) => {
 				if (res.data.success) {
 					props.setStep("confirm");

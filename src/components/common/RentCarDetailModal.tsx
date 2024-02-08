@@ -18,10 +18,11 @@ import { ConfirmPaymentQR } from "../../types/AuthContextTypes";
 import { ConfirmPhone, ErrorResponse } from "../../Api";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../api-functions/rent-page/rent-service";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import LoadError from "./LoadError";
 import ModalFormTemplate from "./ModalFormTemplate";
 import Loader from "./Loader";
+import api from "../../core/axios";
 
 const RentCarDetailModal: FC<{
 	paymentStatus: RentBookingPaymentStatus;
@@ -70,11 +71,10 @@ const RentCarDetailModal: FC<{
 		if (user_status === "banned") {
 			return;
 		}
-		axios
-			.get(
-				`https://taxivoshod.ru/api/login.php?auth=1&reg=1&phone=${state.phone}`,
-				{ withCredentials: true }
-			)
+		api
+			.get(`/login.php?auth=1&reg=1&phone=${state.phone}`, {
+				withCredentials: true,
+			})
 			.then((res) => {
 				if (res.data.success) {
 					setStep("confirm");

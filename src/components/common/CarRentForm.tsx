@@ -406,7 +406,7 @@ export const CarRentPaymentType: React.FC<{
 		setRedButton(false);
 		try {
 			const res = await api.get(
-				`https://taxivoshod.ru/api/voshod-auto/?w=pay&summ=${
+				`/voshod-auto/?w=pay&summ=${
 					payment === "sbp" ? sbpPrice : cardPrice
 				}&payment=${payment === "card" ? "classic" : "sbp"}&car_id=${
 					props.car.id
@@ -535,10 +535,8 @@ export const CarRentPaymentTypeConfirm: React.FC<{
 	useEffect(() => {
 		if (props.paymentStatus !== "CONFIRMED" || "REFUNDED" || "CANCELLED") {
 			const interval = setInterval(() => {
-				axios
-					.get(
-						`https://taxivoshod.ru/api/voshod-auto/?w=check-pay&pid=${props.confirmPayment.pid}`
-					)
+				api
+					.get(`/voshod-auto/?w=check-pay&pid=${props.confirmPayment.pid}`)
 					.then((res) => {
 						if (res.data.result === 1) {
 							props.setPaymentStatus(res.data.status);
@@ -979,23 +977,20 @@ export const CarRentCreateAccount: React.FC<{
 		}
 
 		try {
-			const res = await fetch(
-				"https://taxivoshod.ru/api/voshod-auto/?w=update-profile",
-				{
-					method: "POST",
-					credentials: "include",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						w: "update-profile",
-						first_name: state.name,
-						last_name: state.lastName,
-						middle_name: state.middleName,
-						license_photo: base64,
-					}),
-				}
-			);
+			const res = await fetch("/voshod-auto/?w=update-profile", {
+				method: "POST",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					w: "update-profile",
+					first_name: state.name,
+					last_name: state.lastName,
+					middle_name: state.middleName,
+					license_photo: base64,
+				}),
+			});
 			if (!res.ok) {
 				throw new Error(res.statusText);
 			}
@@ -1122,11 +1117,10 @@ export const CarBookingForm: React.FC<{
 		if (user_status === "banned") {
 			return;
 		}
-		axios
-			.get(
-				`https://taxivoshod.ru/api/login.php?auth=1&reg=1&phone=${state.phone}`,
-				{ withCredentials: true }
-			)
+		api
+			.get(`/login.php?auth=1&reg=1&phone=${state.phone}`, {
+				withCredentials: true,
+			})
 			.then((res) => {
 				if (res.data.success) {
 					setStep("confirm");
@@ -1145,7 +1139,7 @@ export const CarBookingForm: React.FC<{
 	const getPriceCar = async () => {
 		try {
 			const res = await api.get(
-				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${props.car_id}`,
+				`/voshod-auto/?w=book-a-car&id=${props.car_id}`,
 				{
 					withCredentials: true,
 				}
