@@ -1,4 +1,7 @@
 .car_detail {
   padding: 20px 0 0 0;
-  
+
+  @include l-md {
+    padding: 0;
+  }
 }

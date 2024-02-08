@@ -1,5 +1,10 @@
 .car_detail-carousel {
   padding: 0 0 100px 0;
+
+  @include l-md {
+    padding: 0 0 24px 0;
+  }
+
   &_active {
     width: 100%;
 
@@ -23,6 +28,31 @@
         height: 100%;
         width: 100%;
       }
+    }
+  }
+
+  &_controls {
+    &-left,
+    &-right {
+      height: 44px;
+      width: 44px;
+      border-radius: 50px;
+      background: rgba(34, 34, 34, 0.8);
+      position: absolute;
+      z-index: 10;
+      top: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-left {
+      left: 10px;
+    }
+
+    &-right {
+      right: 10px;
     }
   }
 }

@@ -1,30 +1,58 @@
-import React from "react";
-
-import BaseLayout, { MetaTags } from "../../layout/BaseLayout";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import CatalogCarDetailInfo from "./CatalogCarDetailInfo/CatalogCarDetailInfo";
 import CatalogCarDetailCarousel from "./CatalogCarDetailCarousel/CatalogCarDetailCarousel";
 import CatalogCarDetailBase from "./CatalogCarDetailBase/CatalogCarDetailBase";
-import { CarDetailLayout } from "../../layout/CarDetailLayout";
 import PrevPage from "../../common/PrevPage";
+import { CatalogCarDetailLayout } from "../../layout/CatalogCarDetailLayout";
 
 const CatalogCarDetail = () => {
+	const [size, setSize] = useState<"desk" | "mobile">("desk");
+
+	useEffect(() => {
+		const checkSize = () => {
+			if (window.innerWidth > 1040) {
+				setSize("desk");
+			} else {
+				setSize("mobile");
+			}
+		};
+		window.addEventListener("resize", checkSize);
+
+		checkSize();
+
+		return () => {
+			window.removeEventListener("resize", checkSize);
+		};
+	}, []);
+
 	return (
 		<>
-			<CarDetailLayout headerSelectedLink={"/catalog"}>
-				<Container fluid={"xxl"}>
-					<Row className="car_detail pt-px-20 pb-px-40">
-						<Col xl={6}>
-							<PrevPage link={"/catalog"} className="mb-px-35" />
-							<CatalogCarDetailCarousel />
-							<CatalogCarDetailBase />
-						</Col>
-						<Col xl={6} className="ps-px-60">
-							<CatalogCarDetailInfo />
-						</Col>
-					</Row>
-				</Container>
-			</CarDetailLayout>
+			<CatalogCarDetailLayout headerSelectedLink={"/catalog"}>
+				{size === "desk" ? (
+					<Container fluid={"xxl"}>
+						<Row className="car_detail pt-px-20 pb-px-40">
+							<Col xs={6} xl={6}>
+								<PrevPage
+									link={"/catalog"}
+									className="mb-px-35 d-none d-lg-flex"
+								/>
+								<CatalogCarDetailCarousel />
+								<CatalogCarDetailBase />
+							</Col>
+							<Col xs={6} xl={6} className="ps-px-60">
+								<CatalogCarDetailInfo />
+							</Col>
+						</Row>
+					</Container>
+				) : (
+					<div className="car_detail">
+						<CatalogCarDetailCarousel />
+						<CatalogCarDetailInfo />
+						<CatalogCarDetailBase />
+					</div>
+				)}
+			</CatalogCarDetailLayout>
 		</>
 	);
 };

@@ -42,6 +42,7 @@ const CatalogCarDetailInfoCalculator = (props: IndexCalculatorProps) => {
 
 	return (
 		<div className="car_detail-info_calculator">
+			<h3>Калькулятор</h3>
 			<IndexCalculatorSlider
 				wideSpace={props.wideSpace}
 				className={"w-100 calculator-slider "}
