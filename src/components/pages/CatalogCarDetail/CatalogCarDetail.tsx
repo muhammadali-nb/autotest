@@ -5,6 +5,7 @@ import CatalogCarDetailCarousel from "./CatalogCarDetailCarousel/CatalogCarDetai
 import CatalogCarDetailBase from "./CatalogCarDetailBase/CatalogCarDetailBase";
 import PrevPage from "../../common/PrevPage";
 import { CatalogCarDetailLayout } from "../../layout/CatalogCarDetailLayout";
+import { SmallFooter } from "../../layout/Footer";
 
 const CatalogCarDetail = () => {
 	const [size, setSize] = useState<"desk" | "mobile">("desk");
@@ -31,7 +32,7 @@ const CatalogCarDetail = () => {
 			<CatalogCarDetailLayout headerSelectedLink={"/catalog"}>
 				{size === "desk" ? (
 					<Container fluid={"xxl"}>
-						<Row className="car_detail pt-px-20 pb-px-40">
+						<Row className="car_detail pt-px-20">
 							<Col xs={6} xl={6}>
 								<PrevPage
 									link={"/catalog"}
@@ -39,6 +40,7 @@ const CatalogCarDetail = () => {
 								/>
 								<CatalogCarDetailCarousel />
 								<CatalogCarDetailBase />
+								<SmallFooter className="car_detail_footer" />
 							</Col>
 							<Col xs={6} xl={6} className="ps-px-60">
 								<CatalogCarDetailInfo />
@@ -50,6 +52,7 @@ const CatalogCarDetail = () => {
 						<CatalogCarDetailCarousel />
 						<CatalogCarDetailInfo />
 						<CatalogCarDetailBase />
+						<SmallFooter className="car_detail_footer" />
 					</div>
 				)}
 			</CatalogCarDetailLayout>
