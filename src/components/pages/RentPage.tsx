@@ -17,7 +17,7 @@ import { useParams } from "react-router-dom";
 import LoadError from "../common/LoadError";
 import MetaDecorator from "../layout/MetaDecorator";
 
-const RentPageHeader = () => {
+export const RentPageHeader = () => {
 	const [open, setOpen] = useState(true);
 	const [mobileColapse, setMobileColapse] = useState(false);
 

@@ -11,7 +11,7 @@ import ModalFormTemplate, {
 import Utils from "../../utils/Utils";
 import { CarDataInfo } from "./CarCard";
 import { CarCatalogDataInfo } from "../../types/CatalogTypes";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { MobileModal } from "./MobileModal/MobileModal";
 import { BrowserView, MobileView } from "react-device-detect";
 import api from "../../core/axios";
@@ -41,7 +41,7 @@ const CarBookingFormContent: React.FC<{
 		}
 
 		try {
-			const res = await api.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({
 					w: "form",
@@ -208,6 +208,7 @@ const CarBookingForm: React.FC<{
 	wide?: boolean;
 	text?: string | ReactNode;
 	car: CarCatalogDataInfo;
+	className?: string;
 }> = (props) => {
 	const [show, setShow] = useState(false);
 	const [sent, setSent] = useState(false);
@@ -217,7 +218,11 @@ const CarBookingForm: React.FC<{
 	return (
 		<>
 			<button
-				className={"site-btn big" + (props.wide ? " w-100" : "")}
+				className={
+					"site-btn big " +
+					(props.wide ? "w-100 " : "") +
+					(props.className ?? " ")
+				}
 				onClick={handleShow}>
 				{props.text ?? <>Забронировать</>}
 			</button>

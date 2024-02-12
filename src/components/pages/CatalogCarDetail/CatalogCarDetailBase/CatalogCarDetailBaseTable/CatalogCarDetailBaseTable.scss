@@ -1,0 +1,88 @@
+.car_detail-base_table {
+  width: 572px;
+  margin: 50px 0 0 0;
+
+  @include l-sm {
+    margin: 24px 0 0 0;
+    width: 100%;
+    padding: 0 16px;
+  }
+  &_header {
+    color: rgb(34, 34, 34);
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 29px;
+    letter-spacing: 0.02rem;
+    text-align: left;
+    text-transform: uppercase;
+    margin: 0 0 5px 0;
+
+    @include l-md {
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 22px;
+      letter-spacing: 1%;
+      text-align: left;
+      text-transform: uppercase;
+      margin: 0 0 12px 0;
+    }
+  }
+
+  &_row {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 2px solid rgb(242, 243, 246);
+
+    @include l-md {
+      padding: 6px 0;
+      border-bottom: none;
+      justify-content: space-between;
+      &:nth-child(2n + 1) {
+        background-color: rgba(242, 243, 246, 0.5);
+      }
+    }
+
+    &-left {
+      color: rgb(96, 101, 105);
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 140%;
+      letter-spacing: 0.01rem;
+      text-align: left;
+      max-width: 446px;
+      width: 100%;
+
+      @include l-md {
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0%;
+        text-align: left;
+
+        max-width: 200px;
+      }
+    }
+
+    &-right {
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 140%;
+      letter-spacing: 0.01rem;
+      text-align: left;
+
+      @include l-md {
+        font-size: 12px;
+
+        line-height: 15px;
+        letter-spacing: 0;
+        text-align: right;
+      }
+    }
+  }
+}

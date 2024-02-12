@@ -8,6 +8,7 @@ import axios, { AxiosError } from "axios";
 import { CallRequestData, ErrorResponse } from "../../../../Api";
 import Utils from "../../../../utils/Utils";
 import { FormCheck } from "react-bootstrap";
+import api from "../../../../core/axios";
 
 const MobileAddBankCard: FC<{
 	closeFn: () => void;
@@ -22,7 +23,7 @@ const MobileAddBankCard: FC<{
 
 	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 	const [passed, setPassed] = useState(false);
-	
+
 	const send = async () => {
 		let errors = Utils.validateAddBankCard(data);
 		if (Object.keys(errors).length > 0) {
@@ -32,7 +33,7 @@ const MobileAddBankCard: FC<{
 		}
 
 		try {
-			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({}),
 			});

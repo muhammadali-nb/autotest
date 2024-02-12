@@ -12,6 +12,7 @@ import { spawn } from "child_process";
 import Utils from "../../../../utils/Utils";
 import axios, { AxiosError } from "axios";
 import { ErrorResponse } from "../../../../Api";
+import api from "../../../../core/axios";
 interface IProps {
 	show: boolean;
 	onHide: () => void;
@@ -41,7 +42,7 @@ const PaymentBankCardAddModal = (props: { onHide: () => void }) => {
 		}
 
 		try {
-			const res = await axios.post("https://taxivoshod.ru/api/voshod-auto/", {
+			const res = await api.post("/voshod-auto/", {
 				withCredentials: true,
 				body: JSON.stringify({}),
 			});

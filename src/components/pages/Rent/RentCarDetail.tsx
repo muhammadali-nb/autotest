@@ -68,12 +68,9 @@ const RentCarDetail = () => {
 
 	const getPriceCar = async () => {
 		try {
-			const res = await api.get(
-				`https://taxivoshod.ru/api/voshod-auto/?w=book-a-car&id=${carID}`,
-				{
-					withCredentials: true,
-				}
-			);
+			const res = await api.get(`/voshod-auto/?w=book-a-car&id=${carID}`, {
+				withCredentials: true,
+			});
 			if (res.data.result === 1) {
 				setDepositPrice(res.data.summ);
 				if (res.data.summ > 0) setStep("payment");
@@ -107,7 +104,7 @@ const RentCarDetail = () => {
 			<MetaDecorator
 				title={title}
 				url={`/catalog/${carID}`}
-				image={data?.item?.images[0].image}
+				image={data?.item?.images[0]?.image}
 			/>
 			{!isLoading && (
 				<>
