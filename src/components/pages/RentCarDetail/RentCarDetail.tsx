@@ -11,7 +11,7 @@ const RentCarDetail = () => {
 
 	useEffect(() => {
 		const checkSize = () => {
-			if (window.innerWidth > 1040) {
+			if (window.innerWidth > 990) {
 				setSize("desk");
 			} else {
 				setSize("mobile");
@@ -28,26 +28,34 @@ const RentCarDetail = () => {
 
 	return (
 		<>
-			<CatalogCarDetailLayout headerSelectedLink={"/catalog"}>
+			<CatalogCarDetailLayout headerSelectedLink={"/rent/1"}>
 				{size === "desk" ? (
 					<Container fluid={"xxl"}>
 						<Row className="rent-car_detail ">
-							<Col xs={12} xl={6} className="rent-car_detail-left ">
+							<Col
+								xs={12}
+								sm={6}
+								className="rent-car_detail-left d-flex flex-column ">
 								<PrevPage
 									link={"/catalog"}
-									className="mb-px-35 d-none d-lg-flex"
+									className="mb-px-35 d-none d-xl-flex"
 								/>
 								<CarDetailCarousel />
 								{/* <CatalogCarDetailBase /> */}
 								<SmallFooter className="mt-auto rent-car_detail_footer" />
 							</Col>
-							<Col lg={12} xl={6} className="rent-car_detail-right">
+							<Col xs={12} sm={6} className="rent-car_detail-right ps-px-60">
 								<RentCarDetailInfo />
 							</Col>
 						</Row>
 					</Container>
 				) : (
-					<></>
+					<div className="rent-car_detail">
+						<CarDetailCarousel />
+						<Container fluid={"xxl"}>
+							<RentCarDetailInfo />
+						</Container>
+					</div>
 				)}
 			</CatalogCarDetailLayout>
 		</>

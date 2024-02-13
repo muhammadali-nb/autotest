@@ -2,6 +2,16 @@ import React from "react";
 import AvtoImage from "../../../../images/index/avto.png";
 import { useNavigate } from "react-router-dom";
 
+interface ICarCard {
+	id: number;
+	image: string;
+	brand: string;
+	model: string;
+}
+interface ICarCardProps {
+	car: ICarCard;
+}
+
 const CarCard = () => {
 	const navigate = useNavigate();
 

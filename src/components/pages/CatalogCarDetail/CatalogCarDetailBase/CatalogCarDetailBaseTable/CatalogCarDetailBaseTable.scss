@@ -5,7 +5,6 @@
   @include l-sm {
     margin: 24px 0 0 0;
     width: 100%;
-    padding: 0 16px;
   }
   &_header {
     color: rgb(34, 34, 34);
@@ -28,6 +27,7 @@
       text-align: left;
       text-transform: uppercase;
       margin: 0 0 12px 0;
+      padding: 0 16px;
     }
   }
 
@@ -38,9 +38,10 @@
     border-bottom: 2px solid rgb(242, 243, 246);
 
     @include l-md {
-      padding: 6px 0;
+      padding: 6px 16px;
       border-bottom: none;
       justify-content: space-between;
+
       &:nth-child(2n + 1) {
         background-color: rgba(242, 243, 246, 0.5);
       }

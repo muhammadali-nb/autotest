@@ -1,4 +1,5 @@
 import React from "react";
+import CarDetailToolbar from "../../../common/CarDetailToolbar/CarDetailToolbar";
 
 const RentCarDetailInfo = () => {
 	return (
@@ -26,6 +27,7 @@ const RentCarDetailInfo = () => {
 			<button className=" site-btn rent-car_detail-info_btn">
 				Забронировать
 			</button>
+			<CarDetailToolbar className="rent-car_detail-info_toolbar" />
 
 			<div className="rent-car_detail-info_tarifs">
 				<h4 className="rent-car_detail-info_tarifs_header">Тариф</h4>
@@ -41,6 +43,7 @@ const RentCarDetailInfo = () => {
 						</li>
 					))}
 				</ul>
+				C
 			</div>
 
 			<div className="rent-car_detail-info_info">
