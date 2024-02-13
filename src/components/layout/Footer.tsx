@@ -213,7 +213,7 @@ export const FooterContacts = () => {
 export const SmallFooter = (props: { className?: string }) => {
 	return (
 		<div className={`py-px-20 ` + props.className}>
-			<div className={"d-flex justify-content-md-between " + props.className}>
+			<div className={"d-flex justify-content-md-between "}>
 				<div className={"footer-contacts-bottom-logo"}>
 					<span>ООО Восход</span>
 					<span>© 2023 год</span>

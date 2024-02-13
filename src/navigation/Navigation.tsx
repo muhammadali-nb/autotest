@@ -1,7 +1,11 @@
-import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import {
+	Route,
+	createBrowserRouter,
+	createRoutesFromElements,
+} from "react-router-dom";
 import IndexPage, { indexLoader } from "../components/pages/IndexPage";
 import CatalogPage from "../components/pages/CatalogPage";
-import CarPage, { carDataLoader } from "../components/pages/CarPage";
+import { carDataLoader } from "../components/pages/CarPage";
 import RentPage from "../components/pages/RentPage";
 import RentCarDetail from "../components/pages/Rent/RentCarDetail";
 import ProgramsPage, {
@@ -22,21 +26,29 @@ import TransactionsPage from "../components/pages/Transactions/TransactionsPage"
 import FinesPage from "../components/pages/Fines/FinesPage";
 import { PaymentsPage } from "../components/pages/Payments/PaymentsPage";
 import SubscriptionsPage from "../components/pages/Subscriptions/SubscriptionsPage";
-import PersonalAccountRaiting from "../components/pages/PersonalAccountRaiting/PersonalAccountRating";
 import { ProtectedRoute } from "./ProtectedRoute";
+import CatalogCarDetail from "../components/pages/CatalogCarDetail/CatalogCarDetail";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="*" element={<App />}>
 			<Route index element={<IndexPage />} loader={indexLoader} />
 			<Route path={"catalog"} element={<CatalogPage />} />
-			<Route path={"catalog/:id"} element={<CarPage />} loader={carDataLoader} />
+			<Route
+				path={"catalog/:id"}
+				element={<CatalogCarDetail />}
+				loader={carDataLoader}
+			/>
 			<Route path="rent/page/:id">
 				<Route index element={<RentPage />} />
 				<Route path={"car/:carID"} element={<RentCarDetail />} />
 			</Route>
 			<Route path="payment/confirm/car/:id/pid/:pid" element={<Payment />} />
-			<Route path={"programs"} element={<ProgramsPage />} loader={faqProgramsLoader} />
+			<Route
+				path={"programs"}
+				element={<ProgramsPage />}
+				loader={faqProgramsLoader}
+			/>
 			<Route path={"faq"} element={<FaqPage />} loader={faqLoader} />
 			<Route path={"contacts"} element={<ContactsPage />} />
 			<Route path={"policy"} element={<PolicyPage />} />

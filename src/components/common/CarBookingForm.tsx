@@ -208,6 +208,7 @@ const CarBookingForm: React.FC<{
 	wide?: boolean;
 	text?: string | ReactNode;
 	car: CarCatalogDataInfo;
+	className?: string;
 }> = (props) => {
 	const [show, setShow] = useState(false);
 	const [sent, setSent] = useState(false);
@@ -217,7 +218,11 @@ const CarBookingForm: React.FC<{
 	return (
 		<>
 			<button
-				className={"site-btn big" + (props.wide ? " w-100" : "")}
+				className={
+					"site-btn big " +
+					(props.wide ? "w-100 " : "") +
+					(props.className ?? " ")
+				}
 				onClick={handleShow}>
 				{props.text ?? <>Забронировать</>}
 			</button>

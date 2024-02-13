@@ -1,0 +1,211 @@
+.car_detail-info {
+  &_content {
+    @include l-md {
+      padding: 0 16px 32px 16px;
+    }
+  }
+
+  &_header {
+    font-family: Lato;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: 0.01em;
+    text-align: left;
+    text-transform: uppercase;
+    margin: 0;
+    & > span {
+      color: rgb(191, 53, 53);
+    }
+
+    @include l-md {
+      font-family: Inter;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 39px;
+      letter-spacing: 0.01rem;
+      text-align: left;
+      text-transform: uppercase;
+    }
+  }
+
+  &_payment {
+    &-perday {
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 0.01em;
+      text-align: left;
+      margin: 25px 0 0 0;
+      display: flex;
+      align-items: baseline;
+
+      @include l-md {
+        display: block;
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0.01rem;
+        text-align: left;
+        margin: 16px 0 0 0;
+      }
+
+      & > h3 {
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 34px;
+        letter-spacing: 0.01em;
+        margin: 0;
+
+        & > span {
+          color: rgb(34, 34, 34);
+          font-family: Inter;
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0.01rem;
+          text-align: left;
+        }
+
+        @include l-md {
+          font-family: Inter;
+          font-size: 24px;
+          font-weight: 600;
+          line-height: 29px;
+          letter-spacing: 0.01rem;
+          text-align: left;
+        }
+      }
+    }
+
+    &-overall {
+      color: rgb(96, 101, 105);
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 17px;
+      letter-spacing: 1%;
+      text-align: left;
+      margin: 15px 0 0 0;
+
+      @include l-md {
+        color: rgb(34, 34, 34);
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0.01rem;
+        text-align: left;
+        margin: 12px 0 0 0;
+      }
+    }
+  }
+
+  &_btn {
+    color: rgb(34, 34, 34);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: 0.02rem;
+    text-align: left;
+    text-transform: uppercase;
+    margin: 40px 0 0 0;
+    padding: 15px 25px;
+    width: auto !important;
+
+    &-like,
+    &-share {
+      border: none;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 140%;
+
+      & > svg {
+        margin: 0 8px 0 0;
+      }
+    }
+  }
+
+  &_components {
+    padding: 0;
+    margin: 50px 0 0 0;
+    max-width: 244px;
+
+    & > h3 {
+      display: none;
+    }
+
+    @include l-md {
+      margin: 32px 0 0 0;
+      & > h3 {
+        display: block;
+        color: rgb(34, 34, 34);
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        letter-spacing: 0.01rem;
+        text-align: left;
+        text-transform: uppercase;
+        margin: 0 0 10px 0;
+      }
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+
+      &:not(:last-child) {
+        border-bottom: 2px solid rgb(242, 243, 246);
+      }
+
+      @include l-md {
+        padding: 6px 0;
+
+        &:not(:last-child) {
+          border-bottom: none;
+        }
+      }
+
+      &_left {
+        color: rgb(96, 101, 105);
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0.01rem;
+        text-align: left;
+        min-width: 110px;
+
+        @include l-md {
+          min-width: 74px;
+          letter-spacing: 0%;
+        }
+      }
+
+      &_right {
+        color: rgb(34, 34, 34);
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0.01rem;
+        text-align: left;
+
+        @include l-md {
+          letter-spacing: 0%;
+        }
+      }
+    }
+  }
+}

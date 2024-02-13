@@ -1,0 +1,45 @@
+.car_detail-base {
+  @include l-md {
+    padding: 32px 0 0 0;
+  }
+  &_header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    @include l-md {
+      padding: 0 16px;
+      gap: 8px;
+    }
+
+    & > h3 {
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 19px;
+      letter-spacing: 0.01;
+      text-align: left;
+      text-transform: uppercase;
+      padding: 0 0 12px 0;
+      border-bottom: 2px solid rgb(231, 231, 232);
+
+      @include l-md {
+        color: rgb(34, 34, 34);
+        font-family: Inter;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 140%;
+        letter-spacing: 0.01rem;
+        text-align: left;
+        text-transform: uppercase;
+        width: 100%;
+        padding: 0 0 10px 0;
+      }
+
+      &.active {
+        border-bottom: 2px solid rgb(191, 53, 53);
+      }
+    }
+  }
+}

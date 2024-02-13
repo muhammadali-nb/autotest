@@ -1,0 +1,16 @@
+.car_detail {
+  padding: 20px 0 0 0;
+
+  @include l-md {
+    padding: 0;
+  }
+
+  &_footer {
+    max-width: 572px;
+    margin: 40px 0 0 0;
+
+    @include l-md {
+      padding: 0 16px;
+    }
+  }
+}
