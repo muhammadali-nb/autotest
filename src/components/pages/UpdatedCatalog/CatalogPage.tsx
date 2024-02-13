@@ -72,8 +72,8 @@ const CatalogPage = () => {
 											catalogData={!isLoading && data.top}
 										/>
 									)}
-									{/* <CarGrid /> */}
-                  <CarCard/>
+									<CarGrid />
+                  
 									<SmallFooter className="mt-auto" />
 								</Col>
 							</Row>
