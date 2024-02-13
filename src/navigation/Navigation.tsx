@@ -4,10 +4,7 @@ import {
 	createRoutesFromElements,
 } from "react-router-dom";
 import IndexPage, { indexLoader } from "../components/pages/IndexPage";
-import CatalogPage from "../components/pages/CatalogPage";
 import { carDataLoader } from "../components/pages/CarPage";
-import RentPage from "../components/pages/RentPage";
-import RentCarDetail from "../components/pages/Rent/RentCarDetail";
 import ProgramsPage, {
 	faqProgramsLoader,
 } from "../components/pages/ProgramsPage";
@@ -27,6 +24,10 @@ import FinesPage from "../components/pages/Fines/FinesPage";
 import { PaymentsPage } from "../components/pages/Payments/PaymentsPage";
 import SubscriptionsPage from "../components/pages/Subscriptions/SubscriptionsPage";
 import { ProtectedRoute } from "./ProtectedRoute";
+
+import RentPage from "../components/pages/UpdatedRent/RentPage";
+import RentCarDetail from "../components/pages/RentCarDetail/RentCarDetail";
+import CatalogPage from "../components/pages/UpdatedCatalog/CatalogPage";
 import CatalogCarDetail from "../components/pages/CatalogCarDetail/CatalogCarDetail";
 
 export const router = createBrowserRouter(
