@@ -107,7 +107,7 @@ const RentCarDetail = () => {
 			<MetaDecorator
 				title={title}
 				url={`/catalog/${carID}`}
-				image={data?.item?.images[0].image}
+				image={data?.item?.images[0]?.image}
 			/>
 			{!isLoading && (
 				<>
