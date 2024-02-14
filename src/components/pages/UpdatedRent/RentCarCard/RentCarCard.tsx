@@ -1,27 +1,37 @@
 import React from "react";
 import CarImage from "../../../../images/index/avto.png";
+import { IRentCar } from "../../../../types/UpdatedRent/rent.interface";
 
-const RentCarCard = () => {
+const RentCarCard = ({ car }: { car: IRentCar }) => {
 	return (
 		<div className="rent-car-card">
 			<div className="rent-car-card_image">
-				<img src={CarImage} alt="" />
+				<img src={car?.image} alt="" />
 			</div>
 			<div className="rent-car-card_body">
 				<div className="rent-car-card_tags">
-					<p className="rent-car-card_tags_tag free">Свободна</p>
-					<p className="rent-car-card_tags_tag">Комфорт</p>
+					<p
+						className={
+							"rent-car-card_tags_tag " + (car?.available ? "free" : "busy")
+						}>
+						{car?.available ? "Cвободна" : "Занята"}
+					</p>
+					{car.tags.map((_item, index) => (
+						<p className="rent-car-card_tags_tag">{_item}</p>
+					))}
 				</div>
 				<h1 className="rent-car-card_title">
-					Cherry <span>Tiggo 7 Pro Max</span>
+					{car?.brand} <span>{car?.model}</span>
 					<div className="rent-car-card_title-overlay_first" />
 					<div className="rent-car-card_title-overlay_last" />
 				</h1>
-				<h3 className="rent-car-card_regnum">К638ЕТ 53</h3>
+				<h3 className="rent-car-card_regnum">{car?.regnum}</h3>
 				<p className="rent-car-card_price">
-					от&nbsp;<h3> 6 950 ₽ </h3>&nbsp;/ сут
+					от&nbsp;<h3> {car?.price_per_day.toLocaleString()} ₽ </h3>&nbsp;/ сут
 				</p>
-				<p className="rent-car-card_deposit">Депозит от 5 950 ₽</p>
+				<p className="rent-car-card_deposit">
+					Депозит от {car?.deposit.toLocaleString()} ₽
+				</p>
 				<button className="site-btn rent-car-card_btn">Забронировать</button>
 			</div>
 		</div>
