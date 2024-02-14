@@ -73,7 +73,7 @@ const CatalogPage = () => {
 										/>
 									)}
 									{/* <CarGrid /> */}
-                  <CarCard/>
+                  {/* <CarCard/> */}
 									<SmallFooter className="mt-auto" />
 								</Col>
 							</Row>

@@ -30,8 +30,6 @@ import TransactionsPage from "../components/pages/Transactions/TransactionsPage"
 import FinesPage from "../components/pages/Fines/FinesPage";
 import { PaymentsPage } from "../components/pages/Payments/PaymentsPage";
 import SubscriptionsPage from "../components/pages/Subscriptions/SubscriptionsPage";
-import UpdateRentCarPage from "../components/pages/RentCarDetail/RentCarDetail";
-import CatalogCarDetailInfo from "../components/pages/CatalogCarDetail/CatalogCarDetailInfo/CatalogCarDetailInfo";
 import CatalogCarDetail from "../components/pages/CatalogCarDetail/CatalogCarDetail";
 import RentCarDetail from "../components/pages/RentCarDetail/RentCarDetail";
 

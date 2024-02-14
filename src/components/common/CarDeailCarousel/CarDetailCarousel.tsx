@@ -83,7 +83,7 @@ const CarDetailCarousel = () => {
 				<div className="car_detail-carousel_items-overllay">
 					<div className="car_detail-carousel_items">
 						{data.map((_item, index) => (
-							<button onClick={() => handleSelect(index)}>
+							<button key={index} onClick={() => handleSelect(index)}>
 								<img src={_item.image} />
 							</button>
 						))}

@@ -18,7 +18,7 @@ import RentDetailModalLayout from "../../layout/RentDetailModalLayout";
 import Loader from "../../common/Loader";
 import CarFullImageModal from "./RentCarFullImage";
 import { RentBookingPaymentStatus } from "../../../types/RentTypes";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import api from "../../../core/axios";
 import MetaDecorator from "../../layout/MetaDecorator";
 

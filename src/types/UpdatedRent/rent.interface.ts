@@ -1,14 +1,3 @@
-// {
-//   image: carImage,
-//   tags: ["Комфорт"],
-//   brand: "Porsche",
-//   model: "911 targa",
-//   available: true,
-//   deposit: 5950,
-//   price_per_day: 3900,
-//   id: 1,
-// },
-
 export interface IRentCar {
   image: string,
   tags: string[],
@@ -20,4 +9,22 @@ export interface IRentCar {
 
   price_per_day: number,
   id: number,
+}
+
+type TypeRentCarDetailInfoTarif = { dedline: string, price: number, id: number }
+type TypeRentCarDetailInformation = {
+  name: string,
+  value: string,
+  id: number,
+}
+export interface IRentCarDetailInfo {
+  brand: string,
+  model: string,
+  regnum: string,
+  deposit: number,
+  tarif: TypeRentCarDetailInfoTarif[],
+  info: TypeRentCarDetailInformation[],
+  tags: string[],
+  available: boolean
+  price_per_day: number,
 }
