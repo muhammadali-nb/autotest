@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from "react";
 import CatalogCarDetailBaseTable from "./CatalogCarDetailBaseTable/CatalogCarDetailBaseTable";
 
-const CatalogCarDetailBase = () => {
+type ICatalogCarEquipment = {
+	id: number;
+	header: string;
+	list: Array<{ name: string; value?: string; id: number }>;
+};
+
+interface IProps {
+	technical_equipments: ICatalogCarEquipment[];
+	standart_equipments: ICatalogCarEquipment[];
+}
+
+const CatalogCarDetailBase = ({
+	technical_equipments,
+	standart_equipments,
+}: IProps) => {
 	const [page, setPage] = useState<"technical" | "standart">("technical");
 
 	return (
@@ -37,8 +51,12 @@ const CatalogCarDetailBase = () => {
 			</div>
 			<div>
 				{page === "technical"
-					? [...new Array(4)].map((_item) => <CatalogCarDetailBaseTable />)
-					: [...new Array(5)].map((_item) => <CatalogCarDetailBaseTable />)}
+					? technical_equipments.map((_item) => (
+							<CatalogCarDetailBaseTable type="tech" data={_item} />
+					  ))
+					: standart_equipments.map((_item) => (
+							<CatalogCarDetailBaseTable type="standart" data={_item} />
+					  ))}
 			</div>
 		</div>
 	);

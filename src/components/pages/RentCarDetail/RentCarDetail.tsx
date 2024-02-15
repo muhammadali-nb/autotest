@@ -90,7 +90,7 @@ const RentCarDetail = () => {
 									link={"/catalog"}
 									className="mb-px-35 d-none d-xl-flex"
 								/>
-								<CarDetailCarousel />
+								<CarDetailCarousel images={carData.images} />
 								{/* <CatalogCarDetailBase /> */}
 								<SmallFooter className="mt-auto rent-car_detail_footer" />
 							</Col>
@@ -101,7 +101,7 @@ const RentCarDetail = () => {
 					</Container>
 				) : (
 					<div className="rent-car_detail">
-						<CarDetailCarousel />
+						<CarDetailCarousel images={carData.images} />
 						<Container fluid={"xxl"}>
 							<RentCarDetailInfo car_info={carData.car_info} />
 						</Container>

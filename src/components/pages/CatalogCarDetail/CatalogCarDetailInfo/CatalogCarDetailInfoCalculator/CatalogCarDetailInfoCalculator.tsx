@@ -80,10 +80,10 @@ const CatalogCarDetailInfoCalculator = (props: IndexCalculatorProps) => {
 			/>
 			<div className="car_detail-info_calculator_values">
 				<h3>
-					2 800 ₽<span> в сутки</span>
+					{daySum()} ₽<span> в сутки</span>
 				</h3>
 				<h3>
-					2 800 ₽<span> в сутки</span>
+					{monthSum()} ₽<span> в месяц</span>
 				</h3>
 			</div>
 		</div>
