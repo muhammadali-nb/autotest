@@ -1,41 +1,42 @@
 import React from "react";
-import AvtoImage from "../../../../images/index/avto.png";
+
 import { useNavigate } from "react-router-dom";
+import { ICatalogCar } from "../../../../types/UpdatedCatalog/catalog.interface";
 
-interface ICarCard {
-	id: number;
-	image: string;
-	brand: string;
-	model: string;
-}
-interface ICarCardProps {
-	car: ICarCard;
-}
-
-const CarCard = () => {
+const CarCard = ({ car }: { car: ICatalogCar }) => {
 	const navigate = useNavigate();
 
 	return (
 		<div className="car-card" onClick={() => navigate("/catalog/1")}>
 			<div className="car-card_image">
-				<img src={AvtoImage} alt="" />
+				<img src={car?.image} alt="" />
 			</div>
 			<div className="car-card_body">
 				<div className="car-card_taglist">
-					<div className="car-card_taglist-tag">Лизинг до 7 лет</div>
-					<div className="car-card_taglist-tag">Аванс 0%</div>
+					{car?.tags.map((_item, index) => (
+						<div className="car-card_taglist-tag" key={index}>
+							{_item}
+						</div>
+					))}
 				</div>
 				<h1 className="car-card_title">
-					Cherry <span>Tiggo 7 Pro</span>
+					{car?.brand} <span>{car?.model}</span>
 				</h1>
-				<p className="car-card_regnum">К638ЕТ 53</p>
+				<p className="car-card_regnum">{car?.regnum}</p>
 				<h3 className="car-card_price-perday">
-					от <span>6 950 ₽</span> / сут
+					от <span>{car?.price_per_day.toLocaleString()} ₽</span> / сут
 				</h3>
-				<p className="car-card_price-overall">Цена от 2 950 000 ₽</p>
+				<p className="car-card_price-overall">
+					Цена от {car?.price.toLocaleString()} ₽
+				</p>
 				<button className="site-btn car-card_btn">Забронировать</button>
 				<div className="car-card_taglist_mobile">
-					Лизинг до 7 лет / Аванс 0%
+					{car?.tags.map((word, index) => (
+						<React.Fragment key={index}>
+							<span>{word}</span>
+							{index < car?.tags.length - 1 && <span> / </span>}
+						</React.Fragment>
+					))}
 				</div>
 			</div>
 		</div>

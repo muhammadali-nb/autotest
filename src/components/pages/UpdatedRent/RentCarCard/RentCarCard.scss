@@ -62,6 +62,10 @@
         background: rgba(64, 129, 4, 0.2);
       }
 
+      &.busy {
+        background: rgba(241, 120, 182, 0.2);
+      }
+
       @include l-md {
         color: rgb(34, 34, 34);
         font-family: Inter;

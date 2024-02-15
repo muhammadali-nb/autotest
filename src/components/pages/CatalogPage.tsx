@@ -186,7 +186,7 @@ const CatalogPage = () => {
 										/>
 									)}
 									<CarGrid />
-									
+
 									<SmallFooter className="mt-auto" />
 								</Col>
 							</Row>

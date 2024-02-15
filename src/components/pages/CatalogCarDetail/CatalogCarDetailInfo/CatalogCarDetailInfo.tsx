@@ -4,29 +4,58 @@ import CatalogCarDetailInfoCalculator from "./CatalogCarDetailInfoCalculator/Cat
 import CarBookingForm from "../../../common/CarBookingForm";
 import CarDetailToolbar from "../../../common/CarDetailToolbar/CarDetailToolbar";
 
-const CatalogCarDetailInfo = () => {
+type ICarDetailCatalogInfoListItem = {
+	name: string;
+	value: string;
+	id: number;
+};
+interface ICarDetailCatalogInfo {
+	brand: string;
+	model: string;
+	min_pay: number;
+	price: number;
+	liked: boolean;
+	list: ICarDetailCatalogInfoListItem[];
+}
+
+interface ICarDetailCatalogInfoCalculator {
+	min_pay: number;
+	date_from: number;
+	date_to: number;
+	kasgo: number;
+	koef: number;
+}
+
+interface IProps {
+	info: ICarDetailCatalogInfo;
+	calculator: ICarDetailCatalogInfoCalculator;
+}
+
+const CatalogCarDetailInfo = ({ info, calculator }: IProps) => {
 	return (
 		<div className="car_detail-info">
 			<div className="car_detail-info_content">
 				<h1 className="car_detail-info_header">
-					Toyota <span>Camry</span>
+					{info?.brand} <span>{info?.model}</span>
 				</h1>
 				<div className="d-none d-md-block">
 					<div className="car_detail-info_payment-perday">
 						Платёж от:&nbsp;
 						<h3>
-							2 800 ₽ <span>/ сут</span>
+							{info?.price.toLocaleString()} ₽ <span>/ сут</span>
 						</h3>
 					</div>
-					<p className="car_detail-info_payment-overall">Цена от 3 618 950 ₽</p>
+					<p className="car_detail-info_payment-overall">
+						Цена от {info?.min_pay.toLocaleString()} ₽
+					</p>
 				</div>
 				<div className="d-block d-md-none">
 					<div className="car_detail-info_payment-perday">
 						Стоимость:
-						<h3>2 800 ₽</h3>
+						<h3>{info?.price.toLocaleString()} ₽</h3>
 					</div>
 					<p className="car_detail-info_payment-overall">
-						Минимальный платёж от 3 618 950 ₽
+						Минимальный платёж от {info?.min_pay.toLocaleString()} ₽
 					</p>
 					<CarDetailToolbar className="d-md-none mt-px-25" />
 				</div>
@@ -41,27 +70,29 @@ const CatalogCarDetailInfo = () => {
 
 				<ul className="car_detail-info_components">
 					<h3>Информация</h3>
-					<li className="car_detail-info_components-item">
-						<div className="car_detail-info_components-item_left">Объём</div>
-						<div className="car_detail-info_components-item_right">
-							2,0 литра
-						</div>
-					</li>
-					<li className="car_detail-info_components-item">
-						<div className="car_detail-info_components-item_left">Объём</div>
-						<div className="car_detail-info_components-item_right">
-							2,0 литра
-						</div>
-					</li>
-					<li className="car_detail-info_components-item">
-						<div className="car_detail-info_components-item_left">Объём</div>
-						<div className="car_detail-info_components-item_right">
-							2,0 литра
-						</div>
-					</li>
+
+					{info?.list.map((_item) => (
+						<li className="car_detail-info_components-item" key={_item.id}>
+							<div className="car_detail-info_components-item_left">
+								{_item?.name}
+							</div>
+							<div className="car_detail-info_components-item_right">
+								{_item?.value}
+							</div>
+						</li>
+					))}
 				</ul>
 			</div>
-			<CatalogCarDetailInfoCalculator />
+			<CatalogCarDetailInfoCalculator
+				price={info?.price}
+				minTime={calculator?.date_from}
+				koef={calculator?.koef}
+				maxTime={calculator?.date_to}
+				maxPrepaid={info?.price}
+				minPrepaid={info?.min_pay}
+				prepaid={info?.min_pay}
+				noAnim={true}
+			/>
 		</div>
 	);
 };

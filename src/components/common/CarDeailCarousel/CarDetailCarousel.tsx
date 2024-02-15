@@ -4,6 +4,7 @@ import { Carousel } from "react-bootstrap";
 import { BrowserView, MobileView } from "react-device-detect";
 import CarFullImageModal from "../../pages/Rent/RentCarFullImage";
 import { CarImagesModal } from "../../pages/Car/CarImages";
+import { TypeImages } from "../../pages/Rent/RentCarImagesCarousel";
 
 const data = [
 	{ image: CarImage, id: 1 },
@@ -12,7 +13,11 @@ const data = [
 	{ image: CarImage, id: 4 },
 ];
 
-const CarDetailCarousel = () => {
+interface IProps {
+	images: TypeImages[];
+}
+
+const CarDetailCarousel = (props: IProps) => {
 	const [activeImage, setActiveImage] = useState(0);
 	const [showModal, setShowModal] = useState(false);
 
@@ -83,7 +88,7 @@ const CarDetailCarousel = () => {
 				<div className="car_detail-carousel_items-overllay">
 					<div className="car_detail-carousel_items">
 						{data.map((_item, index) => (
-							<button onClick={() => handleSelect(index)}>
+							<button key={index} onClick={() => handleSelect(index)}>
 								<img src={_item.image} />
 							</button>
 						))}

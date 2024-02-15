@@ -1,63 +1,84 @@
 import React from "react";
 import CarDetailToolbar from "../../../common/CarDetailToolbar/CarDetailToolbar";
+import { IRentCarDetailInfo } from "../../../../types/UpdatedRent/rent.interface";
 
-const RentCarDetailInfo = () => {
+const RentCarDetailInfo = ({ car_info }: { car_info: IRentCarDetailInfo }) => {
 	return (
-		<div className="rent-car_detail-info">
-			<h1 className="rent-car_detail-info_title">
-				Toyota <span>Camry</span>
-			</h1>
-			<h3 className="rent-car_detail-info_regnum">К638ЕТ 53</h3>
-			<div className="rent-car_detail-info_tags">
-				<div className="rent-car_detail-info_tags_tag free">Свободна</div>
-				<div className="rent-car_detail-info_tags_tag">Комфорт</div>
-				<div className="rent-car_detail-info_tags_tag">Комфорт +</div>
-			</div>
-			<div className="rent-car_detail-info_price">
-				Стоимость:{" "}
-				<h3>
-					2 800 ₽ <span>/ сут</span>
-				</h3>
-			</div>
-			<p className="rent-car_detail-info_date">
-				при аренде автомобиля от 15 суток
-			</p>
-			<p className="rent-car_detail-info_deposit">Депозит от 6 950 ₽</p>
+		<>
+			<div className="rent-car_detail-info">
+				<h1 className="rent-car_detail-info_title">
+					{car_info?.brand} <span>{car_info?.model}</span>
+				</h1>
+				<h3 className="rent-car_detail-info_regnum">{car_info?.regnum}</h3>
+				<div className="rent-car_detail-info_tags">
+					<div
+						className={
+							"rent-car_detail-info_tags_tag " +
+							(car_info?.available ? "free" : "busy")
+						}>
+						{car_info?.available ? "Cвободна" : "Занята"}
+					</div>
 
-			<button className=" site-btn rent-car_detail-info_btn">
-				Забронировать
-			</button>
-			<CarDetailToolbar className="rent-car_detail-info_toolbar" />
-
-			<div className="rent-car_detail-info_tarifs">
-				<h4 className="rent-car_detail-info_tarifs_header">Тариф</h4>
-				<ul className="rent-car_detail-info_tarifs_list">
-					{[...new Array(4)].map((_item) => (
-						<li className="rent-car_detail-info_tarifs_list-row">
-							<p className="rent-car_detail-info_tarifs_list-row_left">
-								до 3 дней
-							</p>
-							<p className="rent-car_detail-info_tarifs_list-row_right">
-								2 800 ₽ <span>/ сут</span>
-							</p>
-						</li>
+					{car_info.tags.map((_item, index) => (
+						<div className="rent-car_detail-info_tags_tag" key={index}>
+							{_item}
+						</div>
 					))}
-				</ul>
-				C
-			</div>
+				</div>
+				<div className="rent-car_detail-info_price">
+					Стоимость:{" "}
+					<h3>
+						{car_info?.price_per_day.toLocaleString()} ₽ <span>/ сут</span>
+					</h3>
+				</div>
+				<p className="rent-car_detail-info_date">
+					при аренде автомобиля от 15 суток
+				</p>
+				<p className="rent-car_detail-info_deposit">
+					Депозит от {car_info.deposit.toLocaleString()} ₽
+				</p>
 
-			<div className="rent-car_detail-info_info">
-				<h4 className="rent-car_detail-info_info_header">Тариф</h4>
-				<ul className="rent-car_detail-info_info_list">
-					{[...new Array(4)].map((_item) => (
-						<li className="rent-car_detail-info_info_list-row">
-							<p className="rent-car_detail-info_info_list-row_left">Год</p>
-							<p className="rent-car_detail-info_info_list-row_right">2023</p>
-						</li>
-					))}
-				</ul>
+				<button className=" site-btn rent-car_detail-info_btn">
+					Забронировать
+				</button>
+				<CarDetailToolbar className="rent-car_detail-info_toolbar" />
+
+				<div className="rent-car_detail-info_tarifs">
+					<h4 className="rent-car_detail-info_tarifs_header">Тариф</h4>
+					<ul className="rent-car_detail-info_tarifs_list">
+						{car_info?.tarif.map((_item) => (
+							<li
+								key={_item.id}
+								className="rent-car_detail-info_tarifs_list-row">
+								<p className="rent-car_detail-info_tarifs_list-row_left">
+									{_item.dedline}
+								</p>
+								<p className="rent-car_detail-info_tarifs_list-row_right">
+									{_item.price} ₽ <span>/ сут</span>
+								</p>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<div className="rent-car_detail-info_info">
+					<h4 className="rent-car_detail-info_info_header">Тариф</h4>
+					<ul className="rent-car_detail-info_info_list">
+						{car_info?.info.map((_item) => (
+							<li key={_item.id} className="rent-car_detail-info_info_list-row">
+								<p className="rent-car_detail-info_info_list-row_left">
+									{_item.name}
+								</p>
+								<p className="rent-car_detail-info_info_list-row_right">
+									{_item.value}
+								</p>
+							</li>
+						))}
+					</ul>
+				</div>
 			</div>
-		</div>
+			{/* <CarBookingForm car_id={1} car={car_info as any} /> */}
+		</>
 	);
 };
 
