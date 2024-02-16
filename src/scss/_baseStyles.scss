@@ -698,6 +698,9 @@ code {
   z-index: 30;
   position: relative;
   line-height: 120%;
+  transform: scale(1);
+  transition: all linear 0.2s;
+  opacity: 1;
 
   @include l-sm {
     padding: 8px 46px 8px 12px;
@@ -769,7 +772,11 @@ code {
   }
 
   &.hidden {
-    display: none;
+    height: 0;
+    transform: scale(0);
+    opacity: 0;
+    padding: 0;
+    margin: 0;
   }
 }
 

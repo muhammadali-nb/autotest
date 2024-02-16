@@ -17,6 +17,7 @@ import CatalogFiltersBlock from "./Catalog/CatalogFilterBlock";
 import chevron from "../../images/common/footer/chevron-for-bottom.svg";
 import { Link } from "react-router-dom";
 import MetaDecorator from "../layout/MetaDecorator";
+import CarCard from "./UpdatedCatalog/CatalogCarCard/CarCard";
 
 export const AlertMessage: React.FC<{
 	page: string;
@@ -185,6 +186,7 @@ const CatalogPage = () => {
 										/>
 									)}
 									<CarGrid />
+
 									<SmallFooter className="mt-auto" />
 								</Col>
 							</Row>

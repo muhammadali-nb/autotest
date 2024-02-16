@@ -1,16 +1,54 @@
 import React, { useState } from "react";
 import { useAppSelector } from "../../../store/hooks";
-import { Link } from "react-router-dom";
-import { CarRentCard } from "../../common/CarCard";
 import Loader from "../../common/Loader";
 import LoadError from "../../common/LoadError";
-import { BottomMessage, BottomMessageMobile } from "../CatalogPage";
-import CarRequestForm from "../../common/CarRequestForm";
-import chevron from "../../../images/common/footer/chevron-for-bottom.svg";
 import { useQuery } from "@tanstack/react-query";
 import rentService from "../../../api-functions/rent-page/rent-service";
 import RentPaginator from "../../common/Rent/RentPaginator";
 import { MobileModal } from "../../common/MobileModal/MobileModal";
+import RentCarCard from "../UpdatedRent/RentCarCard/RentCarCard";
+import carImage from "../../../images/index/avto.png";
+
+const rentData = {
+	list: [
+		{
+			image: carImage,
+			tags: ["Комфорт"],
+			brand: "Porsche",
+			regnum: "К638ЕТ 53",
+
+			model: "911 targa",
+			available: true,
+			deposit: 5950,
+			price_per_day: 3900,
+			id: 1,
+		},
+		{
+			image: carImage,
+			tags: ["Комфорт"],
+			brand: "Lexus",
+			regnum: "К638ЕТ 53",
+
+			model: "570",
+			available: false,
+			deposit: 5950,
+			price_per_day: 3900,
+			id: 2,
+		},
+		{
+			image: carImage,
+			tags: ["Комфорт"],
+			regnum: "К638ЕТ 53",
+			brand: "Bmw",
+			model: "m5",
+			available: true,
+			deposit: 5950,
+			price_per_day: 3900,
+			id: 3,
+		},
+	],
+	pages: 12,
+};
 
 const RentGrid: React.FC<{
 	loader?: () => void;
@@ -37,7 +75,7 @@ const RentGrid: React.FC<{
 		<>
 			<div>
 				<div className={"catalog__grid"}>
-					{!isLoading &&
+					{/* {!isLoading &&
 						data.list.map((i) => (
 							<Link
 								key={i.id}
@@ -45,20 +83,12 @@ const RentGrid: React.FC<{
 								style={{ textDecoration: "none" }}>
 								<CarRentCard car={i} />
 							</Link>
-						))}
-				</div>
-				{/*<BottomMessage*/}
-				{/*	className="bottom-message-desc"*/}
-				{/*	button={<CarRequestForm text={"Оставить заявку"} light />}*/}
-				{/*	text1={"Не нашли ничего подходящего?"}*/}
-				{/*	text2={"Предложите свой вариант!"}*/}
-				{/*/>*/}
+						))} */}
 
-				{/*<BottomMessageMobile*/}
-				{/*	text1={"Не нашли ничего подходящего?"}*/}
-				{/*	text2={"Предложите свой вариант!"}*/}
-				{/*	onClick={() => setCarFormModalMobile(true)}*/}
-				{/*/>*/}
+					{rentData.list.map((_item) => (
+						<RentCarCard car={_item} key={_item.id} />
+					))}
+				</div>
 				<div className={"catalog__grid-paginator"}>
 					<RentPaginator activePage={activePage} data={!isLoading && data} />
 				</div>

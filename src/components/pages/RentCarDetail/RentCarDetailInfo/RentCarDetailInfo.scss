@@ -1,0 +1,340 @@
+.rent-car_detail-info {
+  &_title {
+    font-family: Lato;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: 0.01rem;
+    text-align: left;
+    text-transform: uppercase;
+    margin: 0;
+
+    & > span {
+      color: rgb(191, 53, 53);
+    }
+
+    @include l-md {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 39px;
+    }
+  }
+
+  &_regnum {
+    color: rgb(96, 101, 105);
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    letter-spacing: 0.01rem;
+    text-align: left;
+    text-transform: uppercase;
+    margin: 10px 0 0 0;
+
+    @include l-md {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 19px;
+      margin: 8px 0 0 0;
+    }
+  }
+
+  &_tags {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 25px 0 0 0;
+
+    @include l-md {
+      margin: 12px 0 0 0;
+      gap: 4px;
+    }
+
+    &_tag {
+      border-radius: 2px;
+      /* Grey 3 */
+      background: rgb(231, 231, 232);
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 0.01rem;
+      padding: 5px 15px;
+      text-align: left;
+
+      @include l-md {
+        font-size: 14px;
+        line-height: 17px;
+        padding: 4px 8px;
+      }
+
+      &.free {
+        background: rgba(64, 129, 4, 0.2);
+      }
+    }
+  }
+
+  &_price {
+    color: rgb(34, 34, 34);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0.01rem;
+    text-align: left;
+    margin: 30px 0 0 0;
+
+    @include l-md {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 17px;
+    }
+
+    & > h3 {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 34px;
+      letter-spacing: 0.01rem;
+      margin: 15px 0 0 0;
+
+      @include l-md {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 29px;
+        margin: 8px 0 0 0;
+      }
+      span {
+        font-size: 24px;
+        line-height: 29px;
+        letter-spacing: 0.01rem;
+
+        @include l-md {
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 19px;
+        }
+      }
+    }
+  }
+
+  &_date {
+    margin: 5px 0 0 0;
+    color: rgb(96, 101, 105);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0.01rem;
+
+    @include l-md {
+      margin: 4px 0 0 0;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 15px;
+    }
+  }
+
+  &_deposit {
+    color: rgb(34, 34, 34);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0.01rem;
+    text-align: left;
+    margin: 15px 0 0 0;
+
+    @include l-md {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 17px;
+      margin: 12px 0 0 0;
+    }
+  }
+
+  &_btn {
+    color: rgb(34, 34, 34);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: 0.02rem;
+    text-transform: uppercase;
+    margin: 30px 0 0 0;
+    padding: 15px 25px;
+
+    @include l-md {
+      display: none;
+    }
+  }
+
+  &_toolbar {
+    margin: 20px 0 0 0;
+  }
+
+  &_tarifs {
+    margin: 45px 0 0 0;
+    width: 215px;
+
+    @include l-md {
+      margin: 32px 0 0 0;
+      width: 100%;
+    }
+    &_header {
+      margin: 0 0 15px 0;
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 29px;
+      letter-spacing: 0.01rem;
+
+      @include l-md {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        margin: 0 0 4px 0;
+      }
+    }
+
+    &_list {
+      padding: 0;
+      margin: 0;
+      &-row {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+
+        &:not(:last-child) {
+          border-bottom: 2px solid rgb(242, 243, 246);
+        }
+
+        @include l-md {
+          padding: 12px 0;
+        }
+        &_left {
+          margin: 0;
+          color: rgb(34, 34, 34);
+          font-family: Inter;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 19px;
+          letter-spacing: 0.01rem;
+          text-align: left;
+
+          @include l-md {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 17px;
+            letter-spacing: 0%;
+          }
+        }
+
+        &_right {
+          margin: 0 0 0 20px;
+          color: rgb(34, 34, 34);
+          font-family: Inter;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 19px;
+          letter-spacing: 0.01rem;
+          text-align: left;
+
+          @include l-md {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 17px;
+            letter-spacing: 0%;
+          }
+
+          & > span {
+            color: rgb(96, 101, 105);
+            font-weight: 500;
+            letter-spacing: 0.01rem;
+
+            @include l-md {
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 17px;
+            }
+          }
+        }
+      }
+    }
+  }
+  &_info {
+    margin: 45px 0 0 0;
+    width: 215px;
+    @include l-md {
+      margin: 32px 0 0 0;
+      width: 100%;
+    }
+    &_header {
+      margin: 0 0 15px 0;
+      color: rgb(34, 34, 34);
+      font-family: Inter;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 29px;
+      letter-spacing: 0.01rem;
+
+      @include l-md {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        margin: 0 0 4px 0;
+      }
+    }
+
+    &_list {
+      padding: 0;
+      margin: 0;
+      &-row {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+
+        &:not(:last-child) {
+          border-bottom: 2px solid rgb(242, 243, 246);
+        }
+
+        @include l-md {
+          padding: 12px 0;
+        }
+        &_left {
+          margin: 0;
+          color: rgb(96, 101, 105);
+          font-family: Inter;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 19px;
+          letter-spacing: 0.01rem;
+          min-width: 88px;
+
+          @include l-md {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 17px;
+            width: 75px;
+          }
+        }
+
+        &_right {
+          color: rgb(34, 34, 34);
+          font-family: Inter;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 19px;
+          letter-spacing: 0.01rem;
+          margin: 0;
+
+          @include l-md {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 17px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import IndexCalculatorSlider from "./IndexCalculatorSlider";
 import Animator from "../../../Animator";
 
-type IndexCalculatorProps = {
+export type IndexCalculatorProps = {
 	hidePrice?: boolean;
 	noAnim?: boolean;
 	price?: number;
