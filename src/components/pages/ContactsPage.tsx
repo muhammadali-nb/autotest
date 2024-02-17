@@ -1,8 +1,6 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import BaseLayout, { MetaTags } from "../layout/BaseLayout";
-import ContactsForm from "../common/ContactsForm";
-// import {faClock, faLocationDot, faPhoneVolume} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import vkW from "./../../images/common/footer/social-icons-dark/vk.svg";
@@ -10,8 +8,6 @@ import wappW from "./../../images/common/footer/social-icons-dark/whatsapp.svg";
 import teleW from "./../../images/common/footer/social-icons-dark/telegram.svg";
 
 import {
-	FooterBottom,
-	FooterContacts,
 	FooterContactsBlock,
 	FooterLink,
 } from "../layout/Footer";
@@ -48,6 +44,19 @@ const ContactSocial: React.FC<{ icon: string; hover: string; link: string }> = (
 	</Link>
 );
 
+// REACT_APP_PHONE="+7 (812) 317-68-15"
+// REACT_APP_ADDRESS="Санкт-Петербург\nТорфяная дорога 7Ф\nБЦ «Гулливер» 2 оф. 104"
+// REACT_APP_WORKTIME="пн-вс: с 10.00 - 19.00"
+
+const contactsData = {
+	address: "Санкт-Петербург\nТорфяная дорога 7Ф\nБЦ «Гулливер» 2 оф. 104",
+	work_time: "пн-вс: с 10.00 - 19.00\nпн-вс: с 10.00 - 19.00 ",
+	phone: "+7 (812) 317-68-15\n+7 (812) 317-68-15",
+	telegram: "https://t.me/AvtoparkVoshod",
+	whats_up: "",
+	vk: "",
+};
+
 const ContactsPage = () => {
 	const title = "Контакты - " + process.env.REACT_APP_WEBSITE_NAME;
 	const meta: MetaTags = {
@@ -55,8 +64,11 @@ const ContactsPage = () => {
 		keywords:
 			"контакты,телефон,email,vk,vkontakte,telegram,phone,мейл,имейл,почта",
 	};
-	const lines = process.env.REACT_APP_ADDRESS?.split("\n") ?? [];
-	const lines2 = process.env.REACT_APP_WORKTIME?.split("\n") ?? [];
+	const lines = contactsData.address?.split("\n") ?? [];
+	const lines2 = contactsData.work_time?.split("\n") ?? [];
+	const lines3 = contactsData.phone?.split("\n") ?? [];
+	// const lines = process.env.REACT_APP_ADDRESS?.split("\n") ?? [];
+	// const lines2 = process.env.REACT_APP_WORKTIME?.split("\n") ?? [];
 
 	return (
 		<>
@@ -98,20 +110,30 @@ const ContactsPage = () => {
 												{i}
 											</div>
 										))}
-										{/* пн-вс: с 10.00 - 19.00 */}
 									</FooterContactsBlock>
 									<FooterContactsBlock
 										theme="light"
 										image={phoneImage}
 										text={"Телефон"}>
 										{/* <a
-										href={
-											"tel:" +
-											Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")
-										}>
-										{process.env.REACT_APP_PHONE}
-									</a> */}
-										+7 (812) 317-68-15
+											href={
+												"tel:" +
+												Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")
+											}>
+											{process.env.REACT_APP_PHONE}
+										</a> */}
+										{/* +7 (812) 317-68-15 */}
+										{lines3.map((i, index) => (
+											<a
+												href={
+													"tel:" +
+													Utils.cleanPhone(process.env.REACT_APP_PHONE ?? "")
+												}
+												key={index}
+												className={"mb-px-10 line-height-120"}>
+												{i}
+											</a>
+										))}
 									</FooterContactsBlock>
 								</div>
 								<div className="footer-contacts-page_lines d-block d-sm-none">
@@ -125,15 +147,20 @@ const ContactsPage = () => {
 								<div className={"footer-contacts-page_links"}>
 									<FooterLink
 										img={vkW}
-										link={process.env.REACT_APP_VK_LINK ?? "/"}
+										link={contactsData.vk ?? process.env.REACT_APP_VK_LINK}
 									/>
 									<FooterLink
 										img={wappW}
-										link={process.env.REACT_APP_WAPP_LINK ?? "/"}
+										link={
+											contactsData.whats_up ?? process.env.REACT_APP_WAPP_LINK
+										}
 									/>
 									<FooterLink
 										img={teleW}
-										link={process.env.REACT_APP_TELEGRAM_LINK ?? "/"}
+										link={
+											contactsData.telegram ??
+											process.env.REACT_APP_TELEGRAM_LINK
+										}
 									/>
 								</div>
 

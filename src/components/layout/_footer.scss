@@ -161,11 +161,12 @@
       gap: 16px;
     }
     a {
-      color: white;
+      color: #222;
       text-decoration: none;
+      display: block;
       &:hover,
       &:active {
-        color: white;
+        // color: white;
         text-decoration: underline;
       }
     }

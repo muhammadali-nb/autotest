@@ -775,6 +775,11 @@ export const CarRequestFormContent: React.FC<{
 						type={props.car.available ? "free" : "not-free"}
 						car={props.car}>
 						{props.car.available ? "Свободна" : "Занята"}
+						{props.car.available_at
+							? props.car.available
+								? " c " + props.car.available_at
+								: " до " + props.car.available_at
+							: ""}
 					</CarTag>
 				</div>
 				<div
@@ -1139,6 +1144,7 @@ export const CarBookingForm: React.FC<{
 	const getPriceCar = async () => {
 		try {
 			const res = await api.get(
+				`/voshod-auto/?w=book-a-car&id=${props.car_id}`,
 				`/voshod-auto/?w=book-a-car&id=${props.car_id}`,
 				{
 					withCredentials: true,
