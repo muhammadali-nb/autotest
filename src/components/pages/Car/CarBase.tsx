@@ -17,18 +17,26 @@ const CarBase: React.FC<{ car: CarData | any; car_data: ICarData }> = ({
 					{car_data?.brand}&nbsp;
 					<span className={"text-red-color"}>{car_data?.model}</span>
 				</div>
-				<div className={"car-base-price"}>
-					<div className={"mb-px-5"}>Цена</div>
-					<div className={"car-base-price-value"}>
-						{car_data?.price?.toLocaleString()}&nbsp;₽
+				{car_data.price ? (
+					<div className={"car-base-price"}>
+						<div className={"mb-px-5"}>Цена</div>
+						<div className={"car-base-price-value"}>
+							{car_data?.price?.toLocaleString()}&nbsp;₽
+						</div>
 					</div>
-				</div>
-				<div className={"car-base-payment"}>
-					Минимальный платеж от{" "}
-					<span className={"car-base-payment-value"}>
-						{car_data?.min_pay?.toLocaleString()}&nbsp;₽
-					</span>
-				</div>
+				) : (
+					<></>
+				)}
+				{car_data?.min_pay ? (
+					<div className={"car-base-payment"}>
+						Минимальный платеж от{" "}
+						<span className={"car-base-payment-value"}>
+							{car_data?.min_pay?.toLocaleString()}&nbsp;₽
+						</span>
+					</div>
+				) : (
+					<></>
+				)}
 				<div className={"mb-px-30"}>
 					<CarSameLink
 						car={car.main}
@@ -56,33 +64,39 @@ const CarBase: React.FC<{ car: CarData | any; car_data: ICarData }> = ({
 				/>
 			</div>
 
-			<div className={" car-base-calculator "}>
-				<h1 className="car-stat-block-header d-block d-lg-none">Калькулятор</h1>
-				<div className="d-none d-lg-block">
-					<IndexCalculator
-						fontBold={true}
-						hidePrice={true}
-						price={car_data?.price}
-						minTime={car_data?.srok_from}
-						koef={car_data?.koef}
-						maxTime={car_data?.srok_to}
-						maxPrepaid={car_data?.price}
-						minPrepaid={car_data?.min_pay}
-						prepaid={car_data?.min_pay}
-						noAnim={true}
-						className=" car-base-calculator_slider"
-					/>
+			{car_data.price ? (
+				<div className={" car-base-calculator "}>
+					<h1 className="car-stat-block-header d-block d-lg-none">
+						Калькулятор
+					</h1>
+					<div className="d-none d-lg-block">
+						<IndexCalculator
+							fontBold={true}
+							hidePrice={true}
+							price={car_data?.price}
+							minTime={car_data?.srok_from}
+							koef={car_data?.koef}
+							maxTime={car_data?.srok_to}
+							maxPrepaid={car_data?.price}
+							minPrepaid={car_data?.min_pay}
+							prepaid={car_data?.min_pay}
+							noAnim={true}
+							className=" car-base-calculator_slider"
+						/>
+					</div>
+					<Container fluid={"xxl"} className="d-block d-lg-none">
+						<IndexCalculator
+							fontBold={true}
+							hidePrice={true}
+							price={car_data?.price}
+							noAnim={true}
+							className="car-base-calculator_slider"
+						/>
+					</Container>
 				</div>
-				<Container fluid={"xxl"} className="d-block d-lg-none">
-					<IndexCalculator
-						fontBold={true}
-						hidePrice={true}
-						price={car_data?.price}
-						noAnim={true}
-						className="car-base-calculator_slider"
-					/>
-				</Container>
-			</div>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 };
