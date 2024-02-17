@@ -26,9 +26,10 @@ import SubscriptionsPage from "../components/pages/Subscriptions/SubscriptionsPa
 import { ProtectedRoute } from "./ProtectedRoute";
 
 import RentPage from "../components/pages/UpdatedRent/RentPage";
-import RentCarDetail from "../components/pages/RentCarDetail/RentCarDetail";
+// import RentCarDetail from "../components/pages/RentCarDetail/RentCarDetail";
 import CatalogPage from "../components/pages/UpdatedCatalog/CatalogPage";
 import CatalogCarDetail from "../components/pages/CatalogCarDetail/CatalogCarDetail";
+import RentCarDetail from "../components/pages/Rent/RentCarDetail";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(

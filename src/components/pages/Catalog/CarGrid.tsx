@@ -7,9 +7,10 @@ import Paginator from "../../common/Paginator";
 import { useQuery } from "@tanstack/react-query";
 import catalogService from "../../../api-functions/catalog-page/catalog-service";
 import { MobileModal } from "../../common/MobileModal/MobileModal";
-import CarCard from "../UpdatedCatalog/CatalogCarCard/CarCard";
+// import CarCard from "../UpdatedCatalog/CatalogCarCard/CarCard";
 import catalogFilterSlice from "../../../store/reducers/catalogFilterSlice";
 import carImage from "../../../images/index/avto.png";
+import CarCard from "../../common/CarCard";
 
 const catalogData = [
 	{
@@ -47,14 +48,14 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 		<>
 			<div>
 				<div className={"catalog__grid"}>
-					{/* {!isLoading &&
+					{!isLoading &&
 						data.list.map((i, index) => (
 							<CarCard responsive={true} car={i} key={i.id} />
-						))} */}
+						))}
 
-					{catalogData.map((_item) => (
+					{/* {catalogData.map((_item) => (
 						<CarCard car={_item} key={_item.id} />
-					))}
+					))} */}
 				</div>
 				{/* <BottomMessage
 					className="bottom-message-desc"

@@ -8,6 +8,8 @@ import RentPaginator from "../../common/Rent/RentPaginator";
 import { MobileModal } from "../../common/MobileModal/MobileModal";
 import RentCarCard from "../UpdatedRent/RentCarCard/RentCarCard";
 import carImage from "../../../images/index/avto.png";
+import { Link } from "react-router-dom";
+import { CarRentCard } from "../../common/CarCard";
 
 const rentData = {
 	list: [
@@ -75,7 +77,7 @@ const RentGrid: React.FC<{
 		<>
 			<div>
 				<div className={"catalog__grid"}>
-					{/* {!isLoading &&
+					{!isLoading &&
 						data.list.map((i) => (
 							<Link
 								key={i.id}
@@ -83,11 +85,11 @@ const RentGrid: React.FC<{
 								style={{ textDecoration: "none" }}>
 								<CarRentCard car={i} />
 							</Link>
-						))} */}
+						))}
 
-					{rentData.list.map((_item) => (
+					{/* {rentData.list.map((_item) => (
 						<RentCarCard car={_item} key={_item.id} />
-					))}
+					))} */}
 				</div>
 				<div className={"catalog__grid-paginator"}>
 					<RentPaginator activePage={activePage} data={!isLoading && data} />
