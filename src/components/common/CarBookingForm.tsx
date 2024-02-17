@@ -15,9 +15,10 @@ import { AxiosError } from "axios";
 import { MobileModal } from "./MobileModal/MobileModal";
 import { BrowserView, MobileView } from "react-device-detect";
 import api from "../../core/axios";
+import { ICatalogCar } from "../../types/UpdatedCatalog/catalog.interface";
 
 const CarBookingFormContent: React.FC<{
-	car: CarDataInfo | CarCatalogDataInfo;
+	car: CarDataInfo | CarCatalogDataInfo | ICatalogCar;
 	closeFunc: () => void;
 	setSent: (boolean) => void;
 }> = (props) => {
@@ -207,7 +208,7 @@ const CarBookingFormConfirmed: React.FC<{ closeFunc: () => void }> = (
 const CarBookingForm: React.FC<{
 	wide?: boolean;
 	text?: string | ReactNode;
-	car: CarCatalogDataInfo;
+	car: CarCatalogDataInfo | ICatalogCar;
 	className?: string;
 }> = (props) => {
 	const [show, setShow] = useState(false);
