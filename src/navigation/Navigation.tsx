@@ -4,7 +4,7 @@ import {
 	createRoutesFromElements,
 } from "react-router-dom";
 import IndexPage, { indexLoader } from "../components/pages/IndexPage";
-import { carDataLoader } from "../components/pages/CarPage";
+import CarPage, { carDataLoader } from "../components/pages/CarPage";
 import ProgramsPage, {
 	faqProgramsLoader,
 } from "../components/pages/ProgramsPage";
@@ -28,7 +28,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import RentPage from "../components/pages/UpdatedRent/RentPage";
 // import RentCarDetail from "../components/pages/RentCarDetail/RentCarDetail";
 import CatalogPage from "../components/pages/UpdatedCatalog/CatalogPage";
-import CatalogCarDetail from "../components/pages/CatalogCarDetail/CatalogCarDetail";
+// import CatalogCarDetail from "../components/pages/CatalogCarDetail/CatalogCarDetail";
 import RentCarDetail from "../components/pages/Rent/RentCarDetail";
 
 export const router = createBrowserRouter(
@@ -38,7 +38,7 @@ export const router = createBrowserRouter(
 			<Route path={"catalog"} element={<CatalogPage />} />
 			<Route
 				path={"catalog/:id"}
-				element={<CatalogCarDetail />}
+				element={<CarPage />}
 				loader={carDataLoader}
 			/>
 			<Route path="rent/page/:id">
