@@ -8,6 +8,7 @@
   &_image {
     width: 100%;
     height: 280px;
+    text-decoration: none;
 
     @include l-md {
       height: 160px;

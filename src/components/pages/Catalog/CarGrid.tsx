@@ -10,6 +10,7 @@ import { MobileModal } from "../../common/MobileModal/MobileModal";
 import CarCard from "../UpdatedCatalog/CatalogCarCard/CarCard";
 import catalogFilterSlice from "../../../store/reducers/catalogFilterSlice";
 import carImage from "../../../images/index/avto.png";
+import CarGridSkeleton from "./CarGridSkeleton";
 
 const catalogData = [
 	{
@@ -33,7 +34,7 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 		queryFn: () => catalogService.getCars(activePage, filter),
 	});
 
-	if (isLoading) return <Loader />;
+	if (isLoading) return <CarGridSkeleton />;
 	if (error) return <LoadError response={data} />;
 	if (data.list.length === 0)
 		return (
@@ -52,7 +53,7 @@ const CarGrid: React.FC<{ loader?: () => void }> = (props) => {
 							<CarCard responsive={true} car={i} key={i.id} />
 						))} */}
 
-					{catalogData.map((_item) => (
+					{data.list.map((_item) => (
 						<CarCard car={_item} key={_item.id} />
 					))}
 				</div>

@@ -13,8 +13,9 @@ export interface ICatalogCar {
   brand: string,
   model: string,
   regnum: string,
-  price_per_day: number,
+  min_pay: number,
   price: number,
   id: number,
   image: string
+
 }
