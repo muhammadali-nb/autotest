@@ -38,7 +38,7 @@ const CarPage = () => {
 			<MetaDecorator
 				title={title}
 				url={`/catalog/${id}`}
-				image={data?.item?.images[0].image}
+				image={data?.item?.images[0]?.image}
 			/>
 			<CarDetailLayout
 				meta={meta}

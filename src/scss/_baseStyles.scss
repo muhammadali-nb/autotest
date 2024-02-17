@@ -696,8 +696,8 @@ code {
   position: relative;
   line-height: 120%;
   transform: scale(1);
-  transition: all linear 0.2s;
   opacity: 1;
+  transition: all ease-in-out 0.5s;
 
   @include l-sm {
     padding: 8px 46px 8px 12px;

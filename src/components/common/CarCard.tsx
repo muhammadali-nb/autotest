@@ -259,7 +259,11 @@ export const CarRentCard: React.FC<{
 							car={car}>
 							{car.available ? "Свободна " : "Занята "}
 
-							{car.available_at ? car.available_at : ""}
+							{car.available_at
+								? car.available
+									? "c " + car.available_at
+									: "до " + car.available_at
+								: ""}
 						</CarTag>
 						{/* {car.available_at && (
 							<CarTag small={true} type={"free"} car={car}>
